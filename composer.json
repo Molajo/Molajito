@@ -1,0 +1,34 @@
+{
+    "name": "molajo/molajito",
+    "description": "Pagination Rendering for PHP Applications",
+    "version": "0.1.0",
+    "type": "molajo-package",
+    "keywords": ["render", "commonapi", "molajo", "molajito"],
+    "homepage": "http://github.com/Molajo/Pagination",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Amy Stephen",
+            "email": "AmyStephen@molajo.org",
+            "homepage": "http://AmyStephen.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Molajo/Pagination/issues",
+        "forum": "https://groups.google.com/forum/#!forum/molajo",
+        "irc": "irc://irc.freenode.org/molajo",
+        "source": "https://github.com/Molajo/Pagination"
+    },
+    "require": {
+        "php": ">=5.4",
+        "commonapi/render": "dev-master",
+        "commonapi/exception": "dev-master",
+        "molajo/resources": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Molajito": "./"
+        }
+    }
+}
