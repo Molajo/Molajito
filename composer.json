@@ -1,10 +1,10 @@
 {
     "name": "molajo/molajito",
-    "description": "Pagination Rendering for PHP Applications",
+    "description": "Molajito Rendering for PHP Applications",
     "version": "0.1.0",
     "type": "molajo-package",
     "keywords": ["render", "commonapi", "molajo", "molajito"],
-    "homepage": "http://github.com/Molajo/Pagination",
+    "homepage": "http://github.com/Molajo/Molajito",
     "license": "MIT",
     "authors": [
         {
@@ -15,10 +15,10 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/Molajo/Pagination/issues",
+        "issues": "https://github.com/Molajo/Molajito/issues",
         "forum": "https://groups.google.com/forum/#!forum/molajo",
         "irc": "irc://irc.freenode.org/molajo",
-        "source": "https://github.com/Molajo/Pagination"
+        "source": "https://github.com/Molajo/Molajito"
     },
     "require": {
         "php": ">=5.4",
@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Molajito": "./"
+            "Molajito\\": "Source/"
         }
     }
 }
