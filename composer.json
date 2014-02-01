@@ -24,7 +24,7 @@
         "php": ">=5.4",
         "commonapi/render": "dev-master",
         "commonapi/exception": "dev-master",
-        "molajo/resources": "dev-master"
+        "molajo/resource": "dev-master"
     },
     "autoload": {
         "psr-4": {
