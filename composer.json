@@ -30,5 +30,11 @@
         "psr-4": {
             "Molajito\\": "Source/"
         }
-    }
+    },
+
+    "archive": {
+        "exclude": ["/.dev"]
+    },
+
+    "minimum-stability": "dev"
 }
