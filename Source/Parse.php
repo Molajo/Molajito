@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Parse
+ * Molajito Parse
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -12,7 +12,7 @@ use CommonApi\Render\ParseInterface;
 use stdClass;
 
 /**
- * Pagination Render Handler
+ * Molajito Render Handler
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -58,8 +58,7 @@ class Parse implements ParseInterface
         $rendered_page,
         array $exclude_tokens = array(),
         $parse_mask = '#<include(.*)\/>#iU'
-    )
-    {
+    ) {
         $this->rendered_page  = $rendered_page;
         $this->exclude_tokens = $exclude_tokens;
 

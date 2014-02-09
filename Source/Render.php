@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Render Handler
+ * Molajito Render Handler
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -12,7 +12,7 @@ use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\RenderInterface;
 
 /**
- * Pagination Render Handler
+ * Molajito Render Handler
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -72,10 +72,18 @@ class Render implements RenderInterface
     /**
      * Runtime Data
      *
-     * @var    array
+     * @var    object
      * @since  1.0
      */
-    protected $runtime_data = array();
+    protected $runtime_data;
+
+    /**
+     * Plugin Data
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $plugin_data;
 
     /**
      * Parameters
@@ -96,10 +104,10 @@ class Render implements RenderInterface
     /**
      * Query Results
      *
-     * @var    object
+     * @var    array
      * @since  1.0
      */
-    protected $query_results = null;
+    protected $query_results = array();
 
     /**
      * Query Results
@@ -120,7 +128,7 @@ class Render implements RenderInterface
     /**
      * Constructor
      *
-     * @param   array  $options
+     * @param   array $options
      *
      * @since  1.0
      */
@@ -144,7 +152,7 @@ class Render implements RenderInterface
         if (file_exists($this->include_path)) {
         } else {
             throw new RuntimeException
-            ('Pagination Render - path not found: ' . $this->include_path);
+            ('Molajito Render - path not found: ' . $this->include_path);
         }
 
         ob_start();

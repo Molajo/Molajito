@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Template View Renderer
+ * Molajito Template View Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,13 +8,14 @@
  */
 namespace Molajito;
 
-use Exception;
+use CommonApi\Render\EventHandlerInterface;
 use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
+use Exception;
 use stdClass;
 
 /**
- * Pagination Template View Renderer
+ * Molajito Template View Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -32,6 +33,14 @@ class TemplateViewRenderer implements RenderInterface
     protected $include_path;
 
     /**
+     * Event Handler
+     *
+     * @var    object  CommonApi\Render\EventHandlerInterface
+     * @since  1.0
+     */
+    protected $event_handler = null;
+
+    /**
      * Event option keys
      *
      * @var    array
@@ -40,28 +49,12 @@ class TemplateViewRenderer implements RenderInterface
     protected $event_option_keys = array();
 
     /**
-     * Schedule Event - anonymous function to event_callback method
-     *
-     * @var    callable
-     * @since  1.0
-     */
-    protected $event_callback;
-
-    /**
      * Render option keys
      *
      * @var    array
      * @since  1.0
      */
     protected $rendering_properties = array();
-
-    /**
-     * Runtime Data
-     *
-     * @var    object
-     * @since  1.0
-     */
-    protected $runtime_data;
 
     /**
      * Parameters
@@ -114,22 +107,22 @@ class TemplateViewRenderer implements RenderInterface
     /**
      * Constructor
      *
-     * @param  string   $include_path
-     * @param  array    $event_option_keys
-     * @param  callable $event_callback
-     * @param  array    $rendering_properties
+     * @param  string                $include_path
+     * @param  EventHandlerInterface $event_handler
+     * @param  array                 $event_option_keys
+     * @param  array                 $rendering_properties
      *
      * @since  1.0
      */
     public function __construct(
         $include_path,
+        EventHandlerInterface $event_handler,
         array $event_option_keys = array(),
-        callable $event_callback = null,
         array $rendering_properties = array()
     ) {
         $this->include_path      = $include_path;
+        $this->event_handler     = $event_handler;
         $this->event_option_keys = $event_option_keys;
-        $this->event_callback    = $event_callback;
 
         foreach ($this->event_option_keys as $key) {
             if (isset($rendering_properties[$key])) {
@@ -341,18 +334,10 @@ class TemplateViewRenderer implements RenderInterface
      */
     protected function scheduleEvent($event_name, $options)
     {
-        $schedule_event = $this->event_callback;
+        $event_results = $this->event_handler->scheduleEvent($event_name, $options);
 
-        try {
-            $event_results = $schedule_event($event_name, $options);
-
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Pagination TemplateViewRenderer scheduleEvent: ' . $e->getMessage());
-        }
-
-        if (count($event_results) == 0) {
+        if (count($event_results) > 0 && is_array($event_results)) {
+        } else {
             return $this;
         }
 
@@ -360,11 +345,6 @@ class TemplateViewRenderer implements RenderInterface
             if (in_array($key, $this->event_option_keys)) {
                 $this->$key = $value;
             }
-        }
-
-        if (is_object($this->row)) {
-        } else {
-            $this->row = new stdClass();
         }
 
         return $this;
@@ -383,7 +363,7 @@ class TemplateViewRenderer implements RenderInterface
     {
         $options = $this->rendering_properties;
 
-        foreach ($this->event_option_keys as $key => $value) {
+        foreach ($this->event_option_keys as $key) {
             if (isset($this->$key)) {
                 $options[$key] = $this->$key;
             } elseif (isset($this->rendering_properties[$key])) {
@@ -400,7 +380,7 @@ class TemplateViewRenderer implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Pagination TemplateViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito TemplateViewRenderer renderOutput: ' . $e->getMessage());
         }
     }
 }

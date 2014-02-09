@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Renderer
+ * Molajito Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -11,13 +11,18 @@ namespace Molajito;
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\ExtensionResourceInterface;
 use CommonApi\Render\EventHandlerInterface;
-use CommonApi\Render\ParseInterface;
 use CommonApi\Render\RenderInterface;
 use Exception;
+use Molajito\DataResource;
+use Molajito\Parse;
+use Molajito\ThemeRenderer;
+use Molajito\PageViewRenderer;
+use Molajito\TemplateViewRenderer;
+use Molajito\WrapViewRenderer;
 use stdClass;
 
 /**
- * Pagination Renderer
+ * Molajito Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -99,6 +104,14 @@ class Molajito implements RenderInterface
     protected $runtime_data = array();
 
     /**
+     * Plugin Data
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $plugin_data = array();
+
+    /**
      * Parameters
      *
      * @var    object
@@ -147,6 +160,14 @@ class Molajito implements RenderInterface
     protected $tokens = array();
 
     /**
+     * Include Path
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $include_path = null;
+
+    /**
      * Constructor
      *
      * @param  array                      $exclude_tokens
@@ -157,6 +178,7 @@ class Molajito implements RenderInterface
      * @param  string                     $theme_path
      * @param  string                     $page_name
      * @param  object                     $runtime_data
+     * @param  object                     $plugin_data
      * @param  array                      $rendering_properties
      *
      * @since  1.0
@@ -170,6 +192,7 @@ class Molajito implements RenderInterface
         $theme_path,
         $page_name,
         $runtime_data,
+        $plugin_data,
         array $rendering_properties = array()
     ) {
         $this->exclude_tokens       = $exclude_tokens;
@@ -180,6 +203,7 @@ class Molajito implements RenderInterface
         $this->theme_path           = $theme_path;
         $this->page_name            = $page_name;
         $this->runtime_data         = $runtime_data;
+        $this->plugin_data          = $plugin_data;
         $this->rendering_properties = $rendering_properties;
     }
 
@@ -193,6 +217,7 @@ class Molajito implements RenderInterface
     public function render()
     {
         $options = $this->event_handler->initializeEventOptions();
+
         $this->scheduleEvent('onBeforeRender', $options);
 
         $this->renderTheme();
@@ -203,6 +228,7 @@ class Molajito implements RenderInterface
 
         $options                  = $this->event_handler->initializeEventOptions();
         $options['rendered_page'] = $this->rendered_page;
+
         $this->scheduleEvent('onAfterRender', $options);
 
         return $this;
@@ -219,8 +245,6 @@ class Molajito implements RenderInterface
      */
     protected function renderLoop(array $exclude_tokens = array())
     {
-        /** Step 1. Initialise */
-
         $complete     = false;
         $loop_counter = 0;
 
@@ -237,7 +261,7 @@ class Molajito implements RenderInterface
             $this->scheduleEvent('onBeforeParse', $options);
 
             /** Step 3. Parse Output for Tokens */
-            $this->tokens = $this->parseTokens($this->exclude_tokens);
+            $this->tokens = $this->parseTokens($exclude_tokens);
 
             /** Step 3. Schedule onAfterParse Event */
             $options                  = $this->event_handler->initializeEventOptions();
@@ -253,14 +277,14 @@ class Molajito implements RenderInterface
             }
 
             /** Step 4. Render Output for Tokens */
-            foreach ($this->tokens as $token) {
+            $tokens = $this->tokens;
+            foreach ($tokens as $token) {
                 $this->renderToken($token);
-                unset($this->tokens[$token]);
             }
 
             if ($loop_counter > $this->stop_loop_count) {
                 throw new RuntimeException
-                ('Pagination Renderloop: Maximum loop count exceeded: ' . $loop_counter);
+                ('Molajito Renderloop: Maximum loop count exceeded: ' . $loop_counter);
             }
 
             continue;
@@ -294,17 +318,17 @@ class Molajito implements RenderInterface
      */
     protected function renderToken($token)
     {
+//        echo 'View:  ' . $token->name . '<br />';
+
         /** Step 1. Initialise */
         $this->rendered_view = '';
 
         /** Step 2. Get Rendering Extension */
-        try {
-            $extension = $this->extension_resource->getExtension($token);
+        $this->getExtension($token);
 
-            $this->runtime_data->render->extension = $extension;
-
-        } catch (Exception $e) {
-            throw new RuntimeException('Pagination renderToken getExtension Exception ' . $e->getMessage());
+        if ($this->plugin_data->render->extension->title == $token->name) {
+        } else {
+            $token->name = $this->plugin_data->render->extension->title;
         }
 
         /** Step 3. Get Query Data for Rendering Extension */
@@ -320,9 +344,9 @@ class Molajito implements RenderInterface
         $this->scheduleEvent('onBeforeRenderView', $options);
 
         /** Step 5. Render View */
-        $this->include_path = $this->runtime_data->render->extension->include_path;
+        $this->include_path = $this->plugin_data->render->extension->include_path;
 
-        if ($this->runtime_data->render->scheme == 'page') {
+        if ($this->plugin_data->render->scheme == 'page') {
             $this->renderPageView();
 
         } else {
@@ -337,6 +361,7 @@ class Molajito implements RenderInterface
         /** Step 6. Schedule onAfterRenderView Event */
         $options                   = $this->event_handler->initializeEventOptions();
         $options['parameters']     = $this->parameters;
+        $options['query_results']  = $this->query_results;
         $options['model_registry'] = $this->model_registry;
         $options['rendered_view']  = $this->rendered_view;
         $options['rendered_page']  = $this->rendered_page;
@@ -350,16 +375,164 @@ class Molajito implements RenderInterface
     }
 
     /**
-     * Get Data required to render token
+     * Inclusion of the Theme renders initial output that is parsed for tokens
      *
      * @return  $this
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function renderTheme()
+    {
+        $options = $this->getRenderingProperties();
+
+        $row            = new stdClass();
+        $row->page_name = $this->page_name;
+        $options['row'] = $row;
+
+        try {
+            $instance = new ThemeRenderer($this->theme_path, $options);
+
+            $this->rendered_page = $instance->render();
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito renderTheme: ' . $e->getMessage());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Render Page View
+     *
+     * @return  string
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function renderPageView()
+    {
+        try {
+            $instance = new PageViewRenderer(
+                $this->include_path,
+                $this->getRenderingProperties()
+            );
+
+            $this->rendered_view = $instance->render();
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito renderPageView: ' . $e->getMessage());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Render Template View
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function renderTemplateView()
+    {
+        $instance = new TemplateViewRenderer(
+            $this->include_path,
+            $this->event_handler,
+            $this->event_option_keys,
+            $this->getRenderingProperties()
+        );
+
+        $this->rendered_view = $instance->render();
+
+        return $this;
+    }
+
+    /**
+     * Render Wrap View
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function renderWrapView($token)
+    {
+        /** Step 1. Get Rendering Extension */
+        $wrap_token               = new stdClass();
+        $wrap_token->type         = 'wrap';
+        $wrap_token->name         = $token->wrap;
+        $wrap_token->wrap         = '';
+        $wrap_token->attributes   = $token->attributes;
+        $wrap_token->replace_this = '';
+
+        $this->getExtension($wrap_token);
+
+        $this->include_path = $this->plugin_data->render->extension->include_path;
+
+        /** Step 2. Data */
+        $row           = new stdClass();
+        $row->title    = '';
+        $row->subtitle = '';
+        $row->content  = $this->rendered_view;
+
+        $query_results   = array();
+        $query_results[] = $row;
+
+        $options                  = $this->getRenderingProperties();
+        $options['row']           = $row;
+        $options['query_results'] = $query_results;
+
+        /** Step 3. Render Wrap */
+        try {
+            $instance = new WrapViewRenderer($this->include_path, $options);
+
+            $this->rendered_view = $instance->render();
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito renderWrapView: ' . $e->getMessage());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Data required to render token
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getExtension($token)
+    {
+        try {
+            $this->plugin_data->render = $this->extension_resource->getExtension($token);
+
+        } catch (Exception $e) {
+            throw new RuntimeException('Molajito renderToken getExtension Exception ' . $e->getMessage());
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Data required to render token
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getData($token)
     {
         try {
             $instance = new DataResource(
                 $this->runtime_data,
+                $this->plugin_data,
                 $token);
 
             $data = $instance->getData();
@@ -369,7 +542,7 @@ class Molajito implements RenderInterface
             $this->parameters     = $data->parameters;
 
         } catch (Exception $e) {
-            throw new RuntimeException('Pagination getData Exception ' . $e->getMessage());
+            throw new RuntimeException('Molajito getData Exception ' . $e->getMessage());
         }
 
         return $this;
@@ -420,137 +593,6 @@ class Molajito implements RenderInterface
     }
 
     /**
-     * Inclusion of the Theme renders initial output that is parsed for tokens
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function renderTheme()
-    {
-        $row            = new stdClass();
-        $row->page_name = $this->page_name;
-        $options        = $this->rendering_properties;
-        $options['row'] = $row;
-
-        try {
-            $instance = new PageViewRenderer($this->theme_path, $options);
-
-            $this->rendered_page = $instance->render();
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Pagination renderTheme: ' . $e->getMessage());
-        }
-
-        return $this;
-    }
-
-    /**
-     * Render Page View
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function renderPageView()
-    {
-        try {
-            $instance = new PageViewRenderer(
-                $this->include_path,
-                $this->getRenderingProperties());
-
-            $this->rendered_view = $instance->render();
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Pagination renderTheme: ' . $e->getMessage());
-        }
-
-        return $this;
-    }
-
-    /**
-     * Render Template View
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function renderTemplateView()
-    {
-
-
-        /**
-         * Render option keys
-         *
-         * @var    array
-         * @since  1.0
-         */
-
-        /**
-        protected $extract_properties // $event_option_keys= array(
-        'runtime_data',
-        'parameters',
-        'model_registry',
-        'query_results',
-        'row',
-        'rendered_page',
-        'rendered_view'
-        );
-         */
-        $instance = new TemplateViewRenderer($this->event_callback,
-            $this->runtime_data,
-            $this->include_path,
-            $this->parameters,
-            $this->model_registry,
-            $this->query_results,
-            $this->rendered_view,
-            $this->rendered_page,
-            $this->rendering_properties,
-            $this->rendering_properties,
-            $this->event_handler);
-
-        $this->rendered_view = $instance->render();
-
-        return $this;
-    }
-
-    /**
-     * Render Wrap View
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function renderWrapView()
-    {
-        $model                                 = 'Wrap' . ':///Molajo//View//Wrap//' . ucfirst(
-                strtolower($wrap)
-            );
-        $this->runtime_data->render->scheme    = 'wrap';
-        $this->runtime_data->render->extension = $this->resource->get($model);
-        $this->include_path                    = $this->runtime_data->render->extension->include_path;
-
-        $row           = new stdClass();
-        $row->title    = '';
-        $row->subtitle = '';
-        $row->content  = $this->rendered_view;
-
-        $instance = new WrapViewRenderer($this->runtime_data,
-            $this->include_path,
-            $this->parameters,
-            $this->model_registry,
-            $this->query_results,
-            $this->rendered_page,
-            $this->rendering_properties,
-            $this->rendering_properties);
-
-        $this->rendered_view = $instance->render();
-
-        return $this;
-    }
-
-
-    /**
      * Get Rendering Properties
      *
      * @return  string
@@ -562,10 +604,16 @@ class Molajito implements RenderInterface
         $options = array();
 
         foreach ($this->rendering_properties as $key => $value) {
-            if (isset($this->key)) {
+            if (isset($this->$key)) {
                 $options[$key] = $this->$key;
             } else {
                 $options[$key] = $value;
+            }
+        }
+
+        foreach ($this->event_option_keys as $key) {
+            if (isset($this->$key)) {
+                $options[$key] = $this->$key;
             }
         }
 

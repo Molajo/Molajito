@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Service Provider
+ * Molajito Service Provider
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,15 +8,15 @@
  */
 namespace Molajo\Service\Molajito;
 
-use Exception;
 use CommonApi\IoC\ServiceProviderInterface;
 use CommonApi\Exception\RuntimeException;
-use Molajo\IoC\AbstractServiceProvider;
+use Exception;
 use Molajito\ExtensionResource;
 use Molajito\EventHandler;
+use Molajo\IoC\AbstractServiceProvider;
 
 /**
- * Pagination Service Provider
+ * Molajito Service Provider
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -34,8 +34,9 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      */
     public function __construct(array $options = array())
     {
-        $options['service_name']      = basename(__DIR__);
-        $options['service_namespace'] = 'Pagination\\Pagination';
+        $options['service_name']             = basename(__DIR__);
+        $options['store_instance_indicator'] = true;
+        $options['service_namespace']        = 'Molajito\\Molajito';
 
         parent::__construct($options);
     }
@@ -61,6 +62,7 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
         $this->dependencies['Language']      = array();
         $this->dependencies['Authorisation'] = array();
         $this->dependencies['Runtimedata']   = array();
+        $this->dependencies['Plugindata']    = array();
         $this->dependencies['Eventcallback'] = array();
 
         return $this->dependencies;
@@ -75,19 +77,13 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      */
     public function instantiateService()
     {
-        $this->options['event_option_keys'] = array(
-            'runtime_data',
-            'parameters',
-            'model_registry',
-            'query_results',
-            'row',
-            'include_path',
-            'rendered_view',
-            'rendered_page'
-        );
-
+        $exclude_tokens                                         = $this->getExcludeTokens();
+        $event_handler                                          = $this->getMolajitoEventHandlerInstance();
         $extension_resource                                     = $this->getResourceExtensionInstance();
-        $this->dependencies['Runtimedata']->resource->extension = $extension_resource->getResource();
+        $this->dependencies['Plugindata']->resource->extension = $extension_resource->getResourceExtension();
+        $stop_loop_count                                        = $this->dependencies['Runtimedata']->reference_data->stop_loop_count;
+        $theme_include_path                                     = $this->dependencies['Plugindata']->resource->extension->theme->include_path;
+        $page_name                                              = $this->dependencies['Plugindata']->resource->extension->page->id;
 
         $rendering_properties                             = array();
         $rendering_properties['resource']                 = $this->dependencies['Resource'];
@@ -100,26 +96,28 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
         $class = $this->service_namespace;
 
         try {
-            return new $class (
-                $this->getExcludeTokens(),
-                $this->getMolajitoEventHandlerInstance(),
+            $this->service_instance = new $class (
+                $exclude_tokens,
+                $event_handler,
+                $this->options['event_option_keys'],
                 $extension_resource,
-                $this->dependencies['Runtimedata']->reference_data->stop_loop_count,
-                $this->dependencies['Runtimedata']->resource->theme->include_path,
-                $this->dependencies['Runtimedata']->resource->page->id,
+                $stop_loop_count,
+                $theme_include_path,
+                $page_name,
                 $this->dependencies['Runtimedata'],
+                $this->dependencies['Plugindata'],
                 $rendering_properties
             );
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Pagination: Could not instantiate Class: ' . $class);
+            ('Molajito: Could not instantiate Class: ' . $class);
         }
     }
 
     /**
      * Get Exclude Tokens
      *
-     * @return  object  Pagination\ExtensionResource
+     * @return  object  Molajito\ExtensionResource
      * @since   1.0
      * @throws  ServiceProviderInterface
      */
@@ -139,7 +137,7 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
     /**
      * Get Resource Extension Instance
      *
-     * @return  object  Pagination\ExtensionResource
+     * @return  object  Molajito\ExtensionResource
      * @since   1.0
      * @throws  ServiceProviderInterface
      */
@@ -147,22 +145,34 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
     {
         return new ExtensionResource(
             $this->dependencies['Resource'],
-            $this->dependencies['Runtimedata']->resource->parameters->theme_id,
-            $this->dependencies['Runtimedata']->resource->parameters->page_view_id,
-            $this->dependencies['Runtimedata']->resource->parameters->template_view_id,
-            $this->dependencies['Runtimedata']->resource->parameters->wrap_view_id
+            $this->dependencies['Plugindata']->resource->parameters->theme_id,
+            $this->dependencies['Plugindata']->resource->parameters->page_view_id,
+            $this->dependencies['Plugindata']->resource->parameters->template_view_id,
+            $this->dependencies['Plugindata']->resource->parameters->wrap_view_id
         );
     }
 
     /**
      * Get Event Handler Instance
      *
-     * @return  object  Pagination\EventHandler
+     * @return  object  Molajito\EventHandler
      * @since   1.0
      * @throws  ServiceProviderInterface
      */
     protected function getMolajitoEventHandlerInstance()
     {
+        $this->options['event_option_keys'] = array(
+            'runtime_data',
+            'plugin_data',
+            'parameters',
+            'model_registry',
+            'query_results',
+            'row',
+            'include_path',
+            'rendered_view',
+            'rendered_page'
+        );
+
         return new EventHandler(
             $this->dependencies['Eventcallback'],
             $this->options['event_option_keys']

@@ -132,8 +132,8 @@ class EventMock
     /**
      * Mock
      *
-     * @param   string  $event_name
-     * @param   array   $options
+     * @param   string $event_name
+     * @param   array  $options
      *
      * @return  mixed
      * @since   1.0

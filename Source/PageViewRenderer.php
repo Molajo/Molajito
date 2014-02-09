@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Page View Renderer
+ * Molajito Page View Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -13,7 +13,7 @@ use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
 
 /**
- * Pagination Page View Renderer
+ * Molajito Page View Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -49,8 +49,8 @@ class PageViewRenderer implements RenderInterface
     /**
      * Constructor
      *
-     * @param  string  $include_path
-     * @param  array   $rendering_properties
+     * @param  string $include_path
+     * @param  array  $rendering_properties
      *
      * @since  1.0
      */
@@ -97,7 +97,7 @@ class PageViewRenderer implements RenderInterface
     /**
      * Instantiate Render Class and Render Output
      *
-     * @param   string  $file_path
+     * @param   string $file_path
      *
      * @return  string
      * @since   1.0
@@ -115,7 +115,7 @@ class PageViewRenderer implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Pagination PageViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito PageViewRenderer renderOutput: ' . $e->getMessage());
         }
     }
 }

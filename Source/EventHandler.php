@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Event Processing
+ * Molajito Event Processing
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -13,7 +13,7 @@ use CommonApi\Exception\RuntimeException;
 use Exception;
 
 /**
- * Pagination Event Handler
+ * Molajito Event Handler
  *
  * @package    Pagination
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -90,7 +90,7 @@ class EventHandler implements EventHandlerInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Pagination PageViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito PageViewRenderer renderOutput: ' . $e->getMessage());
         }
     }
 }

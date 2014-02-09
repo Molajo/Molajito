@@ -79,14 +79,14 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
             $wrap_view_id = 4
         );
 
-        $runtime_data              = new stdClass();
-        $runtime_data->plugin_data = new stdClass();
-        $collection                = new stdClass();
-        $collection->field_a       = 'a';
-        $collection->field_b       = 'b';
-        $collection->field_c       = 'c';
-        $row                       = array();
-        $row[]                     = $collection;
+        $runtime_data        = new stdClass();
+        $plugin_data         = new stdClass();
+        $collection          = new stdClass();
+        $collection->field_a = 'a';
+        $collection->field_b = 'b';
+        $collection->field_c = 'c';
+        $row                 = array();
+        $row[]               = $collection;
 
         $rendering_properties                             = array();
         $rendering_properties['resource']                 = null;
@@ -117,14 +117,14 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
      */
     public function testParse()
     {
-/**
+        /**
         $results = $this->molajito->parse();
 
         $this->assertEquals('page', $results[0]->type);
         $this->assertEquals('xyz', $results[0]->name);
         $this->assertEquals('', $results[0]->wrap);
         $this->assertEquals(array(), $results[0]->attributes);
-*/
+         */
         return $this;
     }
 
@@ -150,8 +150,8 @@ class EventMock3
     /**
      * Mock
      *
-     * @param   string  $event_name
-     * @param   array   $options
+     * @param   string $event_name
+     * @param   array  $options
      *
      * @return  mixed
      * @since   1.0

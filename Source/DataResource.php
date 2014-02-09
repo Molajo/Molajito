@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Data Resource
+ * Molajito Data Resource
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -12,8 +12,10 @@ use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\DataResourceInterface;
 use stdClass;
 
+//todo: Make DataResource and ExtensionResource Adapters for flexibility in other environments
+
 /**
- * Pagination Data Resource
+ * Molajito Data Resource
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -29,6 +31,14 @@ class DataResource implements DataResourceInterface
      * @since  1.0
      */
     protected $runtime_data;
+
+    /**
+     * Plugin Data
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $plugin_data;
 
     /**
      * Token
@@ -91,15 +101,18 @@ class DataResource implements DataResourceInterface
      *
      * @param  object $resource
      * @param  object $runtime_data
+     * @param  object $plugin_data
      * @param  string $token
      *
      * @since  1.0
      */
     public function __construct(
         $runtime_data,
+        $plugin_data,
         $token
     ) {
         $this->runtime_data = $runtime_data;
+        $this->plugin_data  = $plugin_data;
         $this->token        = $token;
         $this->parameters   = new stdClass();
     }
@@ -115,7 +128,7 @@ class DataResource implements DataResourceInterface
     {
         $this->setModel();
 
-        if ($this->model_name == 'primary') {
+        if ($this->model_type == 'primary') {
             $this->getPrimaryData();
 
         } elseif ($this->model_type == 'runtime_data') {
@@ -123,6 +136,9 @@ class DataResource implements DataResourceInterface
 
         } elseif ($this->model_type == 'plugin_data') {
             $this->getPluginData();
+
+        } else {
+            $this->getDefaultData();
         }
 
         if (is_array($this->query_results)) {
@@ -139,6 +155,14 @@ class DataResource implements DataResourceInterface
         $this->parameters->model_type = $this->model_type;
         $this->parameters->model_name = $this->model_name;
         $this->parameters->field_name = $this->field_name;
+
+        if (isset($this->token->attributes)
+            && count($this->token->attributes) > 0
+            && is_array($this->token->attributes)) {
+            foreach ($this->token->attributes as $key => $value) {
+                $this->parameters->$key = $value;
+            }
+        }
 
         $data = new stdClass();
 
@@ -161,8 +185,8 @@ class DataResource implements DataResourceInterface
         if (isset($this->token->attributes['model_type'])) {
             $this->model_type = $this->token->attributes['model_type'];
 
-        } elseif (isset($this->runtime_data->render->extension->parameters->model_type)) {
-            $this->model_type = $this->runtime_data->render->extension->parameters->model_type;
+        } elseif (isset($this->plugin_data->render->extension->parameters->model_type)) {
+            $this->model_type = $this->plugin_data->render->extension->parameters->model_type;
         }
 
         $this->model_type = strtolower($this->model_type);
@@ -176,17 +200,25 @@ class DataResource implements DataResourceInterface
             ) {
                 $this->model_name = $name;
 
-            } elseif ($this->model_type == 'plugin_data'
-                && isset($this->runtime_data->plugin_data->$name)
-            ) {
+            } elseif (isset($this->plugin_data->$name)) {
+
+                $this->model_type = 'plugin_data';
                 $this->model_name = $name;
             }
         }
 
-        if ($this->model_name == ''
-            && isset($this->runtime_data->render->extension->parameters->model_name)
+        if (trim($this->model_name) == ''
+            && isset($this->plugin_data->render->extension->parameters->model_name)
         ) {
-            $this->model_name = $this->runtime_data->render->extension->parameters->model_name;
+            $this->model_name = $this->plugin_data->render->extension->parameters->model_name;
+        }
+
+        if (trim($this->model_type) == '' && trim($this->model_name) == '') {
+            $name = strtolower($this->token->name);
+            if (isset($this->plugin_data->$name)) {
+                $this->model_type = 'plugin_data';
+                $this->model_name = $name;
+            }
         }
 
         $this->model_name = strtolower($this->model_name);
@@ -196,6 +228,12 @@ class DataResource implements DataResourceInterface
         }
 
         $this->field_name = strtolower($this->field_name);
+
+
+        //todo: fix
+        if ($this->model_name === 'fields') {
+            $this->model_name = 'lists';
+        }
 
         return $this;
     }
@@ -208,10 +246,10 @@ class DataResource implements DataResourceInterface
      */
     protected function getPrimaryData()
     {
-        $this->query_results  = $this->runtime_data->resource->data;
-        $this->model_registry = $this->runtime_data->resource->model_registry;
-        $this->parameters     = $this->runtime_data->resource->parameters;
-        $hold_parameters      = $this->runtime_data->render->extension->parameters;
+        $this->query_results  = $this->plugin_data->resource->data;
+        $this->model_registry = $this->plugin_data->resource->model_registry;
+        $this->parameters     = $this->plugin_data->resource->parameters;
+        $hold_parameters      = $this->plugin_data->render->extension->parameters;
 
         if (is_array($hold_parameters) && count($hold_parameters) > 0) {
 
@@ -250,7 +288,7 @@ class DataResource implements DataResourceInterface
             unset($this->query_results->parameters);
 
         } else {
-            $this->parameters = $this->runtime_data->render->extension->parameters;
+            $this->parameters = $this->plugin_data->render->extension->parameters;
         }
 
         return $this;
@@ -266,21 +304,18 @@ class DataResource implements DataResourceInterface
     {
         $name = $this->model_name;
 
-        if (isset($this->runtime_data->$name)) {
-            $this->query_results = $this->runtime_data->$name;
-        }
+        if (isset($this->plugin_data->$name)) {
 
-        if (isset($this->runtime_data->plugin_data->$name)) {
-
-            if (isset($this->runtime_data->plugin_data->$name->data)) {
-                $this->query_results  = $this->runtime_data->plugin_data->$name->data;
-                $this->model_registry = $this->runtime_data->plugin_data->$name->model_registry;
+            if (isset($this->plugin_data->$name->data)) {
+                $this->query_results  = $this->plugin_data->$name->data;
+                $this->model_registry = $this->plugin_data->$name->model_registry;
             } else {
-                $this->query_results = $this->runtime_data->plugin_data->$name;
+                $this->query_results = $this->plugin_data->$name;
             }
 
             if ($this->field_name == '') {
-            } elseif (isset($query_results[$this->field_name])) {
+
+            } elseif (isset($this->query_results[$this->field_name])) {
                 $x                     = $this->query_results[$this->field_name];
                 $this->query_results   = array();
                 $this->query_results[] = $x;
@@ -292,8 +327,21 @@ class DataResource implements DataResourceInterface
             unset($this->query_results->parameters);
 
         } else {
-            $this->parameters = $this->runtime_data->render->extension->parameters;
+            $this->parameters = $this->plugin_data->render->extension->parameters;
         }
+
+        return $this;
+    }
+
+    /**
+     * Get Data from Primary Data Collection
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getDefaultData()
+    {
+        $this->parameters      = $this->plugin_data->render->extension->parameters;
 
         return $this;
     }

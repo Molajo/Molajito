@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Extension Resource
+ * Molajito Extension Resource
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -14,7 +14,7 @@ use CommonApi\Render\ExtensionResourceInterface;
 use stdClass;
 
 /**
- * Pagination Extension Resource
+ * Molajito Extension Resource
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -135,7 +135,7 @@ class ExtensionResource implements ExtensionResourceInterface
             $render->extension = $this->getWrapView();
 
         } else {
-            throw new RuntimeException ('Pagination Extension Resource: getExtension Invalid Scheme: ' . $scheme);
+            throw new RuntimeException ('Molajito Extension Resource: getExtension Invalid Scheme: ' . $scheme);
         }
 
         return $render;
@@ -154,7 +154,7 @@ class ExtensionResource implements ExtensionResourceInterface
             return $this->resource->get('Theme:///Molajo//Theme//' . $this->theme);
 
         } catch (Exception $e) {
-            throw new RuntimeException('Pagination Extension Resource: getTheme Exception ' . $e->getMessage());
+            throw new RuntimeException('Molajito Extension Resource: getTheme Exception ' . $e->getMessage());
         }
     }
 
@@ -171,7 +171,7 @@ class ExtensionResource implements ExtensionResourceInterface
             return $this->resource->get('Page:///Molajo//View//Page//' . $this->page_view);
 
         } catch (Exception $e) {
-            throw new RuntimeException('Pagination Extension Resource: getPageView Exception ' . $e->getMessage());
+            throw new RuntimeException('Molajito Extension Resource: getPageView Exception ' . $e->getMessage());
         }
     }
 
@@ -188,7 +188,7 @@ class ExtensionResource implements ExtensionResourceInterface
             return $this->resource->get('Template:///Molajo//View//Template//' . $this->template_view);
 
         } catch (Exception $e) {
-            throw new RuntimeException('Pagination Extension Resource: getTemplateView Exception ' . $e->getMessage());
+            throw new RuntimeException('Molajito Extension Resource: getTemplateView Exception ' . $e->getMessage());
         }
     }
 
@@ -201,11 +201,15 @@ class ExtensionResource implements ExtensionResourceInterface
      */
     protected function getWrapView()
     {
+        if (trim($this->wrap_view) == '') {
+            return new stdClass();
+        }
+
         try {
             return $this->resource->get('Wrap:///Molajo//View//Wrap//' . $this->wrap_view);
 
         } catch (Exception $e) {
-            throw new RuntimeException('Pagination Extension Resource: getWrapView Exception ' . $e->getMessage());
+            throw new RuntimeException('Molajito Extension Resource: getWrapView Exception ' . $e->getMessage());
         }
     }
 }

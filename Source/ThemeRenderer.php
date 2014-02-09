@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Theme Renderer
+ * Molajito Theme Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,12 +8,12 @@
  */
 namespace Molajito;
 
-use Exception;
 use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
+use Exception;
 
 /**
- * Pagination Theme Renderer
+ * Molajito Theme Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -49,8 +49,8 @@ class ThemeRenderer implements RenderInterface
     /**
      * Constructor
      *
-     * @param  string  $include_path
-     * @param  array   $rendering_properties
+     * @param  string $include_path
+     * @param  array  $rendering_properties
      *
      * @since  1.0
      */
@@ -97,7 +97,7 @@ class ThemeRenderer implements RenderInterface
     /**
      * Instantiate Render Class and Render Output
      *
-     * @param   string  $file_path
+     * @param   string $file_path
      *
      * @return  string
      * @since   1.0
@@ -115,7 +115,7 @@ class ThemeRenderer implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Pagination ThemeRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito ThemeRenderer renderOutput: ' . $e->getMessage());
         }
     }
 }
