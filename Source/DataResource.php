@@ -158,7 +158,8 @@ class DataResource implements DataResourceInterface
 
         if (isset($this->token->attributes)
             && count($this->token->attributes) > 0
-            && is_array($this->token->attributes)) {
+            && is_array($this->token->attributes)
+        ) {
             foreach ($this->token->attributes as $key => $value) {
                 $this->parameters->$key = $value;
             }
@@ -187,6 +188,9 @@ class DataResource implements DataResourceInterface
 
         } elseif (isset($this->plugin_data->render->extension->parameters->model_type)) {
             $this->model_type = $this->plugin_data->render->extension->parameters->model_type;
+
+        } elseif (isset($this->plugin_data->render->extension->menuitem->parameters->model_type)) {
+            $this->model_type = $this->plugin_data->render->extension->menuitem->parameters->model_type;
         }
 
         $this->model_type = strtolower($this->model_type);
@@ -229,11 +233,6 @@ class DataResource implements DataResourceInterface
 
         $this->field_name = strtolower($this->field_name);
 
-
-        //todo: fix
-        if ($this->model_name === 'fields') {
-            $this->model_name = 'lists';
-        }
 
         return $this;
     }
@@ -341,7 +340,7 @@ class DataResource implements DataResourceInterface
      */
     protected function getDefaultData()
     {
-        $this->parameters      = $this->plugin_data->render->extension->parameters;
+        $this->parameters = $this->plugin_data->render->extension->parameters;
 
         return $this;
     }

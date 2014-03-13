@@ -57,11 +57,11 @@ class DataResourceTest extends \PHPUnit_Framework_TestCase
     public function testGetRuntimeData()
     {
         /** Input */
-        $runtime_data                                = new stdClass();
-        $runtime_data->application                   = new stdClass();
-        $runtime_data->application->field_a          = 'a';
-        $runtime_data->application->field_b          = 'b';
-        $runtime_data->application->field_c          = 'c';
+        $runtime_data                               = new stdClass();
+        $runtime_data->application                  = new stdClass();
+        $runtime_data->application->field_a         = 'a';
+        $runtime_data->application->field_b         = 'b';
+        $runtime_data->application->field_c         = 'c';
         $plugin_data->render                        = new stdClass();
         $plugin_data->render->extension             = new stdClass();
         $plugin_data->render->extension->parameters = array();

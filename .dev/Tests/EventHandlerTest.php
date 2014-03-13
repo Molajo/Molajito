@@ -62,14 +62,14 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @param   array $options
      *
      * @return  $this
      * @since   1.0
      */
-    public function testInitializeEventOptions()
+    public function testInitialiseEventOptions()
     {
         $options = $this->event_handler->initializeEventOptions();
 
@@ -81,7 +81,7 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @param   array $options
      *

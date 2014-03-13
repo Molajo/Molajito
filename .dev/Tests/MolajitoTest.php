@@ -102,7 +102,7 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
             $this->event_option_keys,
             $this->extension_resource,
             $stop_loop_count = 10,
-            $include_path = $include_path = __DIR__ . '/View/Include.phtml',
+            $include_path = $include_path = __DIR__ . '/Views/Include.phtml',
             $page_view_id,
             $runtime_data,
             $rendering_properties
@@ -110,7 +110,7 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @return  $this
      * @since   1.0

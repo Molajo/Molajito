@@ -48,7 +48,7 @@ class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @return  $this
      * @since   1.0
@@ -57,16 +57,16 @@ class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
     {
         $extensions = $this->extension_resource->getResourceExtension();
 
-        $test = 'Theme:///Molajo//Theme//1';
+        $test = 'Theme:///Molajo//Themes//1';
         $this->assertEquals($extensions->theme, $test);
 
-        $test = 'Page:///Molajo//View//Page//2';
+        $test = 'Page:///Molajo//Views//Pages//2';
         $this->assertEquals($extensions->page, $test);
 
-        $test = 'Template:///Molajo//View//Template//3';
+        $test = 'Template:///Molajo//Views//Templates//3';
         $this->assertEquals($extensions->template, $test);
 
-        $test = 'Wrap:///Molajo//View//Wrap//4';
+        $test = 'Wrap:///Molajo//Views//Wraps//4';
         $this->assertEquals($extensions->wrap, $test);
 
         return $this;
@@ -86,7 +86,7 @@ class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->extension_resource->getExtension($token);
 
-        $test = 'Page:///Molajo//View//Page//Test';
+        $test = 'Page:///Molajo//Views//Pages//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;
@@ -106,7 +106,7 @@ class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->extension_resource->getExtension($token);
 
-        $test = 'Template:///Molajo//View//Template//Test';
+        $test = 'Template:///Molajo//Views//Templates//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;
@@ -126,7 +126,7 @@ class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->extension_resource->getExtension($token);
 
-        $test = 'Wrap:///Molajo//View//Wrap//Test';
+        $test = 'Wrap:///Molajo//Views//Wraps//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;

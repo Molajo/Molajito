@@ -250,17 +250,16 @@ class Molajito implements RenderInterface
 
         while ($complete === false) {
 
-            /** Step 2. Counter */
             $loop_counter ++;
 
-            /** Step 3. Schedule onBeforeParse Event */
+            /** Step 1. Schedule onBeforeParse Event */
             $options                  = $this->event_handler->initializeEventOptions();
             $options['rendered_page'] = $this->rendered_page;
             $options['parameters']    = $this->parameters;
 
             $this->scheduleEvent('onBeforeParse', $options);
 
-            /** Step 3. Parse Output for Tokens */
+            /** Step 2. Parse Output for Tokens */
             $this->tokens = $this->parseTokens($exclude_tokens);
 
             /** Step 3. Schedule onAfterParse Event */
@@ -318,7 +317,7 @@ class Molajito implements RenderInterface
      */
     protected function renderToken($token)
     {
-//        echo 'View:  ' . $token->name . '<br />';
+//echo 'View:  ' . $token->name . '<br />';
 
         /** Step 1. Initialise */
         $this->rendered_view = '';

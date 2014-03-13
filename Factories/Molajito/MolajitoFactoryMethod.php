@@ -1,29 +1,30 @@
 <?php
 /**
- * Molajito Service Provider
+ * Molajito Factory Method
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  */
-namespace Molajo\Service\Molajito;
+namespace Molajo\Factories\Molajito;
 
-use CommonApi\IoC\ServiceProviderInterface;
-use CommonApi\Exception\RuntimeException;
 use Exception;
+use CommonApi\Exception\RuntimeException;
+use CommonApi\IoC\FactoryMethodInterface;
+use CommonApi\IoC\FactoryMethodBatchSchedulingInterface;
 use Molajito\ExtensionResource;
 use Molajito\EventHandler;
-use Molajo\IoC\AbstractServiceProvider;
+use Molajo\IoC\FactoryBase;
 
 /**
- * Molajito Service Provider
+ * Molajito Factory Method
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class MolajitoServiceProvider extends AbstractServiceProvider implements ServiceProviderInterface
+class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterface, FactoryMethodBatchSchedulingInterface
 {
     /**
      * Constructor
@@ -34,15 +35,15 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      */
     public function __construct(array $options = array())
     {
-        $options['service_name']             = basename(__DIR__);
+        $options['product_name']             = basename(__DIR__);
         $options['store_instance_indicator'] = true;
-        $options['service_namespace']        = 'Molajito\\Molajito';
+        $options['product_namespace']        = 'Molajito\\Molajito';
 
         parent::__construct($options);
     }
 
     /**
-     * Service Provider can use this method to define Service Dependencies
+     * Factory Method can use this method to define Service Dependencies
      *  or use the Service Dependencies automatically defined by Reflection processes
      *
      * @param   array $reflection
@@ -75,15 +76,16 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException;
      */
-    public function instantiateService()
+    public function instantiateClass()
     {
-        $exclude_tokens                                         = $this->getExcludeTokens();
-        $event_handler                                          = $this->getMolajitoEventHandlerInstance();
-        $extension_resource                                     = $this->getResourceExtensionInstance();
+        $exclude_tokens     = $this->getExcludeTokens();
+        $event_handler      = $this->getMolajitoEventHandlerInstance();
+        $extension_resource = $this->getResourceExtensionInstance();
+
         $this->dependencies['Plugindata']->resource->extension = $extension_resource->getResourceExtension();
-        $stop_loop_count                                        = $this->dependencies['Runtimedata']->reference_data->stop_loop_count;
-        $theme_include_path                                     = $this->dependencies['Plugindata']->resource->extension->theme->include_path;
-        $page_name                                              = $this->dependencies['Plugindata']->resource->extension->page->id;
+        $stop_loop_count                                       = $this->dependencies['Runtimedata']->reference_data->stop_loop_count;
+        $theme_include_path                                    = $this->dependencies['Plugindata']->resource->extension->theme->include_path;
+        $page_name                                             = $this->dependencies['Plugindata']->resource->extension->page->id;
 
         $rendering_properties                             = array();
         $rendering_properties['resource']                 = $this->dependencies['Resource'];
@@ -93,10 +95,10 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
         $rendering_properties['language_controller']      = $this->dependencies['Language'];
         $rendering_properties['authorisation_controller'] = $this->dependencies['Authorisation'];
 
-        $class = $this->service_namespace;
+        $class = $this->product_namespace;
 
         try {
-            $this->service_instance = new $class (
+            $this->product_result = new $class (
                 $exclude_tokens,
                 $event_handler,
                 $this->options['event_option_keys'],
@@ -119,13 +121,13 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      *
      * @return  object  Molajito\ExtensionResource
      * @since   1.0
-     * @throws  ServiceProviderInterface
+     * @throws  FactoryMethodInterface
      */
     protected function getExcludeTokens()
     {
         $exclude_tokens = array();
         $x              = $this->dependencies['Resource']
-            ->get('xml:///Molajo//Application//Parse_final.xml')->include;
+            ->get('xml:///Molajo//Model//Application//Parse_final.xml')->include;
 
         foreach ($x as $y) {
             $exclude_tokens[] = (string)$y;
@@ -139,16 +141,44 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      *
      * @return  object  Molajito\ExtensionResource
      * @since   1.0
-     * @throws  ServiceProviderInterface
+     * @throws  FactoryMethodInterface
      */
     protected function getResourceExtensionInstance()
     {
-        return new ExtensionResource(
-            $this->dependencies['Resource'],
-            $this->dependencies['Plugindata']->resource->parameters->theme_id,
-            $this->dependencies['Plugindata']->resource->parameters->page_view_id,
-            $this->dependencies['Plugindata']->resource->parameters->template_view_id,
-            $this->dependencies['Plugindata']->resource->parameters->wrap_view_id
+        $page_type = strtolower($this->dependencies['Runtimedata']->route->page_type);
+
+        if ($page_type == 'dashboard') {
+            $theme_id         = 7010;
+            $page_view_id     = 8265;
+            $template_view_id = 9305;
+            $wrap_view_id     = 10010;
+
+        } elseif (isset($this->dependencies['Plugindata']->resource->menuitem->parameters)) {
+            $theme_id         = $this->dependencies['Plugindata']->resource->menuitem->parameters->theme_id;
+            $page_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->page_view_id;
+            $template_view_id = $this->dependencies['Plugindata']->resource->menuitem->parameters->template_view_id;
+            $wrap_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->wrap_view_id;
+        } else {
+            $theme_id         = $this->dependencies['Plugindata']->resource->parameters->theme_id;
+            $page_view_id     = $this->dependencies['Plugindata']->resource->parameters->page_view_id;
+            $template_view_id = $this->dependencies['Plugindata']->resource->parameters->template_view_id;
+            $wrap_view_id     = $this->dependencies['Plugindata']->resource->parameters->wrap_view_id;
+        }
+        /**
+        echo '<pre>';
+        var_dump(array(
+        $theme_id,
+        $page_view_id,
+        $template_view_id,
+        $wrap_view_id
+        ));
+        die;
+         */
+        return new ExtensionResource($this->dependencies['Resource'],
+            $theme_id,
+            $page_view_id,
+            $template_view_id,
+            $wrap_view_id
         );
     }
 
@@ -157,7 +187,7 @@ class MolajitoServiceProvider extends AbstractServiceProvider implements Service
      *
      * @return  object  Molajito\EventHandler
      * @since   1.0
-     * @throws  ServiceProviderInterface
+     * @throws  FactoryMethodInterface
      */
     protected function getMolajitoEventHandlerInstance()
     {

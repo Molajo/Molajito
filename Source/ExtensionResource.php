@@ -64,6 +64,14 @@ class ExtensionResource implements ExtensionResourceInterface
     protected $wrap_view;
 
     /**
+     * Resource Extensions
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $resource_extensions;
+
+    /**
      * Constructor
      *
      * @param  object $resource
@@ -97,14 +105,14 @@ class ExtensionResource implements ExtensionResourceInterface
      */
     public function getResourceExtension()
     {
-        $extension = new stdClass();
+        $this->resource_extensions = new stdClass();
 
-        $extension->theme    = $this->getTheme();
-        $extension->page     = $this->getPageView();
-        $extension->template = $this->getTemplateView();
-        $extension->wrap     = $this->getWrapView();
+        $this->resource_extensions->theme    = $this->getTheme();
+        $this->resource_extensions->page     = $this->getPageView();
+        $this->resource_extensions->template = $this->getTemplateView();
+        $this->resource_extensions->wrap     = $this->getWrapView();
 
-        return $extension;
+        return $this->resource_extensions;
     }
 
     /**
@@ -151,7 +159,7 @@ class ExtensionResource implements ExtensionResourceInterface
     protected function getTheme()
     {
         try {
-            return $this->resource->get('Theme:///Molajo//Theme//' . $this->theme);
+            return $this->resource->get('Theme:///Molajo//Themes//' . $this->theme);
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajito Extension Resource: getTheme Exception ' . $e->getMessage());
@@ -168,7 +176,7 @@ class ExtensionResource implements ExtensionResourceInterface
     protected function getPageView()
     {
         try {
-            return $this->resource->get('Page:///Molajo//View//Page//' . $this->page_view);
+            return $this->resource->get('Page:///Molajo//Views//Pages//' . $this->page_view);
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajito Extension Resource: getPageView Exception ' . $e->getMessage());
@@ -185,7 +193,7 @@ class ExtensionResource implements ExtensionResourceInterface
     protected function getTemplateView()
     {
         try {
-            return $this->resource->get('Template:///Molajo//View//Template//' . $this->template_view);
+            return $this->resource->get('Template:///Molajo//Views//Templates//' . $this->template_view);
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajito Extension Resource: getTemplateView Exception ' . $e->getMessage());
@@ -206,7 +214,7 @@ class ExtensionResource implements ExtensionResourceInterface
         }
 
         try {
-            return $this->resource->get('Wrap:///Molajo//View//Wrap//' . $this->wrap_view);
+            return $this->resource->get('Wrap:///Molajo//Views//Wraps//' . $this->wrap_view);
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajito Extension Resource: getWrapView Exception ' . $e->getMessage());

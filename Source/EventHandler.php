@@ -90,7 +90,7 @@ class EventHandler implements EventHandlerInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito PageViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito PageViewRenderer scheduleEvent: ' . $e->getMessage());
         }
     }
 }

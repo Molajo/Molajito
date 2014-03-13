@@ -1,7 +1,7 @@
 {
     "name": "molajo/molajito",
     "description": "Molajito Rendering for PHP Applications",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "type": "molajo-package",
     "keywords": ["render", "commonapi", "molajo", "molajito"],
     "homepage": "http://github.com/Molajo/Molajito",
@@ -28,7 +28,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Molajito\\": "Source/"
+            "Molajito\\": "Source/",
+            "Molajo\\Factories\\": "Factories/"
         }
     },
 

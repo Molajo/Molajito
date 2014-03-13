@@ -34,7 +34,7 @@ class TemplateViewRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @return  $this
      * @since   1.0
@@ -86,7 +86,7 @@ class TemplateViewRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @return  $this
      * @since   1.0

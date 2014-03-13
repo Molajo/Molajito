@@ -33,14 +33,14 @@ class RenderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @return  $this
      * @since   1.0
      */
     public function testRender()
     {
-        $include_path = __DIR__ . '/View/Include.phtml';
+        $include_path = __DIR__ . '/Views/Include.phtml';
 
         ob_start();
         include $include_path;

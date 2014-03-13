@@ -33,7 +33,7 @@ class ThemeRendererTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialize Event Options
+     * Initialise Event Options
      *
      * @return  $this
      * @since   1.0
@@ -45,7 +45,7 @@ class ThemeRendererTest extends \PHPUnit_Framework_TestCase
         $rendering_properties['row']           = 'b';
         $rendering_properties['runtime_data']  = 'c';
 
-        $include_path = __DIR__ . '/View/Include.phtml';
+        $include_path = __DIR__ . '/Views/Include.phtml';
 
         ob_start();
         include $include_path;
