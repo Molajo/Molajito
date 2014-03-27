@@ -10,11 +10,11 @@ namespace Molajo\Factories\Molajito;
 
 use Exception;
 use CommonApi\Exception\RuntimeException;
-use CommonApi\IoC\FactoryMethodInterface;
-use CommonApi\IoC\FactoryMethodBatchSchedulingInterface;
+use CommonApi\IoC\FactoryInterface;
+use CommonApi\IoC\FactoryBatchInterface;
 use Molajito\ExtensionResource;
 use Molajito\EventHandler;
-use Molajo\IoC\FactoryBase;
+use Molajo\IoC\FactoryMethodBase;
 
 /**
  * Molajito Factory Method
@@ -24,7 +24,7 @@ use Molajo\IoC\FactoryBase;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterface, FactoryMethodBatchSchedulingInterface
+class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterface, FactoryBatchInterface
 {
     /**
      * Constructor
@@ -37,7 +37,7 @@ class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterfac
     {
         $options['product_name']             = basename(__DIR__);
         $options['store_instance_indicator'] = true;
-        $options['product_namespace']        = 'Molajito\\Molajito';
+        $options['product_namespace']        = 'Molajito\\Driver';
 
         parent::__construct($options);
     }
@@ -121,7 +121,7 @@ class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterfac
      *
      * @return  object  Molajito\ExtensionResource
      * @since   1.0
-     * @throws  FactoryMethodInterface
+     * @throws  FactoryInterface
      */
     protected function getExcludeTokens()
     {
@@ -141,7 +141,7 @@ class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterfac
      *
      * @return  object  Molajito\ExtensionResource
      * @since   1.0
-     * @throws  FactoryMethodInterface
+     * @throws  FactoryInterface
      */
     protected function getResourceExtensionInstance()
     {
@@ -158,13 +158,15 @@ class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterfac
             $page_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->page_view_id;
             $template_view_id = $this->dependencies['Plugindata']->resource->menuitem->parameters->template_view_id;
             $wrap_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->wrap_view_id;
+
         } else {
             $theme_id         = $this->dependencies['Plugindata']->resource->parameters->theme_id;
             $page_view_id     = $this->dependencies['Plugindata']->resource->parameters->page_view_id;
             $template_view_id = $this->dependencies['Plugindata']->resource->parameters->template_view_id;
             $wrap_view_id     = $this->dependencies['Plugindata']->resource->parameters->wrap_view_id;
         }
-        /**
+
+/**
         echo '<pre>';
         var_dump(array(
         $theme_id,
@@ -173,7 +175,7 @@ class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterfac
         $wrap_view_id
         ));
         die;
-         */
+*/
         return new ExtensionResource($this->dependencies['Resource'],
             $theme_id,
             $page_view_id,
@@ -187,7 +189,7 @@ class MolajitoFactoryMethod extends FactoryBase implements FactoryMethodInterfac
      *
      * @return  object  Molajito\EventHandler
      * @since   1.0
-     * @throws  FactoryMethodInterface
+     * @throws  FactoryInterface
      */
     protected function getMolajitoEventHandlerInstance()
     {

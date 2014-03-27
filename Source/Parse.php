@@ -150,7 +150,7 @@ class Parse implements ParseInterface
                 $first = 0;
 
                 if (count($pair) == 1) {
-                    $token->type = 'template';
+                    $token->type = 'position';
                     $token->name = trim(strtolower($part));
                 } else {
                     $token->type = trim(strtolower($pair[0]));

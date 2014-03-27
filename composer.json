@@ -29,7 +29,7 @@
     "autoload": {
         "psr-4": {
             "Molajito\\": "Source/",
-            "Molajo\\Factories\\": "Factories/"
+            "Molajo\\Factories\\Molajito\\": "Factories/Molajito/"
         }
     },
 

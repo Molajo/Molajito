@@ -9,8 +9,8 @@
 namespace Molajito;
 
 use Exception;
-use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Render\RenderInterface;
 
 /**
  * Molajito Page View Renderer

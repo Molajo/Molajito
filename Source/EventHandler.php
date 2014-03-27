@@ -8,14 +8,14 @@
  */
 namespace Molajito;
 
-use CommonApi\Render\EventHandlerInterface;
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Render\EventHandlerInterface;
 use Exception;
 
 /**
  * Molajito Event Handler
  *
- * @package    Pagination
+ * @package    Molajito
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0

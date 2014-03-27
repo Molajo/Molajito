@@ -1,6 +1,6 @@
 <?php
 /**
- * Molajito Renderer
+ * Molajito Driver
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -9,15 +9,15 @@
 namespace Molajito;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Render\ExtensionResourceInterface;
 use CommonApi\Render\EventHandlerInterface;
+use CommonApi\Render\ExtensionResourceInterface;
 use CommonApi\Render\RenderInterface;
 use Exception;
 use Molajito\DataResource;
-use Molajito\Parse;
-use Molajito\ThemeRenderer;
 use Molajito\PageViewRenderer;
+use Molajito\Parse;
 use Molajito\TemplateViewRenderer;
+use Molajito\ThemeRenderer;
 use Molajito\WrapViewRenderer;
 use stdClass;
 
@@ -29,7 +29,7 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class Molajito implements RenderInterface
+class Driver implements RenderInterface
 {
     /**
      * Exclude tokens from parsing (Head tokens held until end)
@@ -245,10 +245,9 @@ class Molajito implements RenderInterface
      */
     protected function renderLoop(array $exclude_tokens = array())
     {
-        $complete     = false;
         $loop_counter = 0;
 
-        while ($complete === false) {
+        while (true === true) {
 
             $loop_counter ++;
 
@@ -268,19 +267,27 @@ class Molajito implements RenderInterface
             $options['parameters']    = $this->parameters;
 
             $this->scheduleEvent('onAfterParse', $options);
+
             if (is_array($this->tokens) && count($this->tokens) > 0
             ) {
             } else {
-                $complete = true;
                 break;
             }
 
             /** Step 4. Render Output for Tokens */
             $tokens = $this->tokens;
             foreach ($tokens as $token) {
-                $this->renderToken($token);
+
+                if (strtolower($token->type) == 'position') {
+                    $this->renderPosition($token);
+                } else {
+                    $this->renderToken($token);
+                }
+
+                $this->replaceTokenWithRenderedOutput($token);
             }
 
+            /** Step 5: Check Max Loop Count and stop or continue */
             if ($loop_counter > $this->stop_loop_count) {
                 throw new RuntimeException
                 ('Molajito Renderloop: Maximum loop count exceeded: ' . $loop_counter);
@@ -305,6 +312,37 @@ class Molajito implements RenderInterface
         $instance = new Parse($this->rendered_page, $exclude_tokens);
 
         return $instance->parse();
+    }
+
+    /**
+     * Render Token
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function renderPosition($token)
+    {
+        /** Step 1. Initialise */
+        $this->rendered_view = '';
+
+        /** Step 2. Render Position */
+        try {
+            $instance = new PositionRenderer(
+                $token,
+                $this->plugin_data->resource->extension
+            );
+
+            $this->rendered_view = $instance->render();
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito renderPosition: ' . $e->getMessage());
+        }
+
+        return $this;
     }
 
     /**
@@ -366,9 +404,6 @@ class Molajito implements RenderInterface
         $options['rendered_page']  = $this->rendered_page;
 
         $this->scheduleEvent('onAfterRenderView', $options);
-
-        /** Step 7. Inject Rendered Output */
-        $this->rendered_page = str_replace($token->replace_this, $this->rendered_view, $this->rendered_page);
 
         return $this;
     }
@@ -492,6 +527,21 @@ class Molajito implements RenderInterface
             throw new RuntimeException
             ('Molajito renderWrapView: ' . $e->getMessage());
         }
+
+        return $this;
+    }
+
+    /**
+     * Replace Token with Rendered Output
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function replaceTokenWithRenderedOutput($token)
+    {
+        $this->rendered_page = str_replace($token->replace_this, $this->rendered_view, $this->rendered_page);
 
         return $this;
     }
