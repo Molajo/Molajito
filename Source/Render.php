@@ -27,7 +27,7 @@ class Render implements RenderInterface
      * @var    object
      * @since  1.0
      */
-    protected $resource = null;
+    //protected $resource = null;
 
     /**
      * Fieldhandler
@@ -35,7 +35,7 @@ class Render implements RenderInterface
      * @var    object  CommonApi\Model\FieldhandlerInterface
      * @since  1.0
      */
-    protected $fieldhandler = null;
+    //protected $fieldhandler = null;
 
     /**
      * Date Controller
@@ -43,7 +43,7 @@ class Render implements RenderInterface
      * @var    object  CommonApi\Controller\DateInterface
      * @since  1.0
      */
-    protected $date_controller = null;
+    //protected $date_controller = null;
 
     /**
      * Url Controller
@@ -51,7 +51,7 @@ class Render implements RenderInterface
      * @var    object  CommonApi\Controller\UrlInterface
      * @since  1.0
      */
-    protected $url_controller = null;
+    //protected $url_controller = null;
 
     /**
      * Language Instance
@@ -67,7 +67,7 @@ class Render implements RenderInterface
      * @var    object  CommonApi\Authorisation\AuthorisationInterface
      * @since  1.0
      */
-    protected $authorisation_controller;
+    //protected $authorisation_controller;
 
     /**
      * Runtime Data
@@ -99,7 +99,7 @@ class Render implements RenderInterface
      * @var    object
      * @since  1.0
      */
-    protected $model_registry = null;
+    //protected $model_registry = null;
 
     /**
      * Query Results
@@ -136,6 +136,16 @@ class Render implements RenderInterface
         array $options = array()
     ) {
         foreach ($options as $key => $value) {
+            if ($key == 'language_controller'
+// || $key == 'fieldhandler'
+                || $key == 'runtime_data'
+                || $key == 'plugin_data'
+                || $key == 'parameters'
+// || $key == 'model_registry'
+                || $key == 'query_results'
+                || $key == 'row'
+                || $key == 'include_path'
+            )
             $this->$key = $value;
         }
     }
