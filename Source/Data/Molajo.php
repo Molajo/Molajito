@@ -1,28 +1,26 @@
 <?php
 /**
- * Molajito Data Resource
+ * Molajo Data Adapter for Molajito
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  */
-namespace Molajito;
+namespace Molajito\Data;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Render\DataResourceInterface;
+use CommonApi\Render\DataInterface;
 use stdClass;
 
-//todo: Make DataResource and ExtensionResource Adapters for flexibility in other environments
-
 /**
- * Molajito Data Resource
+ * Molajo Data Adapter for Molajito
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class DataResource implements DataResourceInterface
+class Molajo extends AbstractAdapter implements DataInterface
 {
     /**
      * Runtime Data
@@ -30,7 +28,7 @@ class DataResource implements DataResourceInterface
      * @var    object
      * @since  1.0
      */
-    protected $runtime_data;
+    protected $runtime_data = null;
 
     /**
      * Plugin Data
@@ -38,7 +36,7 @@ class DataResource implements DataResourceInterface
      * @var    object
      * @since  1.0
      */
-    protected $plugin_data;
+    protected $plugin_data = null;
 
     /**
      * Token
@@ -97,35 +95,19 @@ class DataResource implements DataResourceInterface
     protected $parameters = null;
 
     /**
-     * Constructor
-     *
-     * @param  object $resource
-     * @param  object $runtime_data
-     * @param  object $plugin_data
-     * @param  string $token
-     *
-     * @since  1.0
-     */
-    public function __construct(
-        $runtime_data,
-        $plugin_data,
-        $token
-    ) {
-        $this->runtime_data = $runtime_data;
-        $this->plugin_data  = $plugin_data;
-        $this->token        = $token;
-        $this->parameters   = new stdClass();
-    }
-
-    /**
      * Get Data for Rendering
+     *
+     * @param   object $token
+     * @param   array  $options
      *
      * @return  object
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function getData()
+    public function getData($token, array $options = array())
     {
+        $this->initialise($token, $options);
+
         $this->setModel();
 
         if ($this->model_type == 'primary') {
@@ -141,37 +123,47 @@ class DataResource implements DataResourceInterface
             $this->getDefaultData();
         }
 
-        if (is_array($this->query_results)) {
+        return $this->setDataResults();
+    }
+
+    /**
+     * Initialise Class Properties
+     *
+     * @param   object $token
+     * @param   array  $options
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function initialise($token, array $options = array())
+    {
+        $this->runtime_data   = null;
+        $this->plugin_data    = null;
+        $this->model_type     = '';
+        $this->model_name     = '';
+        $this->field_name     = '';
+        $this->query_results  = array();
+        $this->model_registry = array();
+        $this->parameters     = null;
+
+        $this->token = $token;
+
+        if (isset($options['runtime_data'])) {
+            $this->runtime_data = $options['runtime_data'];
         } else {
-            $this->query_results = array($this->query_results);
+            $this->runtime_data = null;
         }
 
-        if (is_object($this->parameters)) {
+        if (isset($options['plugin_data'])) {
+            $this->plugin_data = $options['plugin_data'];
         } else {
-            $this->parameters = new stdClass();
+            $this->plugin_data = null;
         }
 
-        $this->parameters->token      = $this->token;
-        $this->parameters->model_type = $this->model_type;
-        $this->parameters->model_name = $this->model_name;
-        $this->parameters->field_name = $this->field_name;
+        $this->parameters = new stdClass();
 
-        if (isset($this->token->attributes)
-            && count($this->token->attributes) > 0
-            && is_array($this->token->attributes)
-        ) {
-            foreach ($this->token->attributes as $key => $value) {
-                $this->parameters->$key = $value;
-            }
-        }
-
-        $data = new stdClass();
-
-        $data->query_results  = $this->query_results;
-        $data->model_registry = $this->model_registry;
-        $data->parameters     = $this->parameters;
-
-        return $data;
+        return $this;
     }
 
     /**
@@ -343,5 +335,47 @@ class DataResource implements DataResourceInterface
         $this->parameters = $this->plugin_data->render->extension->parameters;
 
         return $this;
+    }
+
+    /**
+     * Set data for return
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDataResults()
+    {
+        if (is_array($this->query_results)) {
+        } else {
+            $this->query_results = array($this->query_results);
+        }
+
+        if (is_object($this->parameters)) {
+        } else {
+            $this->parameters = new stdClass();
+        }
+
+        $this->parameters->token      = $this->token;
+        $this->parameters->model_type = $this->model_type;
+        $this->parameters->model_name = $this->model_name;
+        $this->parameters->field_name = $this->field_name;
+
+        if (isset($this->token->attributes)
+            && count($this->token->attributes) > 0
+            && is_array($this->token->attributes)
+        ) {
+            foreach ($this->token->attributes as $key => $value) {
+                $this->parameters->$key = $value;
+            }
+        }
+
+        $data = new stdClass();
+
+        $data->query_results  = $this->query_results;
+        $data->model_registry = $this->model_registry;
+        $data->parameters     = $this->parameters;
+
+        return $data;
     }
 }

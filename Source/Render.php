@@ -1,6 +1,6 @@
 <?php
 /**
- * Molajito Render Handler
+ * Molajito Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -12,7 +12,7 @@ use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\RenderInterface;
 
 /**
- * Molajito Render Handler
+ * Molajito Renderer - performs actual rendering
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -22,52 +22,12 @@ use CommonApi\Render\RenderInterface;
 class Render implements RenderInterface
 {
     /**
-     * Resource
+     * Plugin Data REMOVE
      *
      * @var    object
      * @since  1.0
      */
-    //protected $resource = null;
-
-    /**
-     * Fieldhandler
-     *
-     * @var    object  CommonApi\Model\FieldhandlerInterface
-     * @since  1.0
-     */
-    //protected $fieldhandler = null;
-
-    /**
-     * Date Controller
-     *
-     * @var    object  CommonApi\Controller\DateInterface
-     * @since  1.0
-     */
-    //protected $date_controller = null;
-
-    /**
-     * Url Controller
-     *
-     * @var    object  CommonApi\Controller\UrlInterface
-     * @since  1.0
-     */
-    //protected $url_controller = null;
-
-    /**
-     * Language Instance
-     *
-     * @var    object CommonApi\Language\LanguageInterface
-     * @since  1.0
-     */
-    protected $language_controller;
-
-    /**
-     * Authorisation Controller
-     *
-     * @var    object  CommonApi\Authorisation\AuthorisationInterface
-     * @since  1.0
-     */
-    //protected $authorisation_controller;
+    protected $plugin_data;
 
     /**
      * Runtime Data
@@ -78,14 +38,6 @@ class Render implements RenderInterface
     protected $runtime_data;
 
     /**
-     * Plugin Data
-     *
-     * @var    object
-     * @since  1.0
-     */
-    protected $plugin_data;
-
-    /**
      * Parameters
      *
      * @var    object
@@ -94,15 +46,7 @@ class Render implements RenderInterface
     protected $parameters = null;
 
     /**
-     * Model Registry
-     *
-     * @var    object
-     * @since  1.0
-     */
-    //protected $model_registry = null;
-
-    /**
-     * Query Results
+     * Query Results: for Custom.phtml files
      *
      * @var    array
      * @since  1.0
@@ -110,7 +54,7 @@ class Render implements RenderInterface
     protected $query_results = array();
 
     /**
-     * Query Results
+     * Single Row: Normal Header.phtml, Body.phtml, Footer.phtml files
      *
      * @var    object
      * @since  1.0
@@ -118,7 +62,7 @@ class Render implements RenderInterface
     protected $row = null;
 
     /**
-     * Include Path
+     * Include File
      *
      * @var    string
      * @since  1.0
@@ -126,43 +70,73 @@ class Render implements RenderInterface
     protected $include_path = null;
 
     /**
-     * Constructor
+     * Allowed Properties
      *
-     * @param   array $options
-     *
+     * @var    object
      * @since  1.0
      */
-    public function __construct(
-        array $options = array()
-    ) {
-        foreach ($options as $key => $value) {
-            if ($key == 'language_controller'
-// || $key == 'fieldhandler'
-                || $key == 'runtime_data'
-                || $key == 'plugin_data'
-                || $key == 'parameters'
-// || $key == 'model_registry'
-                || $key == 'query_results'
-                || $key == 'row'
-                || $key == 'include_path'
-            )
-            $this->$key = $value;
-        }
-    }
+    protected $property_array = array(
+        'plugin_data',
+        'runtime_data',
+        'parameters',
+        'query_results',
+        'row'
+    );
 
     /**
-     * Render Output
+     * Render output for specified file and data
+     *
+     * @param   string $include_path
+     * @param   array  $data
      *
      * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render()
+    public function render($include_path, array $data = array())
     {
-        if (file_exists($this->include_path)) {
+        $this->setProperties($data);
+
+        return $this->includeFile($include_path);
+    }
+
+    /**
+     * Set class properties for input data
+     *
+     * @param   array $data
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setProperties(array $data = array())
+    {
+        foreach ($this->property_array as $key) {
+            if (isset($data[$key])) {
+                $this->$key = $data[$key];
+            } else {
+                $this->$key = null;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Include rendering file
+     *
+     * @param   string $include_path
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function includeFile($include_path)
+    {
+        if (file_exists($include_path)) {
+            $this->include_path = $include_path;
         } else {
             throw new RuntimeException
-            ('Molajito Render - path not found: ' . $this->include_path);
+            ('Molajito Render - rendering file not found: ' . $include_path);
         }
 
         ob_start();

@@ -8,8 +8,8 @@
  */
 namespace Molajito;
 
-use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Render\RenderInterface;
 use Exception;
 
 /**
@@ -23,6 +23,14 @@ use Exception;
 class WrapViewRenderer implements RenderInterface
 {
     /**
+     * Render Instance
+     *
+     * @var    object   CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $render_instance = null;
+
+    /**
      * Path to Include File
      *
      * @var    string
@@ -31,12 +39,20 @@ class WrapViewRenderer implements RenderInterface
     protected $include_path;
 
     /**
-     * Render option keys
+     * Runtime Data
      *
-     * @var    array
+     * @var    object
      * @since  1.0
      */
-    protected $rendering_properties = array();
+    protected $runtime_data = null;
+
+    /**
+     * Row
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $row = null;
 
     /**
      * View Rendered Output
@@ -47,29 +63,46 @@ class WrapViewRenderer implements RenderInterface
     protected $rendered_view = null;
 
     /**
+     * Allowed Properties
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $property_array = array(
+        'runtime_data',
+        'rendered_view',
+        'row'
+    );
+
+    /**
      * Constructor
      *
-     * @param  string $include_path
-     * @param  array  $rendering_properties
+     * @param  RenderInterface $render_instance
      *
      * @since  1.0
      */
     public function __construct(
-        $include_path,
-        array $rendering_properties = array()
+        RenderInterface $render_instance
     ) {
-        $this->include_path         = $include_path;
-        $this->rendering_properties = $rendering_properties;
+        $this->render_instance = $render_instance;
     }
 
     /**
-     * Render Wrap View
+     * Render Theme output
+     *
+     * @param   string $include_path
+     * @param   array  $data
      *
      * @return  string
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render()
+    public function render($include_path, array $data = array())
     {
+        $this->include_path = $include_path;
+
+        $this->setProperties($data);
+
         $this->rendered_view = '';
 
         $this->renderViewHead();
@@ -77,6 +110,28 @@ class WrapViewRenderer implements RenderInterface
         $this->renderViewFooter();
 
         return $this->rendered_view;
+    }
+
+    /**
+     * Set class properties for input data
+     *
+     * @param   array $data
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setProperties(array $data = array())
+    {
+        foreach ($this->property_array as $key) {
+            if (isset($data[$key])) {
+                $this->$key = $data[$key];
+            } else {
+                $this->$key = null;
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -131,27 +186,49 @@ class WrapViewRenderer implements RenderInterface
     }
 
     /**
-     * Instantiate Render Class and Render Output
+     * Include rendering file
      *
-     * @param   string $file_path
+     * @param   string $include_path
      *
      * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderOutput($file_path)
+    protected function renderOutput($include_path)
     {
-        $options                 = $this->rendering_properties;
-        $options['include_path'] = $file_path;
+        if (file_exists($include_path)) {
+        } else {
+            throw new RuntimeException
+            ('Molajito Wrap Renderer - rendering file not found: ' . $include_path);
+        }
 
         try {
-            $instance = new Render($options);
-
-            return $instance->render();
+            return $this->render_instance->render(
+                $include_path,
+                $this->getProperties()
+            );
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito WrapViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito WrapRenderer renderOutput Failed. '
+            . ' File path: ' . $include_path . ' ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Set class properties for input data
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getProperties()
+    {
+        $data = array();
+
+        foreach ($this->property_array as $key) {
+            $data[$key] = $this->$key;
+        }
+
+        return $data;
     }
 }

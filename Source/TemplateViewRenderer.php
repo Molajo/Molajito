@@ -8,11 +8,11 @@
  */
 namespace Molajito;
 
-use CommonApi\Render\EventHandlerInterface;
-use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Render\EventInterface;
+use CommonApi\Render\RenderInterface;
+use CommonApi\Render\EscapeInterface;
 use Exception;
-use stdClass;
 
 /**
  * Molajito Template View Renderer
@@ -25,20 +25,28 @@ use stdClass;
 class TemplateViewRenderer implements RenderInterface
 {
     /**
-     * Path to Include File
+     * Escape Instance
      *
-     * @var    string
+     * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0
      */
-    protected $include_path;
+    protected $escape_instance = null;
+
+    /**
+     * Render Instance
+     *
+     * @var    object   CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $render_instance = null;
 
     /**
      * Event Handler
      *
-     * @var    object  CommonApi\Render\EventHandlerInterface
+     * @var    object  CommonApi\Render\EventInterface
      * @since  1.0
      */
-    protected $event_handler = null;
+    protected $event_instance = null;
 
     /**
      * Event option keys
@@ -49,17 +57,33 @@ class TemplateViewRenderer implements RenderInterface
     protected $event_option_keys = array();
 
     /**
-     * Render option keys
+     * Path to Include File
      *
-     * @var    array
+     * @var    string
      * @since  1.0
      */
-    protected $rendering_properties = array();
+    protected $include_path;
+
+    /**
+     * Runtime Data
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $runtime_data = null;
+
+    /**
+     * Plugin Data
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $plugin_data = null;
 
     /**
      * Parameters
      *
-     * @var    object
+     * @var    array
      * @since  1.0
      */
     protected $parameters = null;
@@ -70,7 +94,7 @@ class TemplateViewRenderer implements RenderInterface
      * @var    object
      * @since  1.0
      */
-    protected $model_registry = null;
+    protected $model_registry = array();
 
     /**
      * Query Results
@@ -81,12 +105,12 @@ class TemplateViewRenderer implements RenderInterface
     protected $query_results = array();
 
     /**
-     * Object containing a single row for using within View
+     * View Rendered Output
      *
-     * @var    array
+     * @var    string
      * @since  1.0
      */
-    protected $row = null;
+    protected $rendered_view = null;
 
     /**
      * Page Rendered Output
@@ -97,53 +121,49 @@ class TemplateViewRenderer implements RenderInterface
     protected $rendered_page = null;
 
     /**
-     * View Rendered Output
+     * Object containing a single row for using within View
      *
-     * @var    string
+     * @var    array
      * @since  1.0
      */
-    protected $rendered_view = null;
+    protected $row = null;
 
     /**
      * Constructor
      *
-     * @param  string                $include_path
-     * @param  EventHandlerInterface $event_handler
-     * @param  array                 $event_option_keys
-     * @param  array                 $rendering_properties
+     * @param  EscapeInterface $escape_instance
+     * @param  RenderInterface $render_instance
+     * @param  EventInterface  $event_instance
+     * @param  array           $event_option_keys
      *
      * @since  1.0
      */
     public function __construct(
-        $include_path,
-        EventHandlerInterface $event_handler,
-        array $event_option_keys = array(),
-        array $rendering_properties = array()
+        EscapeInterface $escape_instance,
+        RenderInterface $render_instance,
+        EventInterface $event_instance,
+        array $event_option_keys = array()
     ) {
-        $this->include_path      = $include_path;
-        $this->event_handler     = $event_handler;
+        $this->escape_instance   = $escape_instance;
+        $this->render_instance   = $render_instance;
+        $this->event_instance    = $event_instance;
         $this->event_option_keys = $event_option_keys;
-
-        foreach ($this->event_option_keys as $key) {
-            if (isset($rendering_properties[$key])) {
-                $this->$key = $rendering_properties[$key];
-                unset($rendering_properties[$key]);
-            }
-        }
-
-        $this->rendering_properties = $rendering_properties;
-        $this->row                  = new stdClass();
     }
 
     /**
-     * Render Template View
+     * Render output for specified file and data
+     *
+     * @param   string $include_path
+     * @param   array  $data
      *
      * @return  string
      * @since   1.0
      */
-    public function render()
+    public function render($include_path, array $data = array())
     {
         $this->rendered_view = '';
+
+        $this->setProperties($data);
 
         if (file_exists($this->include_path . '/Custom.phtml')) {
             $this->renderViewCustom();
@@ -155,6 +175,27 @@ class TemplateViewRenderer implements RenderInterface
     }
 
     /**
+     * Set class properties for input data
+     *
+     * @param   array $data
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setProperties(array $data = array())
+    {
+        foreach ($this->event_option_keys as $key) {
+            if (isset($data[$key])) {
+                $this->$key = $data[$key];
+            } else {
+                $this->$key = null;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Render Template View Head
      *
      * @return  $this
@@ -162,11 +203,9 @@ class TemplateViewRenderer implements RenderInterface
      */
     protected function renderViewCustom()
     {
-        $file_path = $this->include_path . '/Custom.phtml';
-
-        if (file_exists($file_path)) {
-            $this->rendered_view = $this->renderOutput($file_path);
-        }
+        $this->query_results = $this->escape_instance->escape($this->query_results, $this->model_registry);
+        $file_path           = $this->include_path . '/Custom.phtml';
+        $this->rendered_view = $this->renderOutput($file_path, true);
 
         return $this;
     }
@@ -192,6 +231,7 @@ class TemplateViewRenderer implements RenderInterface
 
         foreach ($this->query_results as $this->row) {
 
+
             if ($row_count == $total_rows) {
                 $last_row = 1;
             } else {
@@ -203,6 +243,9 @@ class TemplateViewRenderer implements RenderInterface
             $this->row->total_rows  = $total_rows;
             $this->row->last_row    = $last_row;
             $this->row->first       = $first;
+
+            $temp      = $this->escape_instance->escape(array($this->row), $this->model_registry);
+            $this->row = $temp[0];
 
             if ($first === 1) {
                 $this->renderViewHead();
@@ -248,7 +291,7 @@ class TemplateViewRenderer implements RenderInterface
         $file_path = $this->include_path . '/Header.phtml';
 
         if (file_exists($file_path)) {
-            $this->rendered_view = $this->renderOutput($file_path);
+            $this->rendered_view = $this->renderOutput($file_path, false);
         }
 
         return $this;
@@ -274,7 +317,7 @@ class TemplateViewRenderer implements RenderInterface
         $file_path = $this->include_path . '/Body.phtml';
 
         if (file_exists($file_path)) {
-            $this->rendered_view .= $this->renderOutput($file_path);
+            $this->rendered_view .= $this->renderOutput($file_path, false);
         }
 
         return $this;
@@ -300,7 +343,7 @@ class TemplateViewRenderer implements RenderInterface
         $file_path = $this->include_path . '/Footer.phtml';
 
         if (file_exists($file_path)) {
-            $this->rendered_view .= $this->renderOutput($file_path);
+            $this->rendered_view .= $this->renderOutput($file_path, false);
         }
 
         return $this;
@@ -334,7 +377,7 @@ class TemplateViewRenderer implements RenderInterface
      */
     protected function scheduleEvent($event_name, $options)
     {
-        $event_results = $this->event_handler->scheduleEvent($event_name, $options);
+        $event_results = $this->event_instance->scheduleEvent($event_name, $options);
 
         if (count($event_results) > 0 && is_array($event_results)) {
         } else {
@@ -351,36 +394,36 @@ class TemplateViewRenderer implements RenderInterface
     }
 
     /**
-     * Instantiate Render Class and Render Output
+     * Render Template View
      *
-     * @param   string $file_path
+     * @param   string  $file_path
+     * @param   boolean $custom
      *
      * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderOutput($file_path)
+    protected function renderOutput($file_path, $custom = false)
     {
-        $options = $this->rendering_properties;
+        $options                 = array();
+        $options['runtime_data'] = $this->runtime_data;
+        $options['parameters']   = $this->parameters;
+        $options['runtime_data'] = $this->runtime_data;
+        $options['plugin_data'] = $this->plugin_data;
 
-        foreach ($this->event_option_keys as $key) {
-            if (isset($this->$key)) {
-                $options[$key] = $this->$key;
-            } elseif (isset($this->rendering_properties[$key])) {
-                $options[$key] = $this->rendering_properties[$key];
-            }
+        if ($custom === false) {
+            $options['row'] = $this->row;
+        } else {
+            $options['query_results'] = $this->query_results;
         }
 
-        $options['include_path'] = $file_path;
-
         try {
-            $instance = new Render($options);
-
-            return $instance->render();
+            return $this->render_instance->render($file_path, $options);
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito TemplateViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito TemplateViewRenderer renderOutput: '
+            . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
         }
     }
 }

@@ -8,9 +8,9 @@
  */
 namespace Molajito;
 
-use Exception;
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\RenderInterface;
+use Exception;
 
 /**
  * Molajito Page View Renderer
@@ -23,99 +23,53 @@ use CommonApi\Render\RenderInterface;
 class PageViewRenderer implements RenderInterface
 {
     /**
-     * Path to Include File
+     * Render Instance
      *
-     * @var    string
+     * @var    object   CommonApi\Render\RenderInterface
      * @since  1.0
      */
-    protected $include_path;
-
-    /**
-     * Render option keys
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $rendering_properties = array();
-
-    /**
-     * View Rendered Output
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $rendered_view = null;
+    protected $render_instance = null;
 
     /**
      * Constructor
      *
-     * @param  string $include_path
-     * @param  array  $rendering_properties
+     * @param  RenderInterface $render_instance
      *
      * @since  1.0
      */
     public function __construct(
-        $include_path,
-        array $rendering_properties = array()
+        RenderInterface $render_instance
     ) {
-        $this->include_path         = $include_path;
-        $this->rendering_properties = $rendering_properties;
+        $this->render_instance = $render_instance;
     }
 
     /**
      * Render Page View
      *
+     * @param   string $include_path
+     * @param   array  $data
+     *
      * @return  string
      * @since   1.0
      */
-    public function render()
+    public function render($include_path, array $data = array())
     {
-        $this->rendered_view = '';
-
-        $this->renderView();
-
-        return $this->rendered_view;
-    }
-
-    /**
-     * Render Template
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function renderView()
-    {
-        $file_path = $this->include_path;
-
-        if (file_exists($file_path)) {
-            $this->rendered_view = $this->renderOutput($file_path);
+        if (file_exists($include_path)) {
+        } else {
+            throw new RuntimeException
+            ('Molajito PageViewRenderer render Failed for File Path: ' . $include_path);
         }
 
-        return $this;
-    }
-
-    /**
-     * Instantiate Render Class and Render Output
-     *
-     * @param   string $file_path
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function renderOutput($file_path)
-    {
-        $options                 = $this->rendering_properties;
-        $options['include_path'] = $file_path;
-
         try {
-            $instance = new Render($options);
-
-            return $instance->render();
+            return $this->render_instance->render(
+                $include_path,
+                $data
+            );
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito PageViewRenderer renderOutput: ' . $e->getMessage());
+            ('Molajito PageViewRenderer renderOutput Failed: '
+                . ' for File path: ' . $include_path . ' Message: ' . $e->getMessage());
         }
     }
 }

@@ -9,16 +9,13 @@
 namespace Molajito;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Render\EventHandlerInterface;
-use CommonApi\Render\ExtensionResourceInterface;
+use CommonApi\Render\DataInterface;
+use CommonApi\Render\EventInterface;
+use CommonApi\Render\ExtensionInterface;
+use CommonApi\Render\ParseInterface;
+use CommonApi\Render\PositionInterface;
 use CommonApi\Render\RenderInterface;
 use Exception;
-use Molajito\DataResource;
-use Molajito\PageViewRenderer;
-use Molajito\Parse;
-use Molajito\TemplateViewRenderer;
-use Molajito\ThemeRenderer;
-use Molajito\WrapViewRenderer;
 use stdClass;
 
 /**
@@ -29,10 +26,18 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class Driver implements RenderInterface
+class Driver
 {
     /**
-     * Exclude tokens from parsing (Head tokens held until end)
+     * Parse Instance
+     *
+     * @var    object  CommonApi\Render\ParseInterface
+     * @since  1.0
+     */
+    protected $parse_instance = null;
+
+    /**
+     * Exclude tokens from parsing (tokens to generate head are held until body is processed)
      *
      * @var    array
      * @since  1.0
@@ -40,12 +45,20 @@ class Driver implements RenderInterface
     protected $exclude_tokens = array();
 
     /**
-     * Event Handler
+     * Stop Parse and Render Loop Count
      *
-     * @var    object  CommonApi\Render\EventHandlerInterface
+     * @var    int
      * @since  1.0
      */
-    protected $event_handler = null;
+    protected $stop_loop_count = 100;
+
+    /**
+     * Event Handler
+     *
+     * @var    object  CommonApi\Render\EventInterface
+     * @since  1.0
+     */
+    protected $event_instance = null;
 
     /**
      * Event option keys
@@ -56,20 +69,60 @@ class Driver implements RenderInterface
     protected $event_option_keys = array();
 
     /**
-     * Resource
+     * Retrieve Extension information to Render View
      *
-     * @var    object  CommonApi\Render\ExtensionResourceInterface
+     * @var    object  CommonApi\Render\ExtensionInterface
      * @since  1.0
      */
-    protected $extension_resource = null;
+    protected $extension_instance = null;
 
     /**
-     * Stop Parse and Render Loop Count
+     * Retrieve Data to Render View
      *
-     * @var    int
+     * @var    object  CommonApi\Render\DataInterface
      * @since  1.0
      */
-    protected $stop_loop_count = 100;
+    protected $data_instance = null;
+
+    /**
+     * Position Instance
+     *
+     * @var    object  CommonApi\Render\PositionInterface
+     * @since  1.0
+     */
+    protected $position_instance = null;
+
+    /**
+     * Theme Instance
+     *
+     * @var    object  CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $theme_instance = null;
+
+    /**
+     * Page View Instance
+     *
+     * @var    object  CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $page_instance = null;
+
+    /**
+     * Template View Instance
+     *
+     * @var    object  CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $template_instance = null;
+
+    /**
+     * Wrap View Instance
+     *
+     * @var    object  CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $wrap_instance = null;
 
     /**
      * Theme Path
@@ -88,33 +141,25 @@ class Driver implements RenderInterface
     protected $page_name = null;
 
     /**
-     * Rendering Properties in associative array
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $rendering_properties = array();
-
-    /**
      * Runtime Data
      *
-     * @var    array
+     * @var    object
      * @since  1.0
      */
-    protected $runtime_data = array();
+    protected $runtime_data = null;
 
     /**
      * Plugin Data
      *
-     * @var    array
+     * @var    object
      * @since  1.0
      */
-    protected $plugin_data = array();
+    protected $plugin_data = null;
 
     /**
      * Parameters
      *
-     * @var    object
+     * @var    array
      * @since  1.0
      */
     protected $parameters = null;
@@ -170,72 +215,93 @@ class Driver implements RenderInterface
     /**
      * Constructor
      *
-     * @param  array                      $exclude_tokens
-     * @param  EventHandlerInterface      $event_handler
-     * @param  array                      $event_option_keys
-     * @param  ExtensionResourceInterface $extension_resource
-     * @param  int                        $stop_loop_count
-     * @param  string                     $theme_path
-     * @param  string                     $page_name
-     * @param  object                     $runtime_data
-     * @param  object                     $plugin_data
-     * @param  array                      $rendering_properties
+     * @param ParseInterface     $parse_instance
+     * @param array              $exclude_tokens
+     * @param int                $stop_loop_count
+     * @param EventInterface     $event_instance
+     * @param array              $event_option_keys
+     * @param ExtensionInterface $extension_instance
+     * @param DataInterface      $data_instance
+     * @param PositionInterface  $position_instance
+     * @param RenderInterface    $theme_instance
+     * @param RenderInterface    $page_instance
+     * @param RenderInterface    $template_instance
+     * @param RenderInterface    $wrap_instance
+     * @param string             $theme_path
+     * @param string             $page_name
+     * @param object             $runtime_data
+     * @param object             $plugin_data
      *
      * @since  1.0
      */
     public function __construct(
+        ParseInterface $parse_instance,
         array $exclude_tokens = array(),
-        EventHandlerInterface $event_handler,
-        array $event_option_keys = array(),
-        ExtensionResourceInterface $extension_resource,
         $stop_loop_count = 100,
+        EventInterface $event_instance,
+        array $event_option_keys = array(),
+        ExtensionInterface $extension_instance,
+        DataInterface $data_instance,
+        PositionInterface $position_instance,
+        RenderInterface $theme_instance,
+        RenderInterface $page_instance,
+        RenderInterface $template_instance,
+        RenderInterface $wrap_instance,
         $theme_path,
         $page_name,
         $runtime_data,
-        $plugin_data,
-        array $rendering_properties = array()
+        $plugin_data
     ) {
-        $this->exclude_tokens       = $exclude_tokens;
-        $this->event_handler        = $event_handler;
-        $this->event_option_keys    = $event_option_keys;
-        $this->extension_resource   = $extension_resource;
-        $this->stop_loop_count      = $stop_loop_count;
-        $this->theme_path           = $theme_path;
-        $this->page_name            = $page_name;
-        $this->runtime_data         = $runtime_data;
-        $this->plugin_data          = $plugin_data;
-        $this->rendering_properties = $rendering_properties;
+        $this->parse_instance     = $parse_instance;
+        $this->exclude_tokens     = $exclude_tokens;
+        $this->stop_loop_count    = $stop_loop_count;
+        $this->event_instance     = $event_instance;
+        $this->event_option_keys  = $event_option_keys;
+        $this->extension_instance = $extension_instance;
+        $this->data_instance      = $data_instance;
+        $this->position_instance  = $position_instance;
+        $this->theme_instance     = $theme_instance;
+        $this->page_instance      = $page_instance;
+        $this->template_instance  = $template_instance;
+        $this->wrap_instance      = $wrap_instance;
+        $this->theme_path         = $theme_path;
+        $this->page_name          = $page_name;
+        $this->runtime_data       = $runtime_data;
+        $this->plugin_data        = $plugin_data;
     }
 
     /**
-     * Render Output
+     * Manages processing from start to end of rendering
      *
      * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render()
+    public function process()
     {
-        $options = $this->event_handler->initializeEventOptions();
-
+        /** Step 1. Schedule onBeforeRender Event */
+        $options = $this->event_instance->initializeEventOptions();
         $this->scheduleEvent('onBeforeRender', $options);
 
+        /** Step 2. Render Theme */
         $this->renderTheme();
 
+        /** Step 3. Render Body */
         $this->renderLoop($this->exclude_tokens);
 
+        /** Step 4. Render Head */
         $this->renderLoop(array());
 
-        $options                  = $this->event_handler->initializeEventOptions();
+        /** Step 5. Schedule onAfterRender Event */
+        $options                  = $this->event_instance->initializeEventOptions();
         $options['rendered_page'] = $this->rendered_page;
-
         $this->scheduleEvent('onAfterRender', $options);
 
         return $this;
     }
 
     /**
-     * Render Loop
+     * Render Loop - runs twice, first time to render Body, second time to render Head
      *
      * @param   array $exclude_tokens
      *
@@ -252,7 +318,7 @@ class Driver implements RenderInterface
             $loop_counter ++;
 
             /** Step 1. Schedule onBeforeParse Event */
-            $options                  = $this->event_handler->initializeEventOptions();
+            $options                  = $this->event_instance->initializeEventOptions();
             $options['rendered_page'] = $this->rendered_page;
             $options['parameters']    = $this->parameters;
 
@@ -262,20 +328,20 @@ class Driver implements RenderInterface
             $this->tokens = $this->parseTokens($exclude_tokens);
 
             /** Step 3. Schedule onAfterParse Event */
-            $options                  = $this->event_handler->initializeEventOptions();
+            $options                  = $this->event_instance->initializeEventOptions();
             $options['rendered_page'] = $this->rendered_page;
             $options['parameters']    = $this->parameters;
 
             $this->scheduleEvent('onAfterParse', $options);
 
-            if (is_array($this->tokens) && count($this->tokens) > 0
-            ) {
+            if (is_array($this->tokens) && count($this->tokens) > 0) {
             } else {
                 break;
             }
 
             /** Step 4. Render Output for Tokens */
             $tokens = $this->tokens;
+
             foreach ($tokens as $token) {
 
                 if (strtolower($token->type) == 'position') {
@@ -300,7 +366,7 @@ class Driver implements RenderInterface
     }
 
     /**
-     * Instantiate Parse Class
+     * Invoke Parse Class to retrieve tokens to use in rendering
      *
      * @param   array $exclude_tokens
      *
@@ -309,13 +375,11 @@ class Driver implements RenderInterface
      */
     protected function parseTokens(array $exclude_tokens = array())
     {
-        $instance = new Parse($this->rendered_page, $exclude_tokens);
-
-        return $instance->parse();
+        return $this->parse_instance->parse($this->rendered_page, $exclude_tokens);
     }
 
     /**
-     * Render Token
+     * Render Token for Position Type
      *
      * @param   object $token
      *
@@ -326,20 +390,18 @@ class Driver implements RenderInterface
     protected function renderPosition($token)
     {
         /** Step 1. Initialise */
-        $this->rendered_view = '';
+        $position_name = $token->name;
 
         /** Step 2. Render Position */
         try {
-            $instance = new PositionRenderer(
-                $token,
+            $this->rendered_view = $this->position_instance->getPositionViews(
+                $position_name,
                 $this->plugin_data->resource->extension
             );
 
-            $this->rendered_view = $instance->render();
-
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito renderPosition: ' . $e->getMessage());
+            ('Molajito renderPosition Method Failed: ' . $e->getMessage());
         }
 
         return $this;
@@ -355,7 +417,7 @@ class Driver implements RenderInterface
      */
     protected function renderToken($token)
     {
-//echo 'View:  ' . $token->name . '<br />';
+echo 'View:  ' . $token->name . '<br />';
 
         /** Step 1. Initialise */
         $this->rendered_view = '';
@@ -372,7 +434,7 @@ class Driver implements RenderInterface
         $this->getData($token);
 
         /** Step 4. Schedule onBeforeRenderView Event */
-        $options                   = $this->event_handler->initializeEventOptions();
+        $options                   = $this->event_instance->initializeEventOptions();
         $options['parameters']     = $this->parameters;
         $options['query_results']  = $this->query_results;
         $options['model_registry'] = $this->model_registry;
@@ -396,7 +458,7 @@ class Driver implements RenderInterface
         }
 
         /** Step 6. Schedule onAfterRenderView Event */
-        $options                   = $this->event_handler->initializeEventOptions();
+        $options                   = $this->event_instance->initializeEventOptions();
         $options['parameters']     = $this->parameters;
         $options['query_results']  = $this->query_results;
         $options['model_registry'] = $this->model_registry;
@@ -409,7 +471,7 @@ class Driver implements RenderInterface
     }
 
     /**
-     * Inclusion of the Theme renders initial output that is parsed for tokens
+     * Inclusion of the Theme file results in initial rendered output parsed for tokens
      *
      * @return  $this
      * @since   1.0
@@ -417,20 +479,21 @@ class Driver implements RenderInterface
      */
     public function renderTheme()
     {
-        $options = $this->getRenderingProperties();
+        $options = $this->setOptionValues();
 
         $row            = new stdClass();
         $row->page_name = $this->page_name;
         $options['row'] = $row;
 
         try {
-            $instance = new ThemeRenderer($this->theme_path, $options);
-
-            $this->rendered_page = $instance->render();
+            $this->rendered_page = $this->theme_instance->render(
+                $this->theme_path,
+                $options
+            );
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito renderTheme: ' . $e->getMessage());
+            ('Molajito renderTheme Method Failed: ' . $e->getMessage());
         }
 
         return $this;
@@ -445,17 +508,18 @@ class Driver implements RenderInterface
      */
     protected function renderPageView()
     {
-        try {
-            $instance = new PageViewRenderer(
-                $this->include_path,
-                $this->getRenderingProperties()
-            );
+        $options = $this->setOptionValues();
 
-            $this->rendered_view = $instance->render();
+        try {
+            $this->rendered_view = $this->page_instance->render(
+                $this->include_path,
+                $options
+            );
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito renderPageView: ' . $e->getMessage());
+            ('Molajito Driver renderPageView Method Failed. '
+            . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage());
         }
 
         return $this;
@@ -469,14 +533,19 @@ class Driver implements RenderInterface
      */
     protected function renderTemplateView()
     {
-        $instance = new TemplateViewRenderer(
-            $this->include_path,
-            $this->event_handler,
-            $this->event_option_keys,
-            $this->getRenderingProperties()
-        );
+        $options = $this->setOptionValues();
 
-        $this->rendered_view = $instance->render();
+        try {
+            $this->rendered_view = $this->template_instance->render(
+                $this->include_path,
+                $options
+            );
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito Driver renderTemplateView Method Failed. '
+            . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage());
+        }
 
         return $this;
     }
@@ -505,27 +574,24 @@ class Driver implements RenderInterface
         $this->include_path = $this->plugin_data->render->extension->include_path;
 
         /** Step 2. Data */
-        $row           = new stdClass();
-        $row->title    = '';
-        $row->subtitle = '';
-        $row->content  = $this->rendered_view;
-
-        $query_results   = array();
-        $query_results[] = $row;
-
-        $options                  = $this->getRenderingProperties();
-        $options['row']           = $row;
-        $options['query_results'] = $query_results;
+        $options        = $this->setOptionValues();
+        $row            = new stdClass();
+        $row->title     = '';
+        $row->subtitle  = '';
+        $row->content   = $this->rendered_view;
+        $options['row'] = $row;
 
         /** Step 3. Render Wrap */
         try {
-            $instance = new WrapViewRenderer($this->include_path, $options);
-
-            $this->rendered_view = $instance->render();
+            $this->rendered_view = $this->wrap_instance->render(
+                $this->include_path,
+                $options
+            );
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito renderWrapView: ' . $e->getMessage());
+            ('Molajito Driver renderWrapView Method Failed. '
+            . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage());
         }
 
         return $this;
@@ -558,7 +624,7 @@ class Driver implements RenderInterface
     protected function getExtension($token)
     {
         try {
-            $this->plugin_data->render = $this->extension_resource->getExtension($token);
+            $this->plugin_data->render = $this->extension_instance->getExtension($token);
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajito renderToken getExtension Exception ' . $e->getMessage());
@@ -578,40 +644,23 @@ class Driver implements RenderInterface
      */
     protected function getData($token)
     {
-        try {
-            $instance = new DataResource(
-                $this->runtime_data,
-                $this->plugin_data,
-                $token);
+        $options                 = array();
+        $options['runtime_data'] = $this->runtime_data;
+        $options['plugin_data']  = $this->plugin_data;
 
-            $data = $instance->getData();
+        try {
+            $data = $this->data_instance->getData($token, $options);
 
             $this->query_results  = $data->query_results;
             $this->model_registry = $data->model_registry;
             $this->parameters     = $data->parameters;
 
         } catch (Exception $e) {
-            throw new RuntimeException('Molajito getData Exception ' . $e->getMessage());
+            throw new RuntimeException('Molajito getData Exception for '
+            . ' Token: ' . $token->name . ' Message: ' . $e->getMessage());
         }
 
         return $this;
-    }
-
-    /**
-     * Initialise Options Array for Event
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function initializeEventOptions()
-    {
-        $options = array();
-
-        foreach ($this->event_option_keys as $key) {
-            $options[$key] = null;
-        }
-
-        return $options;
     }
 
     /**
@@ -625,7 +674,7 @@ class Driver implements RenderInterface
      */
     protected function scheduleEvent($event_name, $options)
     {
-        $event_results = $this->event_handler->scheduleEvent($event_name, $options);
+        $event_results = $this->event_instance->scheduleEvent($event_name, $options);
 
         if (count($event_results) > 0 && is_array($event_results)) {
         } else {
@@ -642,27 +691,21 @@ class Driver implements RenderInterface
     }
 
     /**
-     * Get Rendering Properties
+     * Set Option Properties for passing into Event and Rendering Classes
      *
      * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getRenderingProperties()
+    protected function setOptionValues()
     {
         $options = array();
-
-        foreach ($this->rendering_properties as $key => $value) {
-            if (isset($this->$key)) {
-                $options[$key] = $this->$key;
-            } else {
-                $options[$key] = $value;
-            }
-        }
 
         foreach ($this->event_option_keys as $key) {
             if (isset($this->$key)) {
                 $options[$key] = $this->$key;
+            } else {
+                $options[$key] = null;
             }
         }
 

@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\ExtensionResource;
+use Molajito\Extension;
 use stdClass;
 
 /**
@@ -19,7 +19,7 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
+class ExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -38,7 +38,7 @@ class ExtensionResourceTest extends \PHPUnit_Framework_TestCase
     {
         $this->resource = new ResourceMock();
 
-        $this->extension_resource = new ExtensionResource(
+        $this->extension_resource = new Extension(
             $this->resource,
             $theme = 1,
             $page_view = 2,

@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\EventHandler;
+use Molajito\Event;
 
 /**
  * Event Handler Test
@@ -18,7 +18,7 @@ use Molajito\EventHandler;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class EventHandlerTest extends \PHPUnit_Framework_TestCase
+class EventTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -41,7 +41,7 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Object
      */
-    protected $event_handler;
+    protected $event_instance;
 
     /**
      * Initialises Adapter
@@ -55,7 +55,7 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
             return $event_mock->scheduleEvent($event_name, $options);
         };
 
-        $this->event_handler = new EventHandler(
+        $this->event_instance = new Event(
             $this->event_callback,
             $this->event_option_keys
         );
@@ -71,7 +71,7 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testInitialiseEventOptions()
     {
-        $options = $this->event_handler->initializeEventOptions();
+        $options = $this->event_instance->initializeEventOptions();
 
         foreach ($this->event_option_keys as $event) {
             $this->assertEquals($options[$event], null);
@@ -97,7 +97,7 @@ class EventHandlerTest extends \PHPUnit_Framework_TestCase
         }
 
         $event_name = 'test';
-        $options    = $this->event_handler->scheduleEvent($event_name, $options);
+        $options    = $this->event_instance->scheduleEvent($event_name, $options);
 
         foreach ($options as $key => $value) {
             $this->assertEquals($key, $value);

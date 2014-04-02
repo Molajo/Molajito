@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\DataResource;
+use Molajito\Data;
 use stdClass;
 
 /**
@@ -19,7 +19,7 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class DataResourceTest extends \PHPUnit_Framework_TestCase
+class DataTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -74,7 +74,7 @@ class DataResourceTest extends \PHPUnit_Framework_TestCase
         $model_registry = new stdClass();
 
         /** Instantiate Data Resource */
-        $this->data_resource = new DataResource(
+        $this->data_resource = new Data(
             $runtime_data,
             $token
         );
@@ -119,7 +119,7 @@ class DataResourceTest extends \PHPUnit_Framework_TestCase
         $plugin_data->render->extension->parameters = new stdClass();
 
         /** Instantiate Data Resource */
-        $this->data_resource = new DataResource(
+        $this->data_resource = new Data(
             $runtime_data,
             $token
         );
@@ -179,7 +179,7 @@ class DataResourceTest extends \PHPUnit_Framework_TestCase
         $token->attributes['model_name'] = 'collection';
 
         /** Instantiate Data Resource */
-        $this->data_resource = new DataResource(
+        $this->data_resource = new Data(
             $runtime_data,
             $token
         );
@@ -243,7 +243,7 @@ class DataResourceTest extends \PHPUnit_Framework_TestCase
         $token->attributes['field_name'] = 'field_c';
 
         /** Instantiate Data Resource */
-        $this->data_resource = new DataResource(
+        $this->data_resource = new Data(
             $runtime_data,
             $token
         );

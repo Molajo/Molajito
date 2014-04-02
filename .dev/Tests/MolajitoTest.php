@@ -8,8 +8,8 @@
  */
 namespace Molajito\Test;
 
-use Molajito\ExtensionResource;
-use Molajito\EventHandler;
+use Molajito\Extension;
+use Molajito\Event;
 use Molajito\Molajito;
 use stdClass;
 
@@ -31,7 +31,7 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Object
      */
-    protected $event_handler;
+    protected $event_instance;
 
     /**
      * @var Object
@@ -66,12 +66,12 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
             return $event_mock->scheduleEvent($event_name, $options);
         };
 
-        $this->event_handler = new EventHandler(
+        $this->event_instance = new Event(
             $event_callback,
             $this->event_option_keys
         );
 
-        $this->extension_resource = new ExtensionResource(
+        $this->extension_resource = new Extension(
             new stdClass(),
             $theme_id = 1,
             $page_view_id = 2,
@@ -98,7 +98,7 @@ class MolajitoTest extends \PHPUnit_Framework_TestCase
 
         $this->molajito = new Molajito (
             $this->exclude_tokens,
-            $this->event_handler,
+            $this->event_instance,
             $this->event_option_keys,
             $this->extension_resource,
             $stop_loop_count = 10,

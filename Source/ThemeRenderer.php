@@ -8,8 +8,9 @@
  */
 namespace Molajito;
 
-use CommonApi\Render\RenderInterface;
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Render\RenderInterface;
+use CommonApi\Render\EscapeInterface;
 use Exception;
 
 /**
@@ -23,99 +24,152 @@ use Exception;
 class ThemeRenderer implements RenderInterface
 {
     /**
-     * Path to Include File
+     * Escape Instance
      *
-     * @var    string
+     * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0
      */
-    protected $include_path;
+    protected $escape_instance = null;
 
     /**
-     * Render option keys
+     * Render Instance
+     *
+     * @var    object   CommonApi\Render\RenderInterface
+     * @since  1.0
+     */
+    protected $render_instance = null;
+
+    /**
+     * Runtime Data
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $runtime_data = null;
+
+    /**
+     * Row
      *
      * @var    array
      * @since  1.0
      */
-    protected $rendering_properties = array();
+    protected $row = null;
 
     /**
-     * Rendered Output
+     * Allowed Properties
      *
-     * @var    string
+     * @var    object
      * @since  1.0
      */
-    protected $rendered_view = null;
+    protected $property_array = array(
+        'runtime_data',
+        'row'
+    );
 
     /**
      * Constructor
      *
-     * @param  string $include_path
-     * @param  array  $rendering_properties
+     * @param  EscapeInterface  $escape_instance
+     * @param  RenderInterface  $render_instance
      *
      * @since  1.0
      */
     public function __construct(
-        $include_path,
-        array $rendering_properties = array()
+        EscapeInterface $escape_instance,
+        RenderInterface $render_instance
     ) {
-        $this->include_path         = $include_path;
-        $this->rendering_properties = $rendering_properties;
+        $this->escape_instance = $escape_instance;
+        $this->render_instance = $render_instance;
     }
 
     /**
-     * Render Theme
+     * Render Theme output
+     *
+     * @param   string $include_path
+     * @param   array  $data
      *
      * @return  string
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render()
+    public function render($include_path, array $data = array())
     {
-        $this->rendered_view = '';
+        $this->setProperties($data);
 
-        $this->renderTheme();
-
-        return $this->rendered_view;
+        return $this->includeFile($include_path);
     }
 
     /**
-     * Render Template Head
+     * Set class properties for input data
+     *
+     * @param   array $data
      *
      * @return  $this
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderTheme()
+    protected function setProperties(array $data = array())
     {
-        $file_path = $this->include_path;
+        if (isset($data['row'])) {
+            $data['row'] = $this->escape_instance->escape($data['row']);
+        } else {
+            throw new RuntimeException ('Molajito ThemeRenderer: No input $data array');
+        }
 
-        if (file_exists($file_path)) {
-            $this->rendered_view = $this->renderOutput($file_path);
+        foreach ($this->property_array as $key) {
+            if (isset($data[$key])) {
+                $this->$key = $data[$key];
+            } else {
+                $this->$key = null;
+            }
         }
 
         return $this;
     }
 
     /**
-     * Instantiate Render Class and Render Output
+     * Include rendering file
      *
-     * @param   string $file_path
+     * @param   string $include_path
      *
      * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderOutput($file_path)
+    protected function includeFile($include_path)
     {
-        $options                 = $this->rendering_properties;
-        $options['include_path'] = $file_path;
+        if (file_exists($include_path)) {
+        } else {
+            throw new RuntimeException
+            ('Molajito Theme Renderer - rendering file not found: ' . $include_path);
+        }
 
         try {
-            $instance = new Render($options);
-
-            return $instance->render();
+            return $this->render_instance->render(
+                $include_path,
+                $this->getProperties()
+            );
 
         } catch (Exception $e) {
             throw new RuntimeException
             ('Molajito ThemeRenderer renderOutput: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Set class properties for input data
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getProperties()
+    {
+        $data = array();
+
+        foreach ($this->property_array as $key) {
+            $data[$key] = $this->$key;
+        }
+
+        return $data;
     }
 }

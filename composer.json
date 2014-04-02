@@ -1,6 +1,6 @@
 {
     "name": "molajo/molajito",
-    "description": "Molajito Rendering for PHP Applications",
+    "description": "Molajito View Rendering for PHP Applications",
     "version": "1.0.0",
     "type": "molajo-package",
     "keywords": ["render", "commonapi", "molajo", "molajito"],
@@ -20,12 +20,13 @@
         "irc": "irc://irc.freenode.org/molajo",
         "source": "https://github.com/Molajo/Molajito"
     },
+
     "require": {
         "php": ">=5.4",
         "commonapi/render": "dev-master",
-        "commonapi/exception": "dev-master",
-        "molajo/resource": "dev-master"
+        "commonapi/exception": "dev-master"
     },
+
     "autoload": {
         "psr-4": {
             "Molajito\\": "Source/",

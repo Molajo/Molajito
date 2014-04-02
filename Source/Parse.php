@@ -27,7 +27,7 @@ class Parse implements ParseInterface
      * @var    string
      * @since  1.0
      */
-    protected $parse_mask = '#<include(.*)\/>#iU';
+    protected $parse_mask = '#{I (.*) I}#iU';
 
     /**
      * Exclude tokens from parsing (Head tokens held until end)
@@ -46,36 +46,40 @@ class Parse implements ParseInterface
     protected $rendered_page = null;
 
     /**
-     * Constructor
+     * Parse rendered output returning an array of tokens to be rendered
      *
      * @param   string $rendered_page
      * @param   array  $exclude_tokens
      * @param   string $parse_mask
      *
+     * @return  array
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function __construct(
+    public function parse(
         $rendered_page,
         array $exclude_tokens = array(),
-        $parse_mask = '#<include(.*)\/>#iU'
+        $parse_mask = null
     ) {
         $this->rendered_page  = $rendered_page;
         $this->exclude_tokens = $exclude_tokens;
 
-        if ($parse_mask === null || trim($parse_mask) === '') {
+        if ($parse_mask === null || trim($parse_mask) == '') {
         } else {
             $this->parse_mask = $parse_mask;
         }
+
+        return $this->parseTokens();
     }
 
     /**
-     * Parse Rendered Output returning Tokens to be rendered
+     * Parse rendered output returning an array of tokens to be rendered
      *
      * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function parse()
+    public function parseTokens()
     {
         $matches          = array();
         $tokens_to_render = array();
@@ -121,7 +125,7 @@ class Parse implements ParseInterface
         $token->name         = '';
         $token->wrap         = '';
         $token->attributes   = array();
-        $token->replace_this = '<include' . $parsed_token . '/>';
+        $token->replace_this = '{I ' . $parsed_token . ' I}';
 
         $token_elements = array();
         $pieces         = explode(' ', $parsed_token);

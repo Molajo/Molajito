@@ -9,7 +9,7 @@
 namespace Molajito;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Render\EventHandlerInterface;
+use CommonApi\Render\EventInterface;
 use Exception;
 
 /**
@@ -20,7 +20,7 @@ use Exception;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class EventHandler implements EventHandlerInterface
+class Event implements EventInterface
 {
     /**
      * Schedule Event - anonymous function to event_callback method
@@ -85,12 +85,21 @@ class EventHandler implements EventHandlerInterface
     {
         $schedule_event = $this->event_callback;
 
+        $temp = array();
+        foreach ($this->event_option_keys as $key) {
+            if (isset($options[$key])) {
+                $temp[$key] = $options[$key];
+            } else {
+                $temp[$key] = null;
+            }
+        }
+
         try {
-            return $schedule_event($event_name, $options);
+            return $schedule_event($event_name, $temp);
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito PageViewRenderer scheduleEvent: ' . $e->getMessage());
+            ('Molajito Event scheduleEvent Failure: ' . $e->getMessage());
         }
     }
 }
