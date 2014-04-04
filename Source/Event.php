@@ -1,57 +1,46 @@
 <?php
 /**
- * Molajito Event Processing
+ * Proxy Class for Molajito Event Adapters
  *
  * @package    Molajo
- * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajito;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EventInterface;
+use CommonApi\Exception\RuntimeException;
 use Exception;
 
 /**
- * Molajito Event Handler
+ * Proxy Class for Molajito Event Adapters
  *
- * @package    Molajito
- * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @package    Molajo
  * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0
  */
 class Event implements EventInterface
 {
     /**
-     * Schedule Event - anonymous function to event_callback method
+     * Event Adapter
      *
-     * @var    callable
+     * @var     object  CommonApi\Render\EventInterface
      * @since  1.0
      */
-    protected $event_callback;
+    protected $event_adapter = null;
 
     /**
-     * Event option keys
+     * Class Constructor
      *
-     * @var    array
-     * @since  1.0
-     */
-    protected $event_option_keys = array();
-
-    /**
-     * Constructor
+     * @param   EventInterface $event_adapter
      *
-     * @param  callable $event_callback
-     * @param  array    $event_option_keys
-     *
-     * @since  1.0
+     * @since   1.0
      */
     public function __construct(
-        callable $event_callback = null,
-        array $event_option_keys = array()
+        EventInterface $event_adapter
     ) {
-        $this->event_callback    = $event_callback;
-        $this->event_option_keys = $event_option_keys;
+        $this->event_adapter = $event_adapter;
     }
 
     /**
@@ -62,13 +51,13 @@ class Event implements EventInterface
      */
     public function initializeEventOptions()
     {
-        $options = array();
+        try {
+            return $this->event_adapter->initializeEventOptions();
 
-        foreach ($this->event_option_keys as $key) {
-            $options[$key] = null;
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Render Driver initializeEventOptions Method Failed: ' . $e->getMessage());
         }
-
-        return $options;
     }
 
     /**
@@ -83,23 +72,12 @@ class Event implements EventInterface
      */
     public function scheduleEvent($event_name, array $options = array())
     {
-        $schedule_event = $this->event_callback;
-
-        $temp = array();
-        foreach ($this->event_option_keys as $key) {
-            if (isset($options[$key])) {
-                $temp[$key] = $options[$key];
-            } else {
-                $temp[$key] = null;
-            }
-        }
-
         try {
-            return $schedule_event($event_name, $temp);
+            return $this->event_adapter->scheduleEvent($event_name, $options);
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Event scheduleEvent Failure: ' . $e->getMessage());
+            ('Render Driver scheduleEvent Method Failed: ' . $e->getMessage());
         }
     }
 }

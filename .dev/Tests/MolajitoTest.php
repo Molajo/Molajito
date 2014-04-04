@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\Extension;
+use Molajito\View;
 use Molajito\Event;
 use Molajito\Molajito;
 use stdClass;

@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\Data;
+use Render\Data;
 use stdClass;
 
 /**

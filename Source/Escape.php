@@ -61,8 +61,8 @@ class Escape implements EscapeInterface
     /**
      * Escape Query Output prior to Rendering
      *
-     * @param   array  $data
-     * @param   array  $model_registry
+     * @param   array $data
+     * @param   array $model_registry
      *
      * @return  array
      * @since   1.0
@@ -89,8 +89,8 @@ class Escape implements EscapeInterface
     /**
      * Escape Query Output for data element
      *
-     * @param   string      $data_key
-     * @param   null|mixed  $data_value
+     * @param   string     $data_key
+     * @param   null|mixed $data_value
      *
      * @return  array
      * @since   1.0

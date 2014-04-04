@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\WrapViewRenderer;
+use Molajito\WrapView;
 
 /**
  * Pagination Test
@@ -18,7 +18,7 @@ use Molajito\WrapViewRenderer;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class WrapViewRendererTest extends \PHPUnit_Framework_TestCase
+class WrapViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -53,7 +53,7 @@ class WrapViewRendererTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Footer.phtml';
         $collect = ob_get_clean();
 
-        $this->render_view = new WrapViewRenderer(
+        $this->render_view = new WrapView(
             $include_path,
             $rendering_properties
         );

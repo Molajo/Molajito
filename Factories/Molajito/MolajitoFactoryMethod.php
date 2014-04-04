@@ -16,6 +16,7 @@ use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\RenderInterface;
 use Molajo\IoC\FactoryMethodBase;
+use stdClass;
 
 /**
  * Molajito Factory Method
@@ -38,7 +39,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
     {
         $options['product_name']             = basename(__DIR__);
         $options['store_instance_indicator'] = true;
-        $options['product_namespace']        = 'Molajito\\Driver';
+        $options['product_namespace']        = 'Molajito\\Engine';
 
         parent::__construct($options);
     }
@@ -78,47 +79,41 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      */
     public function instantiateClass()
     {
-        $parse_instance     = $this->getMolajitoParseClass();
-        $exclude_tokens     = $this->getExcludeTokens();
-        $stop_loop_count    = $this->dependencies['Runtimedata']->reference_data->stop_loop_count;
-        $event_instance     = $this->getMolajitoEventInstance();
-        $extension_instance = $this->getResourceExtensionInstance();
-        $data_instance      = $this->getResourceDataInstance();
-        $escape_instance    = $this->getMolajitoEscapeClass();
-        $render_instance    = $this->getMolajitoRenderClass();
-        $position_instance  = $this->getMolajitoPositionClass($escape_instance);
-        $theme_instance     = $this->getMolajitoThemeClass($escape_instance, $render_instance);
-        $page_instance      = $this->getMolajitoPageClass($render_instance);
-        $template_instance  = $this->getMolajitoTemplateClass(
+        $escape_instance   = $this->getEscapeInstance();
+        $render_instance   = $this->getRenderInstance();
+        $data_instance     = $this->getDataInstance();
+        $view_instance     = $this->getViewInstance();
+        $event_instance    = $this->getEventInstance();
+        $parse_instance    = $this->getParseInstance();
+        $exclude_tokens    = $this->getExcludeTokens();
+        $stop_loop_count   = $this->dependencies['Runtimedata']->reference_data->stop_loop_count;
+        $position_instance = $this->getPositionInstance($escape_instance);
+        $theme_instance    = $this->getThemeInstance($escape_instance, $render_instance);
+        $page_instance     = $this->getPageInstance($render_instance);
+        $template_instance = $this->getTemplateInstance(
             $escape_instance,
             $render_instance,
             $event_instance,
             $this->options['event_option_keys']
         );
-        $wrap_instance      = $this->getMolajitoWrapClass($render_instance);
-        $theme_path         = $this->dependencies['Plugindata']->resource->extension->theme->include_path;
-        $page_name          = $this->dependencies['Plugindata']->resource->extension->page->id;
+        $wrap_instance     = $this->getWrapInstance($render_instance);
 
         $class = $this->product_namespace;
 
         try {
             $this->product_result = new $class (
+                $data_instance,
+                $view_instance,
+                $event_instance,
+                $this->options['event_option_keys'],
                 $parse_instance,
                 $exclude_tokens,
                 $stop_loop_count,
-                $event_instance,
-                $this->options['event_option_keys'],
-                $extension_instance,
-                $data_instance,
                 $position_instance,
                 $theme_instance,
                 $page_instance,
                 $template_instance,
-                $wrap_instance,
-                $theme_path,
-                $page_name,
-                $this->dependencies['Runtimedata'],
-                $this->dependencies['Plugindata']
+                $wrap_instance
             );
         } catch (Exception $e) {
             throw new RuntimeException
@@ -127,118 +122,66 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
     }
 
     /**
-     * Get Exclude Tokens
-     *
-     * @return  object  Molajito\Extension
-     * @since   1.0
-     * @throws  FactoryInterface
-     */
-    protected function getExcludeTokens()
-    {
-        $x = $this->dependencies['Resource']->get('xml:///Molajo//Model//Application//Parse_final.xml')->include;
-
-        $exclude_tokens = array();
-
-        if (is_array($x) && count($x) > 0) {
-            foreach ($x as $y) {
-                $exclude_tokens[] = (string)$y;
-            }
-        }
-
-        return $exclude_tokens;
-    }
-
-    /**
-     * Get Resource Extension Instance - used to retrieve View location and parameters
-     *
-     * @return  object  Molajito\Extension
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getResourceExtensionInstance()
-    {
-        $page_type = strtolower($this->dependencies['Runtimedata']->route->page_type);
-
-        if ($page_type == 'dashboard') {
-            $theme_id         = 7010;
-            $page_view_id     = 8265;
-            $template_view_id = 9305;
-            $wrap_view_id     = 10010;
-
-        } elseif (isset($this->dependencies['Plugindata']->resource->menuitem->parameters)) {
-            $theme_id         = $this->dependencies['Plugindata']->resource->menuitem->parameters->theme_id;
-            $page_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->page_view_id;
-            $template_view_id = $this->dependencies['Plugindata']->resource->menuitem->parameters->template_view_id;
-            $wrap_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->wrap_view_id;
-
-        } else {
-            $theme_id         = $this->dependencies['Plugindata']->resource->parameters->theme_id;
-            $page_view_id     = $this->dependencies['Plugindata']->resource->parameters->page_view_id;
-            $template_view_id = $this->dependencies['Plugindata']->resource->parameters->template_view_id;
-            $wrap_view_id     = $this->dependencies['Plugindata']->resource->parameters->wrap_view_id;
-        }
-
-        $options                  = array();
-        $options['theme']         = $theme_id;
-        $options['page_view']     = $page_view_id;
-        $options['template_view'] = $template_view_id;
-        $options['wrap_view']     = $wrap_view_id;
-
-        /** Adapter */
-        $class = 'Molajito\\Extension\\Molajo';
-
-        try {
-            $adapter = new $class(
-                $this->dependencies['Resource']
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Molajito: Could not instantiate Extension Class: ' . $class);
-        }
-
-        /** Proxy */
-        $class = 'Molajito\\Extension';
-
-        try {
-            $extension_instance = new $class ($adapter);
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Molajito: Could not instantiate Data Class: ' . $class);
-        }
-
-        /** Get Resource Extension */
-        $this->getResourceExtension($extension_instance, $options);
-
-        return $extension_instance;
-    }
-
-    /**
      * Set Extension Data for Resource
-     *
-     * @param   object $extension_instance
-     * @param   array  $options
      *
      * @return  $this
      * @since   1.0
      */
-    protected function getResourceExtension($extension_instance, array $options = array())
+    public function onAfterInstantiation()
     {
-        $this->dependencies['Plugindata']->resource->extension
-            = $extension_instance->getResourceExtension($options);
+        $this->setResourceExtensions();
 
         return $this;
     }
 
     /**
+     * Instantiate Escape Class
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException;
+     */
+    protected function getEscapeInstance()
+    {
+        $class = 'Molajito\\Escape';
+
+        try {
+            return new $class ($this->dependencies['Fieldhandler']);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito: Could not instantiate Escape Class: ' . $class);
+        }
+    }
+
+    /**
+     * Instantiate Render Class
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException;
+     */
+    protected function getRenderInstance()
+    {
+        $class = 'Molajito\\Render';
+
+        try {
+            return new $class ();
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito: Could not instantiate Render Class: ' . $class);
+        }
+    }
+
+    /**
      * Get Resource Data Instance -- used to retrieve data needed to render view
      *
-     * @return  object  Molajito\Extension
+     * @return  object  Molajito\View
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getResourceDataInstance()
+    protected function getDataInstance()
     {
         $class = 'Molajito\\Data\\Molajo';
 
@@ -262,13 +205,50 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
     }
 
     /**
+     * Get Resource Extension Instance - used to retrieve View location and parameters
+     *
+     * @return  object  Molajito\View
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getViewInstance()
+    {
+        $class = 'Molajito\\View\\Molajo';
+
+        try {
+            $adapter = new $class(
+                $this->dependencies['Resource']
+            );
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito: Could not instantiate Extension Class: ' . $class);
+        }
+
+        /** Proxy */
+        $class = 'Molajito\\View';
+
+        try {
+            $view_instance = new $class ($adapter);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito: Could not instantiate Data Class: ' . $class);
+        }
+
+        $this->options['view_instance'] = $view_instance;
+
+        return $view_instance;
+    }
+
+    /**
      * Get Event Handler Instance
      *
      * @return  object  Molajito\Event
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getMolajitoEventInstance()
+    protected function getEventInstance()
     {
         $this->options['event_option_keys'] = array(
             'runtime_data',
@@ -282,10 +262,10 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
             'rendered_page'
         );
 
-        $class = 'Molajito\\Event';
+        $class = 'Molajito\\Event\\Molajo';
 
         try {
-            return new $class(
+            $adapter = new $class(
                 $this->dependencies['Eventcallback'],
                 $this->options['event_option_keys']
             );
@@ -293,6 +273,17 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         } catch (Exception $e) {
             throw new RuntimeException
             ('Molajito: Could not instantiate Event Class: ' . $class);
+        }
+
+        /** Proxy */
+        $class = 'Molajito\\Event';
+
+        try {
+            return new $class ($adapter);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito: Could not instantiate Data Class: ' . $class);
         }
     }
 
@@ -303,7 +294,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException;
      */
-    protected function getMolajitoParseClass()
+    protected function getParseInstance()
     {
         $class = 'Molajito\\Parse';
 
@@ -317,43 +308,27 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
     }
 
     /**
-     * Instantiate Escape Class
+     * Get Exclude Tokens
      *
-     * @return  $this
+     * @return  object  Molajito\View
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  FactoryInterface
      */
-    protected function getMolajitoEscapeClass()
+    protected function getExcludeTokens()
     {
-        $class = 'Molajito\\Escape';
+        $x = (array)$this->dependencies['Resource']
+            ->get('xml:///Molajo//Model//Application//Parse_final.xml')->include;
 
-        try {
-            return new $class ($this->dependencies['Fieldhandler']);
+        $exclude_tokens = array();
 
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Molajito: Could not instantiate Escape Class: ' . $class);
+        if (is_array($x) && count($x) > 0) {
+
+            foreach ($x as $y) {
+                $exclude_tokens[] = (string)$y;
+            }
         }
-    }
 
-    /**
-     * Instantiate Render Class
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
-     */
-    protected function getMolajitoRenderClass()
-    {
-        $class = 'Molajito\\Render';
-
-        try {
-            return new $class ();
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Molajito: Could not instantiate Render Class: ' . $class);
-        }
+        return $exclude_tokens;
     }
 
     /**
@@ -365,7 +340,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException;
      */
-    protected function getMolajitoPositionClass(EscapeInterface $escape_instance)
+    protected function getPositionInstance(EscapeInterface $escape_instance)
     {
         $class = 'Molajito\\Position';
 
@@ -388,9 +363,9 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException;
      */
-    protected function getMolajitoThemeClass(EscapeInterface $escape_instance, RenderInterface $render_instance)
+    protected function getThemeInstance(EscapeInterface $escape_instance, RenderInterface $render_instance)
     {
-        $class = 'Molajito\\ThemeRenderer';
+        $class = 'Molajito\\Theme';
 
         try {
             return new $class ($escape_instance, $render_instance);
@@ -410,9 +385,9 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException;
      */
-    protected function getMolajitoPageClass(RenderInterface $render_instance)
+    protected function getPageInstance(RenderInterface $render_instance)
     {
-        $class = 'Molajito\\PageViewRenderer';
+        $class = 'Molajito\\PageView';
 
         try {
             return new $class ($render_instance);
@@ -433,15 +408,15 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  object
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getMolajitoTemplateClass(
+    protected function getTemplateInstance(
         EscapeInterface $escape_instance,
         RenderInterface $render_instance,
         EventInterface $event_instance,
         array $event_option_keys = array()
     ) {
-        $class = 'Molajito\\TemplateViewRenderer';
+        $class = 'Molajito\\TemplateView';
 
         try {
             return new $class (
@@ -466,9 +441,9 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException;
      */
-    protected function getMolajitoWrapClass(RenderInterface $render_instance)
+    protected function getWrapInstance(RenderInterface $render_instance)
     {
-        $class = 'Molajito\\WrapViewRenderer';
+        $class = 'Molajito\\WrapView';
 
         try {
             return new $class ($render_instance);
@@ -477,5 +452,86 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
             throw new RuntimeException
             ('Molajito: Could not instantiate Wrap View Renderer Class: ' . $class);
         }
+    }
+
+    /**
+     * Save View Data for Resource
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setResourceExtensions()
+    {
+        $page_type = strtolower($this->dependencies['Runtimedata']->route->page_type);
+
+        if ($page_type == 'dashboard') {
+            $theme_id         = 7010;
+            $page_view_id     = 8265;
+            $template_view_id = 9305;
+            $wrap_view_id     = 10010;
+
+        } elseif (isset($this->dependencies['Plugindata']->resource->menuitem->parameters)) {
+            $theme_id         = $this->dependencies['Plugindata']->resource->menuitem->parameters->theme_id;
+            $page_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->page_view_id;
+            $template_view_id = $this->dependencies['Plugindata']->resource->menuitem->parameters->template_view_id;
+            $wrap_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->wrap_view_id;
+
+        } else {
+            $theme_id         = $this->dependencies['Plugindata']->resource->parameters->theme_id;
+            $page_view_id     = $this->dependencies['Plugindata']->resource->parameters->page_view_id;
+            $template_view_id = $this->dependencies['Plugindata']->resource->parameters->template_view_id;
+            $wrap_view_id     = $this->dependencies['Plugindata']->resource->parameters->wrap_view_id;
+        }
+
+        $resource_extensions                                    = new stdClass();
+        $this->dependencies['Plugindata']->resource->extensions = new stdClass();
+
+        /** Get Theme */
+        $token               = new stdClass();
+        $token->type         = 'theme';
+        $token->name         = $theme_id;
+        $token->wrap         = '';
+        $token->attributes   = array();
+        $token->replace_this = '';
+
+        $this->dependencies['Plugindata']->resource->extensions->theme
+            = $this->options['view_instance']->getView($token);
+
+        /** Get Page */
+        $token               = new stdClass();
+        $token->type         = 'page';
+        $token->name         = $page_view_id;
+        $token->wrap         = '';
+        $token->attributes   = array();
+        $token->replace_this = '';
+
+        $this->dependencies['Plugindata']->resource->extensions->page
+            = $this->options['view_instance']->getView($token);
+
+        /** Get Template */
+        $token               = new stdClass();
+        $token->type         = 'template';
+        $token->name         = $template_view_id;
+        $token->wrap         = '';
+        $token->attributes   = array();
+        $token->replace_this = '';
+
+        $this->dependencies['Plugindata']->resource->extensions->template
+            = $this->options['view_instance']->getView($token);
+
+        /** Get Template */
+        $token               = new stdClass();
+        $token->type         = 'wrap';
+        $token->name         = $wrap_view_id;
+        $token->wrap         = '';
+        $token->attributes   = array();
+        $token->replace_this = '';
+
+        $this->dependencies['Plugindata']->resource->extensions->wrap
+            = $this->options['view_instance']->getView($token);
+
+        $this->set_container_entries['Plugindata'] = $this->dependencies['Plugindata'];
+
+        return $this;
     }
 }

@@ -28,6 +28,7 @@ class Render implements RenderInterface
      * @since  1.0
      */
     protected $plugin_data;
+// remove above
 
     /**
      * Runtime Data

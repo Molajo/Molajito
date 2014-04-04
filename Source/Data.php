@@ -1,44 +1,46 @@
 <?php
 /**
- * Molajito Data - proxy to backend adapter
+ * Proxy Class for Molajito Data Adapters
  *
  * @package    Molajo
- * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajito;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\DataInterface;
+use CommonApi\Exception\RuntimeException;
+use Exception;
 
 /**
- * Molajito Data - proxy to backend adapter
+ * Proxy Class for Molajito Data Adapters
  *
  * @package    Molajo
- * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0
  */
 class Data implements DataInterface
 {
     /**
-     * Adapter
+     * Data Adapter
      *
-     * @var    object  CommonApi\Render\DataInterface
+     * @var     object  CommonApi\Render\DataInterface
      * @since  1.0
      */
-    protected $adapter = null;
+    protected $data_adapter = null;
 
     /**
-     * Constructor
+     * Class Constructor
      *
-     * @param   DataInterface $adapter
+     * @param   DataInterface $data_adapter
      *
      * @since   1.0
      */
-    public function __construct(DataInterface $adapter)
-    {
-        $this->adapter = $adapter;
+    public function __construct(
+        DataInterface $data_adapter
+    ) {
+        $this->data_adapter = $data_adapter;
     }
 
     /**
@@ -53,6 +55,12 @@ class Data implements DataInterface
      */
     public function getData($token, array $options = array())
     {
-        return $this->adapter->getData($token, $options);
+        try {
+            return $this->data_adapter->getData($token, $options);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito Data getData Method Failed: ' . $e->getMessage());
+        }
     }
 }

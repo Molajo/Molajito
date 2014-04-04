@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\ThemeRenderer;
+use Molajito\Theme;
 
 /**
  * Pagination Test
@@ -18,7 +18,7 @@ use Molajito\ThemeRenderer;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class ThemeRendererTest extends \PHPUnit_Framework_TestCase
+class ThemeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -51,7 +51,7 @@ class ThemeRendererTest extends \PHPUnit_Framework_TestCase
         include $include_path;
         $collect = ob_get_clean();
 
-        $this->render_view = new ThemeRenderer(
+        $this->render_view = new Theme(
             $include_path,
             $rendering_properties
         );

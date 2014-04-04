@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\PageViewRenderer;
+use Molajito\PageView;
 
 /**
  * Pagination Test
@@ -18,7 +18,7 @@ use Molajito\PageViewRenderer;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class PageViewRendererTest extends \PHPUnit_Framework_TestCase
+class PageViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -51,7 +51,7 @@ class PageViewRendererTest extends \PHPUnit_Framework_TestCase
         include $include_path;
         $collect = ob_get_clean();
 
-        $this->render_view = new PageViewRenderer(
+        $this->render_view = new PageView(
             $include_path,
             $rendering_properties
         );

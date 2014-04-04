@@ -9,7 +9,7 @@
 namespace Molajito\Test;
 
 use stdClass;
-use Molajito\TemplateViewRenderer;
+use Molajito\TemplateView;
 
 /**
  * Pagination Test
@@ -19,7 +19,7 @@ use Molajito\TemplateViewRenderer;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class TemplateViewRendererTest extends \PHPUnit_Framework_TestCase
+class TemplateViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -71,7 +71,7 @@ class TemplateViewRendererTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Custom.phtml';
         $collect = ob_get_clean();
 
-        $this->render_view = new TemplateViewRenderer(
+        $this->render_view = new TemplateView(
             $include_path,
             $event_option_keys,
             $event_callback,
@@ -131,7 +131,7 @@ class TemplateViewRendererTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Footer.phtml';
         $collect = ob_get_clean();
 
-        $this->render_view = new TemplateViewRenderer(
+        $this->render_view = new TemplateView(
             $include_path,
             $event_option_keys,
             $event_callback,

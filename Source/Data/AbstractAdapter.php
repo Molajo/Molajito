@@ -22,30 +22,6 @@ use CommonApi\Render\DataInterface;
 abstract class AbstractAdapter implements DataInterface
 {
     /**
-     * Query Results
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $query_results = array();
-
-    /**
-     * Model Registry
-     *
-     * @var    object
-     * @since  1.0
-     */
-    protected $model_registry = array();
-
-    /**
-     * Parameters
-     *
-     * @var    object
-     * @since  1.0
-     */
-    protected $parameters = null;
-
-    /**
      * Get Data for Rendering
      *
      * @param   object $token
@@ -55,35 +31,5 @@ abstract class AbstractAdapter implements DataInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function getData($token, array $options = array())
-    {
-        if (is_array($this->query_results)) {
-        } else {
-            $this->query_results = array($this->query_results);
-        }
-
-        if (is_object($this->parameters)) {
-        } else {
-            $this->parameters = new stdClass();
-        }
-
-        $this->parameters->token = $this->token;
-
-        if (isset($this->token->attributes)
-            && count($this->token->attributes) > 0
-            && is_array($this->token->attributes)
-        ) {
-            foreach ($this->token->attributes as $key => $value) {
-                $this->parameters->$key = $value;
-            }
-        }
-
-        $data = new stdClass();
-
-        $data->query_results  = $this->query_results;
-        $data->model_registry = $this->model_registry;
-        $data->parameters     = $this->parameters;
-
-        return $data;
-    }
+    abstract public function getData($token, array $options = array());
 }

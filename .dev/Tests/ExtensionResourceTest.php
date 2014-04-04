@@ -8,7 +8,7 @@
  */
 namespace Molajito\Test;
 
-use Molajito\Extension;
+use Molajito\View;
 use stdClass;
 
 /**
@@ -84,7 +84,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $token->name = 'Test';
         $token->type = 'Page';
 
-        $extensions = $this->extension_resource->getExtension($token);
+        $extensions = $this->extension_resource->getView($token);
 
         $test = 'Page:///Molajo//Views//Pages//Test';
         $this->assertEquals($extensions->extension, $test);
@@ -104,7 +104,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $token->name = 'Test';
         $token->type = 'Template';
 
-        $extensions = $this->extension_resource->getExtension($token);
+        $extensions = $this->extension_resource->getView($token);
 
         $test = 'Template:///Molajo//Views//Templates//Test';
         $this->assertEquals($extensions->extension, $test);
@@ -124,7 +124,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $token->name = 'Test';
         $token->type = 'Wrap';
 
-        $extensions = $this->extension_resource->getExtension($token);
+        $extensions = $this->extension_resource->getView($token);
 
         $test = 'Wrap:///Molajo//Views//Wraps//Test';
         $this->assertEquals($extensions->extension, $test);
