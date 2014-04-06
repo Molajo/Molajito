@@ -13,13 +13,16 @@ if (! defined('PHP_VERSION_ID')) {
     define('PHP_VERSION_ID', ($version[0] * 10000 + $version[1] * 100 + $version[2]));
 }
 include __DIR__ . '/Route.php';
+include __DIR__ . '/RuntimeData.php';
 include __DIR__ . '/MolajitoFactoryMethod.php';
 
-$class = 'Molajo\\Factories\\MolajitoFactoryMethod';
-$theme_base_folder = MOLAJITO_BASE . '.dev/Sample/Public/Foundation5';
-$view_base_folder = MOLAJITO_BASE . '.dev/Sample/Views/Foundation5';
-$factory = new $class($theme_base_folder, $view_base_folder);
-$molajito = $factory->instantiateClass();
+$class               = 'Molajo\\Factories\\MolajitoFactoryMethod';
+$theme_base_folder   = MOLAJITO_BASE . '.dev/Sample/Public/Foundation5';
+$view_base_folder    = MOLAJITO_BASE . '.dev/Sample/Views/Foundation5';
+$posts_base_folder   = MOLAJITO_BASE . '.dev/Sample/Data/Posts';
+$authors_base_folder = MOLAJITO_BASE . '.dev/Sample/Data/Profiles';
+$factory             = new $class($theme_base_folder, $view_base_folder, $posts_base_folder, $authors_base_folder);
+$molajito            = $factory->instantiateClass();
 
 $rendered_page = $molajito->render($theme_base_folder, $data);
 

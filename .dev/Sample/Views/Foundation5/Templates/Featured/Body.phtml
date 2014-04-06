@@ -8,7 +8,11 @@
  */
 ?>
 <div class="panel">
-    <h5><a href="<?= $this->runtime_data->route->post; ?>">Title</a></h5>
-    <p>Cupcake ipsum dolor sit amet wafer cake cupcake. Danish bonbon pie unerdwear.com chocolate cake muffin chocolate bar toffee. Caramels gummi.</p>
-    <a href="<?= $this->runtime_data->route->post; ?>">Read More →</a>
+    <h5>
+        <a href="<?= $this->runtime_data->route->post . '&name=' . $this->row->filename; ?>">
+            <?= $this->row->title; ?>
+        </a>
+    </h5>
+
+    <?= $this->row->readmore; ?>
 </div>

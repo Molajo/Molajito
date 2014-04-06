@@ -43,6 +43,22 @@ class MolajitoFactoryMethod
     protected $view_base_folder = null;
 
     /**
+     * Posts Folder
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $posts_base_folder = null;
+
+    /**
+     * Authors Folder
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $authors_base_folder = null;
+
+    /**
      * Options
      *
      * @var    array
@@ -60,10 +76,14 @@ class MolajitoFactoryMethod
      */
     public function __construct(
         $theme_base_folder,
-        $view_base_folder
+        $view_base_folder,
+        $posts_base_folder,
+        $authors_base_folder
     ) {
-        $this->theme_base_folder = $theme_base_folder;
-        $this->view_base_folder  = $view_base_folder;
+        $this->theme_base_folder   = $theme_base_folder;
+        $this->view_base_folder    = $view_base_folder;
+        $this->posts_base_folder   = $posts_base_folder;
+        $this->authors_base_folder = $authors_base_folder;
 
         /** Event System is not hooked out */
         $this->options['event_option_keys'] = array();
@@ -156,10 +176,10 @@ class MolajitoFactoryMethod
      */
     protected function getEscapeInstance(FieldhandlerInterface $fieldhandler_instance)
     {
-        $class = 'Molajito\\Escape\\Simple';
+        $class = 'Molajito\\Escape\\Molajo';
 
         try {
-            $adapter = new $class ();
+            $adapter = new $class ($fieldhandler_instance);
 
         } catch (Exception $e) {
             throw new RuntimeException
@@ -215,8 +235,10 @@ class MolajitoFactoryMethod
         $class = 'Molajito\\Data\\Filesystem';
 
         try {
-            $adapter = new $class ();
-
+            $adapter = new $class (
+                $this->posts_base_folder,
+                $this->authors_base_folder
+            );
         } catch (Exception $e) {
             throw new RuntimeException
             (
