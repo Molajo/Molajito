@@ -59,7 +59,16 @@ abstract class AbstractAdapter implements EventInterface
      * @return  array
      * @since   1.0
      */
-    abstract public function initializeEventOptions();
+    public function initializeEventOptions()
+    {
+        $options = array();
+
+        foreach ($this->event_option_keys as $key) {
+            $options[$key] = null;
+        }
+
+        return $options;
+    }
 
     /**
      * Schedule Event

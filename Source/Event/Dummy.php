@@ -10,17 +10,16 @@ namespace Molajito\Event;
 
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EventInterface;
-use Exception;
 
 /**
- * Molajo Adapter for Molajito Event Processing
+ * Dummy Adapter for Molajito Event Processing
  *
  * @package    Molajito
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class Molajo extends AbstractAdapter implements EventInterface
+class Dummy extends AbstractAdapter implements EventInterface
 {
     /**
      * Schedule Event
@@ -34,8 +33,6 @@ class Molajo extends AbstractAdapter implements EventInterface
      */
     public function scheduleEvent($event_name, array $options = array())
     {
-        $schedule_event = $this->event_callback;
-
         $temp = array();
         foreach ($this->event_option_keys as $key) {
             if (isset($options[$key])) {
@@ -45,12 +42,6 @@ class Molajo extends AbstractAdapter implements EventInterface
             }
         }
 
-        try {
-            return $schedule_event($event_name, $temp);
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            ('Molajito Event scheduleEvent Failure: ' . $e->getMessage());
-        }
+        return $temp;
     }
 }

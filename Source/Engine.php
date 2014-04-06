@@ -213,6 +213,20 @@ class Engine implements RenderInterface
     protected $include_path = null;
 
     /**
+     * Render Properties
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $render_array = array(
+        'plugin_data',
+        'runtime_data',
+        'parameters',
+        'query_results',
+        'row'
+    );
+
+    /**
      * Constructor
      *
      * @param DataInterface     $data_instance
@@ -291,7 +305,7 @@ class Engine implements RenderInterface
         $options['rendered_page'] = $this->rendered_page;
         $this->scheduleEvent('onAfterRender', $options);
 
-        return $this;
+        return $this->rendered_page;
     }
 
     /**
@@ -320,7 +334,7 @@ class Engine implements RenderInterface
         if (isset($data['plugin_data'])) {
             $this->plugin_data = $data['plugin_data'];
         } else {
-            throw new RuntimeException ('Molajito Renderer requires Plugin Data');
+            $this->plugin_data = new stdClass();
         }
 
         $this->parameters     = null;
@@ -430,7 +444,7 @@ class Engine implements RenderInterface
         try {
             $this->rendered_view = $this->position_instance->getPositionViews(
                 $position_name,
-                $this->plugin_data->render->extension
+                $this->runtime_data->render->extension
             );
 
         } catch (Exception $e) {
@@ -451,7 +465,10 @@ class Engine implements RenderInterface
      */
     protected function renderToken($token)
     {
-//echo 'View:  ' . $token->name . '<br />';
+//echo '<br><br>View:  ' . $token->name . '<br />';
+//echo '<pre>';
+//var_dump($token);
+//echo '<pre>';
 
         /** Step 1. Initialise */
         $this->rendered_view = '';
@@ -459,9 +476,9 @@ class Engine implements RenderInterface
         /** Step 2. Get Rendering Extension */
         $this->getView($token);
 
-        if ($this->plugin_data->render->extension->title == $token->name) {
+        if ($this->runtime_data->render->extension->title == $token->name) {
         } else {
-            $token->name = $this->plugin_data->render->extension->title;
+            $token->name = $this->runtime_data->render->extension->title;
         }
 
         /** Step 3. Get Query Data for Rendering Extension */
@@ -477,9 +494,9 @@ class Engine implements RenderInterface
         $this->scheduleEvent('onBeforeRenderView', $options);
 
         /** Step 5. Render View */
-        $this->include_path = $this->plugin_data->render->extension->include_path;
+        $this->include_path = $this->runtime_data->render->extension->include_path;
 
-        if ($this->plugin_data->render->scheme == 'page') {
+        if (strtolower($this->runtime_data->render->scheme) == 'page') {
             $this->renderPageView();
 
         } else {
@@ -521,6 +538,7 @@ class Engine implements RenderInterface
 
         $row            = new stdClass();
         $row->page_name = $this->page_name;
+
         $options['row'] = $row;
 
         try {
@@ -540,7 +558,7 @@ class Engine implements RenderInterface
     /**
      * Render Page View
      *
-     * @return  string
+     * @return  $this
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -610,7 +628,7 @@ class Engine implements RenderInterface
 
         $this->getView($wrap_token);
 
-        $this->include_path = $this->plugin_data->render->extension->include_path;
+        $this->include_path = $this->runtime_data->render->extension->include_path;
 
         /** Step 2. Data */
         $options        = $this->setOptionValues();
@@ -663,7 +681,7 @@ class Engine implements RenderInterface
     protected function getView($token)
     {
         try {
-            $this->plugin_data->render = $this->view_instance->getView($token);
+            $this->runtime_data->render = $this->view_instance->getView($token);
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajito renderToken getView Exception ' . $e->getMessage());
@@ -740,7 +758,9 @@ class Engine implements RenderInterface
     {
         $options = array();
 
-        foreach ($this->event_option_keys as $key) {
+        $temp = array_merge($this->render_array, $this->event_option_keys);
+
+        foreach ($temp as $key) {
             if (isset($this->$key)) {
                 $options[$key] = $this->$key;
             } else {

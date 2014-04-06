@@ -1,0 +1,35 @@
+<?php
+/**
+ * Foundation 5 Sample Theme for Molajito Rendering
+ *
+ * @package    Molajito
+ * @link       Molajito
+ * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
+?>
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Molajito | Foundation 5 | Welcome</title>
+    <link rel="stylesheet" href="/Foundation5/webicons/webicons.css"/>
+    <link rel="stylesheet" href="/Foundation5/css/foundation.css"/>
+    <script src="/Foundation5/js/vendor/modernizr.js"></script>
+</head>
+<body>
+{I Navbar I}
+{I Breadcrumbs I}
+{I page=<?= $this->row->page_name; ?> I}
+{I Footer I}
+<script src="/Foundation5/js/vendor/jquery.js"></script>
+<script src="/Foundation5/js/foundation.min.js"></script>
+<script src="/Foundation5/js/foundation/foundation.orbit.js"></script>
+<script src="/Foundation5/js/foundation/foundation.reveal.js"></script>
+<script src="/Foundation5/js/foundation/foundation.clearing.js"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>

@@ -178,11 +178,11 @@ class Molajo extends AbstractAdapter implements DataInterface
         if (isset($this->token->attributes['model_type'])) {
             $this->model_type = $this->token->attributes['model_type'];
 
-        } elseif (isset($this->plugin_data->render->extension->parameters->model_type)) {
-            $this->model_type = $this->plugin_data->render->extension->parameters->model_type;
+        } elseif (isset($this->runtime_data->render->extension->parameters->model_type)) {
+            $this->model_type = $this->runtime_data->render->extension->parameters->model_type;
 
-        } elseif (isset($this->plugin_data->render->extension->menuitem->parameters->model_type)) {
-            $this->model_type = $this->plugin_data->render->extension->menuitem->parameters->model_type;
+        } elseif (isset($this->runtime_data->render->extension->menuitem->parameters->model_type)) {
+            $this->model_type = $this->runtime_data->render->extension->menuitem->parameters->model_type;
         }
 
         $this->model_type = strtolower($this->model_type);
@@ -204,9 +204,9 @@ class Molajo extends AbstractAdapter implements DataInterface
         }
 
         if (trim($this->model_name) == ''
-            && isset($this->plugin_data->render->extension->parameters->model_name)
+            && isset($this->runtime_data->render->extension->parameters->model_name)
         ) {
-            $this->model_name = $this->plugin_data->render->extension->parameters->model_name;
+            $this->model_name = $this->runtime_data->render->extension->parameters->model_name;
         }
 
         if (trim($this->model_type) == '' && trim($this->model_name) == '') {
@@ -237,10 +237,10 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function getPrimaryData()
     {
-        $this->query_results  = $this->plugin_data->resource->data;
-        $this->model_registry = $this->plugin_data->resource->model_registry;
-        $this->parameters     = $this->plugin_data->resource->parameters;
-        $hold_parameters      = $this->plugin_data->render->extension->parameters;
+        $this->query_results  = $this->runtime_data->resource->data;
+        $this->model_registry = $this->runtime_data->resource->model_registry;
+        $this->parameters     = $this->runtime_data->resource->parameters;
+        $hold_parameters      = $this->runtime_data->render->extension->parameters;
 
         if (is_array($hold_parameters) && count($hold_parameters) > 0) {
 
@@ -279,7 +279,7 @@ class Molajo extends AbstractAdapter implements DataInterface
             unset($this->query_results->parameters);
 
         } else {
-            $this->parameters = $this->plugin_data->render->extension->parameters;
+            $this->parameters = $this->runtime_data->render->extension->parameters;
         }
 
         return $this;
@@ -318,7 +318,7 @@ class Molajo extends AbstractAdapter implements DataInterface
             unset($this->query_results->parameters);
 
         } else {
-            $this->parameters = $this->plugin_data->render->extension->parameters;
+            $this->parameters = $this->runtime_data->render->extension->parameters;
         }
 
         return $this;
@@ -332,7 +332,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function getDefaultData()
     {
-        $this->parameters = $this->plugin_data->render->extension->parameters;
+        $this->parameters = $this->runtime_data->render->extension->parameters;
 
         return $this;
     }

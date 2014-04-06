@@ -65,25 +65,29 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      */
     public function getView($token)
     {
-        $render         = new stdClass();
-        $render->token  = $token;
-        $scheme         = ucfirst(strtolower($token->type));
-        $render->scheme = strtolower($scheme);
+        $render                   = new stdClass();
+        $render->token            = $token;
+        $render->scheme           = ucfirst(strtolower($token->type));
+        $render->extension        = new stdClass();
+        $render->extension->title = ucfirst(strtolower($token->name));
 
-        if ($scheme == 'Page') {
-            $render->extension = $this->getPageView(ucfirst(strtolower($token->name)));
+        if ($render->scheme == 'Page') {
+            $render->extension->include_path = $this->getPageView(ucfirst(strtolower($token->name)));
 
-        } elseif ($scheme == 'Template') {
-            $render->extension = $this->getTemplateView(ucfirst(strtolower($token->name)));
+        } elseif ($render->scheme == 'Template') {
+            $render->extension->include_path = $this->getTemplateView(ucfirst(strtolower($token->name)));
 
-        } elseif ($scheme == 'Wrap') {
-            $render->extension = $this->getWrapView(ucfirst(strtolower($token->name)));
+        } elseif ($render->scheme == 'Wrap') {
+            $render->extension->include_path = $this->getWrapView(ucfirst(strtolower($token->name)));
 
-        } elseif ($scheme == 'Theme') {
-            $render->extension = $this->getTheme(ucfirst(strtolower($token->name)));
+        } elseif ($render->scheme == 'Theme') {
+            $render->extension->include_path = $this->getTheme(ucfirst(strtolower($token->name)));
 
         } else {
-            throw new RuntimeException ('Filesystem View Adapter: getExtension Invalid Scheme: ' . $scheme);
+            throw new RuntimeException (
+                'Filesystem View Adapter: getExtension Invalid Scheme: '
+                . $render->scheme
+            );
         }
 
         return $render;
@@ -104,8 +108,10 @@ class Filesystem extends AbstractAdapter implements ViewInterface
             return $this->theme_base_folder . '/' . $theme . '/Index.phtml';
         }
 
-        throw new RuntimeException('Filesystem View Adapter: getTheme Failed: '
-        . $theme . ' Not found at: ' . $this->theme_base_folder . '/' . $theme . '/Index.phtml');
+        throw new RuntimeException(
+            'Filesystem View Adapter: getTheme Failed: '
+            . $theme . ' Not found at: ' . $this->theme_base_folder . '/' . $theme . '/Index.phtml'
+        );
     }
 
     /**
@@ -119,13 +125,15 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      */
     protected function getPageView($page_view)
     {
-        if (is_file($this->view_base_folder . '/Views/Pages/' . $page_view . '/Index.phtml')) {
-            return $this->view_base_folder . '/Views/Pages/' . $page_view . '/Index.phtml';
+        if (is_file($this->view_base_folder . '/Pages/' . $page_view . '/Index.phtml')) {
+            return $this->view_base_folder . '/Pages/' . $page_view . '/Index.phtml';
         }
 
-        throw new RuntimeException('Filesystem View Adapter: getPageView Failed: '
-        . $page_view . ' Not found at: ' . $this->view_base_folder
-        . '/Views/Pages/' . $page_view . '/Index.phtml');
+        throw new RuntimeException(
+            'Filesystem View Adapter: getPageView Failed: '
+            . $page_view . ' Not found at: ' . $this->view_base_folder
+            . '/Pages/' . $page_view . '/Index.phtml'
+        );
     }
 
     /**
@@ -139,13 +147,15 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      */
     protected function getTemplateView($template_view)
     {
-        if (is_dir($this->view_base_folder . '/Views/Templates/' . $template_view)) {
-            return $this->view_base_folder . '/Views/Templates/' . $template_view;
+        if (is_dir($this->view_base_folder . '/Templates/' . $template_view)) {
+            return $this->view_base_folder . '/Templates/' . $template_view;
         }
 
-        throw new RuntimeException('Filesystem View Adapter: getTemplateView Failed: '
-        . $template_view . ' Not found at: ' . $this->view_base_folder
-        . '/Views/Templates/' . $template_view);
+        throw new RuntimeException(
+            'Filesystem View Adapter: getTemplateView Failed: '
+            . $template_view . ' Not found at: ' . $this->view_base_folder
+            . '/Templates/' . $template_view
+        );
     }
 
     /**
@@ -159,12 +169,14 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      */
     protected function getWrapView($wrap_view)
     {
-        if (is_dir($this->view_base_folder . '/Views/Wraps/' . $wrap_view)) {
-            return $this->view_base_folder . '/Views/Wraps/' . $wrap_view;
+        if (is_dir($this->view_base_folder . '/Wraps/' . $wrap_view)) {
+            return $this->view_base_folder . '/Wraps/' . $wrap_view;
         }
 
-        throw new RuntimeException('Filesystem View Adapter: getTemplateView Failed: '
-        . $wrap_view . ' Not found at: ' . $this->view_base_folder
-        . '/Views/Wraps/' . $wrap_view);
+        throw new RuntimeException(
+            'Filesystem View Adapter: getTemplateView Failed: '
+            . $wrap_view . ' Not found at: ' . $this->view_base_folder
+            . '/Wraps/' . $wrap_view
+        );
     }
 }

@@ -111,7 +111,8 @@ class Theme implements RenderInterface
     protected function setProperties(array $data = array())
     {
         if (isset($data['row'])) {
-            $data['row'] = $this->escape_instance->escape($data['row']);
+            $temp = $this->escape_instance->escape(array($data['row']));
+            $data['row'] = $temp[0];
         } else {
             throw new RuntimeException ('Molajito Theme: No input $data array');
         }

@@ -82,6 +82,19 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     public function getData($token, array $options = array())
     {
+        $data = new stdClass();
+
+        $row = new stdClass();
+        $row->id = 1;
+        $row->title = 'Thing';
+        $this->query_results[] = $row;
+
+        $data->query_results  = $this->query_results;
+        $data->model_registry = $this->model_registry;
+        $data->parameters     = $this->parameters;
+
+        return $data;
+
         $this->initialise($token, $options);
 
         $this->setModel();

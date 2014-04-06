@@ -1,3 +1,12 @@
+<?php
+/**
+ * Footer Template - Sample Foundation 5 Template for Molajito Rendering
+ *
+ * @package    Molajo
+ * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
+?>
 <footer class="row">
     <div class="large-12 columns">
         <hr />
@@ -7,10 +16,10 @@
             </div>
             <div class="large-6 columns">
                 <ul class="inline-list right">
-                    <li><a href="<?= $home; ?>">Home</a></li>
-                    <li><a href="<?= $blog; ?>">Blog</a></li>
-                    <li><a href="<?= $about; ?>">About</a></li>
-                    <li><a href="<?= $contact; ?>">Contact</a></li>
+                    <li><a href="<?= $this->runtime_data->route->home; ?>">Home</a></li>
+                    <li><a href="<?= $this->runtime_data->route->blog; ?>">Blog</a></li>
+                    <li><a href="<?= $this->runtime_data->route->about; ?>">About</a></li>
+                    <li><a href="<?= $this->runtime_data->route->contact; ?>">Contact</a></li>
                 </ul>
             </div>
         </div>

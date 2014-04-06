@@ -24,12 +24,14 @@
     "require": {
         "php": ">=5.4",
         "commonapi/render": "dev-master",
-        "commonapi/exception": "dev-master",
-        "molajo/fieldhandler": "dev-master"
+        "commonapi/exception": "dev-master"
     },
 
     "recommend": {
-        "molajo/resources": "dev-master"
+        "molajo/event": "dev-master",
+        "molajo/fieldhandler": "dev-master",
+        "molajo/resources": "dev-master",
+        "molajo/pagination": "dev-master"
     },
 
     "autoload": {

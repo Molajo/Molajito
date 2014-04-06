@@ -1,6 +1,6 @@
 <?php
 /**
- * Molajito Escape Class
+ * Molajito Escape Proxy
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -9,12 +9,11 @@
 namespace Molajito;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Model\FieldhandlerInterface;
 use CommonApi\Render\EscapeInterface;
 use Exception;
 
 /**
- * Molajito Escape Class
+ * Molajito Escape Proxy
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -24,38 +23,24 @@ use Exception;
 class Escape implements EscapeInterface
 {
     /**
-     * Fieldhandler Instance
+     * Event Adapter
      *
-     * @var    object  CommonApi\Query\FieldhandlerInterface
+     * @var     object  CommonApi\Render\EventInterface
      * @since  1.0
      */
-    protected $fieldhandler = '';
+    protected $escape_adapter = null;
 
     /**
-     * Model Registry
+     * Class Constructor
      *
-     * @var    array
-     * @since  1.0
-     */
-    protected $model_registry = array();
-
-    /**
-     * Data
+     * @param   EscapeInterface $escape_adapter
      *
-     * @var    array
-     * @since  1.0
-     */
-    protected $data = array();
-
-    /**
-     * Constructor
-     *
-     * @since  1.0
+     * @since   1.0
      */
     public function __construct(
-        FieldhandlerInterface $fieldhandler
+        EscapeInterface $escape_adapter
     ) {
-        $this->fieldhandler = $fieldhandler;
+        $this->escape_adapter = $escape_adapter;
     }
 
     /**
@@ -70,63 +55,14 @@ class Escape implements EscapeInterface
      */
     public function escape(array $data = array(), array $model_registry = array())
     {
-        if (count($data) == 0) {
-            return $data;
-        }
-
-        $this->data           = $data;
-        $this->model_registry = $model_registry;
-
-        foreach ($this->data as $row) {
-            foreach ($row as $data_key => $data_value) {
-                $row->$data_key = $this->escapeDataElement($data_key, $data_value);
-            }
-        }
-
-        return $this->data;
-    }
-
-    /**
-     * Escape Query Output for data element
-     *
-     * @param   string     $data_key
-     * @param   null|mixed $data_value
-     *
-     * @return  array
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function escapeDataElement($data_key, $data_value = null)
-    {
-        $escape_key = null;
-
-        if (count($this->model_registry) > 0) {
-            foreach ($this->model_registry as $model_item) {
-                if ($model_item['name'] == $data_key) {
-                    $escape_key = $model_item['type'];
-                }
-            }
-        }
-
-        if ($escape_key === null) {
-            if (is_numeric($data_value)) {
-                return $data_value;
-
-            } elseif (is_null($data_value)) {
-                return $data_value;
-
-            } else {
-                $escape_key = 'string';
-            }
-        }
-
         try {
-            return $this->fieldhandler->escape($data_key, $data_value, $escape_key);
+            return $this->escape_adapter->escape($data, $model_registry);
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Escape: Escape class Failed for Key: ' . $data_key
-            . ' Escape: ' . $data_value . ' ' . $e->getMessage());
+            (
+                'Escape Driver escape Method Failed: ' . $e->getMessage()
+            );
         }
     }
 }

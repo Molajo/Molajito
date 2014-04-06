@@ -129,6 +129,20 @@ class TemplateView implements RenderInterface
     protected $row = null;
 
     /**
+     * Render Properties
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $render_array = array(
+        'plugin_data',
+        'runtime_data',
+        'parameters',
+        'query_results',
+        'row'
+    );
+
+    /**
      * Constructor
      *
      * @param  EscapeInterface $escape_instance
@@ -163,6 +177,8 @@ class TemplateView implements RenderInterface
     {
         $this->rendered_view = '';
 
+        $this->include_path = $include_path;
+
         $this->setProperties($data);
 
         if (file_exists($this->include_path . '/Custom.phtml')) {
@@ -184,7 +200,9 @@ class TemplateView implements RenderInterface
      */
     protected function setProperties(array $data = array())
     {
-        foreach ($this->event_option_keys as $key) {
+        $temp = array_merge($this->render_array, $this->event_option_keys);
+
+        foreach ($temp as $key) {
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
             } else {

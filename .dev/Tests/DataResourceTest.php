@@ -62,9 +62,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $runtime_data->application->field_a         = 'a';
         $runtime_data->application->field_b         = 'b';
         $runtime_data->application->field_c         = 'c';
-        $plugin_data->render                        = new stdClass();
-        $plugin_data->render->extension             = new stdClass();
-        $plugin_data->render->extension->parameters = array();
+        $runtime_data->render                        = new stdClass();
+        $runtime_data->render->extension             = new stdClass();
+        $runtime_data->render->extension->parameters = array();
 
         $token                           = new stdClass();
         $token->attributes               = array();
@@ -114,9 +114,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $token->attributes['model_name'] = 'B';
         $token->attributes['field_name'] = 'C';
 
-        $plugin_data->render                        = new stdClass();
-        $plugin_data->render->extension             = new stdClass();
-        $plugin_data->render->extension->parameters = new stdClass();
+        $runtime_data->render                        = new stdClass();
+        $runtime_data->render->extension             = new stdClass();
+        $runtime_data->render->extension->parameters = new stdClass();
 
         /** Instantiate Data Resource */
         $this->data_resource = new Data(
@@ -169,9 +169,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
 
-        $plugin_data->render                        = new stdClass();
-        $plugin_data->render->extension             = new stdClass();
-        $plugin_data->render->extension->parameters = new stdClass();
+        $runtime_data->render                        = new stdClass();
+        $runtime_data->render->extension             = new stdClass();
+        $runtime_data->render->extension->parameters = new stdClass();
 
         $token                           = new stdClass();
         $token->attributes               = array();
@@ -232,9 +232,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
 
-        $plugin_data->render                        = new stdClass();
-        $plugin_data->render->extension             = new stdClass();
-        $plugin_data->render->extension->parameters = new stdClass();
+        $runtime_data->render                        = new stdClass();
+        $runtime_data->render->extension             = new stdClass();
+        $runtime_data->render->extension->parameters = new stdClass();
 
         $token                           = new stdClass();
         $token->attributes               = array();

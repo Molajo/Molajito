@@ -60,9 +60,6 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
 
         $this->dependencies['Resource']      = array();
         $this->dependencies['Fieldhandler']  = array();
-        $this->dependencies['Date']          = array();
-        $this->dependencies['Url']           = array();
-        $this->dependencies['Authorisation'] = array();
         $this->dependencies['Runtimedata']   = array();
         $this->dependencies['Plugindata']    = array();
         $this->dependencies['Eventcallback'] = array();
@@ -75,7 +72,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function instantiateClass()
     {
@@ -139,14 +136,24 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getEscapeInstance()
     {
+        $class = 'Molajito\\Escape\\Molajo';
+
+        try {
+            $adapter = new $class ($this->dependencies['Fieldhandler']);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            ('Molajito: Could not instantiate Fieldhandler Escape Class: ' . $class);
+        }
+
         $class = 'Molajito\\Escape';
 
         try {
-            return new $class ($this->dependencies['Fieldhandler']);
+            return new $class ($adapter);
 
         } catch (Exception $e) {
             throw new RuntimeException
@@ -159,7 +166,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getRenderInstance()
     {
@@ -292,7 +299,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getParseInstance()
     {
@@ -338,7 +345,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getPositionInstance(EscapeInterface $escape_instance)
     {
@@ -361,7 +368,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getThemeInstance(EscapeInterface $escape_instance, RenderInterface $render_instance)
     {
@@ -383,7 +390,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getPageInstance(RenderInterface $render_instance)
     {
@@ -439,7 +446,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException;
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getWrapInstance(RenderInterface $render_instance)
     {
@@ -470,21 +477,22 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
             $template_view_id = 9305;
             $wrap_view_id     = 10010;
 
-        } elseif (isset($this->dependencies['Plugindata']->resource->menuitem->parameters)) {
-            $theme_id         = $this->dependencies['Plugindata']->resource->menuitem->parameters->theme_id;
-            $page_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->page_view_id;
-            $template_view_id = $this->dependencies['Plugindata']->resource->menuitem->parameters->template_view_id;
-            $wrap_view_id     = $this->dependencies['Plugindata']->resource->menuitem->parameters->wrap_view_id;
+        } elseif (isset($this->dependencies['Runtimedata']->resource->menuitem->parameters)) {
+
+            $theme_id         = $this->dependencies['Runtimedata']->resource->menuitem->parameters->theme_id;
+            $page_view_id     = $this->dependencies['Runtimedata']->resource->menuitem->parameters->page_view_id;
+            $template_view_id = $this->dependencies['Runtimedata']->resource->menuitem->parameters->template_view_id;
+            $wrap_view_id     = $this->dependencies['Runtimedata']->resource->menuitem->parameters->wrap_view_id;
 
         } else {
-            $theme_id         = $this->dependencies['Plugindata']->resource->parameters->theme_id;
-            $page_view_id     = $this->dependencies['Plugindata']->resource->parameters->page_view_id;
-            $template_view_id = $this->dependencies['Plugindata']->resource->parameters->template_view_id;
-            $wrap_view_id     = $this->dependencies['Plugindata']->resource->parameters->wrap_view_id;
+            $theme_id         = $this->dependencies['Runtimedata']->resource->parameters->theme_id;
+            $page_view_id     = $this->dependencies['Runtimedata']->resource->parameters->page_view_id;
+            $template_view_id = $this->dependencies['Runtimedata']->resource->parameters->template_view_id;
+            $wrap_view_id     = $this->dependencies['Runtimedata']->resource->parameters->wrap_view_id;
         }
 
         $resource_extensions                                    = new stdClass();
-        $this->dependencies['Plugindata']->resource->extensions = new stdClass();
+        $this->dependencies['Runtimedata']->resource->extensions = new stdClass();
 
         /** Get Theme */
         $token               = new stdClass();
@@ -494,7 +502,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $token->attributes   = array();
         $token->replace_this = '';
 
-        $this->dependencies['Plugindata']->resource->extensions->theme
+        $this->dependencies['Runtimedata']->resource->extensions->theme
             = $this->options['view_instance']->getView($token);
 
         /** Get Page */
@@ -505,7 +513,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $token->attributes   = array();
         $token->replace_this = '';
 
-        $this->dependencies['Plugindata']->resource->extensions->page
+        $this->dependencies['Runtimedata']->resource->extensions->page
             = $this->options['view_instance']->getView($token);
 
         /** Get Template */
@@ -516,7 +524,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $token->attributes   = array();
         $token->replace_this = '';
 
-        $this->dependencies['Plugindata']->resource->extensions->template
+        $this->dependencies['Runtimedata']->resource->extensions->template
             = $this->options['view_instance']->getView($token);
 
         /** Get Template */
@@ -527,10 +535,10 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $token->attributes   = array();
         $token->replace_this = '';
 
-        $this->dependencies['Plugindata']->resource->extensions->wrap
+        $this->dependencies['Runtimedata']->resource->extensions->wrap
             = $this->options['view_instance']->getView($token);
 
-        $this->set_container_entries['Plugindata'] = $this->dependencies['Plugindata'];
+        $this->set_container_entries['Runtimedata'] = $this->dependencies['Runtimedata'];
 
         return $this;
     }

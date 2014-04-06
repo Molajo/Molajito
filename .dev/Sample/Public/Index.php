@@ -8,7 +8,6 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 $path = __DIR__;
-$path = substr($path, 0, strlen($path) - 7);
-define('FOLDER_BASE', $path);
-include FOLDER_BASE . '/Bootstrap/Route.php';
-include FOLDER_BASE . '/Public/Foundation5/index.php';
+$path = substr($path, 0, strlen($path) - 18);
+define('MOLAJITO_BASE', $path);
+include MOLAJITO_BASE . '/.dev/Sample/Bootstrap/Index.php';

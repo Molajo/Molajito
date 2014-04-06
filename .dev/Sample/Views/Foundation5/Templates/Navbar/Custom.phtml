@@ -1,13 +1,22 @@
+<?php
+/**
+ * Navbar Template - Sample Foundation 5 Template for Molajito Rendering
+ *
+ * @package    Molajo
+ * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
+?>
 <div class="row">
     <div class="large-3 columns">
         <h1><img src="http://placehold.it/400x100&text=Logo" /></h1>
     </div>
     <div class="large-9 columns">
         <ul class="right button-group">
-            <li><a href="<?= $home; ?>" class="button">Home</a></li>
-            <li><a href="<?= $blog; ?>" class="button">Blog</a></li>
-            <li><a href="<?= $about; ?>" class="button">About</a></li>
-            <li><a href="<?= $contact; ?>" class="button">Contact</a></li>
+            <li><a href="<?= $this->runtime_data->route->home; ?>" class="button">Home</a></li>
+            <li><a href="<?= $this->runtime_data->route->blog; ?>" class="button">Blog</a></li>
+            <li><a href="<?= $this->runtime_data->route->about; ?>" class="button">About</a></li>
+            <li><a href="<?= $this->runtime_data->route->contact; ?>" class="button">Contact</a></li>
         </ul>
     </div>
 </div>

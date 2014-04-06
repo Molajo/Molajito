@@ -1,8 +1,16 @@
+<?php
+/**
+ * Blog Template - Sample Foundation 5 Template for Molajito Rendering
+ *
+ * @package    Molajo
+ * @copyright  2014 Amy Stephen. All rights reserved.
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
+?>
 <article>
+    <h3><a href="<?= $this->runtime_data->route->post; ?>">This is a content section</a></h3>
 
-    <h3><a href="<?= $page_url; ?>?page=post">This is a content section</a></h3>
-
-    <h6>Written by <a href="#">John Smith</a> on August 12, 2012.</h6>
+    <h6>Written by <a href="<?= $this->runtime_data->route->contact; ?>">John Smith</a> on August 12, 2012.</h6>
 
     <div class="row">
         <div class="large-6 columns">
@@ -17,5 +25,5 @@
     <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
 
     <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-    <a class="right" href="#">Read More →</a>
+    <a class="right" href="<?= $this->runtime_data->route->post; ?>">Read More →</a>
 </article>
