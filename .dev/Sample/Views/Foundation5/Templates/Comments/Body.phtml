@@ -9,10 +9,21 @@
 ?>
 <div class="row">
     <div class="large-12 columns">
-        <p>
-            <img class="right" src="http://placehold.it/50x50&text=[img]" />
-            <strong>Some Person said:</strong>:
-            Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit
-        </p>
+        <h3>Comments</h3>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            {% if site.safe == false %}var disqus_developer = 1;{% endif %}
+                var disqus_shortname = '<?= $this->row->disqus_name; ?>'; // required: replace example with your forum shortname
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+<br><br>
     </div>
 </div>
+

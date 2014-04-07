@@ -151,6 +151,9 @@ class Filesystem extends AbstractAdapter implements DataInterface
         ),
         'tags'              => array(
             'type' => 'string'
+        ),
+        'video'             => array(
+            'type' => 'url'
         )
     );
 
@@ -169,7 +172,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
         )
     );
 
-
     /**
      * Authors
      *
@@ -177,6 +179,14 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @since  1.0
      */
     protected $authors = array();
+
+    /**
+     * First Data Request indicator
+     *
+     * @var    boolean
+     * @since  1.0
+     */
+    protected $first_request = true;
 
     /**
      * Class Constructor
@@ -248,6 +258,11 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
         $this->parameters = new stdClass();
 
+        if ($this->first_request === true) {
+            $this->first_request = false;
+            $this->setPostURLs();
+        }
+
         return $this;
     }
 
@@ -260,18 +275,34 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function setModel()
     {
-        if ($this->token->name == 'Blog'
+        if ($this->token->type == 'page'
+        ) {
+
+        } elseif ($this->token->name == 'Blog'
             || $this->token->name == 'Horizontal'
+            || $this->token->name == 'Post'
+            || $this->token->name == 'Paging'
         ) {
             $this->model_type = 'Blog';
             $this->model_name = 'Posts';
 
+        } elseif ($this->token->name == 'Profile') {
+            $this->model_type = 'Author';
+            $this->model_name = 'Profile';
+
+        } elseif ($this->token->name == 'Gallery') {
+            $this->model_type = 'Author';
+            $this->model_name = 'Gallery';
+
         } elseif ($this->token->name == 'Footer'
             || $this->token->name == 'Navbar'
         ) {
-
             $this->model_type = 'Menu';
             $this->model_name = 'Navbar';
+
+        } elseif ($this->token->name == 'Comments') {
+            $this->model_type = 'Post';
+            $this->model_name = 'Comments';
 
         } elseif ($this->token->name == 'Categories'
             || $this->token->name == 'Tags'
@@ -282,12 +313,40 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
         } elseif ($this->token->name == 'Breadcrumbs') {
 
-// ???
+// todo
 
         } elseif ($this->token->name == 'Tags') {
-
             $this->model_type = 'Sidebar';
             $this->model_name = 'Tags';
+
+        } elseif ($this->token->name == 'Video') {
+
+            $this->model_type = 'Embed';
+            $this->model_name = 'Video';
+
+        } elseif ($this->token->name == 'Orbit') {
+            $this->model_type = 'Home';
+            $this->model_name = 'Orbit';
+
+        } elseif ($this->token->name == 'Pagination') {
+
+//todo
+
+        } elseif ($this->token->name == 'Action') {
+            $this->model_type = 'Runtimedata';
+            $this->model_name = 'Action';
+
+        } elseif ($this->token->name == 'Contact'
+            || $this->token->name = 'Maps'
+        ) {
+            $this->model_type = 'Runtimedata';
+            $this->model_name = 'Contact';
+
+        } else {
+            echo '<pre>';
+            var_dump($this->token);
+            echo '</pre>';
+            die;
         }
 
 
@@ -303,12 +362,19 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function getModelData()
     {
-        echo '<pre>';
-        var_dump($this->token);
-        echo '</pre>';
-
         if ($this->model_type == 'Blog') {
             return $this->getBlogPosts();
+
+        } elseif ($this->model_name == 'Comments') {
+            return $this->getComments();
+
+        } elseif ($this->model_type == 'Author') {
+
+            if ($this->model_name == 'Gallery') {
+                return $this->getAuthorGallery();
+            }
+
+            return $this->getProfile();
 
         } elseif ($this->model_type == 'Menu') {
             return $this->getMenu();
@@ -323,6 +389,117 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
             } elseif ($this->model_name == 'Tags') {
                 return $this->getTags();
+            }
+
+        } elseif ($this->model_type == 'Embed') {
+
+            if ($this->model_name == 'Video') {
+                return $this->getVideo();
+            }
+
+        } elseif ($this->model_type == 'Home') {
+
+            if ($this->model_name == 'Orbit') {
+                return $this->getOrbit();
+            }
+
+        } elseif ($this->model_type == 'Runtimedata') {
+
+            if ($this->model_name == 'Action') {
+                return $this->getAction();
+            }
+            if ($this->model_name == 'Contact') {
+                return $this->getContact();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Author Profile
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getProfile()
+    {
+        foreach ($this->authors as $author) {
+        }
+
+        $this->query_results[] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get Author Profile
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getComments()
+    {
+        if (trim($this->runtime_data->parameters->disqus_name) == '') {
+            return $this;
+        }
+
+        $row                   = new stdClass();
+        $row->disqus_name      = $this->runtime_data->parameters->disqus_name;
+        $this->query_results[] = $row;
+
+        return $this;
+    }
+
+    /**
+     * Get Author Gallery
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getAuthorGallery()
+    {
+        foreach ($this->authors as $author) {
+        }
+
+        for ($i = 1; $i < 10; $i ++) {
+
+            $image   = 'gallery_image' . $i;
+            $caption = 'gallery_caption' . $i;
+
+            if ($author->$image == '') {
+            } else {
+                $row = new stdClass();
+
+                $row->gallery_image   = $author->$image;
+                $row->gallery_caption = $author->$caption;
+
+                $this->query_results[] = $row;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Orbit
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getOrbit()
+    {
+        for ($i = 1; $i < 10; $i ++) {
+
+            $image = 'orbit_image' . $i;
+
+            if ($this->runtime_data->parameters->$image == '') {
+            } else {
+                $row = new stdClass();
+
+                $row->image = $this->runtime_data->parameters->$image;
+
+                $this->query_results[] = $row;
             }
         }
 
@@ -350,8 +527,9 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
         $parameter_array = $this->runtime_data->route->parameter_array;
 
-        $tag_parameter = '';
-        $tag_category  = '';
+        $tag_parameter      = '';
+        $category_parameter = '';
+        $name_parameter     = '';
 
         if (count($parameter_array) > 0) {
 
@@ -362,23 +540,35 @@ class Filesystem extends AbstractAdapter implements DataInterface
                 if (count($temp) == 2) {
 
                     if ($temp[0] == 'category') {
-                        $tag_category = $temp[1];
+                        $category_parameter = $temp[1];
 
                     } elseif ($temp[0] == 'tag') {
                         $tag_parameter = $temp[1];
+
+                    } elseif ($temp[0] == 'name') {
+                        $name_parameter = $temp[1];
+                        $count          = 1;
                     }
                 }
             }
         }
 
+        $query = array();
+
         $i = 0;
         foreach ($this->posts as $post) {
             $use_it = false;
 
-            if ($tag_parameter == '' && $tag_category == '') {
+            if ($tag_parameter == '' && $category_parameter == '' && $name_parameter == '') {
                 $use_it = true;
 
-            } elseif ($tag_category == '') {
+            } elseif ($category_parameter == '' && $tag_parameter == '') {
+
+                if (trim($post->filename) == trim($name_parameter)) {
+                    $use_it = true;
+                }
+
+            } elseif ($category_parameter == '') {
 
                 if (isset($post->tags)) {
                     $post_tags = explode(',', $post->tags);
@@ -393,13 +583,14 @@ class Filesystem extends AbstractAdapter implements DataInterface
                 if (isset($post->categories)) {
                     $post_categories = explode(',', $post->categories);
 
-                    if ($tag_category == '' || in_array($tag_category, $post_categories)) {
+                    if ($category_parameter == '' || in_array($category_parameter, $post_categories)) {
                         $use_it = true;
                     }
                 }
             }
 
-            if ($use_it == true) {
+            if ($use_it === true) {
+                $post->snippet         = $this->getSnippet($post->content);
                 $this->query_results[] = $post;
                 $i ++;
                 if ($i < $count) {
@@ -495,6 +686,64 @@ class Filesystem extends AbstractAdapter implements DataInterface
     }
 
     /**
+     * Get Video
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getVideo()
+    {
+        $row = new stdClass();
+
+        if (isset($this->token->attributes['link'])) {
+            $row->link = $this->token->attributes['link'];
+        }
+
+        $this->query_results[] = $row;
+
+        return $this;
+    }
+
+    /**
+     * Get Action information (links to Contact on Home Page)
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getAction()
+    {
+        $row = new stdClass();
+
+        $row->action_heading = $this->runtime_data->parameters->action_heading;
+        $row->action_message = $this->runtime_data->parameters->action_message;
+        $row->action_button  = $this->runtime_data->parameters->action_button;
+
+        $this->query_results[] = $row;
+
+        return $this;
+    }
+
+    /**
+     * Get Contact information
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getContact()
+    {
+        $row = new stdClass();
+
+        $row->title       = $this->runtime_data->parameters->contact_heading;
+        $row->content     = $this->runtime_data->parameters->contact_message;
+        $row->map         = $this->runtime_data->parameters->map;
+        $row->map_address = $this->runtime_data->parameters->map_address;
+
+        $this->query_results[] = $row;
+
+        return $this;
+    }
+
+    /**
      * Set Rows for Lists (Menu items, categories, tags, etc.)
      *
      * @return  $this
@@ -505,6 +754,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
         $row        = new stdClass();
         $row->link  = $link;
         $row->title = $title;
+
         return $row;
     }
 
@@ -563,6 +813,49 @@ class Filesystem extends AbstractAdapter implements DataInterface
         $data->parameters     = $this->parameters;
 
         return $data;
+    }
+
+    /**
+     * Set Previous, Current and Next URL Links
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setPostURLs()
+    {
+        if (count($this->posts) == 0) {
+            return $this;
+        }
+
+        $next_url = '';
+
+        $i = 0;
+        foreach ($this->posts as $post) {
+
+            $post->next_url     = $next_url;
+            $post->current_url  = $this->runtime_data->route->post . '&name=' . $post->filename;
+            $post->previous_url = '';
+
+            $next_url = $this->runtime_data->route->post . '&name=' . $post->filename;
+        }
+
+        $hold = array();
+        foreach ($this->posts as $item) {
+            if (trim($item->next_url) == '') {
+            } else {
+                $hold[$item->next_url] = $item->current_url;
+            }
+        }
+
+        foreach ($this->posts as $post) {
+
+            if (isset($hold[$post->current_url])) {
+                $post->previous_url = $hold[$post->current_url];
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -710,10 +1003,18 @@ class Filesystem extends AbstractAdapter implements DataInterface
         foreach ($lines as $line) {
             if (trim($line) == '---' || trim($line) == '') {
             } else {
+
                 $metadata_array = explode(':', $line);
+
                 if (count($metadata_array) > 0) {
-                    $key       = trim($metadata_array[0]);
-                    $value     = trim($metadata_array[1]);
+                    $key = trim($metadata_array[0]);
+
+                    $value = trim($metadata_array[1]);
+
+                    if (isset($metadata_array[2])) {
+                        $value .= ':' . $metadata_array[2];
+                    }
+
                     $row->$key = $value;
                 }
             }
@@ -750,5 +1051,20 @@ class Filesystem extends AbstractAdapter implements DataInterface
         $content = trim(substr($content, strrpos($content, '---') + 3, 9999));
 
         return trim(substr($content, 0, strrpos($content, '{{readmore}}')));
+    }
+
+    /**
+     * Get Data from Runtime Data Collection
+     *
+     * @param   string $file
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getSnippet($content)
+    {
+        return '<p>'
+        . strip_tags(trim(substr($content, 0, $this->runtime_data->parameters->snippet_length)))
+        . '...</p>';
     }
 }

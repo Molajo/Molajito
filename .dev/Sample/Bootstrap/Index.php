@@ -20,7 +20,7 @@ $class               = 'Molajo\\Factories\\MolajitoFactoryMethod';
 $theme_base_folder   = MOLAJITO_BASE . '.dev/Sample/Public/Foundation5';
 $view_base_folder    = MOLAJITO_BASE . '.dev/Sample/Views/Foundation5';
 $posts_base_folder   = MOLAJITO_BASE . '.dev/Sample/Data/Posts';
-$authors_base_folder = MOLAJITO_BASE . '.dev/Sample/Data/Profiles';
+$authors_base_folder = MOLAJITO_BASE . '.dev/Sample/Data/Profile';
 $factory             = new $class($theme_base_folder, $view_base_folder, $posts_base_folder, $authors_base_folder);
 $molajito            = $factory->instantiateClass();
 

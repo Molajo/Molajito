@@ -9,9 +9,13 @@
 ?>
 <div class="row">
     <div class="large-6 columns left">
-        <a href="<?= $page_url; ?>?page=post" class="button tiny secondary radius">Previous</a>
+        <?php if ($this->row->previous_url !== '') { ?>
+            <a href="<?= $this->row->previous_url; ?>" class="button tiny secondary radius">Previous</a>
+        <?php } ?>
     </div>
     <div class="large-6 columns">
-        <a href="<?= $page_url; ?>?page=post" class="button tiny secondary radius right">Next</a>
+        <?php if ($this->row->next_url !== '') { ?>
+            <a href="<?= $this->row->next_url; ?>" class="button tiny secondary radius right">Next</a>
+        <?php } ?>
     </div>
 </div>

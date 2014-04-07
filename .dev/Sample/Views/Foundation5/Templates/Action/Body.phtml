@@ -10,13 +10,14 @@
 <div class="row">
     <div class="large-12 columns">
         <div class="panel">
-            <h4>Get in touch!</h4>
+            <h4><?= $this->row->action_heading; ?></h4>
             <div class="row">
                 <div class="large-9 columns">
-                    <p>We'd love to hear from you, you cupcake, you.</p>
+                    <?= $this->row->action_message; ?>
                 </div>
                 <div class="large-3 columns">
-                    <a href="<?= $this->runtime_data->route->contact; ?>" class="radius button right">Contact Us</a>
+                    <a href="<?= $this->runtime_data->route->contact; ?>"
+                       class="radius button right"><?= $this->row->action_button; ?></a>
                 </div>
             </div>
         </div>

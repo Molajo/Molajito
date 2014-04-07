@@ -7,13 +7,20 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 ?>
-<h3>Amy Stephen</h3>
-<p>Topping tiramisu brownie. Cotton candy wafer chocolate cake gummi bears pie unerdwear.com chupa chups wafer.</p>
-<p>Cake ice cream cupcake chupa chups tootsie roll cotton candy cupcake.</p>
+<h3><?= $this->row->name; ?></h3>
+<?= $this->row->content; ?>
 
-<p><ul class="inline-list">
-    <li><a class="webicon mail" href="mailto:AmyStephen@gmail.com">Email</a></li>
-    <li><a class="webicon twitter" href="http://Twitter.com/AmyStephen">Twitter</a></li>
-    <li><a class="webicon github" href="https://Github.com/AmyStephen">Github</a></li>
-    <li><a class="webicon googleplus" href="https://plus.google.com/+AmyStephen">Google+</a></li>
-</ul></p>
+<ul class="inline-list">
+    <?php if ($this->row->email !== '') { ?>
+    <li><a class="webicon mail" href="mailto:<?= $this->row->email; ?>">Email</a></li>
+    <?php } ?>
+    <?php if ($this->row->twitter !== '') { ?>
+        <li><a class="webicon twitter" href="http://Twitter.com/<?= $this->row->twitter; ?>">Twitter</a></li>
+    <?php } ?>
+    <?php if ($this->row->github !== '') { ?>
+        <li><a class="webicon github" href="https://Github.com/<?= $this->row->github; ?>">Github</a></li>
+    <?php } ?>
+    <?php if ($this->row->googleplus !== '') { ?>
+        <li><a class="webicon googleplus" href="https://plus.google.com/<?= $this->row->googleplus; ?>">Google+</a></li>
+    <?php } ?>
+</ul>
