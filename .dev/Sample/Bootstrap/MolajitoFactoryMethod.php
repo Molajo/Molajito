@@ -56,7 +56,7 @@ class MolajitoFactoryMethod
      * @var    string
      * @since  1.0
      */
-    protected $authors_base_folder = null;
+    protected $author_base_folder = null;
 
     /**
      * Options
@@ -65,6 +65,22 @@ class MolajitoFactoryMethod
      * @since  1.0
      */
     protected $options = array();
+
+    /**
+     * Post Model Registry
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $post_model_registry = array();
+
+    /**
+     * Post Model Registry
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $author_model_registry = array();
 
     /**
      * Class Constructor
@@ -78,14 +94,18 @@ class MolajitoFactoryMethod
         $theme_base_folder,
         $view_base_folder,
         $posts_base_folder,
-        $authors_base_folder
+        $author_base_folder,
+        $post_model_registry,
+        $author_model_registry
     ) {
-        $this->theme_base_folder   = $theme_base_folder;
-        $this->view_base_folder    = $view_base_folder;
-        $this->posts_base_folder   = $posts_base_folder;
-        $this->authors_base_folder = $authors_base_folder;
+        $this->theme_base_folder     = $theme_base_folder;
+        $this->view_base_folder      = $view_base_folder;
+        $this->posts_base_folder     = $posts_base_folder;
+        $this->author_base_folder    = $author_base_folder;
+        $this->post_model_registry   = $post_model_registry;
+        $this->author_model_registry = $author_model_registry;
 
-        /** Event System is not hooked out */
+        /** Event System is not hooked up in this example */
         $this->options['event_option_keys'] = array();
     }
 
@@ -237,7 +257,9 @@ class MolajitoFactoryMethod
         try {
             $adapter = new $class (
                 $this->posts_base_folder,
-                $this->authors_base_folder
+                $this->author_base_folder,
+                $this->post_model_registry,
+                $this->author_model_registry
             );
         } catch (Exception $e) {
             throw new RuntimeException

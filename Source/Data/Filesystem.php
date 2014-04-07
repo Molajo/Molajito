@@ -55,14 +55,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
     protected $model_name = '';
 
     /**
-     * Field Name
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $field_name = '';
-
-    /**
      * Query Results
      *
      * @var    array
@@ -124,38 +116,15 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @var    array
      * @since  1.0
      */
-    protected $post_model_registry = array(
-        'filename'          => array(
-            'typye' => 'string'
-        ),
-        'folder'            => array(
-            'type' => 'string'
-        ),
-        'path_and_filename' => array(
-            'type' => 'string'
-        ),
-        'content'           => array(
-            'type' => 'html'
-        ),
-        'title'             => array(
-            'type' => 'string'
-        ),
-        'author'            => array(
-            'type' => 'string'
-        ),
-        'published'         => array(
-            'type' => 'date'
-        ),
-        'categories'        => array(
-            'type' => 'string'
-        ),
-        'tags'              => array(
-            'type' => 'string'
-        ),
-        'video'             => array(
-            'type' => 'url'
-        )
-    );
+    protected $post_model_registry = array();
+
+    /**
+     * Author Model Registry
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $author_model_registry = array();
 
     /**
      * Menu Model Registry
@@ -173,12 +142,12 @@ class Filesystem extends AbstractAdapter implements DataInterface
     );
 
     /**
-     * Authors
+     * Author Profile
      *
-     * @var    array
+     * @var    object
      * @since  1.0
      */
-    protected $authors = array();
+    protected $author = null;
 
     /**
      * First Data Request indicator
@@ -198,10 +167,14 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     public function __construct(
         $posts_base_folder,
-        $authors_base_folder
+        $author_base_folder,
+        $post_model_registry,
+        $author_model_registry
     ) {
         $this->loadPosts($posts_base_folder);
-        $this->loadAuthors($authors_base_folder);
+        $this->loadAuthor($author_base_folder);
+        $this->post_model_registry   = $post_model_registry;
+        $this->author_model_registry = $author_model_registry;
     }
 
     /**
@@ -243,7 +216,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
         $this->runtime_data   = null;
         $this->model_type     = '';
         $this->model_name     = '';
-        $this->field_name     = '';
         $this->query_results  = array();
         $this->model_registry = array();
         $this->parameters     = null;
@@ -424,10 +396,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function getProfile()
     {
-        foreach ($this->authors as $author) {
-        }
-
-        $this->query_results[] = $author;
+        $this->query_results[] = $this->author;
 
         return $this;
     }
@@ -459,20 +428,17 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function getAuthorGallery()
     {
-        foreach ($this->authors as $author) {
-        }
-
         for ($i = 1; $i < 10; $i ++) {
 
             $image   = 'gallery_image' . $i;
             $caption = 'gallery_caption' . $i;
 
-            if ($author->$image == '') {
+            if ($this->author->$image == '') {
             } else {
                 $row = new stdClass();
 
-                $row->gallery_image   = $author->$image;
-                $row->gallery_caption = $author->$caption;
+                $row->gallery_image   = $this->author->$image;
+                $row->gallery_caption = $this->author->$caption;
 
                 $this->query_results[] = $row;
             }
@@ -580,6 +546,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
                 }
 
             } else {
+
                 if (isset($post->categories)) {
                     $post_categories = explode(',', $post->categories);
 
@@ -590,7 +557,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
             }
 
             if ($use_it === true) {
-                $post->snippet         = $this->getSnippet($post->content);
                 $this->query_results[] = $post;
                 $i ++;
                 if ($i < $count) {
@@ -632,6 +598,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
     protected function getCategories()
     {
         foreach ($this->categories as $category => $list) {
+
             $this->query_results[] = $this->setListRow(
                 $this->runtime_data->route->blog . '&category=' . $category,
                 ucfirst(strtolower($category))
@@ -652,6 +619,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
     protected function getTags()
     {
         foreach ($this->tags as $tag => $list) {
+
             $this->query_results[] = $this->setListRow(
                 $this->runtime_data->route->blog . '&tag=' . $tag,
                 ucfirst(strtolower($tag))
@@ -714,9 +682,9 @@ class Filesystem extends AbstractAdapter implements DataInterface
     {
         $row = new stdClass();
 
-        $row->action_heading = $this->runtime_data->parameters->action_heading;
-        $row->action_message = $this->runtime_data->parameters->action_message;
-        $row->action_button  = $this->runtime_data->parameters->action_button;
+        $row->title       = $this->runtime_data->parameters->action_heading;
+        $row->content     = $this->runtime_data->parameters->action_message;
+        $row->button_text = $this->runtime_data->parameters->action_button;
 
         $this->query_results[] = $row;
 
@@ -795,7 +763,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
         $this->parameters->token      = $this->token;
         $this->parameters->model_type = $this->model_type;
         $this->parameters->model_name = $this->model_name;
-        $this->parameters->field_name = $this->field_name;
 
         if (isset($this->token->attributes)
             && count($this->token->attributes) > 0
@@ -833,9 +800,11 @@ class Filesystem extends AbstractAdapter implements DataInterface
         $i = 0;
         foreach ($this->posts as $post) {
 
+            $post->author_url   = $this->runtime_data->route->contact;
             $post->next_url     = $next_url;
             $post->current_url  = $this->runtime_data->route->post . '&name=' . $post->filename;
             $post->previous_url = '';
+            $post->snippet      = $this->getSnippet($post->content);
 
             $next_url = $this->runtime_data->route->post . '&name=' . $post->filename;
         }
@@ -947,11 +916,13 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @return  $this
      * @since   1.0
      */
-    protected function loadAuthors($authors_base_folder)
+    protected function loadAuthor($author_base_folder)
     {
-        $files = $this->getFolderList($authors_base_folder);
-        arsort($files);
-        $this->authors = $files;
+        $temp = $this->getFolderList($author_base_folder);
+
+        foreach ($temp as $author) {
+            $this->author = $author;
+        }
 
         return $this;
     }

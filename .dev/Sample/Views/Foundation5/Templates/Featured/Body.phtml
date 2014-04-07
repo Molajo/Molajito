@@ -9,10 +9,13 @@
 ?>
 <div class="panel">
     <h5>
-        <a href="<?= $this->runtime_data->route->post . '&name=' . $this->row->filename; ?>">
+        <a href="<?= $this->row->current_url; ?>">
             <?= $this->row->title; ?>
         </a>
     </h5>
+    <?= $this->row->snippet; ?>
 
-    <?= $this->row->readmore; ?>
+    <a class="right" href="<?= $this->row->current_url; ?>">
+        Read More →
+    </a>
 </div>

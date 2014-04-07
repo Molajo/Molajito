@@ -14,14 +14,18 @@ if (! defined('PHP_VERSION_ID')) {
 }
 include __DIR__ . '/Route.php';
 include __DIR__ . '/RuntimeData.php';
+include __DIR__ . '/Input.php';
 include __DIR__ . '/MolajitoFactoryMethod.php';
 
 $class               = 'Molajo\\Factories\\MolajitoFactoryMethod';
-$theme_base_folder   = MOLAJITO_BASE . '.dev/Sample/Public/Foundation5';
-$view_base_folder    = MOLAJITO_BASE . '.dev/Sample/Views/Foundation5';
-$posts_base_folder   = MOLAJITO_BASE . '.dev/Sample/Data/Posts';
-$authors_base_folder = MOLAJITO_BASE . '.dev/Sample/Data/Profile';
-$factory             = new $class($theme_base_folder, $view_base_folder, $posts_base_folder, $authors_base_folder);
+$factory             = new $class(
+    $theme_base_folder,
+    $view_base_folder,
+    $posts_base_folder,
+    $author_base_folder,
+    $post_model_registry,
+    $author_model_registry
+);
 $molajito            = $factory->instantiateClass();
 
 $rendered_page = $molajito->render($theme_base_folder, $data);
