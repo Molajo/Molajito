@@ -16,7 +16,7 @@ use Molajito\Theme;
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
- * @since      1.0
+ * @since      1.0.0
  */
 class ThemeTest extends \PHPUnit_Framework_TestCase
 {

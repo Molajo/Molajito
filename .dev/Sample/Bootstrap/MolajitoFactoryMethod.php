@@ -22,7 +22,7 @@ use CommonApi\Render\RenderInterface;
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
- * @since      1.0
+ * @since      1.0.0
  */
 class MolajitoFactoryMethod
 {
@@ -252,7 +252,7 @@ class MolajitoFactoryMethod
      */
     protected function getDataInstance()
     {
-        $class = 'Molajito\\Data\\Filesystem';
+        $class = 'Molajito\\Data\\FilesystemModel';
 
         try {
             $adapter = new $class (

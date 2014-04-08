@@ -18,7 +18,7 @@ use stdClass;
  * @package    Filesystem
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
- * @since      1.0
+ * @since      1.0.0
  */
 class Filesystem extends AbstractAdapter implements DataInterface
 {
@@ -79,6 +79,14 @@ class Filesystem extends AbstractAdapter implements DataInterface
     protected $parameters = null;
 
     /**
+     * Author Profile
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $author = null;
+
+    /**
      * Posts
      *
      * @var    array
@@ -109,6 +117,14 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @since  1.0
      */
     protected $featured = array();
+
+    /**
+     * Breadcrumbs
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $breadcrumbs = array();
 
     /**
      * Post Model Registry
@@ -142,14 +158,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
     );
 
     /**
-     * Author Profile
-     *
-     * @var    object
-     * @since  1.0
-     */
-    protected $author = null;
-
-    /**
      * First Data Request indicator
      *
      * @var    boolean
@@ -162,6 +170,8 @@ class Filesystem extends AbstractAdapter implements DataInterface
      *
      * @param  string $theme_base_folder
      * @param  string $view_base_folder
+     * @param  array  $post_model_registry
+     * @param  array  $author_model_registry
      *
      * @since  1.0
      */
@@ -191,10 +201,9 @@ class Filesystem extends AbstractAdapter implements DataInterface
     {
         $this->initialise($token, $options);
 
-        $this->setModel();
-
         if (strtolower($token->type) == 'page') {
         } else {
+            $this->setModel();
             $this->getModelData();
         }
 
@@ -232,6 +241,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
         if ($this->first_request === true) {
             $this->first_request = false;
+            $this->setBreadcrumbs();
             $this->setPostURLs();
         }
 
@@ -247,80 +257,8 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function setModel()
     {
-        if ($this->token->type == 'page'
-        ) {
-
-        } elseif ($this->token->name == 'Blog'
-            || $this->token->name == 'Horizontal'
-            || $this->token->name == 'Post'
-            || $this->token->name == 'Paging'
-        ) {
-            $this->model_type = 'Blog';
-            $this->model_name = 'Posts';
-
-        } elseif ($this->token->name == 'Profile') {
-            $this->model_type = 'Author';
-            $this->model_name = 'Profile';
-
-        } elseif ($this->token->name == 'Gallery') {
-            $this->model_type = 'Author';
-            $this->model_name = 'Gallery';
-
-        } elseif ($this->token->name == 'Footer'
-            || $this->token->name == 'Navbar'
-        ) {
-            $this->model_type = 'Menu';
-            $this->model_name = 'Navbar';
-
-        } elseif ($this->token->name == 'Comments') {
-            $this->model_type = 'Post';
-            $this->model_name = 'Comments';
-
-        } elseif ($this->token->name == 'Categories'
-            || $this->token->name == 'Tags'
-            || $this->token->name == 'Featured'
-        ) {
-            $this->model_type = 'Sidebar';
-            $this->model_name = $this->token->name;
-
-        } elseif ($this->token->name == 'Breadcrumbs') {
-
-// todo
-
-        } elseif ($this->token->name == 'Tags') {
-            $this->model_type = 'Sidebar';
-            $this->model_name = 'Tags';
-
-        } elseif ($this->token->name == 'Video') {
-
-            $this->model_type = 'Embed';
-            $this->model_name = 'Video';
-
-        } elseif ($this->token->name == 'Orbit') {
-            $this->model_type = 'Home';
-            $this->model_name = 'Orbit';
-
-        } elseif ($this->token->name == 'Pagination') {
-
-//todo
-
-        } elseif ($this->token->name == 'Action') {
-            $this->model_type = 'Runtimedata';
-            $this->model_name = 'Action';
-
-        } elseif ($this->token->name == 'Contact'
-            || $this->token->name = 'Maps'
-        ) {
-            $this->model_type = 'Runtimedata';
-            $this->model_name = 'Contact';
-
-        } else {
-            echo '<pre>';
-            var_dump($this->token);
-            echo '</pre>';
-            die;
-        }
-
+        $this->model_type = 'Filesystem';
+        $this->model_name = $this->token->name;
 
         return $this;
     }
@@ -334,387 +272,18 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function getModelData()
     {
-        if ($this->model_type == 'Blog') {
-            return $this->getBlogPosts();
+        $method = 'get' . $this->model_name;
 
-        } elseif ($this->model_name == 'Comments') {
-            return $this->getComments();
-
-        } elseif ($this->model_type == 'Author') {
-
-            if ($this->model_name == 'Gallery') {
-                return $this->getAuthorGallery();
-            }
-
-            return $this->getProfile();
-
-        } elseif ($this->model_type == 'Menu') {
-            return $this->getMenu();
-
-        } elseif ($this->model_type == 'Sidebar') {
-
-            if ($this->model_name == 'Categories') {
-                return $this->getCategories();
-
-            } elseif ($this->model_name == 'Featured') {
-                return $this->getFeatured();
-
-            } elseif ($this->model_name == 'Tags') {
-                return $this->getTags();
-            }
-
-        } elseif ($this->model_type == 'Embed') {
-
-            if ($this->model_name == 'Video') {
-                return $this->getVideo();
-            }
-
-        } elseif ($this->model_type == 'Home') {
-
-            if ($this->model_name == 'Orbit') {
-                return $this->getOrbit();
-            }
-
-        } elseif ($this->model_type == 'Runtimedata') {
-
-            if ($this->model_name == 'Action') {
-                return $this->getAction();
-            }
-            if ($this->model_name == 'Contact') {
-                return $this->getContact();
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get Author Profile
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getProfile()
-    {
-        $this->query_results[] = $this->author;
-
-        return $this;
-    }
-
-    /**
-     * Get Author Profile
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getComments()
-    {
-        if (trim($this->runtime_data->parameters->disqus_name) == '') {
-            return $this;
-        }
-
-        $row                   = new stdClass();
-        $row->disqus_name      = $this->runtime_data->parameters->disqus_name;
-        $this->query_results[] = $row;
-
-        return $this;
-    }
-
-    /**
-     * Get Author Gallery
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getAuthorGallery()
-    {
-        for ($i = 1; $i < 10; $i ++) {
-
-            $image   = 'gallery_image' . $i;
-            $caption = 'gallery_caption' . $i;
-
-            if ($this->author->$image == '') {
-            } else {
-                $row = new stdClass();
-
-                $row->gallery_image   = $this->author->$image;
-                $row->gallery_caption = $this->author->$caption;
-
-                $this->query_results[] = $row;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get Orbit
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getOrbit()
-    {
-        for ($i = 1; $i < 10; $i ++) {
-
-            $image = 'orbit_image' . $i;
-
-            if ($this->runtime_data->parameters->$image == '') {
-            } else {
-                $row = new stdClass();
-
-                $row->image = $this->runtime_data->parameters->$image;
-
-                $this->query_results[] = $row;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get Blog Posts
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getBlogPosts()
-    {
-        if (count($this->posts) == 0) {
-            return $this;
-        }
-
-        $count = (int)$this->runtime_data->parameters->posts_per_page;
-        if ($count > 0) {
-        } else {
-            $count = 3;
-        }
-
-        $parameter_array = $this->runtime_data->route->parameter_array;
-
-        $tag_parameter      = '';
-        $category_parameter = '';
-        $name_parameter     = '';
-
-        if (count($parameter_array) > 0) {
-
-            foreach ($parameter_array as $parameter) {
-
-                $temp = explode('=', $parameter);
-
-                if (count($temp) == 2) {
-
-                    if ($temp[0] == 'category') {
-                        $category_parameter = $temp[1];
-
-                    } elseif ($temp[0] == 'tag') {
-                        $tag_parameter = $temp[1];
-
-                    } elseif ($temp[0] == 'name') {
-                        $name_parameter = $temp[1];
-                        $count          = 1;
-                    }
-                }
-            }
-        }
-
-        $query = array();
-
-        $i = 0;
-        foreach ($this->posts as $post) {
-            $use_it = false;
-
-            if ($tag_parameter == '' && $category_parameter == '' && $name_parameter == '') {
-                $use_it = true;
-
-            } elseif ($category_parameter == '' && $tag_parameter == '') {
-
-                if (trim($post->filename) == trim($name_parameter)) {
-                    $use_it = true;
-                }
-
-            } elseif ($category_parameter == '') {
-
-                if (isset($post->tags)) {
-                    $post_tags = explode(',', $post->tags);
-
-                    if ($tag_parameter == '' || in_array($tag_parameter, $post_tags)) {
-                        $use_it = true;
-                    }
-
-                }
-
-            } else {
-
-                if (isset($post->categories)) {
-                    $post_categories = explode(',', $post->categories);
-
-                    if ($category_parameter == '' || in_array($category_parameter, $post_categories)) {
-                        $use_it = true;
-                    }
-                }
-            }
-
-            if ($use_it === true) {
-                $this->query_results[] = $post;
-                $i ++;
-                if ($i < $count) {
-                } else {
-                    break;
-                }
-            }
-        }
-
-        $this->model_registry = $this->post_model_registry;
-
-        return $this;
-    }
-
-    /**
-     * Get Menu
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getMenu()
-    {
-        $this->query_results[] = $this->setListRow($this->runtime_data->route->home, 'Home');
-        $this->query_results[] = $this->setListRow($this->runtime_data->route->blog, 'Blog');
-        $this->query_results[] = $this->setListRow($this->runtime_data->route->about, 'About');
-        $this->query_results[] = $this->setListRow($this->runtime_data->route->contact, 'Contact');
-
-        $this->model_registry = $this->list_model_registry;
-
-        return $this;
-    }
-
-    /**
-     * Get Categories
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getCategories()
-    {
-        foreach ($this->categories as $category => $list) {
-
-            $this->query_results[] = $this->setListRow(
-                $this->runtime_data->route->blog . '&category=' . $category,
-                ucfirst(strtolower($category))
-            );
-        }
-
-        $this->model_registry = $this->list_model_registry;
-
-        return $this;
-    }
-
-    /**
-     * Get Tags
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getTags()
-    {
-        foreach ($this->tags as $tag => $list) {
-
-            $this->query_results[] = $this->setListRow(
-                $this->runtime_data->route->blog . '&tag=' . $tag,
-                ucfirst(strtolower($tag))
-            );
-        }
-
-        $this->model_registry = $this->list_model_registry;
-
-        return $this;
-    }
-
-    /**
-     * Get Categories
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getFeatured()
-    {
-        if (count($this->featured) > 0) {
-        } else {
-            return $this;
-        }
-
-        foreach ($this->featured as $item) {
-            $this->query_results[] = $this->setItemRow($item);
-        }
-
-        $this->model_registry = $this->list_model_registry;
-
-        return $this;
-    }
-
-    /**
-     * Get Video
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getVideo()
-    {
-        $row = new stdClass();
-
-        if (isset($this->token->attributes['link'])) {
-            $row->link = $this->token->attributes['link'];
-        }
-
-        $this->query_results[] = $row;
-
-        return $this;
-    }
-
-    /**
-     * Get Action information (links to Contact on Home Page)
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getAction()
-    {
-        $row = new stdClass();
-
-        $row->title       = $this->runtime_data->parameters->action_heading;
-        $row->content     = $this->runtime_data->parameters->action_message;
-        $row->button_text = $this->runtime_data->parameters->action_button;
-
-        $this->query_results[] = $row;
-
-        return $this;
-    }
-
-    /**
-     * Get Contact information
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getContact()
-    {
-        $row = new stdClass();
-
-        $row->title       = $this->runtime_data->parameters->contact_heading;
-        $row->content     = $this->runtime_data->parameters->contact_message;
-        $row->map         = $this->runtime_data->parameters->map;
-        $row->map_address = $this->runtime_data->parameters->map_address;
-
-        $this->query_results[] = $row;
-
-        return $this;
+        return $this->$method();
     }
 
     /**
      * Set Rows for Lists (Menu items, categories, tags, etc.)
      *
-     * @return  $this
+     * @param   string $link
+     * @param   string $title
+     *
+     * @return  stdClass
      * @since   1.0
      */
     protected function setListRow($link, $title)
@@ -728,6 +297,8 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
     /**
      * Set Rows for Items (Normal, featured, etc)
+     *
+     * @param   string $title
      *
      * @return  $this
      * @since   1.0
@@ -783,6 +354,48 @@ class Filesystem extends AbstractAdapter implements DataInterface
     }
 
     /**
+     * Set Breadcrumbs
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setBreadcrumbs()
+    {
+        $home = $this->runtime_data->route->home;
+
+        $breadcrumbs              = array();
+        $breadcrumbs[]            = $home;
+        $this->breadcrumbs[$home] = $breadcrumbs;
+
+        $breadcrumbs   = array();
+        $breadcrumbs[] = $home;
+        $breadcrumbs[] = $this->runtime_data->route->contact;
+
+        $this->breadcrumbs[$this->runtime_data->route->contact] = $breadcrumbs;
+
+        $breadcrumbs   = array();
+        $breadcrumbs[] = $home;
+        $breadcrumbs[] = $this->runtime_data->route->blog;
+
+        $this->breadcrumbs[$this->runtime_data->route->blog] = $breadcrumbs;
+
+        $breadcrumbs   = array();
+        $breadcrumbs[] = $home;
+        $breadcrumbs[] = $this->runtime_data->route->about;
+
+        $this->breadcrumbs[$this->runtime_data->route->about] = $breadcrumbs;
+
+        $breadcrumbs   = array();
+        $breadcrumbs[] = $home;
+        $breadcrumbs[] = $this->runtime_data->route->contact;
+
+        $this->breadcrumbs[$this->runtime_data->route->contact] = $breadcrumbs;
+
+        return $this;
+    }
+
+    /**
      * Set Previous, Current and Next URL Links
      *
      * @return  $this
@@ -791,13 +404,15 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function setPostURLs()
     {
+        $home = $this->runtime_data->route->home;
+        $blog = $this->runtime_data->route->blog;
+
         if (count($this->posts) == 0) {
             return $this;
         }
 
         $next_url = '';
 
-        $i = 0;
         foreach ($this->posts as $post) {
 
             $post->author_url   = $this->runtime_data->route->contact;
@@ -805,6 +420,12 @@ class Filesystem extends AbstractAdapter implements DataInterface
             $post->current_url  = $this->runtime_data->route->post . '&name=' . $post->filename;
             $post->previous_url = '';
             $post->snippet      = $this->getSnippet($post->content);
+
+            $breadcrumbs                           = array();
+            $breadcrumbs[]                         = $home;
+            $breadcrumbs[]                         = $blog;
+            $breadcrumbs[]                         = $post->current_url;
+            $this->breadcrumbs[$post->current_url] = $breadcrumbs;
 
             $next_url = $this->runtime_data->route->post . '&name=' . $post->filename;
         }
@@ -837,7 +458,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function loadPosts($posts_base_folder)
     {
-        $posts = $this->getFolderList($posts_base_folder);
+        $posts = $this->getFiles($posts_base_folder);
         arsort($posts);
         $this->posts = $posts;
 
@@ -911,14 +532,14 @@ class Filesystem extends AbstractAdapter implements DataInterface
     /**
      * Load Authors
      *
-     * @param   string $posts_base_folder
+     * @param   string $author_base_folder
      *
      * @return  $this
      * @since   1.0
      */
     protected function loadAuthor($author_base_folder)
     {
-        $temp = $this->getFolderList($author_base_folder);
+        $temp = $this->getFiles($author_base_folder);
 
         foreach ($temp as $author) {
             $this->author = $author;
@@ -935,7 +556,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @return  array
      * @since   1.0
      */
-    protected function getFolderList($folder)
+    protected function getFiles($folder)
     {
         $files = array();
 
@@ -959,7 +580,8 @@ class Filesystem extends AbstractAdapter implements DataInterface
     /**
      * Get Data from Runtime Data Collection
      *
-     * @param   string $file
+     * @param   string   $content
+     * @param   stdClass $row
      *
      * @return  $this
      * @since   1.0
@@ -1012,7 +634,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
     /**
      * Get Data from Runtime Data Collection
      *
-     * @param   string $file
+     * @param   string $content
      *
      * @return  $this
      * @since   1.0
@@ -1027,7 +649,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
     /**
      * Get Data from Runtime Data Collection
      *
-     * @param   string $file
+     * @param   string $content
      *
      * @return  $this
      * @since   1.0

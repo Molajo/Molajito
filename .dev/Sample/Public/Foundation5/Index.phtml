@@ -16,13 +16,16 @@
     <title>Molajito | Foundation 5 | Welcome</title>
     <link rel="stylesheet" href="/Foundation5/webicons/webicons.css"/>
     <link rel="stylesheet" href="/Foundation5/css/foundation.css"/>
+    <link rel="stylesheet" href="/Foundation5/css/custom.css"/>
     <script src="/Foundation5/js/vendor/modernizr.js"></script>
 </head>
 <body>
-{I Navbar I}
-{I Breadcrumbs I}
-{I page=<?= $this->row->page_name; ?> I}
-{I Footer I}
+<div class="page-wrap">
+    {I Navbar I}
+    {I Breadcrumbs I}
+    {I page=<?= $this->row->page_name; ?> I}
+</div>
+    {I Footer I}
 <script src="/Foundation5/js/vendor/jquery.js"></script>
 <script src="/Foundation5/js/foundation.min.js"></script>
 <script src="/Foundation5/js/foundation/foundation.orbit.js"></script>

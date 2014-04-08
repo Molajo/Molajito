@@ -7,7 +7,13 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 ?>
-    <li><a href="<?= $this->runtime_data->route->home; ?>">Home</a></li>
-    <li><a href="#">Features</a></li>
-    <li class="unavailable"><a href="#">Gene Splicing</a></li>
-    <li class="current"><a href="#">Cloning</a></li>
+<li>
+<?php if ($this->row->current == 1) {
+} else {  ?>
+<a href="<?= $this->row->url; ?>">
+<?php } ?>
+HOME
+<?php if ($this->row->current == 1) {
+    } else {  ?>
+</a>
+<?php }
