@@ -8,17 +8,21 @@
  */
 ?>
 <div class="panel">
-    <h5><a href="<?= $this->runtime_data->route->contact; ?>">Amy Stephen</a></h5>
+    <h4><?= $this->row->name; ?></h4>
 
-    <p><img class="right" src="http://placehold.it/75x75&text=[img]" />
-        Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl.
-        Capicola short ribs minim salami nulla nostrud pastrami.
-    </p>
+    <p><?= $this->row->snippet; ?></p>
 
     <ul class="inline-list">
-        <li><a class="webicon github small" href="https://Github.com/AmyStephen">Github</a></li>
-        <li><a class="webicon twitter small" href="http://Twitter.com/AmyStephen">Twitter</a></li>
-        <li><a class="webicon googleplus small" href="https://plus.google.com/+AmyStephen">Google+</a></li>
-        <li><a class="webicon mail small" href="mailto:AmyStephen@gmail.com">Email</a></li>
-    </ul>
+        <?php if ($this->row->email !== '') { ?>
+            <li><a class="webicon mail" href="mailto:<?= $this->row->email; ?>">Email</a></li>
+        <?php } ?>
+        <?php if ($this->row->twitter !== '') { ?>
+            <li><a class="webicon twitter" href="http://Twitter.com/<?= $this->row->twitter; ?>">Twitter</a></li>
+        <?php } ?>
+        <?php if ($this->row->github !== '') { ?>
+            <li><a class="webicon github" href="https://Github.com/<?= $this->row->github; ?>">Github</a></li>
+        <?php } ?>
+        <?php if ($this->row->googleplus !== '') { ?>
+            <li><a class="webicon googleplus" href="https://plus.google.com/<?= $this->row->googleplus; ?>">Google+</a></li>
+        <?php } ?>
 </div>

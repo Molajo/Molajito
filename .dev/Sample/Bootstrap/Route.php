@@ -54,14 +54,65 @@ if (strtolower(substr($page_url, - 1)) == '/') {
 /**
  *  $page
  */
+$parameter_page     = '';
+$parameter_name     = '';
+$parameter_start       = '';
+$parameter_category = '';
+$parameter_tag      = '';
+
 $parameter_array = explode('&', $query_string);
 $page            = 'Home';
 foreach ($parameter_array as $pair) {
 
     $pair_array = explode('=', $pair);
 
-    if (count($pair_array) == 2 && strtolower($pair_array[0]) == 'page') {
-        $page = ucfirst(strtolower($pair_array[1]));
-        break;
+    if (count($pair_array) == 2) {
+
+        if (strtolower($pair_array[0]) == 'page') {
+            $parameter_page = trim(strtolower($pair_array[1]));
+            $page = ucfirst($parameter_page);
+
+        } elseif (strtolower($pair_array[0]) == 'name') {
+            $parameter_name = trim(strtolower($pair_array[1]));
+
+        } elseif (strtolower($pair_array[0]) == 'start') {
+            $parameter_start = trim(strtolower($pair_array[1]));
+
+        } elseif (strtolower($pair_array[0]) == 'category') {
+            $parameter_category = trim(strtolower($pair_array[1]));
+
+        } elseif (strtolower($pair_array[0]) == 'tag') {
+            $parameter_tag = trim(strtolower($pair_array[1]));
+        }
+    }
+}
+
+$current_url = $page_url;
+
+if ($parameter_page == '') {
+    $breadcrumb_current_url = $current_url;
+} else {
+    $current_url .= '/index.php';
+    $current_url .= '?page=' . strtolower($parameter_page);
+    $breadcrumb_current_url = $current_url;
+
+    if ($parameter_name == '') {
+
+        /** Id supports pagination - and category and tag can both paginate */
+        if ($parameter_name == 'category') {
+            $current_url .= '&category=' . $parameter_category;
+
+        } elseif ($parameter_name == 'tag') {
+            $current_url .= '&tag=' . $parameter_tag;
+        }
+
+        if ($parameter_name == 'start') {
+            $current_url .= '&start=' . $parameter_start;
+        }
+
+    } else {
+        $page = 'Post';
+        $current_url .= '&name=' . $parameter_name;
+        $breadcrumb_current_url = $current_url;
     }
 }

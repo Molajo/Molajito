@@ -23,6 +23,14 @@ use stdClass;
 class Filesystem extends AbstractAdapter implements DataInterface
 {
     /**
+     * Pagination Class
+     *
+     * @var    object
+     * @since  1.0
+     */
+    protected $pagination = null;
+
+    /**
      * Runtime Data
      *
      * @var    object
@@ -127,6 +135,22 @@ class Filesystem extends AbstractAdapter implements DataInterface
     protected $breadcrumbs = array();
 
     /**
+     * Holds primary display posts
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $display_posts = array();
+
+    /**
+     * Holds primary display posts
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $display_total_items = 0;
+
+    /**
      * Post Model Registry
      *
      * @var    array
@@ -164,28 +188,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @since  1.0
      */
     protected $first_request = true;
-
-    /**
-     * Class Constructor
-     *
-     * @param  string $theme_base_folder
-     * @param  string $view_base_folder
-     * @param  array  $post_model_registry
-     * @param  array  $author_model_registry
-     *
-     * @since  1.0
-     */
-    public function __construct(
-        $posts_base_folder,
-        $author_base_folder,
-        $post_model_registry,
-        $author_model_registry
-    ) {
-        $this->loadPosts($posts_base_folder);
-        $this->loadAuthor($author_base_folder);
-        $this->post_model_registry   = $post_model_registry;
-        $this->author_model_registry = $author_model_registry;
-    }
 
     /**
      * Get Data for Rendering
@@ -241,8 +243,8 @@ class Filesystem extends AbstractAdapter implements DataInterface
 
         if ($this->first_request === true) {
             $this->first_request = false;
-            $this->setBreadcrumbs();
-            $this->setPostURLs();
+            $blog_breadcrumbs    = $this->setBreadcrumbs();
+            $this->setPostURLs($blog_breadcrumbs);
         }
 
         return $this;
@@ -354,201 +356,6 @@ class Filesystem extends AbstractAdapter implements DataInterface
     }
 
     /**
-     * Set Breadcrumbs
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function setBreadcrumbs()
-    {
-        $home = $this->runtime_data->route->home;
-
-        $breadcrumbs              = array();
-        $breadcrumbs[]            = $home;
-        $this->breadcrumbs[$home] = $breadcrumbs;
-
-        $breadcrumbs   = array();
-        $breadcrumbs[] = $home;
-        $breadcrumbs[] = $this->runtime_data->route->contact;
-
-        $this->breadcrumbs[$this->runtime_data->route->contact] = $breadcrumbs;
-
-        $breadcrumbs   = array();
-        $breadcrumbs[] = $home;
-        $breadcrumbs[] = $this->runtime_data->route->blog;
-
-        $this->breadcrumbs[$this->runtime_data->route->blog] = $breadcrumbs;
-
-        $breadcrumbs   = array();
-        $breadcrumbs[] = $home;
-        $breadcrumbs[] = $this->runtime_data->route->about;
-
-        $this->breadcrumbs[$this->runtime_data->route->about] = $breadcrumbs;
-
-        $breadcrumbs   = array();
-        $breadcrumbs[] = $home;
-        $breadcrumbs[] = $this->runtime_data->route->contact;
-
-        $this->breadcrumbs[$this->runtime_data->route->contact] = $breadcrumbs;
-
-        return $this;
-    }
-
-    /**
-     * Set Previous, Current and Next URL Links
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function setPostURLs()
-    {
-        $home = $this->runtime_data->route->home;
-        $blog = $this->runtime_data->route->blog;
-
-        if (count($this->posts) == 0) {
-            return $this;
-        }
-
-        $next_url = '';
-
-        foreach ($this->posts as $post) {
-
-            $post->author_url   = $this->runtime_data->route->contact;
-            $post->next_url     = $next_url;
-            $post->current_url  = $this->runtime_data->route->post . '&name=' . $post->filename;
-            $post->previous_url = '';
-            $post->snippet      = $this->getSnippet($post->content);
-
-            $breadcrumbs                           = array();
-            $breadcrumbs[]                         = $home;
-            $breadcrumbs[]                         = $blog;
-            $breadcrumbs[]                         = $post->current_url;
-            $this->breadcrumbs[$post->current_url] = $breadcrumbs;
-
-            $next_url = $this->runtime_data->route->post . '&name=' . $post->filename;
-        }
-
-        $hold = array();
-        foreach ($this->posts as $item) {
-            if (trim($item->next_url) == '') {
-            } else {
-                $hold[$item->next_url] = $item->current_url;
-            }
-        }
-
-        foreach ($this->posts as $post) {
-
-            if (isset($hold[$post->current_url])) {
-                $post->previous_url = $hold[$post->current_url];
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Load Posts
-     *
-     * @param   string $posts_base_folder
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function loadPosts($posts_base_folder)
-    {
-        $posts = $this->getFiles($posts_base_folder);
-        arsort($posts);
-        $this->posts = $posts;
-
-        if (count($posts) > 0) {
-        } else {
-            return $this;
-        }
-
-        $list_categories = array();
-        $list_tags       = array();
-        $list_featured   = array();
-
-        foreach ($posts as $post) {
-
-            if (isset($post->categories)) {
-                $temp = explode(',', $post->categories);
-                if (count($temp) > 0) {
-                    foreach ($temp as $category) {
-                        $category = strtolower(trim($category));
-                        if (trim($category) == '') {
-                        } else {
-                            if (isset($list_categories[$category])) {
-                                $temp_list = $list_categories[$category];
-                            } else {
-                                $temp_list = array();
-                            }
-                            $temp_list[]                = $post->filename;
-                            $list_categories[$category] = $temp_list;
-                        }
-                    }
-                }
-            }
-
-            if (isset($post->tags)) {
-                $temp = explode(',', $post->tags);
-                if (count($temp) > 0) {
-                    foreach ($temp as $tag) {
-                        $tag = strtolower(trim($tag));
-                        if (trim($tag) == '') {
-                        } else {
-                            if (isset($list_tags[$tag])) {
-                                $temp_list = $list_tags[$tag];
-                            } else {
-                                $temp_list = array();
-                            }
-                            $temp_list[]     = $post->filename;
-                            $list_tags[$tag] = $temp_list;
-                        }
-                    }
-                }
-            }
-
-            if (isset($post->featured)) {
-                if ((int)$post->featured == 1) {
-                    $list_featured[] = $post->filename;
-                }
-            }
-        }
-
-        ksort($list_categories);
-        $this->categories = $list_categories;
-
-        ksort($list_tags);
-        $this->tags = $list_tags;
-
-        $this->featured = $list_featured;
-
-        return $this;
-    }
-
-    /**
-     * Load Authors
-     *
-     * @param   string $author_base_folder
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function loadAuthor($author_base_folder)
-    {
-        $temp = $this->getFiles($author_base_folder);
-
-        foreach ($temp as $author) {
-            $this->author = $author;
-        }
-
-        return $this;
-    }
-
-    /**
      * Get Data from Primary Data Collection
      *
      * @param   string $folder
@@ -614,50 +421,5 @@ class Filesystem extends AbstractAdapter implements DataInterface
         }
 
         return $row;
-    }
-
-    /**
-     * Get Content from file input
-     *
-     * @param   string $content
-     *
-     * @return  string
-     * @since   1.0
-     */
-    protected function getContent($content)
-    {
-        $content = trim(substr($content, strrpos($content, '---') + 3, 9999));
-
-        return str_replace('{{readmore}}', '', $content);
-    }
-
-    /**
-     * Get Data from Runtime Data Collection
-     *
-     * @param   string $content
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getReadMore($content)
-    {
-        $content = trim(substr($content, strrpos($content, '---') + 3, 9999));
-
-        return trim(substr($content, 0, strrpos($content, '{{readmore}}')));
-    }
-
-    /**
-     * Get Data from Runtime Data Collection
-     *
-     * @param   string $content
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function getSnippet($content)
-    {
-        return '<p>'
-        . strip_tags(trim(substr($content, 0, $this->runtime_data->parameters->snippet_length)))
-        . '...</p>';
     }
 }

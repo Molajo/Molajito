@@ -259,7 +259,8 @@ class MolajitoFactoryMethod
                 $this->posts_base_folder,
                 $this->author_base_folder,
                 $this->post_model_registry,
-                $this->author_model_registry
+                $this->author_model_registry,
+                new \Molajo\Pagination
             );
         } catch (Exception $e) {
             throw new RuntimeException

@@ -10,6 +10,7 @@ namespace Molajito\Data;
 
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\DataInterface;
+use CommonApi\Render\PaginationInterface;
 use stdClass;
 
 /**
@@ -22,6 +23,31 @@ use stdClass;
  */
 class FilesystemModel extends Filesystem
 {
+
+    /**
+     * Class Constructor
+     *
+     * @param  string $theme_base_folder
+     * @param  string $view_base_folder
+     * @param  array  $post_model_registry
+     * @param  array  $author_model_registry
+     *
+     * @since  1.0
+     */
+    public function __construct(
+        $posts_base_folder,
+        $author_base_folder,
+        $post_model_registry,
+        $author_model_registry,
+        PaginationInterface $pagination = null
+    ) {
+        $this->loadPosts($posts_base_folder);
+        $this->loadAuthor($author_base_folder);
+        $this->post_model_registry   = $post_model_registry;
+        $this->author_model_registry = $author_model_registry;
+        $this->pagination            = $pagination;
+    }
+
     /**
      * Get Action
      *
@@ -49,7 +75,7 @@ class FilesystemModel extends Filesystem
      */
     protected function getAuthor()
     {
-        return $this->getContact();
+        return $this->getProfile();
     }
 
     /**
@@ -60,31 +86,16 @@ class FilesystemModel extends Filesystem
      */
     protected function getBreadcrumbs()
     {
-        $current_page = $this->runtime_data->route->blog;
+        $current_page = $this->runtime_data->breadcrumb_current_url;
 
         if (isset($this->breadcrumbs[$current_page])) {
         } else {
             return $this;
         }
 
-        $breadcrumbs = $this->breadcrumbs[$current_page];
+        $this->query_results = $this->breadcrumbs[$current_page];
 
-        $current = count($breadcrumbs);
-        $i       = 1;
-        foreach ($breadcrumbs as $key => $value) {
-            $row          = new stdClass();
-            $row->url     = $value;
-
-            if ($i == $current) {
-                $row->current = 1;
-            } else {
-                $row->current = 0;
-            }
-
-            $this->query_results[] = $row;
-
-            $i++;
-        }
+        return $this;
     }
 
     /**
@@ -302,7 +313,49 @@ class FilesystemModel extends Filesystem
      */
     protected function getPagination()
     {
-        return array();
+        $query_parameters = array();
+        if ((int)$this->runtime_data->route->parameter_start == 0) {
+            $this->runtime_data->route->parameter_start = 1;
+        }
+        $query_parameters['page'] = 'blog';
+        if ($this->runtime_data->route->parameter_category == '') {
+        } else {
+            $query_parameters['category'] = $this->runtime_data->route->parameter_category;
+        }
+        if ($this->runtime_data->route->parameter_tag == '') {
+        } else {
+            $query_parameters['parameter_tag'] = $this->runtime_data->route->parameter_tag;
+        }
+
+
+        $this->pagination->setPagination(
+            $this->display_posts,
+            $this->runtime_data->route->home,
+            $query_parameters,
+            $this->display_total_items,
+            $this->runtime_data->parameters->posts_per_page,
+            $this->runtime_data->parameters->display_links,
+            $this->runtime_data->route->parameter_start,
+            $this->runtime_data->parameters->sef_url,
+            $this->runtime_data->parameters->index_in_url
+        );
+
+        $row                       = new stdClass();
+        $row->first_page_number    = $this->pagination->getFirstPage();
+        $row->first_page_link      = $this->pagination->getPageUrl('first');
+        $row->previous_page_number = $this->pagination->getPrevPage();
+        $row->previous_page_link   = $this->pagination->getPageUrl('previous');
+        $row->current_page_number  = $this->pagination->getCurrentPage();
+        $row->current_page_link    = $this->pagination->getPageUrl('current');
+        $row->next_page_number     = $this->pagination->getNextPage();
+        $row->next_page_link       = $this->pagination->getPageUrl('next');
+        $row->last_page_number     = $this->pagination->getLastPage();
+        $row->last_page_link       = $this->pagination->getPageUrl('last');
+        $row->total_items          = $this->pagination->getTotalItems();
+        $row->start_page_number    = $this->pagination->getStartDisplayPage();
+        $row->stop_page_number     = $this->pagination->getStopDisplayPage();
+
+        $this->query_results[] = $row;
     }
 
     /**
@@ -374,7 +427,7 @@ class FilesystemModel extends Filesystem
             }
         }
 
-        $i = 0;
+        $i = - 1;
         foreach ($this->posts as $post) {
             $use_it = false;
 
@@ -410,16 +463,18 @@ class FilesystemModel extends Filesystem
             }
 
             if ($use_it === true) {
-                $this->query_results[] = $post;
                 $i ++;
                 if ($i < $count) {
+                    $this->query_results[] = $post;
                 } else {
-                    break;
+                    // counting all
                 }
             }
         }
 
-        $this->model_registry = $this->post_model_registry;
+        $this->display_posts       = $this->query_results;
+        $this->model_registry      = $this->post_model_registry;
+        $this->display_total_items = $i;
 
         return $this;
     }
@@ -432,6 +487,8 @@ class FilesystemModel extends Filesystem
      */
     protected function getProfile()
     {
+        $author            = $this->author;
+        $author->snippet   = $this->getSnippet($author->read_more);
         $this->query_results[] = $this->author;
 
         return $this;
@@ -475,5 +532,273 @@ class FilesystemModel extends Filesystem
         $this->query_results[] = $row;
 
         return $this;
+    }
+
+    /**
+     * Set Breadcrumbs
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setBreadcrumbs()
+    {
+        $home      = $this->runtime_data->route->home;
+        $home_text = $this->runtime_data->route->home_text;
+
+        $breadcrumbs = array();
+
+        /** Home */
+        $row           = new stdClass();
+        $row->text     = $home_text;
+        $row->link     = $home;
+        $breadcrumbs[] = $row;
+        $home_row      = $row;
+
+        $this->breadcrumbs[$home] = $breadcrumbs;
+
+        /** Blog */
+        $blog_breadcrumbs   = array();
+        $blog_breadcrumbs[] = $home_row;
+
+        $row                = new stdClass();
+        $row->text          = $this->runtime_data->route->blog_text;
+        $row->link          = $this->runtime_data->route->blog;
+        $blog_breadcrumbs[] = $row;
+
+        $this->breadcrumbs[$this->runtime_data->route->blog] = $blog_breadcrumbs;
+
+        /** Contact */
+        $breadcrumbs   = array();
+        $breadcrumbs[] = $home_row;
+
+        $row           = new stdClass();
+        $row->text     = $this->runtime_data->route->contact_text;
+        $row->link     = $this->runtime_data->route->contact;
+        $breadcrumbs[] = $row;
+
+        $this->breadcrumbs[$this->runtime_data->route->contact] = $breadcrumbs;
+
+        /** About */
+        $breadcrumbs   = array();
+        $breadcrumbs[] = $home_row;
+
+        $row           = new stdClass();
+        $row->text     = $this->runtime_data->route->about_text;
+        $row->link     = $this->runtime_data->route->about;
+        $breadcrumbs[] = $row;
+
+        $this->breadcrumbs[$this->runtime_data->route->about] = $breadcrumbs;
+
+        return $blog_breadcrumbs;
+    }
+
+    /**
+     * Set Previous, Current and Next URL Links
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setPostURLs($blog_breadcrumbs)
+    {
+        $home = $this->runtime_data->route->home;
+        $blog = $this->runtime_data->route->blog;
+
+        if (count($this->posts) == 0) {
+            return $this;
+        }
+
+        $next_url = '';
+
+        foreach ($this->posts as $post) {
+
+            $post->author_url   = $this->runtime_data->route->contact;
+            $post->next_url     = $next_url;
+            $post->current_url  = $this->runtime_data->route->blog . '&name=' . $post->filename;
+            $post->previous_url = '';
+            $post->snippet      = $this->getSnippet($post->content);
+
+            $breadcrumbs   = $blog_breadcrumbs;
+            $row           = new stdClass();
+            $row->text     = $post->title;
+            $row->link     = $post->current_url;
+            $breadcrumbs[] = $row;
+
+            $this->breadcrumbs[$post->current_url] = $breadcrumbs;
+
+            $next_url = $this->runtime_data->route->blog . '&name=' . $post->filename;
+        }
+
+        $hold = array();
+        foreach ($this->posts as $item) {
+            if (trim($item->next_url) == '') {
+            } else {
+                $hold[$item->next_url] = $item->current_url;
+            }
+        }
+
+        foreach ($this->posts as $post) {
+
+            if (isset($hold[$post->current_url])) {
+                $post->previous_url = $hold[$post->current_url];
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Load Posts
+     *
+     * @param   string $posts_base_folder
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function loadPosts($posts_base_folder)
+    {
+        $posts = $this->getFiles($posts_base_folder);
+        arsort($posts);
+        $this->posts = $posts;
+
+        if (count($posts) > 0) {
+        } else {
+            return $this;
+        }
+
+        $list_categories = array();
+        $list_tags       = array();
+        $list_featured   = array();
+
+        foreach ($posts as $post) {
+
+            if (isset($post->categories)) {
+                $temp = explode(',', $post->categories);
+                if (count($temp) > 0) {
+                    foreach ($temp as $category) {
+                        $category = strtolower(trim($category));
+                        if (trim($category) == '') {
+                        } else {
+                            if (isset($list_categories[$category])) {
+                                $temp_list = $list_categories[$category];
+                            } else {
+                                $temp_list = array();
+                            }
+                            $temp_list[]                = $post->filename;
+                            $list_categories[$category] = $temp_list;
+                        }
+                    }
+                }
+            }
+
+            if (isset($post->tags)) {
+                $temp = explode(',', $post->tags);
+                if (count($temp) > 0) {
+                    foreach ($temp as $tag) {
+                        $tag = strtolower(trim($tag));
+                        if (trim($tag) == '') {
+                        } else {
+                            if (isset($list_tags[$tag])) {
+                                $temp_list = $list_tags[$tag];
+                            } else {
+                                $temp_list = array();
+                            }
+                            $temp_list[]     = $post->filename;
+                            $list_tags[$tag] = $temp_list;
+                        }
+                    }
+                }
+            }
+
+            if (isset($post->featured)) {
+                if ((int)$post->featured == 1) {
+                    $list_featured[] = $post->filename;
+                }
+            }
+        }
+
+        ksort($list_categories);
+        $this->categories = $list_categories;
+
+        ksort($list_tags);
+        $this->tags = $list_tags;
+
+        $this->featured = $list_featured;
+
+        return $this;
+    }
+
+    /**
+     * Load Authors
+     *
+     * @param   string $author_base_folder
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function loadAuthor($author_base_folder)
+    {
+        $temp = $this->getFiles($author_base_folder);
+
+        foreach ($temp as $author) {
+            $content = $author->content;
+
+            $author->content = '<p>' . $this->getReadMore($content);
+            $author->read_more = '<p>' . $this->getReadMore($content);
+
+            $this->author = $author;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get Content from file input
+     *
+     * @param   string $content
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function getContent($content)
+    {
+        $content = trim(substr($content, strrpos($content, '---') + 3, 9999));
+
+        return str_replace('{{readmore}}', '', $content);
+    }
+
+    /**
+     * Get Data from Runtime Data Collection
+     *
+     * @param   string $content
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getReadMore($content)
+    {
+        $content = trim(substr($content, strrpos($content, '---') + 3, 9999));
+
+        if (strrpos($content, '{{readmore}}')) {
+            return trim(substr($content, 0, strpos($content, '{{readmore}}')));
+        }
+
+        return $content;
+    }
+
+    /**
+     * Get Data from Runtime Data Collection
+     *
+     * @param   string $content
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getSnippet($content)
+    {
+        return '<p>'
+            . trim(strip_tags(substr(($content), 0, $this->runtime_data->parameters->snippet_length)))
+            . '</p>';
     }
 }

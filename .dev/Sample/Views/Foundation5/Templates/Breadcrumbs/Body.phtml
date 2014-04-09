@@ -6,14 +6,20 @@
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
+
+if ($this->row->total_rows > 1) {
 ?>
-<li>
-<?php if ($this->row->current == 1) {
-} else {  ?>
-<a href="<?= $this->row->url; ?>">
+    <li>
+    <?php if ($this->row->last_row == 1) {
+} else {
+    ?>
+    <a href="<?= $this->row->link; ?>">
 <?php } ?>
-HOME
-<?php if ($this->row->current == 1) {
-    } else {  ?>
-</a>
-<?php }
+    <?= $this->row->text; ?>
+    <?php if ($this->row->last_row == 1) {
+    } else {
+        ?>
+        </a>
+    <?php
+    }
+}
