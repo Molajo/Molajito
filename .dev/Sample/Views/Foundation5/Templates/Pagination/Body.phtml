@@ -11,19 +11,42 @@
     <div class="large-12 columns">
         <div class="pagination-centered">
             <ul class="pagination">
-                <li class="arrow"><a href="<?= $this->row->first_page_link; ?>">&laquo; &laquo;</a></li>
-                <?php if ((int) $this->row->previous_page_number == 0) : ?>
+                <?php if ((int)$this->row->first_page_number == (int)$this->row->current_page_number) : ?>
+                    <li class="arrow unavailable"></li>
+                <?php else : ?>
+                    <li class="arrow"><a href="<?= $this->row->first_page_link; ?>">&laquo; &laquo;</a></li>
+                <?php endif; ?>
+
+                <?php if ((int)$this->row->previous_page_number == (int)$this->row->current_page_number) : ?>
                     <li class="arrow unavailable"></li>
                 <?php else : ?>
                     <li class="arrow"><a href="<?= $this->row->previous_page_link; ?>">&laquo;</a></li>
                 <?php endif; ?>
 
-                <?php if ((int) $this->row->next_page_number == 0) : ?>
-                    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                <?php
+                for ($i = $this->row->start_links_page_number;
+                     $i < $this->row->stop_links_page_number + 1;
+                     $i ++) {
+
+                    if ((int)$i == (int)$this->row->current_page_number) : ?>
+                        <li class="current">
+                    <?php else : ?>
+                        <li>
+                    <?php endif; ?>
+                    <a href="<?= $this->row->page_links_array[$i]; ?>"><?= $i; ?></a></li>
+                <?php } ?>
+
+                <?php if ((int)$this->row->next_page_number == (int)$this->row->current_page_number) : ?>
+                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
                 <?php else : ?>
                     <li class="arrow"><a href="<?= $this->row->next_page_link; ?>">&raquo;</a></li>
                 <?php endif; ?>
-                <li class="arrow"><a href="<?= $this->row->last_page_link; ?>">&raquo; &raquo;</a></li>
+
+                <?php if ((int)$this->row->last_page_number == (int)$this->row->current_page_number) : ?>
+                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                <?php else : ?>
+                    <li class="arrow"><a href="<?= $this->row->last_page_link; ?>">&raquo; &raquo;</a></li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

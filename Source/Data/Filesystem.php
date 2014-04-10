@@ -143,12 +143,13 @@ class Filesystem extends AbstractAdapter implements DataInterface
     protected $display_posts = array();
 
     /**
-     * Holds primary display posts
+     * Count of the total items for pagination
+     *  -> not all will necessarily be displayed
      *
      * @var    array
      * @since  1.0
      */
-    protected $display_total_items = 0;
+    protected $total_items = 0;
 
     /**
      * Post Model Registry
@@ -173,12 +174,31 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @since  1.0
      */
     protected $list_model_registry = array(
-        'link'  => array(
-            'type' => 'url'
-        ),
-        'title' => array(
-            'type' => 'string'
-        )
+        'link'  => array('name' => 'link', 'type' => 'url'),
+        'title' => array('name' => 'title', 'type' => 'string')
+    );
+
+    /**
+     * Pagination Model Registry
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $pagination_model_registry = array(
+        'first_page_number'       => array('name' => 'first_page_number', 'type' => 'integer'),
+        'first_page_link'         => array('name' => 'first_page_link', 'type' => 'url'),
+        'previous_page_number'    => array('name' => 'previous_page_number', 'type' => 'integer'),
+        'previous_page_link'      => array('name' => 'previous_page_link', 'type' => 'url'),
+        'current_page_number'     => array('name' => 'current_page_number', 'type' => 'integer'),
+        'current_page_link'       => array('name' => 'current_page_link', 'type' => 'url'),
+        'next_page_number'        => array('name' => 'next_page_number', 'type' => 'integer'),
+        'next_page_link'          => array('name' => 'next_page_link', 'type' => 'url'),
+        'last_page_number'        => array('name' => 'last_page_number', 'type' => 'integer'),
+        'last_page_link'          => array('name' => 'last_page_link', 'type' => 'url'),
+        'total_items'             => array('name' => 'total_items', 'type' => 'integer'),
+        'start_links_page_number' => array('name' => 'start_links_page_number', 'type' => 'integer'),
+        'stop_links_page_number'  => array('name' => 'stop_links_page_number', 'type' => 'integer'),
+        'page_links_array'        => array('name' => 'page_links_array', 'type' => 'arrays')
     );
 
     /**

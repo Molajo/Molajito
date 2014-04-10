@@ -8,6 +8,5 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 $path = __DIR__;
-$path = substr($path, 0, strlen($path) - 18);
-define('MOLAJITO_BASE', $path);
-include MOLAJITO_BASE . '/.dev/Sample/Bootstrap/Index.php';
+$molajito_base = substr($path, 0, strlen($path) - 18);
+include $molajito_base . '/.dev/Sample/Bootstrap/Index.php';

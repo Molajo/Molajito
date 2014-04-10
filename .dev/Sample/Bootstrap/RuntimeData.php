@@ -11,7 +11,7 @@
 $runtime_data                                              = new stdClass();
 $runtime_data->error_code                                  = 0;
 $runtime_data->redirect_to_id                              = 0;
-$runtime_data->base_path                                   = MOLAJITO_BASE;
+$runtime_data->base_path                                   = $molajito_base;
 $runtime_data->request                                     = $_SERVER;
 $runtime_data->parameters                                  = new stdClass();
 $runtime_data->parameters->posts_per_page                  = 3;

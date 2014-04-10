@@ -327,35 +327,44 @@ class FilesystemModel extends Filesystem
             $query_parameters['parameter_tag'] = $this->runtime_data->route->parameter_tag;
         }
 
-
         $this->pagination->setPagination(
             $this->display_posts,
             $this->runtime_data->route->home,
             $query_parameters,
-            $this->display_total_items,
+            $this->total_items,
             $this->runtime_data->parameters->posts_per_page,
             $this->runtime_data->parameters->display_links,
-            $this->runtime_data->route->parameter_start,
+            $current_page = $this->runtime_data->route->parameter_start,
             $this->runtime_data->parameters->sef_url,
             $this->runtime_data->parameters->index_in_url
         );
 
-        $row                       = new stdClass();
-        $row->first_page_number    = $this->pagination->getFirstPage();
-        $row->first_page_link      = $this->pagination->getPageUrl('first');
-        $row->previous_page_number = $this->pagination->getPrevPage();
-        $row->previous_page_link   = $this->pagination->getPageUrl('previous');
-        $row->current_page_number  = $this->pagination->getCurrentPage();
-        $row->current_page_link    = $this->pagination->getPageUrl('current');
-        $row->next_page_number     = $this->pagination->getNextPage();
-        $row->next_page_link       = $this->pagination->getPageUrl('next');
-        $row->last_page_number     = $this->pagination->getLastPage();
-        $row->last_page_link       = $this->pagination->getPageUrl('last');
-        $row->total_items          = $this->pagination->getTotalItems();
-        $row->start_page_number    = $this->pagination->getStartDisplayPage();
-        $row->stop_page_number     = $this->pagination->getStopDisplayPage();
+        $row                          = new stdClass();
+        $row->first_page_number       = $this->pagination->getFirstPage();
+        $row->first_page_link         = $this->pagination->getPageUrl('first');
+        $row->previous_page_number    = $this->pagination->getPrevPage();
+        $row->previous_page_link      = $this->pagination->getPageUrl('previous');
+        $row->current_page_number     = $this->pagination->getCurrentPage();
+        $row->current_page_link       = $this->pagination->getPageUrl('current');
+        $row->next_page_number        = $this->pagination->getNextPage();
+        $row->next_page_link          = $this->pagination->getPageUrl('next');
+        $row->last_page_number        = $this->pagination->getLastPage();
+        $row->last_page_link          = $this->pagination->getPageUrl('last');
+        $row->total_items             = $this->pagination->getTotalItems();
+        $row->start_links_page_number = $this->pagination->getStartLinksPage();
+        $row->stop_links_page_number  = $this->pagination->getStopLinksPage();
+
+        $row->page_links_array = array();
+        for ($i = $row->start_links_page_number;
+             $i < $row->stop_links_page_number + 1;
+             $i ++) {
+            $row->page_links_array[$i] = $this->pagination->getPageUrl($i);
+        }
 
         $this->query_results[] = $row;
+        $this->model_registry  = $this->pagination_model_registry;
+
+        return $this;
     }
 
     /**
@@ -393,12 +402,115 @@ class FilesystemModel extends Filesystem
             return $this;
         }
 
-        $count = (int)$this->runtime_data->parameters->posts_per_page;
-        if ($count > 0) {
-        } else {
-            $count = 3;
+        $start               = $this->setPaginationStart();
+        $posts_per_page      = $this->setPaginationPostsPerPage();
+        $display_links       = $this->setPaginationDisplayLinkCount();
+        $skip_count          = ($start * $posts_per_page) - $posts_per_page;
+        $display_links_count = $display_links * $posts_per_page;
+
+        /** Parameter Array */
+        $parameter_array = $this->setPostSelectionCriteria();
+
+        $tag_parameter      = $parameter_array['tag_parameter'];
+        $category_parameter = $parameter_array['category_parameter'];
+        $name_parameter     = $parameter_array['name_parameter'];
+
+        $total_posts  = 0;
+        $return_count = 0;
+
+        foreach ($this->posts as $post) {
+
+            $use_it = $this->setUseItFlag($post, $tag_parameter, $category_parameter, $name_parameter);
+
+            if ($use_it === true) {
+
+                $total_posts ++;
+
+                if ($skip_count < $total_posts) {
+
+                    if ($skip_count + $display_links_count < $total_posts) {
+                        // items following display
+
+                    } else {
+                        // display links
+                        if ($posts_per_page > $return_count) {
+                            $return_count ++;
+                            $this->query_results[] = $post;
+                        } else {
+                            // counting display links -- not all display
+                        }
+                    }
+
+                } else {
+                    // items previous to display
+                }
+            }
         }
 
+        $this->display_posts  = $this->query_results;
+        $this->model_registry = $this->post_model_registry;
+        $this->total_items    = $total_posts;
+
+        return $this;
+    }
+
+    /**
+     * Set Pagination Start
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setPaginationStart()
+    {
+        if ((int)$this->runtime_data->route->parameter_start == 0) {
+            $this->runtime_data->route->parameter_start = 1;
+        }
+
+        return (int)$this->runtime_data->route->parameter_start;
+    }
+
+    /**
+     * Set Pagination Posts per page
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setPaginationPostsPerPage()
+    {
+        if ((int)$this->runtime_data->parameters->posts_per_page > 0) {
+        } else {
+            $this->runtime_data->parameters->posts_per_page = 3;
+        }
+
+        return $this->runtime_data->parameters->posts_per_page;
+    }
+
+    /**
+     * Set Pagination Display Link Count
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setPaginationDisplayLinkCount()
+    {
+        if ((int)$this->runtime_data->parameters->display_links > 0) {
+        } else {
+            $this->runtime_data->parameters->display_links = 3;
+        }
+
+        return $this->runtime_data->parameters->display_links;
+    }
+
+    /**
+     * Using Parameters values, determine selection criteria for posts
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setPostSelectionCriteria()
+    {
+        /** Parameter Array */
         $parameter_array = $this->runtime_data->route->parameter_array;
 
         $tag_parameter      = '';
@@ -421,62 +533,60 @@ class FilesystemModel extends Filesystem
 
                     } elseif ($temp[0] == 'name') {
                         $name_parameter = $temp[1];
-                        $count          = 1;
                     }
                 }
             }
         }
 
-        $i = - 1;
-        foreach ($this->posts as $post) {
-            $use_it = false;
+        return array(
+            'tag_parameter'      => $tag_parameter,
+            'category_parameter' => $category_parameter,
+            'name_parameter'     => $name_parameter
+        );
+    }
 
-            if ($tag_parameter == '' && $category_parameter == '' && $name_parameter == '') {
+    /**
+     * Given the parameter values, determine if the post qualifies
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setUseItFlag($post, $tag_parameter, $category_parameter, $name_parameter)
+    {
+        $use_it = false;
+
+        if ($tag_parameter == '' && $category_parameter == '' && $name_parameter == '') {
+            $use_it = true;
+
+        } elseif ($category_parameter == '' && $tag_parameter == '') {
+
+            if (trim($post->filename) == trim($name_parameter)) {
                 $use_it = true;
+            }
 
-            } elseif ($category_parameter == '' && $tag_parameter == '') {
+        } elseif ($category_parameter == '') {
 
-                if (trim($post->filename) == trim($name_parameter)) {
+            if (isset($post->tags)) {
+                $post_tags = explode(',', $post->tags);
+
+                if ($tag_parameter == '' || in_array($tag_parameter, $post_tags)) {
                     $use_it = true;
                 }
-
-            } elseif ($category_parameter == '') {
-
-                if (isset($post->tags)) {
-                    $post_tags = explode(',', $post->tags);
-
-                    if ($tag_parameter == '' || in_array($tag_parameter, $post_tags)) {
-                        $use_it = true;
-                    }
-
-                }
-
-            } else {
-
-                if (isset($post->categories)) {
-                    $post_categories = explode(',', $post->categories);
-
-                    if ($category_parameter == '' || in_array($category_parameter, $post_categories)) {
-                        $use_it = true;
-                    }
-                }
             }
 
-            if ($use_it === true) {
-                $i ++;
-                if ($i < $count) {
-                    $this->query_results[] = $post;
-                } else {
-                    // counting all
+        } else {
+
+            if (isset($post->categories)) {
+                $post_categories = explode(',', $post->categories);
+
+                if ($category_parameter == '' || in_array($category_parameter, $post_categories)) {
+                    $use_it = true;
                 }
             }
         }
 
-        $this->display_posts       = $this->query_results;
-        $this->model_registry      = $this->post_model_registry;
-        $this->display_total_items = $i;
-
-        return $this;
+        return $use_it;
     }
 
     /**
@@ -487,8 +597,8 @@ class FilesystemModel extends Filesystem
      */
     protected function getProfile()
     {
-        $author            = $this->author;
-        $author->snippet   = $this->getSnippet($author->read_more);
+        $author                = $this->author;
+        $author->snippet       = $this->getSnippet($author->read_more);
         $this->query_results[] = $this->author;
 
         return $this;
@@ -744,7 +854,7 @@ class FilesystemModel extends Filesystem
         foreach ($temp as $author) {
             $content = $author->content;
 
-            $author->content = '<p>' . $this->getReadMore($content);
+            $author->content   = '<p>' . $this->getReadMore($content);
             $author->read_more = '<p>' . $this->getReadMore($content);
 
             $this->author = $author;
@@ -798,7 +908,7 @@ class FilesystemModel extends Filesystem
     protected function getSnippet($content)
     {
         return '<p>'
-            . trim(strip_tags(substr(($content), 0, $this->runtime_data->parameters->snippet_length)))
-            . '</p>';
+        . trim(strip_tags(substr(($content), 0, $this->runtime_data->parameters->snippet_length)))
+        . '</p>';
     }
 }

@@ -221,6 +221,7 @@ class Engine implements RenderInterface
     protected $render_array = array(
         'plugin_data',
         'runtime_data',
+        'model_registry',
         'parameters',
         'query_results',
         'row'
@@ -500,6 +501,7 @@ class Engine implements RenderInterface
             $this->renderPageView();
 
         } else {
+
             $this->renderTemplateView();
 
             if ($token->wrap == '') {

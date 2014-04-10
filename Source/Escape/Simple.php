@@ -71,15 +71,14 @@ class Simple implements EscapeInterface
      */
     protected function escapeDataElement($data_value = null)
     {
-        $escape_key = null;
+        if (is_numeric($data_value)) {
+            return $data_value;
 
-        if ($escape_key === null) {
-            if (is_numeric($data_value)) {
-                return $data_value;
+        } elseif (is_null($data_value)) {
+            return $data_value;
 
-            } elseif (is_null($data_value)) {
-                return $data_value;
-            }
+        } elseif (is_array($data_value)) {
+            return $data_value;
         }
 
         return htmlentities($data_value);

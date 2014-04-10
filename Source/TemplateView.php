@@ -128,6 +128,7 @@ class TemplateView implements RenderInterface
      */
     protected $row = null;
 
+
     /**
      * Render Properties
      *
@@ -137,6 +138,7 @@ class TemplateView implements RenderInterface
     protected $render_array = array(
         'plugin_data',
         'runtime_data',
+        'model_registry',
         'parameters',
         'query_results',
         'row'
