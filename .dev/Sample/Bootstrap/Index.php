@@ -19,6 +19,7 @@ include __DIR__ . '/MolajitoFactoryMethod.php';
 
 $class               = 'Molajo\\Factories\\MolajitoFactoryMethod';
 $factory             = new $class(
+    $molajito_base,
     $theme_base_folder,
     $view_base_folder,
     $posts_base_folder,

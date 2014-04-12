@@ -6,12 +6,10 @@
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
-
 namespace Molajo\Factories;
 
 use Exception;
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Model\FieldhandlerInterface;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\RenderInterface;
@@ -26,6 +24,14 @@ use CommonApi\Render\RenderInterface;
  */
 class MolajitoFactoryMethod
 {
+    /**
+     * Molajito Folder
+     *
+     * @var    string
+     * @since  1.0
+     */
+    protected $molajito_base_folder = null;
+
     /**
      * Theme Base Folder
      *
@@ -85,12 +91,18 @@ class MolajitoFactoryMethod
     /**
      * Class Constructor
      *
-     * @param  string $theme_base_folder
-     * @param  string $view_base_folder
+     * @param  string  $molajito_base_folder
+     * @param  string  $theme_base_folder
+     * @param  string  $view_base_folder
+     * @param  string  $posts_base_folder
+     * @param  string  $author_base_folder
+     * @param  string  $post_model_registry
+     * @param  string  $author_model_registry
      *
      * @since  1.0
      */
     public function __construct(
+        $molajito_base_folder,
         $theme_base_folder,
         $view_base_folder,
         $posts_base_folder,
@@ -98,6 +110,7 @@ class MolajitoFactoryMethod
         $post_model_registry,
         $author_model_registry
     ) {
+        $this->molajito_base_folder  = $molajito_base_folder;
         $this->theme_base_folder     = $theme_base_folder;
         $this->view_base_folder      = $view_base_folder;
         $this->posts_base_folder     = $posts_base_folder;
@@ -118,8 +131,7 @@ class MolajitoFactoryMethod
      */
     public function instantiateClass()
     {
-        $fieldhandler_instance = $this->getFieldhandlerInstance();
-        $escape_instance       = $this->getEscapeInstance($fieldhandler_instance);
+        $escape_instance       = $this->getEscapeInstance();
         $render_instance       = $this->getRenderInstance();
         $data_instance         = $this->getDataInstance();
         $view_instance         = $this->getViewInstance();
@@ -166,6 +178,58 @@ class MolajitoFactoryMethod
     }
 
     /**
+     * Instantiate Escape Class with installed Adapter
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getEscapeInstance()
+    {
+        if (file_exists($this->molajito_base_folder . '/vendor/molajo/Fieldhandler/Source/Driver.php')) {
+            $adapter = $this->getMolajoEscapeInstance();
+        } else {
+            $adapter = $this->getSimpleEscapeInstance();
+        }
+
+        $class = 'Molajito\\Escape';
+
+        try {
+            return new $class ($adapter);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'Molajito: Could not instantiate Escape Class: ' . $class
+            );
+        }
+    }
+
+    /**
+     * Instantiate Molajo Escape Class
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getMolajoEscapeInstance()
+    {
+        $fieldhandler_instance = $this->getFieldhandlerInstance();
+
+        $class = 'Molajito\\Escape\\Molajo';
+
+        try {
+            return new $class ($fieldhandler_instance);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'Molajito: Could not instantiate Molajo Escape Class: ' . $class
+            );
+        }
+    }
+
+    /**
      * Instantiate Escape Class
      *
      * @return  $this
@@ -188,35 +252,23 @@ class MolajitoFactoryMethod
     }
 
     /**
-     * Instantiate Escape Class
+     * Instantiate Simple Escape Class
      *
      * @return  $this
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getEscapeInstance(FieldhandlerInterface $fieldhandler_instance)
+    protected function getSimpleEscapeInstance()
     {
-        $class = 'Molajito\\Escape\\Molajo';
+        $class = 'Molajito\\Escape\\Simple';
 
         try {
-            $adapter = new $class ($fieldhandler_instance);
+            return new $class ();
 
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Fieldhandler Escape Class: ' . $class
-            );
-        }
-
-        $class = 'Molajito\\Escape';
-
-        try {
-            return new $class ($adapter);
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'Molajito: Could not instantiate Escape Class: ' . $class
+                'Molajito: Could not instantiate Simple Escape Class: ' . $class
             );
         }
     }
@@ -252,6 +304,13 @@ class MolajitoFactoryMethod
      */
     protected function getDataInstance()
     {
+        if (file_exists($this->molajito_base_folder . '/vendor/molajo/Pagination/Source/Pagination.php')) {
+            include $this->molajito_base_folder . '/vendor/molajo/Pagination/Source/Pagination.php';
+            $pagination = new \Molajo\Pagination();
+        } else {
+            $pagination = null;
+        }
+
         $class = 'Molajito\\Data\\FilesystemModel';
 
         try {
@@ -260,7 +319,7 @@ class MolajitoFactoryMethod
                 $this->author_base_folder,
                 $this->post_model_registry,
                 $this->author_model_registry,
-                new \Molajo\Pagination
+                $pagination
             );
         } catch (Exception $e) {
             throw new RuntimeException

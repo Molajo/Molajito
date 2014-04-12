@@ -10,7 +10,9 @@
 <div class="row">
     <div class="large-9 columns" role="content">
         {I Blog I}
-        {I Pagination I}
+        <?php if (class_exists('\Molajo\Pagination')) { ?>
+            {I Pagination I}
+        <?php } ?>
     </div>
     <aside class="large-3 columns">
         {I Categories I}

@@ -34,6 +34,28 @@ class Simple implements EscapeInterface
     protected $data = array();
 
     /**
+     * Data
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $white_list = '<b><em><i><img><p><u><strong>';
+
+    /**
+     * Constructor
+     *
+     * @since  1.0
+     */
+    public function __construct(
+        $white_list = null
+    ) {
+        if ($white_list === null) {
+        } else {
+            $this->white_list = $white_list;
+        }
+    }
+
+    /**
      * Simple Query Output prior to Rendering
      *
      * @param   array $data
@@ -81,6 +103,6 @@ class Simple implements EscapeInterface
             return $data_value;
         }
 
-        return htmlentities($data_value);
+        return strip_tags($data_value, $this->white_list);
     }
 }
