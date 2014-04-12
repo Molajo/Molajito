@@ -15,13 +15,13 @@
         <div class="pagination-centered">
             <ul class="pagination">
                 <?php if ((int)$this->row->first_page_number == (int)$this->row->current_page_number) : ?>
-                    <li class="arrow unavailable"></li>
+                    <li class="arrow unavailable">&laquo; &laquo;</li>
                 <?php else : ?>
                     <li class="arrow"><a href="<?= $this->row->first_page_link; ?>">&laquo; &laquo;</a></li>
                 <?php endif; ?>
 
                 <?php if ((int)$this->row->previous_page_number == (int)$this->row->current_page_number) : ?>
-                    <li class="arrow unavailable"></li>
+                    <li class="arrow unavailable">&laquo;</li>
                 <?php else : ?>
                     <li class="arrow"><a href="<?= $this->row->previous_page_link; ?>">&laquo;</a></li>
                 <?php endif; ?>
@@ -40,13 +40,13 @@
                 <?php } ?>
 
                 <?php if ((int)$this->row->next_page_number == (int)$this->row->current_page_number) : ?>
-                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                    <li class="arrow unavailable">&raquo;</li>
                 <?php else : ?>
                     <li class="arrow"><a href="<?= $this->row->next_page_link; ?>">&raquo;</a></li>
                 <?php endif; ?>
 
                 <?php if ((int)$this->row->last_page_number == (int)$this->row->current_page_number) : ?>
-                    <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                    <li class="arrow unavailable">&raquo; &raquo;</li>
                 <?php else : ?>
                     <li class="arrow"><a href="<?= $this->row->last_page_link; ?>">&raquo; &raquo;</a></li>
                 <?php endif; ?>
