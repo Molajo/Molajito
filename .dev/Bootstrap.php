@@ -16,20 +16,20 @@ if (! defined('PHP_VERSION_ID')) {
 $base     = substr(__DIR__, 0, strlen(__DIR__) - 5);
 
 $classmap = array();
-$classmap = createClassMap($base . '/vendor/commonapi/render', 'CommonApi\\Render\\');
+$classmap = createClassMap($base . '/vendor/commonapi/render/', 'CommonApi\\Render\\');
 
-$results  = createClassMap($base . '/vendor/commonapi/exception', 'CommonApi\\Exception\\');
+$results  = createClassMap($base . '/vendor/commonapi/exception/', 'CommonApi\\Exception\\');
 $classmap = array_merge($classmap, $results);
 
-$results  = createClassMap($base . '/Source/Data', 'Molajito\\Data\\');
+$results  = createClassMap($base . '/Source/Data/', 'Molajito\\Data\\');
 $classmap = array_merge($classmap, $results);
-$results  = createClassMap($base . '/Source/Escape', 'Molajito\\Escape\\');
+$results  = createClassMap($base . '/Source/Escape/', 'Molajito\\Escape\\');
 $classmap = array_merge($classmap, $results);
-$results  = createClassMap($base . '/Source/Event', 'Molajito\\Event\\');
+$results  = createClassMap($base . '/Source/Event/', 'Molajito\\Event\\');
 $classmap = array_merge($classmap, $results);
-$results  = createClassMap($base . '/Source/View', 'Molajito\\View\\');
+$results  = createClassMap($base . '/Source/View/', 'Molajito\\View\\');
 $classmap = array_merge($classmap, $results);
-$results  = createClassMap($base . '/Source/View', 'Molajito\\');
+$results  = createClassMap($base . '/Source/', 'Molajito\\');
 $classmap = array_merge($classmap, $results);
 
 ksort($classmap);
