@@ -4,32 +4,31 @@ Molajito Render Package
 
 [![Build Status](https://travis-ci.org/Molajo/Render.png?branch=master)](https://travis-ci.org/Molajo/Molajito)
 
-Molajito is a template environment that empowers frontend developers with full control over rendered output, making it
-*as easy as possible* to move from HTML mock-ups to "render ready" views.
-
-* Handles `looping`
-* Escapes data prior to injecting view with data
+Molajito is a template environment for frontend developers who want to focus on rendered output, not programming.
 
 ## Basic usage:
 
 Molajito uses the following for rendering output:
 
-* `Themes` base information for rendered output, including CSS and JS
-* `Page Views` use to define different types of page layouts, like blog, post, contact, home, etc.
-* `Template Views` renders one specific layout, for example a post or an author profile
-* `Wrap Views` wraps rendered output from a template view in a specific manner, for example, it might
- enclose the template output in content-specific HTML5 element, like `<article>`, `<footer>`, `<header>`,
- `<nav>`, or `<section>`. It can also be used to render a block with a certain visual effect.
- * `Positions` is a way to define a block that is associated with one or more `template views`.
-
+* [Themes](https://github.com/Molajo/Molajito#theme) provide the starting point for rendering,
+typically defines CSS and JS statements.
+* [Page](https://github.com/Molajo/Molajito#page) Views define various layouts for the site,
+for example, blog, post, contact, and home page layouts.
+* [Page](https://github.com/Molajo/Molajito#page) Views define various layouts for the site,
+for example, blog, post, contact, and home page layouts.
+* [Template](https://github.com/Molajo/Molajito#template) Views used to render one specific block for the page,
+for example a post or an author profile.
+* [Wrap](https://github.com/Molajo/Molajito#wrap) Views rendered output from a template view in a specific manner,
+for example, it might enclose the template output in content-specific HTML5 element,
+like `<article>`, `<footer>`, or `<header>`. It can also be used to render a block with a certain visual effect.
+* [Positions](https://github.com/Molajo/Molajito#position) define a block associated with one or more `template views`.
 
 ### Theme
 
 Themes drive the rendering process.
 
-Molajito injects two data objects into the theme:
- * `$this->runtime_data` an object you can use to define configuration data
- * `$this->row` an object which contains the `page_name`, linking to the page view
+Molajito injects a data object called `$this->runtime_data` into the Theme. You can add data elements
+to the object.
 
 ```html
 
@@ -38,14 +37,14 @@ Molajito injects two data objects into the theme:
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><?= $this->runtime_data->parameters->site_title ?></title>
+    <title><?= $this->runtime_data->site_title ?></title>
     <link rel="stylesheet" href="/css/custom.css"/>
 </head>
 <body>
 <div class="page-wrap">
     {I Navbar I}
     {I Breadcrumbs I}
-    {I page=<?= $this->row->page_name ?> I}
+    {I page=<?= $this->runtime_data->page_name ?> I}
 </div>
     {I Footer I}
 </body>

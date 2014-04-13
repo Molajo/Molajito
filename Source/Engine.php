@@ -133,14 +133,6 @@ class Engine implements RenderInterface
     protected $theme_path = null;
 
     /**
-     * Page Name
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $page_name = null;
-
-    /**
      * Runtime Data
      *
      * @var    object
@@ -320,16 +312,14 @@ class Engine implements RenderInterface
      */
     protected function initialiseData(array $data = array())
     {
-        if (isset($data['page_name'])) {
-            $this->page_name = $data['page_name'];
-        } else {
-            throw new RuntimeException ('Molajito Renderer requires Page Name');
-        }
-
         if (isset($data['runtime_data'])) {
             $this->runtime_data = $data['runtime_data'];
         } else {
             throw new RuntimeException ('Molajito Renderer requires Runtime Data');
+        }
+
+        if (isset($data['page_name'])) {
+            $this->runtime_data->page_name = $data['page_name'];
         }
 
         if (isset($data['plugin_data'])) {
@@ -537,11 +527,6 @@ class Engine implements RenderInterface
         $options = $this->setOptionValues();
 
         $this->theme_path = $include_file;
-
-        $row            = new stdClass();
-        $row->page_name = $this->page_name;
-
-        $options['row'] = $row;
 
         try {
             $this->rendered_page = $this->theme_instance->render(

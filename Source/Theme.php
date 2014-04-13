@@ -48,22 +48,13 @@ class Theme implements RenderInterface
     protected $runtime_data = null;
 
     /**
-     * Row
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $row = null;
-
-    /**
      * Allowed Properties
      *
      * @var    object
      * @since  1.0
      */
     protected $property_array = array(
-        'runtime_data',
-        'row'
+        'runtime_data'
     );
 
     /**
@@ -110,13 +101,6 @@ class Theme implements RenderInterface
      */
     protected function setProperties(array $data = array())
     {
-        if (isset($data['row'])) {
-            $temp = $this->escape_instance->escape(array($data['row']));
-            $data['row'] = $temp[0];
-        } else {
-            throw new RuntimeException ('Molajito Theme: No input $data array');
-        }
-
         foreach ($this->property_array as $key) {
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
