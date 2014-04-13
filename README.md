@@ -84,24 +84,16 @@ The Include syntax is simple `{I type=Name I}`:
  * `Name` identifies the view associated with the type specified;
  * `I}` marks the end of an include statement.
 
-**Page** `{I page=<? $this->runtime_data->page_name ?> I}`
-* The page value is automatically passed in via `$this->runtime_data->page_name` to the Theme.
-
-**Position** `{I Positionname I}`
-* If `type=` is omitted, Molajito treats it as a `position`, first. But, if `Positionname` is
-not found, Molajito looks for a `template view` with that name.
-
-**Template** `{I template=Templatename I}`
-* Molajito looks for a `template view` with the name `Templatename`.
-
-**Wrap** `{I template=Templatename wrap=Wrapname I}`
-* To wrap a `template view`, add the `wrap=Wrapname` element to the `include statement`.
-
 Extra attributes `{I template=Templatename class=current,error dog=food I}` can be added to
 the `include statement` by adding named pair attributes.
 
 
 ### Page
+
+**Page** `{I page=<? $this->runtime_data->page_name ?> I}`
+* The page value is automatically passed in via `$this->runtime_data->page_name` to the Theme.
+
+An example of a typical `page view` follows.
 
 ```php
 
@@ -119,3 +111,79 @@ the `include statement` by adding named pair attributes.
 
 ```
 
+### Position
+
+**Position** `{I Positionname I}`
+* If `type=` is omitted, Molajito treats it as a `position`, first. But, if `Positionname` is
+not found, Molajito looks for a `template view` with that name.
+
+```php
+
+{I Sidebar I}
+
+```
+
+
+### Template
+
+**Template** `{I template=Templatename I}`
+* Molajito looks for a `template view` with the name `Templatename`.
+
+An example of a typical `template view` follows.
+
+```php
+
+<h3>
+    <a href="<?= $this->row->current_url ?>">
+        <?= $this->row->title ?>
+    </a>
+</h3>
+
+<h6>{T Written by T}:
+    <a href="<?= $this->runtime_data->route->contact ?>">
+        <?= $this->row->author ?>
+    </a>
+    {T on T} <?= $this->row->published ?>.
+</h6>
+
+<?php if (isset($this->row->video) && $this->row->video !== '') { ?>
+    {I template=video link=<?= $this->row->video ?> I}
+<?php } ?>
+
+<?= $this->row->content; ?>
+
+
+```
+
+
+```php
+
+
+### Wrap
+
+**Wrap** `{I template=Templatename wrap=Wrapname I}`
+* To wrap a `template view`, add the `wrap=Wrapname` element to the `include statement`.
+
+**Header.phtml file**
+
+```php
+
+<footer class="<?= $class ?>">
+
+```
+
+**Body.phtml file**
+
+```php
+
+
+echo $this->row->content;
+
+```
+
+**Footer.phtml file**
+
+```php
+
+</footer>
+```

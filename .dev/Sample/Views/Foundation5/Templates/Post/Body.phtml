@@ -10,19 +10,19 @@
 <article>
     <h3>
         <a href="<?= $this->row->current_url ?>">
-            <?= $this->row->title; ?>
+            <?= $this->row->title ?>
         </a>
     </h3>
 
-    <h6>Written by:
+    <h6>{T Written by T}:
         <a href="<?= $this->runtime_data->route->contact ?>">
-            <?= $this->row->author; ?>
+            <?= $this->row->author ?>
         </a>
-        on <?= $this->row->published; ?>.
+        {T on T} <?= $this->row->published ?>.
     </h6>
 
     <?php if (isset($this->row->video) && $this->row->video !== '') { ?>
-        {I template=video link=<?= $this->row->video; ?> I}
+        {I template=video link=<?= $this->row->video ?> I}
     <?php } ?>
 
     <?= $this->row->content; ?>
