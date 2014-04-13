@@ -7,8 +7,8 @@ Molajito Render Package
 Molajito is a template environment that empowers frontend developers with full control over rendered output, making it
 *as easy as possible* to move from HTML mock-ups to "render ready" views.
 
-* Escapes all data prior to injecting view with data
-* Handles row `looping`, injecting the view one row
+* Handles `looping`
+* Escapes data prior to injecting view with data
 
 ## Basic usage:
 
@@ -31,40 +31,49 @@ Molajito injects two data objects into the theme:
  * `$this->runtime_data` an object you can use to define configuration data
  * `$this->row` an object which contains the `page_name`, linking to the page view
 
-```php
+```html
 
-&lt;!doctype html&gt;
-&lt;html class="no-js" lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="utf-8"/&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
-    &lt;title&gt;&lt;?= $this->;runtime_data->parameters->site_title ?>&lt;/title&gt;
-    &lt;link rel="stylesheet" href="/css/custom.css"/&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div class="page-wrap"&gt;
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><?= $this->runtime_data->parameters->site_title ?></title>
+    <link rel="stylesheet" href="/css/custom.css"/>
+</head>
+<body>
+<div class="page-wrap">
     {I Navbar I}
     {I Breadcrumbs I}
-    {I page=&lt;?= $this->row->page_name ?&gt; I}
-&lt;/div&gt;
+    {I page=<?= $this->row->page_name ?> I}
+</div>
     {I Footer I}
-&lt;/body&gt;
-&lt;/html&gt;
+</body>
+</html>
 
 ```
 
 ### Include Statements
 
-Molajito uses `include statements` to define where specific views should be rendered.
+Molajito uses `include statements` to define where specific views should be rendered. It
+ can process include statements defined within templates, too, so you can create reusable templates
+  that are referenced in many places in order to keep your views [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
+  and easy to maintain.
 
-The syntax is simple. The following is used to define a `position`. But, if a like named `position`
-does not exist, Molajito will select a `template` with the same name.
+The Include syntax is simple.
+ * `{I` marks the start of an include statement
+ * `type=` Set to `position`, `template`, `page` or `wrap`. If omitted, Molajito first assumes it is a `position`, and then looks for a like-named `template`
+ * `Name` identifies the name of the View of the type specified.
+ * `I}` marks the end of an include statement
 
-```php
+Examples:
+* Position `{I Positionname I}`
+* Page `{I page=<? $this->row->page_name ?> I}`
+* Template `{I template=Templatename wrap=Wrapname I}`
 
-<?php
-    {I Templatename I}
-```
+ If `type=` is omitted, Molajito treats it as a `position`. If the `position` is not found,
+ Molajito uses it as a `template`.
+
 
 ### Page
 
