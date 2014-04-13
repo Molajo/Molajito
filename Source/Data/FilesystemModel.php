@@ -23,14 +23,14 @@ use stdClass;
  */
 class FilesystemModel extends Filesystem
 {
-
     /**
      * Class Constructor
      *
-     * @param  string $theme_base_folder
-     * @param  string $view_base_folder
-     * @param  array  $post_model_registry
-     * @param  array  $author_model_registry
+     * @param  string               $theme_base_folder
+     * @param  string               $view_base_folder
+     * @param  array                $post_model_registry
+     * @param  array                $author_model_registry
+     * @param  PaginationInterface  $pagination
      *
      * @since  1.0
      */

@@ -185,20 +185,20 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @since  1.0
      */
     protected $pagination_model_registry = array(
-        'first_page_number'       => array('name' => 'first_page_number', 'type' => 'integer'),
-        'first_page_link'         => array('name' => 'first_page_link', 'type' => 'url'),
-        'previous_page_number'    => array('name' => 'previous_page_number', 'type' => 'integer'),
-        'previous_page_link'      => array('name' => 'previous_page_link', 'type' => 'url'),
-        'current_start_parameter_number'     => array('name' => 'current_start_parameter_number', 'type' => 'integer'),
-        'current_page_link'       => array('name' => 'current_page_link', 'type' => 'url'),
-        'next_page_number'        => array('name' => 'next_page_number', 'type' => 'integer'),
-        'next_page_link'          => array('name' => 'next_page_link', 'type' => 'url'),
-        'last_page_number'        => array('name' => 'last_page_number', 'type' => 'integer'),
-        'last_page_link'          => array('name' => 'last_page_link', 'type' => 'url'),
-        'total_items'             => array('name' => 'total_items', 'type' => 'integer'),
-        'start_links_page_number' => array('name' => 'start_links_page_number', 'type' => 'integer'),
-        'stop_links_page_number'  => array('name' => 'stop_links_page_number', 'type' => 'integer'),
-        'page_links_array'        => array('name' => 'page_links_array', 'type' => 'arrays')
+        'first_page_number'              => array('name' => 'first_page_number', 'type' => 'integer'),
+        'first_page_link'                => array('name' => 'first_page_link', 'type' => 'url'),
+        'previous_page_number'           => array('name' => 'previous_page_number', 'type' => 'integer'),
+        'previous_page_link'             => array('name' => 'previous_page_link', 'type' => 'url'),
+        'current_start_parameter_number' => array('name' => 'current_start_parameter_number', 'type' => 'integer'),
+        'current_page_link'              => array('name' => 'current_page_link', 'type' => 'url'),
+        'next_page_number'               => array('name' => 'next_page_number', 'type' => 'integer'),
+        'next_page_link'                 => array('name' => 'next_page_link', 'type' => 'url'),
+        'last_page_number'               => array('name' => 'last_page_number', 'type' => 'integer'),
+        'last_page_link'                 => array('name' => 'last_page_link', 'type' => 'url'),
+        'total_items'                    => array('name' => 'total_items', 'type' => 'integer'),
+        'start_links_page_number'        => array('name' => 'start_links_page_number', 'type' => 'integer'),
+        'stop_links_page_number'         => array('name' => 'stop_links_page_number', 'type' => 'integer'),
+        'page_links_array'               => array('name' => 'page_links_array', 'type' => 'arrays')
     );
 
     /**
@@ -310,9 +310,10 @@ class Filesystem extends AbstractAdapter implements DataInterface
      */
     protected function setListRow($link, $title)
     {
-        $row        = new stdClass();
-        $row->link  = $link;
-        $row->title = $title;
+        $row            = new stdClass();
+        $row->link      = $link;
+        $row->title     = $title;
+        $row->home_link = $this->runtime_data->route->home;
 
         return $row;
     }
