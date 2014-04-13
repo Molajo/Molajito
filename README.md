@@ -8,10 +8,10 @@ Molajito is a template environment for frontend developers who want to focus on 
 
 ## How it works:
 
-Molajito starts by including a [Theme](https://github.com/Molajo/Molajito#theme) file
- as rendered output. The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
- discovered by Molajito during parsing and used to identify what
- `view` is to be rendered at that location.
+Molajito initiates the rendering process by including
+a [Theme](https://github.com/Molajo/Molajito#theme) file as rendered output. The `theme` contains
+[Include Statements](https://github.com/Molajo/Molajito#include-statements) discovered by Molajito
+during parsing and used to identify what `view` is to be rendered at that location.
 
 Molajito uses three different types of `views':
 
