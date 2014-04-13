@@ -313,53 +313,30 @@ class FilesystemModel extends Filesystem
      */
     protected function getPagination()
     {
-        $query_parameters = array();
+        $other_query_parameters = array();
         if ((int)$this->runtime_data->route->parameter_start == 0) {
             $this->runtime_data->route->parameter_start = 1;
         }
-        $query_parameters['page'] = 'blog';
+        $other_query_parameters['page'] = 'blog';
         if ($this->runtime_data->route->parameter_category == '') {
         } else {
-            $query_parameters['category'] = $this->runtime_data->route->parameter_category;
+            $other_query_parameters['category'] = $this->runtime_data->route->parameter_category;
         }
         if ($this->runtime_data->route->parameter_tag == '') {
         } else {
-            $query_parameters['parameter_tag'] = $this->runtime_data->route->parameter_tag;
+            $other_query_parameters['parameter_tag'] = $this->runtime_data->route->parameter_tag;
         }
 
-        $this->pagination->setPagination(
-            $this->display_posts,
-            $this->runtime_data->route->home,
-            $query_parameters,
+        $row = $this->pagination->getPaginationData(
+            $this->runtime_data->parameters->display_items_per_page_count,
+            $this->runtime_data->parameters->display_page_link_count,
+            $this->runtime_data->parameters->create_sef_url_indicator,
+            $this->runtime_data->parameters->display_index_in_url_indicator,
             $this->total_items,
-            $this->runtime_data->parameters->posts_per_page,
-            $this->runtime_data->parameters->display_links,
+            $this->runtime_data->route->home,
             $current_page = $this->runtime_data->route->parameter_start,
-            $this->runtime_data->parameters->sef_url,
-            $this->runtime_data->parameters->index_in_url
+            $other_query_parameters
         );
-
-        $row                          = new stdClass();
-        $row->first_page_number       = $this->pagination->getFirstPage();
-        $row->first_page_link         = $this->pagination->getPageUrl('first');
-        $row->previous_page_number    = $this->pagination->getPrevPage();
-        $row->previous_page_link      = $this->pagination->getPageUrl('previous');
-        $row->current_page_number     = $this->pagination->getCurrentPage();
-        $row->current_page_link       = $this->pagination->getPageUrl('current');
-        $row->next_page_number        = $this->pagination->getNextPage();
-        $row->next_page_link          = $this->pagination->getPageUrl('next');
-        $row->last_page_number        = $this->pagination->getLastPage();
-        $row->last_page_link          = $this->pagination->getPageUrl('last');
-        $row->total_items             = $this->pagination->getTotalItems();
-        $row->start_links_page_number = $this->pagination->getStartLinksPage();
-        $row->stop_links_page_number  = $this->pagination->getStopLinksPage();
-
-        $row->page_links_array = array();
-        for ($i = $row->start_links_page_number;
-             $i < $row->stop_links_page_number + 1;
-             $i ++) {
-            $row->page_links_array[$i] = $this->pagination->getPageUrl($i);
-        }
 
         $this->query_results[] = $row;
         $this->model_registry  = $this->pagination_model_registry;
@@ -403,10 +380,10 @@ class FilesystemModel extends Filesystem
         }
 
         $start               = $this->setPaginationStart();
-        $posts_per_page      = $this->setPaginationPostsPerPage();
-        $display_links       = $this->setPaginationDisplayLinkCount();
-        $skip_count          = ($start * $posts_per_page) - $posts_per_page;
-        $display_links_count = $display_links * $posts_per_page;
+        $display_items_per_page_count      = $this->setPaginationPostsPerPage();
+        $display_page_link_count       = $this->setPaginationDisplayLinkCount();
+        $skip_count          = ($start * $display_items_per_page_count) - $display_items_per_page_count;
+        $display_page_link_count_count = $display_page_link_count * $display_items_per_page_count;
 
         /** Parameter Array */
         $parameter_array = $this->setPostSelectionCriteria();
@@ -428,12 +405,12 @@ class FilesystemModel extends Filesystem
 
                 if ($skip_count < $total_posts) {
 
-                    if ($skip_count + $display_links_count < $total_posts) {
+                    if ($skip_count + $display_page_link_count_count < $total_posts) {
                         // items following display
 
                     } else {
                         // display links
-                        if ($posts_per_page > $return_count) {
+                        if ($display_items_per_page_count > $return_count) {
                             $return_count ++;
                             $this->query_results[] = $post;
                         } else {
@@ -477,12 +454,12 @@ class FilesystemModel extends Filesystem
      */
     protected function setPaginationPostsPerPage()
     {
-        if ((int)$this->runtime_data->parameters->posts_per_page > 0) {
+        if ((int)$this->runtime_data->parameters->display_items_per_page_count > 0) {
         } else {
-            $this->runtime_data->parameters->posts_per_page = 3;
+            $this->runtime_data->parameters->display_items_per_page_count = 3;
         }
 
-        return $this->runtime_data->parameters->posts_per_page;
+        return $this->runtime_data->parameters->display_items_per_page_count;
     }
 
     /**
@@ -493,12 +470,12 @@ class FilesystemModel extends Filesystem
      */
     protected function setPaginationDisplayLinkCount()
     {
-        if ((int)$this->runtime_data->parameters->display_links > 0) {
+        if ((int)$this->runtime_data->parameters->display_page_link_count > 0) {
         } else {
-            $this->runtime_data->parameters->display_links = 3;
+            $this->runtime_data->parameters->display_page_link_count = 3;
         }
 
-        return $this->runtime_data->parameters->display_links;
+        return $this->runtime_data->parameters->display_page_link_count;
     }
 
     /**

@@ -140,7 +140,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
      * @var    array
      * @since  1.0
      */
-    protected $display_posts = array();
+    protected $display_items_per_page_count = array();
 
     /**
      * Count of the total items for pagination
@@ -189,7 +189,7 @@ class Filesystem extends AbstractAdapter implements DataInterface
         'first_page_link'         => array('name' => 'first_page_link', 'type' => 'url'),
         'previous_page_number'    => array('name' => 'previous_page_number', 'type' => 'integer'),
         'previous_page_link'      => array('name' => 'previous_page_link', 'type' => 'url'),
-        'current_page_number'     => array('name' => 'current_page_number', 'type' => 'integer'),
+        'current_start_parameter_number'     => array('name' => 'current_start_parameter_number', 'type' => 'integer'),
         'current_page_link'       => array('name' => 'current_page_link', 'type' => 'url'),
         'next_page_number'        => array('name' => 'next_page_number', 'type' => 'integer'),
         'next_page_link'          => array('name' => 'next_page_link', 'type' => 'url'),
