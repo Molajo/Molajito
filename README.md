@@ -6,35 +6,39 @@ Molajito Render Package
 
 Molajito is a template environment for frontend developers who want to focus on rendered output, not programming.
 
-## Basic usage:
+## How it works:
 
-Molajito starts by including the `Theme` file as rendered output. Next, it parses the output
-for `include statements` which are used to identify and render views. The rendered output for
-each view is injected in place of its associated include statement and the combined results are
-again parsed for `include statements`. This process continues until the parsing process yields no
-results, or the maximum number of times the process is allowed has been reached. When complete,
-the rendered page is returned to the application.
+Molajito starts by including a [Theme](https://github.com/Molajo/Molajito#theme) file
+ as rendered output.
 
-uses the following for rendering output:
+ The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
+ discovered by Molajito during parsing and used by Molajito to identify what
+ `view` is to be rendered at that location.
 
-* [Themes](https://github.com/Molajo/Molajito#theme) provide the starting point for rendering and
-typically define CSS and JS statements.
-* [Page](https://github.com/Molajo/Molajito#page) views define various layouts for the site,
-for example, you might have a different page for a blog or a post or a home page.
-* [Include Statements](https://github.com/Molajo/Molajito#include-statements) are tokens which define
-the type, name and placement of views.
-* [Template](https://github.com/Molajo/Molajito#template) Views define one specific block for the page,
-for example a post is rendered from a template view, as is an author profile.
-* [Wrap](https://github.com/Molajo/Molajito#wrap) views `wrap` the rendered output from a template view
-in a specific manner. For example, a wrap might enclose the template output in content-specific HTML5 element,
-like `<article>`, `<footer>`, or `<header>`. A wrap might also be used to achieve a certain visual effect.
-* [Positions](https://github.com/Molajo/Molajito#position) can be used to define a block
-that can be associated with one or more `template views`. For example, you might want a `sidebar position`
-for a blog that can be configured by site builders differently.
+Molajito uses three different types of `views':
+ * [Page](https://github.com/Molajo/Molajito#page) views define layouts.
+A site typically has different types of layouts and the page view is useful for that purpose.
+ Molajito does not pass data into the `page view`, it only includes the `page view` file.
+* [Template](https://github.com/Molajo/Molajito#template) Views define one specific area of
+ the page, for example a `template view` could render a navigation menu, a blog post, or
+  an author profile. Molajito passes in data to the `template view` in support of the rendering
+  process.
+* [Wrap](https://github.com/Molajo/Molajito#wrap) views `wrap` the rendered output from a
+`template view` in a specific manner. For example, a wrap might enclose the template output
+in an `<article>`, `<footer>`, or `<header>` content-specific HTML5 element.  A wrap might
+also be used to achieve a certain visual effect for the content, for example by including
+a message in a div with an `alert` class.
+
+You can also use `include statements` to define
+[positions](https://github.com/Molajo/Molajito#position) which are placeholders that can be
+associated with one or more `template views`. For example, you might want a `sidebar position`
+for a blog that can be configured by site builders.
 
 ### Theme
 
 Themes are the first rendered output and therefore drive the rendering process.
+* [Themes](https://github.com/Molajo/Molajito#theme) provide the starting point for rendering and
+typically define CSS and JS statements.
 
 Molajito injects a data object called `$this->runtime_data` into the Theme.
 It contains the `$this->runtime_data->page_name` value used to specify the page include statement in
@@ -70,20 +74,31 @@ Molajito uses `include statements` to define where specific views should be rend
   that are referenced in many places in order to keep your views [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
   and easy to maintain.
 
-The Include syntax is simple.
+The Include syntax is simple `{I name=Value I}`:
  * `{I` marks the start of an include statement
- * `type=` Set to `position`, `template`, `page` or `wrap`. If omitted, Molajito first assumes it is a `position`, and then looks for a like-named `template`
- * `Name` identifies the name of the View of the type specified.
+ * `type=` Set to `template` or `page`.
+ If omitted, Molajito first assumes it is a `position`, and then looks for a like-named `template`.
+ * `Name` identifies the name of the View associated with the type specified.
  * `I}` marks the end of an include statement
 
-Examples:
-* Position `{I Positionname I}`
-* Page `{I page=<? $this->row->page_name ?> I}`
-* Template `{I template=Templatename wrap=Wrapname I}`
+Page `{I page=<? $this->runtime_data->page_name ?> I}`
+* The page value is automatically passed in via `$this->runtime_data->page_name` to the Theme.
 
- If `type=` is omitted, Molajito treats it as a `position`. If the `position` is not found,
- Molajito uses it as a `template`.
+Position `{I Positionname I}`
+* If `type=` is omitted, Molajito treats it as a `position`, first. But, if `Positionname` is
+not found, Molajito looks for a `template view` with that name.
 
+Template `{I template=Templatename I}`
+* Molajito looks for a `template view` with the name `Templatename`.
+
+Wrap `{I template=Templatename wrap=Wrapname I}`
+* To wrap a `template view`, add the `wrap=Wrapname` element to the `include statement`.
+
+Extra attributes `{I template=Templatename class=current,error dog=food I}` can be added to
+the `include statement` by adding named pair attributes.
+
+
+Notes:
 
 ### Page
 
