@@ -10,12 +10,13 @@ Molajito is a template environment for frontend developers who want to focus on 
 
 Molajito starts by including a [Theme](https://github.com/Molajo/Molajito#theme) file
  as rendered output. The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
- discovered by Molajito during parsing and used by Molajito to identify what
+ discovered by Molajito during parsing and used to identify what
  `view` is to be rendered at that location.
 
 Molajito uses three different types of `views':
+
 * [Page](https://github.com/Molajo/Molajito#page) views define layouts.
-A site typically has different types of layouts and the page view is useful for that purpose.
+A site typically has different layouts and the page view is useful for that purpose.
  Molajito does not pass data into the `page view`, it only includes the `page view` file.
 
 * [Template](https://github.com/Molajo/Molajito#template) views define one specific area of
@@ -76,24 +77,24 @@ Molajito uses `include statements` to define where specific views should be rend
   that are referenced in many places in order to keep your views [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
   and easy to maintain.
 
-The Include syntax is simple `{I name=Value I}`:
- * `{I` marks the start of an include statement
- * `type=` Set to `template` or `page`.
- If omitted, Molajito first assumes it is a `position`, and then looks for a like-named `template`.
- * `Name` identifies the name of the View associated with the type specified.
- * `I}` marks the end of an include statement
+The Include syntax is simple `{I type=Name I}`:
+ * `{I` marks the start of an include statement;
+ * `type=` set to `template` or `page`;
+ If omitted, Molajito first assumes it is a `position`, and then looks for a like-named `template`;
+ * `Name` identifies the view associated with the type specified;
+ * `I}` marks the end of an include statement.
 
-Page `{I page=<? $this->runtime_data->page_name ?> I}`
+**Page** `{I page=<? $this->runtime_data->page_name ?> I}`
 * The page value is automatically passed in via `$this->runtime_data->page_name` to the Theme.
 
-Position `{I Positionname I}`
+**Position** `{I Positionname I}`
 * If `type=` is omitted, Molajito treats it as a `position`, first. But, if `Positionname` is
 not found, Molajito looks for a `template view` with that name.
 
-Template `{I template=Templatename I}`
+**Template** `{I template=Templatename I}`
 * Molajito looks for a `template view` with the name `Templatename`.
 
-Wrap `{I template=Templatename wrap=Wrapname I}`
+**Wrap** `{I template=Templatename wrap=Wrapname I}`
 * To wrap a `template view`, add the `wrap=Wrapname` element to the `include statement`.
 
 Extra attributes `{I template=Templatename class=current,error dog=food I}` can be added to
