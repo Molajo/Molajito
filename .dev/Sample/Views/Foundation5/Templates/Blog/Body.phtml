@@ -9,13 +9,13 @@
 ?>
 <article>
     <h3>
-        <a href="<?= $this->row->current_url; ?>">
+        <a href="<?= $this->row->current_url ?>">
             <?= $this->row->title; ?>
         </a>
     </h3>
 
     <h6>Written by:
-        <a href="<?= $this->runtime_data->route->about; ?>">
+        <a href="<?= $this->runtime_data->route->about ?>">
             <?= $this->row->author; ?>
         </a>
         on <?= $this->row->published; ?>.
@@ -23,7 +23,7 @@
 
     <?= $this->row->readmore; ?>
 
-    <a class="right" href="<?= $this->row->current_url; ?>">
+    <a class="right" href="<?= $this->row->current_url ?>">
         Read More →
     </a>
 </article>

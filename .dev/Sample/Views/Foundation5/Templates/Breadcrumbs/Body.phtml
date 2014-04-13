@@ -13,7 +13,7 @@ if ($this->row->total_rows > 1) {
     <?php if ($this->row->last_row == 1) {
 } else {
     ?>
-    <a href="<?= $this->row->link; ?>">
+    <a href="<?= $this->row->link ?>">
 <?php } ?>
     <?= $this->row->text; ?>
     <?php if ($this->row->last_row == 1) {

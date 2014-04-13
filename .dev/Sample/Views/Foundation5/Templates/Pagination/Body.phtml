@@ -17,13 +17,13 @@
                 <?php if ((int)$this->row->first_page_number == (int)$this->row->current_start_parameter_number) : ?>
                     <li class="arrow unavailable">&laquo; &laquo;</li>
                 <?php else : ?>
-                    <li class="arrow"><a href="<?= $this->row->first_page_link; ?>">&laquo; &laquo;</a></li>
+                    <li class="arrow"><a href="<?= $this->row->first_page_link ?>">&laquo; &laquo;</a></li>
                 <?php endif; ?>
 
                 <?php if ((int)$this->row->previous_page_number == (int)$this->row->current_start_parameter_number) : ?>
                     <li class="arrow unavailable">&laquo;</li>
                 <?php else : ?>
-                    <li class="arrow"><a href="<?= $this->row->previous_page_link; ?>">&laquo;</a></li>
+                    <li class="arrow"><a href="<?= $this->row->previous_page_link ?>">&laquo;</a></li>
                 <?php endif; ?>
 
                 <?php
@@ -35,19 +35,19 @@
                         <?php else : ?>
                             <li>
                         <?php endif; ?>
-                        <a href="<?= $this->row->page_links_array[$i]; ?>"><?= $i; ?></a></li>
+                        <a href="<?= $this->row->page_links_array[$i] ?>"><?= $i; ?></a></li>
                 <?php } ?>
 
                 <?php if ((int)$this->row->next_page_number == (int)$this->row->current_start_parameter_number) : ?>
                     <li class="arrow unavailable">&raquo;</li>
                 <?php else : ?>
-                    <li class="arrow"><a href="<?= $this->row->next_page_link; ?>">&raquo;</a></li>
+                    <li class="arrow"><a href="<?= $this->row->next_page_link ?>">&raquo;</a></li>
                 <?php endif; ?>
 
                 <?php if ((int)$this->row->last_page_number == (int)$this->row->current_start_parameter_number) : ?>
                     <li class="arrow unavailable">&raquo; &raquo;</li>
                 <?php else : ?>
-                    <li class="arrow"><a href="<?= $this->row->last_page_link; ?>">&raquo; &raquo;</a></li>
+                    <li class="arrow"><a href="<?= $this->row->last_page_link ?>">&raquo; &raquo;</a></li>
                 <?php endif; ?>
             </ul>
         </div>
