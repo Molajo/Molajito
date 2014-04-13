@@ -9,9 +9,7 @@ Molajito is a template environment for frontend developers who want to focus on 
 ## How it works:
 
 Molajito starts by including a [Theme](https://github.com/Molajo/Molajito#theme) file
- as rendered output.
-
-The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
+ as rendered output. The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
  discovered by Molajito during parsing and used by Molajito to identify what
  `view` is to be rendered at that location.
 
@@ -20,12 +18,12 @@ Molajito uses three different types of `views':
 A site typically has different types of layouts and the page view is useful for that purpose.
  Molajito does not pass data into the `page view`, it only includes the `page view` file.
 
-* [Template](https://github.com/Molajo/Molajito#template) Views define one specific area of
+* [Template](https://github.com/Molajo/Molajito#template) views define one specific area of
  the page, for example a `template view` could render a navigation menu, a blog post, or
   an author profile. Molajito passes in data to the `template view` in support of the rendering
   process.
 
-* [Wrap](https://github.com/Molajo/Molajito#wrap) views `wrap` the rendered output from a
+* [Wrap](https://github.com/Molajo/Molajito#wrap) views *wrap* the rendered output from a
 `template view` in a specific manner. For example, a wrap might enclose the template output
 in an `<article>`, `<footer>`, or `<header>` content-specific HTML5 element.  A wrap might
 also be used to achieve a certain visual effect for the content, for example by including
@@ -38,14 +36,16 @@ for a blog that can be configured by site builders.
 
 ### Theme
 
-Themes are the first rendered output and therefore drive the rendering process.
-* [Themes](https://github.com/Molajo/Molajito#theme) provide the starting point for rendering and
-typically define CSS and JS statements.
+Themes are the first rendered output and therefore drive the rendering process. Typically, a
+`theme` defines necessary CSS and JS statements.
 
 Molajito injects a data object called `$this->runtime_data` into the Theme.
-It contains the `$this->runtime_data->page_name` value used to specify the page include statement in
-the example, below. You can add data elements to the `$this->runtime_data`, as needed.
-In this example `site_name` is available within the data object and used for rendering `title`.
+As can be seen in the following example, Molajito passes in the `$this->runtime_data->page_name`
+value used in the page include statement.
+
+You can additional data the `$this->runtime_data` so that the data is available for rendering.
+In this example, `site_name` is used to render `title`.
+
 
 ```html
 
@@ -59,11 +59,11 @@ In this example `site_name` is available within the data object and used for ren
 </head>
 <body>
 <div class="page-wrap">
-    {I Navbar I}
+    {I template=Navbar wrap=Nav I}
     {I Breadcrumbs I}
     {I page=<?= $this->runtime_data->page_name ?> I}
 </div>
-    {I Footer I}
+    {I Footer wrap=Nav I}
 </body>
 </html>
 
@@ -100,25 +100,20 @@ Extra attributes `{I template=Templatename class=current,error dog=food I}` can 
 the `include statement` by adding named pair attributes.
 
 
-Notes:
-
 ### Page
 
 ```php
 
-<html>
-<head>
-    <title><?= $this->row->title; ?></title>
-</head>
-
-<body>
-
-<?= $this->row->content_text; ?>
-
-<?= $this->row->content_text; ?>
-
-</body>
-</html>
+<div class="row">
+    <div class="large-9 push-3 columns">
+        {I template=Post I}
+        {I template=Comments I}
+        {I template=Paging I}
+    </div>
+    <div class="large-3 pull-9 columns">
+        {I Sidebar I}
+    </div>
+</div>
 
 
 ```
