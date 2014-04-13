@@ -11,18 +11,20 @@ Molajito is a template environment for frontend developers who want to focus on 
 Molajito starts by including a [Theme](https://github.com/Molajo/Molajito#theme) file
  as rendered output.
 
- The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
+The `theme` contains [Include Statements](https://github.com/Molajo/Molajito#include-statements)
  discovered by Molajito during parsing and used by Molajito to identify what
  `view` is to be rendered at that location.
 
 Molajito uses three different types of `views':
- * [Page](https://github.com/Molajo/Molajito#page) views define layouts.
+* [Page](https://github.com/Molajo/Molajito#page) views define layouts.
 A site typically has different types of layouts and the page view is useful for that purpose.
  Molajito does not pass data into the `page view`, it only includes the `page view` file.
+
 * [Template](https://github.com/Molajo/Molajito#template) Views define one specific area of
  the page, for example a `template view` could render a navigation menu, a blog post, or
   an author profile. Molajito passes in data to the `template view` in support of the rendering
   process.
+
 * [Wrap](https://github.com/Molajo/Molajito#wrap) views `wrap` the rendered output from a
 `template view` in a specific manner. For example, a wrap might enclose the template output
 in an `<article>`, `<footer>`, or `<header>` content-specific HTML5 element.  A wrap might
