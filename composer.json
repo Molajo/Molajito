@@ -23,6 +23,7 @@
 
     "require": {
         "php": ">=5.4",
+        "commonapi/model": "dev-master",
         "commonapi/render": "dev-master",
         "commonapi/exception": "dev-master"
     },

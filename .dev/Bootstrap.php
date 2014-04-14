@@ -17,10 +17,10 @@ $base     = substr(__DIR__, 0, strlen(__DIR__) - 5);
 
 $classmap = array();
 $classmap = createClassMap($base . '/vendor/commonapi/render/', 'CommonApi\\Render\\');
-
 $results  = createClassMap($base . '/vendor/commonapi/exception/', 'CommonApi\\Exception\\');
 $classmap = array_merge($classmap, $results);
-
+$results  = createClassMap($base . '/vendor/commonapi/model/', 'CommonApi\\Model\\');
+$classmap = array_merge($classmap, $results);
 $results  = createClassMap($base . '/Source/Data/', 'Molajito\\Data\\');
 $classmap = array_merge($classmap, $results);
 $results  = createClassMap($base . '/Source/Escape/', 'Molajito\\Escape\\');

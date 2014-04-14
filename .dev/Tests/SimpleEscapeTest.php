@@ -1,6 +1,6 @@
 <?php
 /**
- * Escape Test
+ * Simple Escape Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -13,14 +13,14 @@ use Molajito\Escape\Simple;
 use stdClass;
 
 /**
- * Escape Test
+ * Simple Escape Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class EscapeTest extends \PHPUnit_Framework_TestCase
+class SimpleEscapeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $escape_instance

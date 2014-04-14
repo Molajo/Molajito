@@ -9,6 +9,7 @@
 namespace Molajito\Test;
 
 use Molajito\Event;
+use Molajito\Event\Dummy;
 
 /**
  * Event Handler Test
@@ -21,9 +22,9 @@ use Molajito\Event;
 class EventTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $event_instance
      */
-    protected $event_callback;
+    protected $event_instance;
 
     /**
      * @var Object
@@ -39,26 +40,18 @@ class EventTest extends \PHPUnit_Framework_TestCase
     );
 
     /**
-     * @var Object
-     */
-    protected $event_instance;
-
-    /**
      * Initialises Adapter
      */
     protected function setUp()
     {
-        $this->event_callback = function ($event_name, array $options = array()) {
+        $event_callback = function ($event_name, array $options = array()) {
 
-            $event_mock = new EventMock();
-
-            return $event_mock->scheduleEvent($event_name, $options);
+            return $options;
         };
 
-        $this->event_instance = new Event(
-            $this->event_callback,
-            $this->event_option_keys
-        );
+        $dummy = new Dummy($event_callback, $this->event_option_keys);
+
+        $this->event_instance = new Event($dummy);
     }
 
     /**
@@ -116,30 +109,5 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-    }
-}
-
-/**
- * Mock Event Class
- *
- * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
- * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @since      1.0.0
- */
-class EventMock
-{
-    /**
-     * Mock
-     *
-     * @param   string $event_name
-     * @param   array  $options
-     *
-     * @return  mixed
-     * @since   1.0
-     */
-    public function scheduleEvent($event_name, $options)
-    {
-        return $options;
     }
 }
