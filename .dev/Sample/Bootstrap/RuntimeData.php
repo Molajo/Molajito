@@ -13,6 +13,7 @@ $runtime_data->error_code                                  = 0;
 $runtime_data->redirect_to_id                              = 0;
 $runtime_data->base_path                                   = $molajito_base;
 $runtime_data->request                                     = $_SERVER;
+$runtime_data->page_name                                   = $page;
 $runtime_data->parameters                                  = new stdClass();
 $runtime_data->parameters->site_title                      = 'Molajito | Foundation 5 | Welcome';
 $runtime_data->parameters->display_items_per_page_count    = 3;
