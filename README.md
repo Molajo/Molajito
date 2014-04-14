@@ -2,7 +2,7 @@
 Molajito Render Package
 =======
 
-[![Build Status](https://travis-ci.org/Molajo/Render.png?branch=master)](https://travis-ci.org/Molajo/Molajito)
+[![Build Status](https://travis-ci.org/Molajo/Molajito.png?branch=master)](https://travis-ci.org/Molajo/Molajito)
 
 Molajito is a template environment for frontend developers who want to focus on rendered output, not programming.
 
