@@ -9,6 +9,7 @@
 namespace Molajito\Test;
 
 use Molajito\PageView;
+use Molajito\Render;
 
 /**
  * Pagination Test
@@ -40,23 +41,24 @@ class PageViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResourceExtension()
     {
+        /** Render Instance */
+        $render = new Render();
+
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';
         $rendering_properties['row']           = 'b';
         $rendering_properties['runtime_data']  = 'c';
 
-        $include_path = __DIR__ . '/Views/Include.phtml';
+        $include_path = __DIR__ . '/View/Include.phtml';
 
         ob_start();
         include $include_path;
         $collect = ob_get_clean();
 
-        $this->render_view = new PageView(
-            $include_path,
-            $rendering_properties
-        );
+        $this->render_view = new PageView($render);
 
-        $results = $this->render_view->render();
+        $results = $this->render_view->render($include_path,
+            $rendering_properties);
 
         $this->assertEquals($collect, $results);
 

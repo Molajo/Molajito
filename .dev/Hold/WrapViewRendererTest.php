@@ -40,6 +40,10 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResourceExtension()
     {
+
+        /** Render Instance */
+        $render = new Render();
+
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';
         $rendering_properties['row']           = 'b';

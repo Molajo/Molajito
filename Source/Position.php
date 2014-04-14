@@ -46,7 +46,7 @@ class Position implements PositionInterface
     }
 
     /**
-     * Retrieve all Template Views for Position
+     * Retrieve all Template Views for Position searching Page, first, then Theme
      *
      * @param   string $position_name
      * @param   object $resource_extension
@@ -54,7 +54,7 @@ class Position implements PositionInterface
      * @return  string
      * @since   1.0
      */
-    public function getPositionViews($position_name, $resource_extension)
+    public function getPositionTemplateViews($position_name, $resource_extension)
     {
         $templates = $this->getPositionTemplates('page', $position_name, $resource_extension);
 
@@ -73,32 +73,29 @@ class Position implements PositionInterface
     }
 
     /**
-     * Match to Positions defined in the page or theme parameters
+     * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
      *
      * @param   string $type
      * @param   string $position_name
      * @param   object $resource_extension
      *
-     * @return  array
+     * @return  string
      * @since   1.0
      */
     protected function getPositionTemplates($type, $position_name, $resource_extension)
     {
         $positions = '';
 
+        if (isset($resource_extension->$type->menuitem->parameters->positions)) {
+            $positions = $resource_extension->$type->menuitem->parameters->positions;
+        }
+
         if (isset($resource_extension->$type->parameters->positions)) {
             $positions = $resource_extension->$type->parameters->positions;
         }
 
-        if (trim($positions) == ''
-            && isset($resource_extension->$type->menuitem->parameters->positions)
-        ) {
-            $positions = $resource_extension->$type->menuitem->parameters->positions;
-
-        }
-
         if ($positions === null || trim($positions) == '') {
-            return array();
+            return '';
         }
 
         $positions = $this->buildPositionArray($positions);
@@ -107,7 +104,7 @@ class Position implements PositionInterface
             return $this->searchPositionArray($position_name, $positions);
         }
 
-        return array();
+        return '';
     }
 
     /**
@@ -140,7 +137,7 @@ class Position implements PositionInterface
                 if (is_array($temp2) && count($temp2) == 2) {
                     $templates = explode(',', $temp2[1]);
                     if (is_array($templates) && count($templates) > 0) {
-                        $positions_array[$temp2[0]] = $templates;
+                        $positions_array[strtolower($temp2[0])] = $templates;
                     }
                 }
             }
@@ -160,6 +157,8 @@ class Position implements PositionInterface
      */
     protected function searchPositionArray($position_name, array $positions = array())
     {
+        $position_name = strtolower($position_name);
+
         if (isset($positions[$position_name])) {
             return $positions[$position_name];
         }
@@ -197,13 +196,13 @@ class Position implements PositionInterface
 
             } catch (Exception $e) {
                 throw new RuntimeException
-                ('Molajito renderPosition: ' . $e->getMessage());
+                ('Molajito Position createIncludeStatements method failed: ' . $e->getMessage());
             }
 
             $template = $escaped[0]->name;
 
             /** Create Rendered Output */
-            $rendered_page .= '{I template=' . ucfirst(strtolower(trim((string)$template))) . ' I} ';
+            $rendered_page .= '{I template=' . ucfirst(strtolower(trim($template))) . ' I} ';
         }
 
         return $rendered_page;

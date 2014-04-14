@@ -433,7 +433,7 @@ class Engine implements RenderInterface
 
         /** Step 2. Render Position */
         try {
-            $this->rendered_view = $this->position_instance->getPositionViews(
+            $this->rendered_view = $this->position_instance->getPositionTemplateViews(
                 $position_name,
                 $this->runtime_data->render->extension
             );
