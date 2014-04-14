@@ -44,8 +44,10 @@ Molajito injects a data object called `$this->runtime_data` into the Theme.
 As can be seen in the following example, Molajito passes in the `$this->runtime_data->page_name`
 value used in the page include statement.
 
-You can additional data the `$this->runtime_data` so that the data is available for rendering.
+You can add data the `$this->runtime_data` so that the data are available for rendering.
 In this example, `site_name` is used to render `title`.
+
+In the `theme` below, you will find `include statements` for `page`, `template` and `wrap` views.
 
 
 ```html
@@ -73,9 +75,10 @@ In this example, `site_name` is used to render `title`.
 ### Include Statements
 
 Molajito uses `include statements` to define where specific views should be rendered.
-`Include statements` defined within templates, too, so you can create reusable templates
-  that are referenced in many places in order to keep your views [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
-  and easy to maintain.
+`Include statements` can be defined within any `theme` or `template` which helps to create reusable templates
+  referenced in many places in order to keep your views [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
+  and easy to maintain. Molajito continues parsing rendered output after rendering each view until
+  no more `include statements` are found.
 
 The Include syntax is simple `{I type=Name I}`:
  * `{I` marks the start of an include statement;
@@ -90,10 +93,17 @@ the `include statement` by adding named pair attributes.
 
 ### Page
 
-**Page** `{I page=<? $this->runtime_data->page_name ?> I}`
-* The page value is automatically passed in via `$this->runtime_data->page_name` to the Theme.
+    `{I page=<? $this->runtime_data->page_name ?> I}`
 
-An example of a typical `page view` follows.
+`Themes` are typically where `page views` are defined. The `page_name` is passed into
+ the `theme` via the `$this->runtime_data->page_name` object. However, a `page view` could
+ be defined anywhere. What is important to remember is that Molajito simple includes the
+ `page view` file without passing in data.
+
+Following is an example of a `page view` for a blog post. The page layout calls for three
+`template views`: a post, comments, and a paging template. The page layout also includes
+a `sidebar` position. If there is no position with the name `sidebar`, Molajito searches for
+a like-named `template view.'
 
 ```php
 
@@ -113,9 +123,15 @@ An example of a typical `page view` follows.
 
 ### Position
 
-**Position** `{I Positionname I}`
-* If `type=` is omitted, Molajito treats it as a `position`, first. But, if `Positionname` is
-not found, Molajito looks for a `template view` with that name.
+    `{I Sidebar I}`
+
+If `type=` is omitted from the `include statement`, Molajito first searches for a `position`
+with that name. If a `position` with that name is not found, Molajito next search for a
+like named `template view`.
+
+You can define which `template views` are associated with a position on the page
+
+
 
 ```php
 
