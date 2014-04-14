@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Renderer Test
+ * Page View Renderer Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,7 +8,8 @@
  */
 namespace Molajito\Test;
 
-use Molajito\Theme;
+use Molajito\PageView;
+use Molajito\Render;
 
 /**
  * Pagination Test
@@ -18,7 +19,7 @@ use Molajito\Theme;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class ThemeTest extends \PHPUnit_Framework_TestCase
+class PageViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
@@ -40,6 +41,9 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResourceExtension()
     {
+        /** Render Instance */
+        $render = new Render();
+
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';
         $rendering_properties['row']           = 'b';
@@ -51,12 +55,10 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         include $include_path;
         $collect = ob_get_clean();
 
-        $this->render_view = new Theme(
-            $include_path,
-            $rendering_properties
-        );
+        $this->render_view = new PageView($render);
 
-        $results = $this->render_view->render();
+        $results = $this->render_view->render($include_path,
+            $rendering_properties);
 
         $this->assertEquals($collect, $results);
 

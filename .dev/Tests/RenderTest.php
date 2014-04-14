@@ -40,7 +40,7 @@ class RenderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        $include_path = __DIR__ . '/View/Include.phtml';
+        $include_path = __DIR__ . '/Views/Include.phtml';
 
         ob_start();
         include $include_path;

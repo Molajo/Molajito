@@ -1,6 +1,6 @@
 <?php
 /**
- * Page View Renderer Test
+ * Theme Renderer Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,7 +8,9 @@
  */
 namespace Molajito\Test;
 
-use Molajito\PageView;
+use Molajito\Theme;
+use Molajito\Escape;
+use Molajito\Escape\Simple;
 use Molajito\Render;
 
 /**
@@ -19,18 +21,26 @@ use Molajito\Render;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class PageViewTest extends \PHPUnit_Framework_TestCase
+class ThemeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
      */
-    protected $render_view;
+    protected $theme_instance;
 
     /**
      * Initialises Adapter
      */
     protected function setUp()
     {
+        /** Escape Instance */
+        $simple = new Simple();
+        $escape = new Escape($simple);
+
+        /** Render Instance */
+        $render = new Render();
+
+        $this->theme_instance = new Theme($escape, $render);
     }
 
     /**
@@ -41,24 +51,21 @@ class PageViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResourceExtension()
     {
-        /** Render Instance */
-        $render = new Render();
-
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';
         $rendering_properties['row']           = 'b';
         $rendering_properties['runtime_data']  = 'c';
 
-        $include_path = __DIR__ . '/View/Include.phtml';
+        $include_path = __DIR__ . '/Views/';
 
         ob_start();
-        include $include_path;
+        include $include_path . '/Index.phtml';
         $collect = ob_get_clean();
 
-        $this->render_view = new PageView($render);
-
-        $results = $this->render_view->render($include_path,
-            $rendering_properties);
+        $results = $this->theme_instance->render(
+            $include_path,
+            $rendering_properties
+        );
 
         $this->assertEquals($collect, $results);
 
