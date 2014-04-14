@@ -46,9 +46,9 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         include $include_path;
         $rendered_page = ob_get_clean();
 
-        $this->parse = new Parse($rendered_page, array(), null);
+        $this->parse = new Parse();
 
-        $results = $this->parse->parse();
+        $results = $this->parse->parse($rendered_page, array(), null);
 
         $this->assertEquals('page', $results[0]->type);
         $this->assertEquals('xyz', $results[0]->name);

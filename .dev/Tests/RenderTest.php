@@ -40,7 +40,7 @@ class RenderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRender()
     {
-        $include_path = __DIR__ . '/Views/Include.phtml';
+        $include_path = __DIR__ . '/View/Include.phtml';
 
         ob_start();
         include $include_path;
@@ -48,11 +48,10 @@ class RenderTest extends \PHPUnit_Framework_TestCase
 
         $options                  = array();
         $options['query_results'] = array();
-        $options['include_path']  = $include_path;
 
-        $this->render = new Render($options);
+        $this->render = new Render();
 
-        $results = $this->render->render();
+        $results = $this->render->render($include_path, $options);
 
         $this->assertEquals($collect, $results);
 

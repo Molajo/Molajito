@@ -9,6 +9,9 @@
 namespace Molajito\Test;
 
 use stdClass;
+use Molajito\Escape;
+use Molajito\Escape\Simple;
+use Molajito\Render;
 use Molajito\TemplateView;
 
 /**
@@ -41,8 +44,14 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
      */
     public function testCustomView()
     {
-        $include_path = __DIR__ . '/CustomView';
+        /** Escape Instance */
+        $simple = new Simple();
+        $escape = new Escape($simple);
 
+        /** Render Instance */
+        $render = new Render();
+
+        /** $event_option_keys */
         $event_option_keys = array(
             'runtime_data',
             'parameters',
@@ -53,6 +62,9 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
             'rendered_page'
         );
 
+        $event = new EventMock();
+
+        /** $event_callback */
         $event_callback = function ($event_name, array $options = array()) {
 
             $event_mock = new EventMock2();
@@ -60,85 +72,29 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
             return $event_mock->scheduleEvent($event_name, $options);
         };
 
+
+        $this->render_view = new TemplateView(
+            $escape,
+            $render,
+            $event_option_keys,
+            $event
+        );
+
         $rendering_properties                             = array();
         $rendering_properties['fieldhandler']             = null;
         $rendering_properties['date_controller']          = null;
         $rendering_properties['url_controller']           = null;
         $rendering_properties['language_controller']      = null;
         $rendering_properties['authorisation_controller'] = null;
+
+        $include_path = __DIR__ . '/CustomView';
 
         ob_start();
         include $include_path . '/Custom.phtml';
         $collect = ob_get_clean();
 
-        $this->render_view = new TemplateView(
-            $include_path,
-            $event_option_keys,
-            $event_callback,
-            $rendering_properties
-        );
 
-        $results = $this->render_view->render();
-
-        $this->assertEquals($collect, $results);
-
-        return $this;
-    }
-
-    /**
-     * Initialise Event Options
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    public function testView()
-    {
-        $include_path = __DIR__ . '/View';
-
-        $row             = new stdClass();
-        $row->field      = 'value';
-        $query_results   = array();
-        $query_results[] = $row;
-
-        $event_option_keys = array(
-            'runtime_data',
-            'parameters',
-            'query_results',
-            'model_registry',
-            'row',
-            'rendered_view',
-            'rendered_page'
-        );
-
-        $event_callback = function ($event_name, array $options = array()) {
-
-            $event_mock = new EventMock2();
-
-            return $event_mock->scheduleEvent($event_name, $options);
-        };
-
-        $rendering_properties                             = array();
-        $rendering_properties['fieldhandler']             = null;
-        $rendering_properties['date_controller']          = null;
-        $rendering_properties['url_controller']           = null;
-        $rendering_properties['language_controller']      = null;
-        $rendering_properties['authorisation_controller'] = null;
-        $rendering_properties['query_results']            = $query_results;
-
-        ob_start();
-        include $include_path . '/Header.phtml';
-        include $include_path . '/Body.phtml';
-        include $include_path . '/Footer.phtml';
-        $collect = ob_get_clean();
-
-        $this->render_view = new TemplateView(
-            $include_path,
-            $event_option_keys,
-            $event_callback,
-            $rendering_properties
-        );
-
-        $results = $this->render_view->render();
+        $results = $this->render_view->render($include_path, $rendering_properties);
 
         $this->assertEquals($collect, $results);
 
