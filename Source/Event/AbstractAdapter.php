@@ -8,7 +8,6 @@
  */
 namespace Molajito\Event;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EventInterface;
 
 /**

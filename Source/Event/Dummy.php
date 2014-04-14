@@ -8,7 +8,6 @@
  */
 namespace Molajito\Event;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EventInterface;
 
 /**
@@ -29,7 +28,6 @@ class Dummy extends AbstractAdapter implements EventInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function scheduleEvent($event_name, array $options = array())
     {

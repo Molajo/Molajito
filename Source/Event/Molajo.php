@@ -50,7 +50,9 @@ class Molajo extends AbstractAdapter implements EventInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Event scheduleEvent Failure: ' . $e->getMessage());
+            (
+                'Molajito Event scheduleEvent Failure: ' . $e->getMessage()
+            );
         }
     }
 }

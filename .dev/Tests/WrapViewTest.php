@@ -8,6 +8,7 @@
  */
 namespace Molajito\Test;
 
+use Molajito\Render;
 use Molajito\WrapView;
 
 /**
@@ -23,33 +24,31 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Object
      */
-    protected $render_view;
+    protected $wrap_instance;
 
     /**
      * Initialises Adapter
      */
     protected function setUp()
     {
+        $render = new Render();
+        $this->wrap_instance = new WrapView($render);
     }
 
     /**
-     * Initialise Event Options
+     * Test Wrap Rendering
      *
      * @return  $this
      * @since   1.0
      */
-    public function testGetResourceExtension()
+    public function testWrapRender()
     {
-
-        /** Render Instance */
-        $render = new Render();
-
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';
         $rendering_properties['row']           = 'b';
         $rendering_properties['runtime_data']  = 'c';
 
-        $include_path = __DIR__ . '/View';
+        $include_path = __DIR__ . '/Views';
 
         ob_start();
         include $include_path . '/Header.phtml';
@@ -57,12 +56,10 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Footer.phtml';
         $collect = ob_get_clean();
 
-        $this->render_view = new WrapView(
+        $results = $this->wrap_instance->render(
             $include_path,
             $rendering_properties
         );
-
-        $results = $this->render_view->render();
 
         $this->assertEquals($collect, $results);
 

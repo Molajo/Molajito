@@ -48,6 +48,7 @@ class Event implements EventInterface
      *
      * @return  array
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function initializeEventOptions()
     {
@@ -56,7 +57,9 @@ class Event implements EventInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Render Driver initializeEventOptions Method Failed: ' . $e->getMessage());
+            (
+                'Render Driver initializeEventOptions Method Failed: ' . $e->getMessage()
+            );
         }
     }
 
@@ -77,7 +80,9 @@ class Event implements EventInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Render Driver scheduleEvent Method Failed: ' . $e->getMessage());
+            (
+                'Render Driver scheduleEvent Method Failed: ' . $e->getMessage()
+            );
         }
     }
 }

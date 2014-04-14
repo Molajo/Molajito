@@ -251,7 +251,6 @@ class TemplateView implements RenderInterface
 
         foreach ($this->query_results as $this->row) {
 
-
             if ($row_count == $total_rows) {
                 $last_row = 1;
             } else {

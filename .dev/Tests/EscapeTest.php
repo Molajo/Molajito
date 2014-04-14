@@ -1,0 +1,127 @@
+<?php
+/**
+ * Escape Test
+ *
+ * @package    Molajo
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @copyright  2014 Amy Stephen. All rights reserved.
+ */
+namespace Molajito\Test;
+
+use Molajito\Escape;
+use Molajito\Escape\Simple;
+use stdClass;
+
+/**
+ * Escape Test
+ *
+ * @author     Amy Stephen
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ * @copyright  2014 Amy Stephen. All rights reserved.
+ * @since      1.0.0
+ */
+class EscapeTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @var $escape_instance
+     */
+    protected $escape_instance;
+
+    /**
+     * Construct Simple Escape Class and Proxy
+     */
+    protected function setUp()
+    {
+        $simple = new Simple();
+
+        $this->escape_instance = new Escape($simple);
+    }
+
+    /**
+     * Test Null Value without Model Registry
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testSimpleNull()
+    {
+        $query_results   = array();
+        $row             = new stdClass();
+        $row->test_field = null;
+        $query_results[] = $row;
+
+        $results = $this->escape_instance->escape($query_results);
+
+        $this->assertEquals(null, $results[0]->test_field);
+
+        return $this;
+    }
+
+    /**
+     * Test Numeric Value without Model Registry
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testSimpleNumeric()
+    {
+        $query_results   = array();
+        $row             = new stdClass();
+        $row->test_field = 33;
+        $query_results[] = $row;
+
+        $results = $this->escape_instance->escape($query_results);
+
+        $this->assertEquals(33, $results[0]->test_field);
+
+        return $this;
+    }
+
+    /**
+     * Test Array without Model Registry
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testSimpleArray()
+    {
+        $query_results   = array();
+        $row             = new stdClass();
+        $row->test_field = array(1, 2, 3);
+        $query_results[] = $row;
+
+        $results = $this->escape_instance->escape($query_results);
+
+        $this->assertEquals(array(1, 2, 3), $results[0]->test_field);
+
+        return $this;
+    }
+
+    /**
+     * Test HTML without Model Registry
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testSimpleHtml()
+    {
+        $query_results   = array();
+        $row             = new stdClass();
+        $row->test_field = '<article><p>I am a dog.</p></article>';
+        $query_results[] = $row;
+
+        $results = $this->escape_instance->escape($query_results);
+
+        $this->assertEquals('<p>I am a dog.</p>', $results[0]->test_field);
+
+        return $this;
+    }
+
+    /**
+     * Tears down the fixture, for example, closes a network connection.
+     * This method is called after a test is executed.
+     */
+    protected function tearDown()
+    {
+    }
+}
