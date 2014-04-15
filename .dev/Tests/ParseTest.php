@@ -11,7 +11,7 @@ namespace Molajito\Test;
 use Molajito\Parse;
 
 /**
- * Pagination Test
+ * Parse Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -21,7 +21,7 @@ use Molajito\Parse;
 class ParseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $parse
      */
     protected $parse;
 
@@ -30,10 +30,11 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $this->parse = new Parse();
     }
 
     /**
-     * Initialise Event Options
+     * Test Parse
      *
      * @return  $this
      * @since   1.0
@@ -45,8 +46,6 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         ob_start();
         include $include_path;
         $rendered_page = ob_get_clean();
-
-        $this->parse = new Parse();
 
         $results = $this->parse->parse($rendered_page, array(), null);
 

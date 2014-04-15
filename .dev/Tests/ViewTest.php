@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination Test
+ * View Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -9,68 +9,52 @@
 namespace Molajito\Test;
 
 use Molajito\View;
+use Molajito\View\Molajo;
 use stdClass;
 
 /**
- * Pagination Test
+ * View Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class ExtensionTest extends \PHPUnit_Framework_TestCase
+class ViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $view_instance
      */
-    protected $resource;
+    protected $view_instance;
 
     /**
-     * @var Object
-     */
-    protected $extension_resource;
-
-    /**
-     * Initialises Adapter
+     * Create View Class
      */
     protected function setUp()
     {
-        $this->resource = new ResourceMock();
-
-        $this->extension_resource = new Extension(
-            $this->resource,
-            $theme = 1,
-            $page_view = 2,
-            $template_view = 3,
-            $wrap_view = 4
-        );
+        $this->view_instance = new View(new Molajo(new ResourceMock()));
     }
 
     /**
-     * Initialise Event Options
+     * Get Theme Extension
      *
      * @return  $this
      * @since   1.0
      */
-    public function testGetResourceExtension()
+    public function testGetExtensionTheme()
     {
-        $extensions = $this->extension_resource->getResourceExtension();
+        $token       = new stdClass();
+        $token->name = 'Test';
+        $token->type = 'Theme';
 
-        $test = 'Theme:///Molajo//Themes//1';
-        $this->assertEquals($extensions->theme, $test);
+        $extensions = $this->view_instance->getView($token);
 
-        $test = 'Page:///Molajo//Views//Pages//2';
-        $this->assertEquals($extensions->page, $test);
-
-        $test = 'Template:///Molajo//Views//Templates//3';
-        $this->assertEquals($extensions->template, $test);
-
-        $test = 'Wrap:///Molajo//Views//Wraps//4';
-        $this->assertEquals($extensions->wrap, $test);
+        $test = 'Theme:///Molajo//Themes//Test';
+        $this->assertEquals($extensions->extension, $test);
 
         return $this;
     }
+
 
     /**
      * Get Page View Extension
@@ -84,7 +68,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $token->name = 'Test';
         $token->type = 'Page';
 
-        $extensions = $this->extension_resource->getView($token);
+        $extensions = $this->view_instance->getView($token);
 
         $test = 'Page:///Molajo//Views//Pages//Test';
         $this->assertEquals($extensions->extension, $test);
@@ -104,7 +88,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $token->name = 'Test';
         $token->type = 'Template';
 
-        $extensions = $this->extension_resource->getView($token);
+        $extensions = $this->view_instance->getView($token);
 
         $test = 'Template:///Molajo//Views//Templates//Test';
         $this->assertEquals($extensions->extension, $test);
@@ -124,7 +108,7 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $token->name = 'Test';
         $token->type = 'Wrap';
 
-        $extensions = $this->extension_resource->getView($token);
+        $extensions = $this->view_instance->getView($token);
 
         $test = 'Wrap:///Molajo//Views//Wraps//Test';
         $this->assertEquals($extensions->extension, $test);

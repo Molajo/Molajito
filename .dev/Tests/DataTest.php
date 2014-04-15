@@ -1,6 +1,6 @@
 <?php
 /**
- * Data Resource Test
+ * Data Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,11 +8,12 @@
  */
 namespace Molajito\Test;
 
-use Render\Data;
+use Molajito\Data;
+use Molajito\Data\Molajo;
 use stdClass;
 
 /**
- * Data Resource Test
+ * Data Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -22,12 +23,12 @@ use stdClass;
 class DataTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $data_resource
      */
     protected $data_resource;
 
     /**
-     * @var Object
+     * @var $keys
      */
     protected $keys = array(
         'model_type',
@@ -39,17 +40,15 @@ class DataTest extends \PHPUnit_Framework_TestCase
     );
 
     /**
-     * Initialises Adapter
+     * Create Data Instance
      */
     protected function setUp()
     {
-
+        $this->data_resource = new Data(new Molajo());
     }
 
     /**
-     * @test    - Model Type and Name from Token
-     *
-     * @param   array $options
+     * Test Get Runtime Data
      *
      * @return  $this
      * @since   1.0
@@ -57,14 +56,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
     public function testGetRuntimeData()
     {
         /** Input */
-        $runtime_data                               = new stdClass();
-        $runtime_data->application                  = new stdClass();
-        $runtime_data->application->field_a         = 'a';
-        $runtime_data->application->field_b         = 'b';
-        $runtime_data->application->field_c         = 'c';
+        $runtime_data                                = new stdClass();
+        $runtime_data->application                   = new stdClass();
+        $runtime_data->application->field_a          = 'a';
+        $runtime_data->application->field_b          = 'b';
+        $runtime_data->application->field_c          = 'c';
         $runtime_data->render                        = new stdClass();
         $runtime_data->render->extension             = new stdClass();
         $runtime_data->render->extension->parameters = array();
+
+        $options                 = array();
+        $options['runtime_data'] = $runtime_data;
 
         $token                           = new stdClass();
         $token->attributes               = array();
@@ -73,14 +75,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
         $model_registry = new stdClass();
 
-        /** Instantiate Data Resource */
-        $this->data_resource = new Data(
-            $runtime_data,
-            $token
-        );
-
         /** Get Data */
-        $data = $this->data_resource->getData();
+        $data = $this->data_resource->getData($token, $options);
 
         /** Results */
         $this->assertEquals('runtime_data', $data->parameters->model_type);
@@ -92,11 +88,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
         return $this;
     }
 
-
     /**
-     * @test    - Model Type and Name from Token
-     *
-     * @param   array $options
+     * Test Get Data Model
      *
      * @return  $this
      * @since   1.0
@@ -108,29 +101,27 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data    = new stdClass();
         $plugin_data->b = 'b';
 
+        $runtime_data->render                        = new stdClass();
+        $runtime_data->render->extension             = new stdClass();
+        $runtime_data->render->extension->parameters = new stdClass();
+
+        $options                 = array();
+        $options['runtime_data'] = $runtime_data;
+        $options['plugin_data']  = $plugin_data;
+
         $token                           = new stdClass();
         $token->attributes               = array();
         $token->attributes['model_type'] = 'plugin_data';
         $token->attributes['model_name'] = 'B';
         $token->attributes['field_name'] = 'C';
 
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
-
-        /** Instantiate Data Resource */
-        $this->data_resource = new Data(
-            $runtime_data,
-            $token
-        );
-
         /** Get Data */
-        $data = $this->data_resource->getData();
+        $data = $this->data_resource->getData($token, $options);
 
         /** Results */
         $this->assertEquals($data->parameters->model_type, 'plugin_data');
-        $this->assertEquals($data->parameters->model_name, 'b');
-        $this->assertEquals($data->parameters->field_name, 'c');
+        $this->assertEquals($data->parameters->model_name, 'B');
+        $this->assertEquals($data->parameters->field_name, 'C');
         $this->assertEquals($data->query_results, array($plugin_data->b));
         $this->assertEquals($data->model_registry, array());
         $this->assertEquals($data->parameters->token, $token);
@@ -139,9 +130,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @test    - Model Type and Name from Token
-     *
-     * @param   array $options
+     * Test Get Plugin Data
      *
      * @return  $this
      * @since   1.0
@@ -149,14 +138,14 @@ class DataTest extends \PHPUnit_Framework_TestCase
     public function testGetPluginData()
     {
         /** Input */
-        $runtime_data        = new stdClass();
-        $plugin_data         = new stdClass();
-        $collection          = new stdClass();
-        $collection->field_a = 'a';
-        $collection->field_b = 'b';
-        $collection->field_c = 'c';
-        $row                 = array();
-        $row[]               = $collection;
+        $runtime_data    = new stdClass();
+        $plugin_data     = new stdClass();
+        $row             = new stdClass();
+        $row->field_a    = 'a';
+        $row->field_b    = 'b';
+        $row->field_c    = 'c';
+        $query_results   = array();
+        $query_results[] = $row;
 
         $model_registry          = new stdClass();
         $model_registry->field_a = 'a1';
@@ -164,7 +153,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $model_registry->field_c = 'c1';
 
         $plugin_data->collection                 = new stdClass();
-        $plugin_data->collection->data           = $row;
+        $plugin_data->collection->data           = $query_results;
         $plugin_data->collection->model_registry = $model_registry;
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
@@ -173,33 +162,31 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $runtime_data->render->extension             = new stdClass();
         $runtime_data->render->extension->parameters = new stdClass();
 
+        $options                  = array();
+        $options['query_results'] = $query_results;
+        $options['runtime_data']  = $runtime_data;
+        $options['plugin_data']   = $plugin_data;
+
         $token                           = new stdClass();
         $token->attributes               = array();
         $token->attributes['model_type'] = 'plugin_data';
         $token->attributes['model_name'] = 'collection';
 
-        /** Instantiate Data Resource */
-        $this->data_resource = new Data(
-            $runtime_data,
-            $token
-        );
-
         /** Get Data */
-        $data = $this->data_resource->getData();
+        $data = $this->data_resource->getData($token, $options);
 
         /** Results */
         $this->assertEquals($data->parameters->model_type, 'plugin_data');
         $this->assertEquals($data->parameters->model_name, 'collection');
-        $this->assertEquals($data->query_results, $row);
+        $this->assertEquals($data->query_results, $query_results);
         $this->assertEquals($data->model_registry, $model_registry);
         $this->assertEquals($data->parameters->token, $token);
 
         return $this;
     }
 
-
     /**
-     * @test    - Model Type and Name from Token
+     * Test Get Plugin Data -- Field
      *
      * @param   array $options
      *
@@ -212,14 +199,14 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $runtime_data = new stdClass();
         $plugin_data  = new stdClass();
 
-        $collection          = new stdClass();
-        $field_c             = new stdClass();
-        $field_c->field_a    = 'a';
-        $field_c->field_b    = 'b';
-        $field_c->field_c    = 'c';
-        $collection->field_c = $field_c;
-        $row                 = array();
-        $row[]               = $collection;
+        $row              = new stdClass();
+        $field_c          = new stdClass();
+        $field_c->field_a = 'a';
+        $field_c->field_b = 'b';
+        $field_c->field_c = 'c';
+        $row->field_c     = $field_c;
+        $query_results    = array();
+        $query_results[]  = $row;
 
         $model_registry          = new stdClass();
         $model_registry->field_a = 'a1';
@@ -227,7 +214,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $model_registry->field_c = 'c1';
 
         $plugin_data->collection                 = new stdClass();
-        $plugin_data->collection->data           = $row;
+        $plugin_data->collection->data           = $query_results;
         $plugin_data->collection->model_registry = $model_registry;
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
@@ -236,20 +223,19 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $runtime_data->render->extension             = new stdClass();
         $runtime_data->render->extension->parameters = new stdClass();
 
+        $options                  = array();
+        $options['query_results'] = $query_results;
+        $options['runtime_data']  = $runtime_data;
+        $options['plugin_data']   = $plugin_data;
+
         $token                           = new stdClass();
         $token->attributes               = array();
         $token->attributes['model_type'] = 'plugin_data';
         $token->attributes['model_name'] = 'collection';
         $token->attributes['field_name'] = 'field_c';
 
-        /** Instantiate Data Resource */
-        $this->data_resource = new Data(
-            $runtime_data,
-            $token
-        );
-
         /** Get Data */
-        $data = $this->data_resource->getData();
+        $data = $this->data_resource->getData($token, $options);
 
         /** Results */
         $this->assertEquals($data->parameters->model_type, 'plugin_data');
@@ -260,7 +246,6 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
-
 
     /**
      * Tears down the fixture, for example, closes a network connection.

@@ -27,12 +27,12 @@ use Molajito\TemplateView;
 class TemplateViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $template_view
      */
     protected $template_view;
 
     /**
-     * Initialises Adapter
+     * Create Template View class
      */
     protected function setUp()
     {
@@ -67,7 +67,7 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialise Event Options
+     * Test Custom Template View
      *
      * @return  $this
      * @since   1.0
@@ -106,7 +106,7 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * Initialise Event Options
+     * Test 'Normal' Template View
      *
      * @return  $this
      * @since   1.0

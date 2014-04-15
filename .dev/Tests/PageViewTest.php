@@ -1,6 +1,6 @@
 <?php
 /**
- * Page View Renderer Test
+ * Page View Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -12,7 +12,7 @@ use Molajito\PageView;
 use Molajito\Render;
 
 /**
- * Pagination Test
+ * Page View Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -22,28 +22,26 @@ use Molajito\Render;
 class PageViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $pageview_instance
      */
-    protected $render_view;
+    protected $pageview_instance;
 
     /**
-     * Initialises Adapter
+     * Create PageView Instance
      */
     protected function setUp()
     {
+        $this->pageview_instance = new PageView(new Render());
     }
 
     /**
-     * Initialise Event Options
+     * Test Page View
      *
      * @return  $this
      * @since   1.0
      */
-    public function testGetResourceExtension()
+    public function testPageView()
     {
-        /** Render Instance */
-        $render = new Render();
-
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';
         $rendering_properties['row']           = 'b';
@@ -55,9 +53,8 @@ class PageViewTest extends \PHPUnit_Framework_TestCase
         include $include_path;
         $collect = ob_get_clean();
 
-        $this->render_view = new PageView($render);
-
-        $results = $this->render_view->render($include_path,
+        $results = $this->pageview_instance->render(
+            $include_path,
             $rendering_properties);
 
         $this->assertEquals($collect, $results);

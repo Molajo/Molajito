@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Renderer Test
+ * Theme Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -14,7 +14,7 @@ use Molajito\Escape\Simple;
 use Molajito\Render;
 
 /**
- * Pagination Test
+ * Theme Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -24,12 +24,12 @@ use Molajito\Render;
 class ThemeTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $theme_instance
      */
     protected $theme_instance;
 
     /**
-     * Initialises Adapter
+     * Create Theme Instance
      */
     protected function setUp()
     {
@@ -49,7 +49,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
      * @return  $this
      * @since   1.0
      */
-    public function testGetResourceExtension()
+    public function testTheme()
     {
         $rendering_properties                  = array();
         $rendering_properties['query_results'] = 'a';

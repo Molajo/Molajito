@@ -11,7 +11,7 @@ namespace Molajito\Test;
 use Molajito\Render;
 
 /**
- * Pagination Test
+ * Render Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -21,19 +21,20 @@ use Molajito\Render;
 class RenderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $render
      */
     protected $render;
 
     /**
-     * Initialises Adapter
+     * Create class
      */
     protected function setUp()
     {
+        $this->render = new Render();
     }
 
     /**
-     * Initialise Event Options
+     * Test Render
      *
      * @return  $this
      * @since   1.0
@@ -48,8 +49,6 @@ class RenderTest extends \PHPUnit_Framework_TestCase
 
         $options                  = array();
         $options['query_results'] = array();
-
-        $this->render = new Render();
 
         $results = $this->render->render($include_path, $options);
 

@@ -27,7 +27,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
     protected $event_instance;
 
     /**
-     * @var Object
+     * @var $event_option_keys
      */
     protected $event_option_keys = array(
         'runtime_data',
@@ -40,7 +40,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
     );
 
     /**
-     * Initialises Adapter
+     * Instantiate Event Instance
      */
     protected function setUp()
     {
@@ -55,9 +55,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialise Event Options
-     *
-     * @param   array $options
+     * Test Initialise Event Options
      *
      * @return  $this
      * @since   1.0
@@ -74,9 +72,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Initialise Event Options
-     *
-     * @param   array $options
+     * Test Schedule Event
      *
      * @return  $this
      * @since   1.0

@@ -16,9 +16,9 @@ that you can access via a browser. Then, configure an Apache Host to post to the
 No database is required since the example retrieves data from files, just download, configure
 your webserver and point your browser at the host. A quick review of the
 [Theme](https://github.com/Molajo/Molajito/blob/master/.dev/Sample/Public/Foundation5/Index.phtml),
-[page views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Pages),
-[template views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Templates)
-and [wrap views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Wraps)
+[Page Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Pages),
+[Template Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Templates)
+and [Wrap Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Wraps)
 files will get you started.
 
 Add the [Fieldhandler](https://github.com/Molajo/Molajito/blob/master/composer.json#L32)
@@ -113,7 +113,7 @@ the `include statement` by adding named pair attributes.
 
 ### Page
 
-    `{I page=<? $this->runtime_data->page_name ?> I}`
+    {I page=<? $this->runtime_data->page_name ?> I}
 
 `Themes` are typically where `page views` are defined. The `page_name` is passed into
  the `theme` via the `$this->runtime_data->page_name` object. However, a `page view` could
@@ -199,7 +199,6 @@ An example of a typical `template view` Body.php file follows.
 
 
 ```
-
 
 ### Wrap
 

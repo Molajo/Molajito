@@ -1,6 +1,6 @@
 <?php
 /**
- * Wrap View Renderer Test
+ * Wrap View Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -12,7 +12,7 @@ use Molajito\Render;
 use Molajito\WrapView;
 
 /**
- * Pagination Test
+ * Wrap View Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -22,12 +22,12 @@ use Molajito\WrapView;
 class WrapViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Object
+     * @var $wrap_instance
      */
     protected $wrap_instance;
 
     /**
-     * Initialises Adapter
+     * Create Wrap Instance
      */
     protected function setUp()
     {
