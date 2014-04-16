@@ -20,7 +20,7 @@ use CommonApi\Render\EscapeInterface;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-abstract class Fieldhandler implements EscapeInterface
+abstract class AbstractAdapter implements EscapeInterface
 {
     /**
      * Fieldhandler Query Output prior to Rendering
