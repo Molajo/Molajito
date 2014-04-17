@@ -26,19 +26,19 @@
         "commonapi/language": "dev-master",
         "commonapi/model": "dev-master",
         "commonapi/render": "dev-master",
-        "commonapi/exception": "dev-master"
+        "commonapi/exception": "dev-master",
+        "molajo/pagination": "dev-master"
     },
 
     "recommend": {
         "molajo/event": "dev-master",
-        "molajo/fieldhandler": "dev-master",
-        "molajo/pagination": "dev-master"
+        "molajo/fieldhandler": "dev-master"
     },
 
     "autoload": {
         "psr-4": {
-            "Molajito\\": "Sample/Source/",
             "Molajito\\": "Source/",
+            "Molajito\\Data\\": "Sample/Source/Data/",
             "Molajo\\Factories\\": "Factories/"
         }
     },

@@ -4,27 +4,13 @@ Molajito Render Package
 
 [![Build Status](https://travis-ci.org/Molajo/Molajito.png?branch=master)](https://travis-ci.org/Molajo/Molajito)
 
-Molajito is a template environment for frontend developers who want to focus on rendered output, not programming.
+Molajito is a template environment for frontend developers who want to focus on markup, not programming.
 
 ## Quick start
 
 A working example of a website that has a home page, blog, post, contact, and about us page is
-available within this package. Just download the Molajito package and copy it to a site
-that you can access via a browser. Then, configure an Apache Host to post to the
-[ .dev / Sample / Public ](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Public) folder.
-
-No database is required since the example retrieves data from files, just download, configure
-your webserver and point your browser at the host. A quick review of the
-[Theme](https://github.com/Molajo/Molajito/blob/master/.dev/Sample/Public/Foundation5/Index.phtml),
-[Page Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Pages),
-[Template Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Templates)
-and [Wrap Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Wraps)
-files will get you started.
-
-Add the [Molajito](https://github.com/Molajo/Molajito/blob/master/composer.json#L32)
-and [Pagination](https://github.com/Molajo/Molajito/blob/master/composer.json#L33) packages
-to the [Composer.json](https://github.com/Molajo/Molajito/blob/master/composer.json) file
-to see additional capabilities.
+available within this package. To view the sample, configure an Apache Host to post to the
+[ Sample / Public ](https://github.com/Molajo/Molajito/tree/master/Sample/Public) folder.
 
 
 ## Basic Process:
