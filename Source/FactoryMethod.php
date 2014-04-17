@@ -86,6 +86,7 @@ class FactoryMethod
             $this->options['event_option_keys']
         );
         $wrap_instance     = $this->getWrapInstance($render_instance);
+        $translate_instance = $this->getTranslateInstance($escape_instance);
 
         $class = 'Molajito\\Engine';
 
@@ -102,7 +103,8 @@ class FactoryMethod
                 $theme_instance,
                 $page_instance,
                 $template_instance,
-                $wrap_instance
+                $wrap_instance,
+                $translate_instance
             );
         } catch (Exception $e) {
             throw new RuntimeException
@@ -559,6 +561,39 @@ class FactoryMethod
             throw new RuntimeException
             (
                 'MolajitoFactoryMethod getWrapInstance: Could not instantiate WrapView Class: ' . $class
+            );
+        }
+    }
+
+    /**
+     * Instantiate Translate Class
+     *
+     * @param   EscapeInterface $escape_instance
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getTranslateInstance(EscapeInterface $escape_instance)
+    {
+        if (isset($this->options['language_strings'])) {
+            $language_strings = $this->options['language_strings'];
+        } else {
+            $language_strings = array();
+        }
+
+        $class = 'Molajito\\Translate';
+
+        try {
+            return new $class (
+                $escape_instance,
+                $language_strings
+            );
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'MolajitoFactoryMethod getTranslateInstance: Could not instantiate Translate Class: ' . $class
             );
         }
     }

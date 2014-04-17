@@ -8,11 +8,12 @@
  */
 ?>
 <h3><?= $this->row->name; ?></h3>
+
 <?= $this->row->content; ?>
 
 <ul class="inline-list">
     <?php if ($this->row->email !== '') { ?>
-    <li><a class="webicon mail" href="mailto:<?= $this->row->email ?>">Email</a></li>
+    <li><a class="webicon mail" href="mailto:<?= $this->row->email ?>">{T Email T}</a></li>
     <?php } ?>
     <?php if ($this->row->twitter !== '') { ?>
         <li><a class="webicon twitter" href="http://Twitter.com/<?= $this->row->twitter ?>">Twitter</a></li>

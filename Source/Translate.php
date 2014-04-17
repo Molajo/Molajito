@@ -92,7 +92,6 @@ class Translate implements TranslateInterface
     ) {
         $this->escape_instance  = $escape_instance;
         $this->language_strings = $language_strings;
-        $this->parse_mask       = $parse_mask;
 
         if ($parse_mask === null || trim($parse_mask) == '') {
         } else {
@@ -136,7 +135,7 @@ class Translate implements TranslateInterface
                 $filtered    = $this->filterTranslation($translation);
             }
 
-            $this->replaceToken($token, $filtered);
+            $this->rendered_page = $this->replaceToken($token, $filtered);
         }
 
         return $this->rendered_page;
@@ -169,10 +168,8 @@ class Translate implements TranslateInterface
      */
     protected function translateToken($string)
     {
-        $key = strtolower($string);
-
-        if (isset($this->language_strings[$key])) {
-            return $this->language_strings[$key];
+        if (isset($this->language_strings[$string])) {
+            return $this->language_strings[$string];
         }
 
         return $string;
@@ -192,7 +189,9 @@ class Translate implements TranslateInterface
         $this->row->language_string = $string;
 
         try {
-            return $this->escape_instance->escape(array($this->row), $this->model_registry);
+            $rows = $this->escape_instance->escape(array($this->row), $this->model_registry);
+
+            return $rows[0]->language_string;
 
         } catch (Exception $e) {
             throw new RuntimeException
@@ -212,8 +211,6 @@ class Translate implements TranslateInterface
      */
     protected function replaceToken($token, $translation)
     {
-        $this->rendered_page = str_replace($token, $translation, $this->rendered_page);
-
-        return $this;
+        return str_replace($token, $translation, $this->rendered_page);
     }
 }

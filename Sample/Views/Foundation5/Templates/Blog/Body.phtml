@@ -14,16 +14,16 @@
         </a>
     </h3>
 
-    <h6>Written by:
+    <h6>{T Written by T}:
         <a href="<?= $this->runtime_data->route->about ?>">
             <?= $this->row->author; ?>
         </a>
-        on <?= $this->row->published; ?>.
+        {T on T} <?= $this->row->published; ?>.
     </h6>
 
     <?= $this->row->readmore; ?>
 
     <a class="right" href="<?= $this->row->current_url ?>">
-        Read More →
+        {T Read More T} →
     </a>
 </article>

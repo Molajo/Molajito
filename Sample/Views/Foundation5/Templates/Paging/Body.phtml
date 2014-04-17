@@ -10,12 +10,12 @@
 <div class="row">
     <div class="large-6 columns left">
         <?php if ($this->row->previous_url !== '') { ?>
-            <a href="<?= $this->row->previous_url; ?>" class="button tiny secondary radius">Previous</a>
+            <a href="<?= $this->row->previous_url; ?>" class="button tiny secondary radius">{T Previous T}</a>
         <?php } ?>
     </div>
     <div class="large-6 columns">
         <?php if ($this->row->next_url !== '') { ?>
-            <a href="<?= $this->row->next_url; ?>" class="button tiny secondary radius right">Next</a>
+            <a href="<?= $this->row->next_url; ?>" class="button tiny secondary radius right">{T Next T}</a>
         <?php } ?>
     </div>
 </div>

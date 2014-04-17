@@ -8,13 +8,14 @@
  */
 namespace Molajito;
 
+use CommonApi\Language\TranslateInterface;
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\DataInterface;
 use CommonApi\Render\EventInterface;
-use CommonApi\Render\ViewInterface;
 use CommonApi\Render\ParseInterface;
 use CommonApi\Render\PositionInterface;
 use CommonApi\Render\RenderInterface;
+use CommonApi\Render\ViewInterface;
 use Exception;
 use stdClass;
 
@@ -231,18 +232,19 @@ class Engine implements RenderInterface
     /**
      * Constructor
      *
-     * @param DataInterface     $data_instance
-     * @param ViewInterface     $view_instance
-     * @param EventInterface    $event_instance
-     * @param array             $event_option_keys
-     * @param ParseInterface    $parse_instance
-     * @param array             $exclude_tokens
-     * @param int               $stop_loop_count
-     * @param PositionInterface $position_instance
-     * @param RenderInterface   $theme_instance
-     * @param RenderInterface   $page_instance
-     * @param RenderInterface   $template_instance
-     * @param RenderInterface   $wrap_instance
+     * @param DataInterface      $data_instance
+     * @param ViewInterface      $view_instance
+     * @param EventInterface     $event_instance
+     * @param array              $event_option_keys
+     * @param ParseInterface     $parse_instance
+     * @param array              $exclude_tokens
+     * @param int                $stop_loop_count
+     * @param PositionInterface  $position_instance
+     * @param RenderInterface    $theme_instance
+     * @param RenderInterface    $page_instance
+     * @param RenderInterface    $template_instance
+     * @param RenderInterface    $wrap_instance
+     * @param TranslateInterface $translate_instance
      *
      * @since  1.0.0
      */
@@ -258,19 +260,21 @@ class Engine implements RenderInterface
         RenderInterface $theme_instance,
         RenderInterface $page_instance,
         RenderInterface $template_instance,
-        RenderInterface $wrap_instance
+        RenderInterface $wrap_instance,
+        TranslateInterface $translate_instance
     ) {
-        $this->data_instance     = $data_instance;
-        $this->view_instance     = $view_instance;
-        $this->event_instance    = $event_instance;
-        $this->parse_instance    = $parse_instance;
-        $this->exclude_tokens    = $exclude_tokens;
-        $this->stop_loop_count   = $stop_loop_count;
-        $this->position_instance = $position_instance;
-        $this->theme_instance    = $theme_instance;
-        $this->page_instance     = $page_instance;
-        $this->template_instance = $template_instance;
-        $this->wrap_instance     = $wrap_instance;
+        $this->data_instance      = $data_instance;
+        $this->view_instance      = $view_instance;
+        $this->event_instance     = $event_instance;
+        $this->parse_instance     = $parse_instance;
+        $this->exclude_tokens     = $exclude_tokens;
+        $this->stop_loop_count    = $stop_loop_count;
+        $this->position_instance  = $position_instance;
+        $this->theme_instance     = $theme_instance;
+        $this->page_instance      = $page_instance;
+        $this->template_instance  = $template_instance;
+        $this->wrap_instance      = $wrap_instance;
+        $this->translate_instance = $translate_instance;
 
         if (count($event_option_keys) > 0) {
             $this->event_option_keys = $event_option_keys;
@@ -304,7 +308,10 @@ class Engine implements RenderInterface
         /** Step 4. Render Head */
         $this->renderLoop(array());
 
-        /** Step 5. Schedule onAfterRender Event */
+        /** Step 5. Translate */
+        $this->rendered_page = $this->translate_instance->translate($this->rendered_page);
+
+        /** Step 6. Schedule onAfterRender Event */
         $options                  = $this->setOptionValues();
         $options['rendered_page'] = $this->rendered_page;
         $this->scheduleEvent('onAfterRender', $options);

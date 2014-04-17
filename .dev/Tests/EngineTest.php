@@ -24,6 +24,7 @@ use Molajito\View;
 use Molajito\View\Molajo as MolajoView;
 use Molajito\WrapView;
 use Molajito\Engine;
+use Molajito\Translate;
 
 /**
  * Molajito Engine Test
@@ -104,6 +105,9 @@ class EngineTest extends \PHPUnit_Framework_TestCase
         /** $wrap_instance */
         $wrap_instance = new WrapView($render);
 
+        /** $translate_instance */
+        $translate = new Translate($escape);
+
         $this->engine = new Engine (
             $data_instance,
             $view_instance,
@@ -116,7 +120,8 @@ class EngineTest extends \PHPUnit_Framework_TestCase
             $theme_instance,
             $page_instance,
             $template_instance,
-            $wrap_instance
+            $wrap_instance,
+            $translate
         );
     }
 
