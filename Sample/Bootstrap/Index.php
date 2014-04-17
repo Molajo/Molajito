@@ -27,11 +27,11 @@ $class    = 'Molajito\\FactoryMethod';
 $factory  = new $class($options);
 $molajito = $factory->instantiateClass();
 
-/** Pass in the Theme and Data ($this->runtime_data) */
+/** Render using the specified Theme */
 $rendered_page = $molajito->render(
     $options['theme_base_folder'],
     array('runtime_data' => $runtime_data)
 );
 
-/** Pass $rendered_page off to your response class */
+/** Hand $rendered_page off to your response class */
 echo $rendered_page;

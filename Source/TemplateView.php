@@ -201,7 +201,7 @@ class TemplateView implements RenderInterface
      */
     protected function setProperties(array $data = array())
     {
-        $temp = array_merge($this->render_array, $this->event_option_keys);
+        $temp = array_unique(array_merge($this->render_array, $this->event_option_keys));
 
         foreach ($temp as $key) {
             if (isset($data[$key])) {

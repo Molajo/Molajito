@@ -65,8 +65,3 @@ $runtime_data->render->extension->include_path             = '';
 $runtime_data->render->extension->parameters               = array();
 $runtime_data->render->extension->parameters['model_type'] = '';
 $runtime_data->render->extension->parameters['model_name'] = '';
-
-/** Will be input to rendering */
-$data                 = array();
-$data['page_name']    = $page;
-$data['runtime_data'] = $runtime_data;
