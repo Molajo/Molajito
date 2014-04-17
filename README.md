@@ -222,8 +222,6 @@ like this example and inject the translate class [with an array of language stri
 (https://github.com/Molajo/Molajito/blob/master/Sample/Bootstrap/Index.php#L20) or add an Translate Adapter for your
 Translation class.
 
-```
-
 ## Requirements and Compliance
  * PHP application framework independent, no dependencies
  * Requires PHP 5.4, or above
