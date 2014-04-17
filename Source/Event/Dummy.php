@@ -32,6 +32,7 @@ class Dummy extends AbstractAdapter implements EventInterface
     public function scheduleEvent($event_name, array $options = array())
     {
         $temp = array();
+
         foreach ($this->event_option_keys as $key) {
             if (isset($options[$key])) {
                 $temp[$key] = $options[$key];

@@ -24,7 +24,7 @@ abstract class AbstractAdapter implements EventInterface
      * Schedule Event - anonymous function to event_callback method
      *
      * @var    callable
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $event_callback;
 
@@ -32,9 +32,18 @@ abstract class AbstractAdapter implements EventInterface
      * Event option keys
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
-    protected $event_option_keys = array();
+    protected $event_option_keys = array(
+        'runtime_data',
+        'plugin_data',
+        'parameters',
+        'model_registry',
+        'query_results',
+        'row',
+        'rendered_view',
+        'rendered_page'
+    );
 
     /**
      * Constructor
@@ -42,14 +51,16 @@ abstract class AbstractAdapter implements EventInterface
      * @param  callable $event_callback
      * @param  array    $event_option_keys
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         callable $event_callback = null,
         array $event_option_keys = array()
     ) {
         $this->event_callback    = $event_callback;
-        $this->event_option_keys = $event_option_keys;
+        if (count($event_option_keys) > 0) {
+            $this->event_option_keys = $event_option_keys;
+        }
     }
 
     /**

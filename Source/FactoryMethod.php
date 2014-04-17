@@ -1,12 +1,12 @@
 <?php
 /**
- * Bootstrap Dependency Injection for Sample Theme
+ * Molajito Factory Method
  *
  * @package    Molajo
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
-namespace Molajo\Factories;
+namespace Molajito;
 
 use Exception;
 use CommonApi\Exception\RuntimeException;
@@ -22,104 +22,31 @@ use CommonApi\Render\RenderInterface;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class MolajitoFactoryMethod
+class FactoryMethod
 {
-    /**
-     * Molajito Folder
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $molajito_base_folder = null;
-
-    /**
-     * Theme Base Folder
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $theme_base_folder = null;
-
-    /**
-     * View Base Folder
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $view_base_folder = null;
-
-    /**
-     * Posts Folder
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $posts_base_folder = null;
-
-    /**
-     * Authors Folder
-     *
-     * @var    string
-     * @since  1.0
-     */
-    protected $author_base_folder = null;
-
     /**
      * Options
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $options = array();
 
     /**
-     * Post Model Registry
+     * Constructor
      *
-     * @var    array
-     * @since  1.0
+     * @param  array $options
+     *
+     * @since  1.0.0
      */
-    protected $post_model_registry = array();
+    public function __construct(array $options = array())
+    {
+        $this->options = $options;
 
-    /**
-     * Post Model Registry
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $author_model_registry = array();
-
-    /**
-     * Class Constructor
-     *
-     * @param  string  $molajito_base_folder
-     * @param  string  $theme_base_folder
-     * @param  string  $view_base_folder
-     * @param  string  $posts_base_folder
-     * @param  string  $author_base_folder
-     * @param  string  $post_model_registry
-     * @param  string  $author_model_registry
-     *
-     * @since  1.0
-     */
-    public function __construct(
-        $molajito_base_folder,
-        $theme_base_folder,
-        $view_base_folder,
-        $posts_base_folder,
-        $author_base_folder,
-        $post_model_registry,
-        $author_model_registry
-    ) {
-        $this->molajito_base_folder  = $molajito_base_folder;
-        $this->theme_base_folder     = $theme_base_folder;
-        $this->view_base_folder      = $view_base_folder;
-        $this->posts_base_folder     = $posts_base_folder;
-        $this->author_base_folder    = $author_base_folder;
-        $this->post_model_registry   = $post_model_registry;
-        $this->author_model_registry = $author_model_registry;
-
-        /** Event System is not hooked up in this example */
-        $this->options['event_option_keys'] = array();
+        if (isset($this->options['event_option_keys'])) {
+        } else {
+            $this->options['event_option_keys'] = array();
+        }
     }
 
     /**
@@ -131,24 +58,34 @@ class MolajitoFactoryMethod
      */
     public function instantiateClass()
     {
-        $escape_instance       = $this->getEscapeInstance();
-        $render_instance       = $this->getRenderInstance();
-        $data_instance         = $this->getDataInstance();
-        $view_instance         = $this->getViewInstance();
-        $event_instance        = $this->getEventInstance();
-        $parse_instance        = $this->getParseInstance();
-        $exclude_tokens        = $this->getExcludeTokens();
-        $stop_loop_count       = 100;
-        $position_instance     = $this->getPositionInstance($escape_instance);
-        $theme_instance        = $this->getThemeInstance($escape_instance, $render_instance);
-        $page_instance         = $this->getPageInstance($render_instance);
-        $template_instance     = $this->getTemplateInstance(
+        if (isset($this->options['molajito_base_folder'])
+            && is_dir($this->options['molajito_base_folder'])
+        ) {
+        } else {
+            throw new RuntimeException
+            (
+                'MolajitoFactoryMethod instantiateClass: Must provide options entry to molajito_base_folder.'
+            );
+        }
+
+        $escape_instance   = $this->getEscapeInstance();
+        $render_instance   = $this->getRenderInstance();
+        $data_instance     = $this->getDataInstance();
+        $view_instance     = $this->getViewInstance();
+        $event_instance    = $this->getEventInstance();
+        $parse_instance    = $this->getParseInstance();
+        $exclude_tokens    = $this->getExcludeTokens();
+        $stop_loop_count   = 100;
+        $position_instance = $this->getPositionInstance($escape_instance);
+        $theme_instance    = $this->getThemeInstance($escape_instance, $render_instance);
+        $page_instance     = $this->getPageInstance($render_instance);
+        $template_instance = $this->getTemplateInstance(
             $escape_instance,
             $render_instance,
             $event_instance,
             $this->options['event_option_keys']
         );
-        $wrap_instance         = $this->getWrapInstance($render_instance);
+        $wrap_instance     = $this->getWrapInstance($render_instance);
 
         $class = 'Molajito\\Engine';
 
@@ -170,7 +107,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Molajito Driver Class: ' . $class
+                'MolajitoFactoryMethod instantiateClass: Could not instantiate Molajito Engine: ' . $class
             );
         }
 
@@ -180,13 +117,26 @@ class MolajitoFactoryMethod
     /**
      * Instantiate Escape Class with installed Adapter
      *
-     * @return  $this
+     * @return  EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getEscapeInstance()
     {
-        if (file_exists($this->molajito_base_folder . '/vendor/molajo/Fieldhandler/Source/Driver.php')) {
+        $escape_class = 'simple';
+
+        if (isset($this->options['escape_class'])) {
+            $escape_class = $this->options['escape_class'];
+        }
+
+        if ($escape_class === 'molajo') {
+            if (file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/Fieldhandler/Source/Driver.php')) {
+            } else {
+                $escape_class = 'simple';
+            }
+        }
+
+        if ($escape_class === 'molajo') {
             $adapter = $this->getMolajoEscapeInstance();
         } else {
             $adapter = $this->getSimpleEscapeInstance();
@@ -200,7 +150,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Escape Class: ' . $class
+                'MolajitoFactoryMethod getEscapeInstance: Could not instantiate Escape Class: ' . $class
             );
         }
     }
@@ -208,7 +158,7 @@ class MolajitoFactoryMethod
     /**
      * Instantiate Molajo Escape Class
      *
-     * @return  $this
+     * @return  EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -224,7 +174,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Molajo Escape Class: ' . $class
+                'MolajitoFactoryMethod getMolajoEscapeInstance: Could not instantiate Molajo Escape Class: ' . $class
             );
         }
     }
@@ -232,7 +182,7 @@ class MolajitoFactoryMethod
     /**
      * Instantiate Escape Class
      *
-     * @return  $this
+     * @return  EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -246,7 +196,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Fieldhandler Class: ' . $class
+                'MolajitoFactoryMethod getFieldhandlerInstance: Could not instantiate Fieldhandler Class: ' . $class
             );
         }
     }
@@ -254,7 +204,7 @@ class MolajitoFactoryMethod
     /**
      * Instantiate Simple Escape Class
      *
-     * @return  $this
+     * @return  EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -268,7 +218,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Simple Escape Class: ' . $class
+                'MolajitoFactoryMethod getSimpleEscapeInstance: Could not instantiate Simple Escape Class: ' . $class
             );
         }
     }
@@ -276,7 +226,7 @@ class MolajitoFactoryMethod
     /**
      * Instantiate Render Class
      *
-     * @return  $this
+     * @return  RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -290,7 +240,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Render Class: ' . $class
+                'MolajitoFactoryMethod getRenderInstance: Could not instantiate Render Class: ' . $class
             );
         }
     }
@@ -304,27 +254,26 @@ class MolajitoFactoryMethod
      */
     protected function getDataInstance()
     {
-        if (file_exists($this->molajito_base_folder . '/vendor/molajo/Pagination/Source/Pagination.php')) {
-            include $this->molajito_base_folder . '/vendor/molajo/Pagination/Source/Pagination.php';
-            $pagination = new \Molajo\Pagination();
+        if (file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/Pagination/Source/Pagination.php')) {
+            $class      = 'Molajo\\Pagination';
+            $pagination = new $class();
         } else {
             $pagination = null;
         }
 
-        $class = 'Molajito\\Data\\FilesystemModel';
+        $data_options = array();
+        if (isset($this->options['data_options'])) {
+            $data_options = $this->options['data_options'];
+        }
+
+        $class = 'Molajito\\Data\\' . ucfirst(strtolower($this->options['data_class']));
 
         try {
-            $adapter = new $class (
-                $this->posts_base_folder,
-                $this->author_base_folder,
-                $this->post_model_registry,
-                $this->author_model_registry,
-                $pagination
-            );
+            $adapter = new $class ($data_options, $pagination);
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Data Adapter Class: ' . $class
+                'MolajitoFactoryMethod getDataInstance: Could not instantiate Data Adapter: ' . $class
             );
         }
 
@@ -336,7 +285,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Data Class: ' . $class
+                'MolajitoFactoryMethod getDataInstance: Could not instantiate Data Proxy Class: ' . $class
             );
         }
     }
@@ -350,19 +299,44 @@ class MolajitoFactoryMethod
      */
     protected function getViewInstance()
     {
-        $class = 'Molajito\\View\\Filesystem';
+        if (isset($this->options['view_class'])) {
+            $view_class = $this->options['view_class'];
+        } else {
+            $view_class = 'filesystem';
+        }
 
-        try {
-            $adapter = new $class(
-                $this->theme_base_folder,
-                $this->view_base_folder
-            );
+        if (strtolower($view_class) === 'filesystem') {
 
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'Molajito: Could not instantiate Extension Class: ' . $class
-            );
+            $class = 'Molajito\\View\\Filesystem';
+
+            try {
+                $adapter = new $class(
+                    $this->options['theme_base_folder'],
+                    $this->options['view_base_folder']
+                );
+
+            } catch (Exception $e) {
+                throw new RuntimeException
+                (
+                    'MolajitoFactoryMethod getViewInstance: Could not instantiate View Adapter: ' . $class
+                );
+            }
+        } else {
+
+            $class = 'Molajito\\View\\Molajo';
+
+            try {
+
+                $adapter = new $class(
+                    $this->options['resource']
+                );
+
+            } catch (Exception $e) {
+                throw new RuntimeException
+                (
+                    'MolajitoFactoryMethod getViewInstance: Could not instantiate View Adapter: ' . $class
+                );
+            }
         }
 
         /** Proxy */
@@ -374,7 +348,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Data Class: ' . $class
+                'MolajitoFactoryMethod getViewInstance: Could not instantiate Proxy View Class: ' . $class
             );
         }
 
@@ -386,24 +360,27 @@ class MolajitoFactoryMethod
     /**
      * Get Event Handler Instance
      *
-     * @return  object  Molajito\Event
+     * @return  EventInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getEventInstance()
     {
-        $class = 'Molajito\\Event\\Dummy';
+        if (file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/event/Source/Scheduled.php')) {
+            $class          = 'Molajito\\Event\\Molajo';
+            $event_callback = $this->options['event_callback'];
+        } else {
+            $class          = 'Molajito\\Event\\Dummy';
+            $event_callback = null;
+        }
 
         try {
-            $adapter = new $class(
-                null,
-                $this->options['event_option_keys']
-            );
+            $adapter = new $class($event_callback, array());
 
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Event Class: ' . $class
+                'MolajitoFactoryMethod getEventInstance: Could not instantiate Event Adapter: ' . $class
             );
         }
 
@@ -416,7 +393,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Data Class: ' . $class
+                'MolajitoFactoryMethod getEventInstance: Could not instantiate Event Proxy Class: ' . $class
             );
         }
     }
@@ -438,7 +415,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Parse Class: ' . $class
+                'MolajitoFactoryMethod getParseInstance: Could not instantiate Parse Class: ' . $class
             );
         }
     }
@@ -451,6 +428,10 @@ class MolajitoFactoryMethod
      */
     protected function getExcludeTokens()
     {
+        if (isset($this->options['exclude_tokens'])) {
+            return $this->options['exclude_tokens'];
+        }
+
         return array();
     }
 
@@ -473,7 +454,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Position Renderer Class: ' . $class
+                'MolajitoFactoryMethod getPositionInstance: Could not instantiate Position Class: ' . $class
             );
         }
     }
@@ -498,7 +479,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Theme Renderer Class: ' . $class
+                'MolajitoFactoryMethod getThemeInstance: Could not instantiate Theme Class: ' . $class
             );
         }
     }
@@ -522,7 +503,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Page View Renderer Class: ' . $class
+                'MolajitoFactoryMethod getPageInstance: Could not instantiate PageView Class: ' . $class
             );
         }
     }
@@ -548,17 +529,12 @@ class MolajitoFactoryMethod
         $class = 'Molajito\\TemplateView';
 
         try {
-            return new $class (
-                $escape_instance,
-                $render_instance,
-                $event_instance,
-                $event_option_keys
-            );
+            return new $class ($escape_instance, $render_instance, $event_instance, $event_option_keys);
 
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Template View Renderer Class: ' . $class
+                'MolajitoFactoryMethod getTemplateInstance: Could not instantiate TemplateView Class: ' . $class
             );
         }
     }
@@ -582,7 +558,7 @@ class MolajitoFactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito: Could not instantiate Wrap View Renderer Class: ' . $class
+                'MolajitoFactoryMethod getWrapInstance: Could not instantiate WrapView Class: ' . $class
             );
         }
     }

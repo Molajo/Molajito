@@ -23,6 +23,7 @@
 
     "require": {
         "php": ">=5.4",
+        "commonapi/language": "dev-master",
         "commonapi/model": "dev-master",
         "commonapi/render": "dev-master",
         "commonapi/exception": "dev-master"
@@ -36,8 +37,9 @@
 
     "autoload": {
         "psr-4": {
+            "Molajito\\": "Sample/Source/",
             "Molajito\\": "Source/",
-            "Molajo\\Factories\\Molajito\\": "Factories/Molajito/"
+            "Molajo\\Factories\\": "Factories/"
         }
     },
 

@@ -26,7 +26,7 @@ class View implements ViewInterface
      * View Adapter
      *
      * @var     object  CommonApi\Render\ViewInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $view_adapter = null;
 

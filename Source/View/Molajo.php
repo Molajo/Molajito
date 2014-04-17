@@ -27,7 +27,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
      * Resource
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $resource = null;
 
@@ -36,7 +36,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
      *
      * @param  object $resource
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct($resource)
     {

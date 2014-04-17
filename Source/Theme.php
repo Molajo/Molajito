@@ -27,7 +27,7 @@ class Theme implements RenderInterface
      * Escape Instance
      *
      * @var    object   CommonApi\Render\EscapeInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $escape_instance = null;
 
@@ -35,7 +35,7 @@ class Theme implements RenderInterface
      * Render Instance
      *
      * @var    object   CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $render_instance = null;
 
@@ -43,7 +43,7 @@ class Theme implements RenderInterface
      * Runtime Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $runtime_data = null;
 
@@ -51,7 +51,7 @@ class Theme implements RenderInterface
      * Allowed Properties
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $property_array = array(
         'runtime_data'
@@ -63,7 +63,7 @@ class Theme implements RenderInterface
      * @param  EscapeInterface $escape_instance
      * @param  RenderInterface $render_instance
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance,

@@ -28,7 +28,7 @@ class TemplateView implements RenderInterface
      * Escape Instance
      *
      * @var    object   CommonApi\Render\EscapeInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $escape_instance = null;
 
@@ -36,7 +36,7 @@ class TemplateView implements RenderInterface
      * Render Instance
      *
      * @var    object   CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $render_instance = null;
 
@@ -44,7 +44,7 @@ class TemplateView implements RenderInterface
      * Event Handler
      *
      * @var    object  CommonApi\Render\EventInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $event_instance = null;
 
@@ -52,7 +52,7 @@ class TemplateView implements RenderInterface
      * Event option keys
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $event_option_keys = array();
 
@@ -60,7 +60,7 @@ class TemplateView implements RenderInterface
      * Path to Include File
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $include_path;
 
@@ -68,7 +68,7 @@ class TemplateView implements RenderInterface
      * Runtime Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $runtime_data = null;
 
@@ -76,7 +76,7 @@ class TemplateView implements RenderInterface
      * Plugin Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $plugin_data = null;
 
@@ -84,7 +84,7 @@ class TemplateView implements RenderInterface
      * Parameters
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $parameters = null;
 
@@ -92,7 +92,7 @@ class TemplateView implements RenderInterface
      * Model Registry
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $model_registry = array();
 
@@ -100,7 +100,7 @@ class TemplateView implements RenderInterface
      * Query Results
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $query_results = array();
 
@@ -108,7 +108,7 @@ class TemplateView implements RenderInterface
      * View Rendered Output
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $rendered_view = null;
 
@@ -116,7 +116,7 @@ class TemplateView implements RenderInterface
      * Page Rendered Output
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $rendered_page = null;
 
@@ -124,16 +124,15 @@ class TemplateView implements RenderInterface
      * Object containing a single row for using within View
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $row = null;
-
 
     /**
      * Render Properties
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $render_array = array(
         'plugin_data',
@@ -152,7 +151,7 @@ class TemplateView implements RenderInterface
      * @param  EventInterface  $event_instance
      * @param  array           $event_option_keys
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance,

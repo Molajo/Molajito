@@ -25,7 +25,7 @@ class Parse implements ParseInterface
      * Parse Mask
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $parse_mask = '#{I (.*) I}#iU';
 
@@ -33,7 +33,7 @@ class Parse implements ParseInterface
      * Exclude tokens from parsing (Head tokens held until end)
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $exclude_tokens = array();
 
@@ -41,7 +41,7 @@ class Parse implements ParseInterface
      * Page Rendered Output
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $rendered_page = null;
 

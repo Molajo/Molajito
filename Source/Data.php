@@ -26,7 +26,7 @@ class Data implements DataInterface
      * Data Adapter
      *
      * @var     object  CommonApi\Render\DataInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $data_adapter = null;
 

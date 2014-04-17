@@ -25,7 +25,7 @@ class Render implements RenderInterface
      * Plugin Data REMOVE
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $plugin_data;
 // remove above
@@ -34,7 +34,7 @@ class Render implements RenderInterface
      * Runtime Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $runtime_data;
 
@@ -42,7 +42,7 @@ class Render implements RenderInterface
      * Parameters
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $parameters = null;
 
@@ -50,7 +50,7 @@ class Render implements RenderInterface
      * Query Results: for Custom.phtml files
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $query_results = array();
 
@@ -58,7 +58,7 @@ class Render implements RenderInterface
      * Single Row: Normal Header.phtml, Body.phtml, Footer.phtml files
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $row = null;
 
@@ -66,7 +66,7 @@ class Render implements RenderInterface
      * Include File
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $include_path = null;
 
@@ -74,7 +74,7 @@ class Render implements RenderInterface
      * Allowed Properties
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $property_array = array(
         'plugin_data',

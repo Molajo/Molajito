@@ -10,6 +10,7 @@ namespace Molajito\Data;
 
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\DataInterface;
+use CommonApi\Render\PaginationInterface;
 use stdClass;
 
 /**
@@ -26,7 +27,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Runtime Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $runtime_data = null;
 
@@ -34,7 +35,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Plugin Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $plugin_data = null;
 
@@ -42,7 +43,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Token
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $token = null;
 
@@ -50,7 +51,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Model Type
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $model_type = '';
 
@@ -58,7 +59,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Model Name
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $model_name = '';
 
@@ -66,7 +67,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Field Name
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $field_name = '';
 
@@ -74,7 +75,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Query Results
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $query_results = array();
 
@@ -82,7 +83,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Model Registry
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $model_registry = array();
 
@@ -90,9 +91,24 @@ class Molajo extends AbstractAdapter implements DataInterface
      * Parameters
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $parameters = null;
+
+    /**
+     * Class Constructor
+     *
+     * @param  array               $options
+     * @param  PaginationInterface $pagination
+     *
+     * @since  1.0.0
+     */
+    public function __construct(
+        array $options = array(),
+        PaginationInterface $pagination = null
+    ) {
+        $this->pagination = $pagination;
+    }
 
     /**
      * Get Data for Rendering

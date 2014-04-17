@@ -26,7 +26,7 @@ class WrapView implements RenderInterface
      * Render Instance
      *
      * @var    object   CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $render_instance = null;
 
@@ -34,7 +34,7 @@ class WrapView implements RenderInterface
      * Path to Include File
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $include_path;
 
@@ -42,7 +42,7 @@ class WrapView implements RenderInterface
      * Runtime Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $runtime_data = null;
 
@@ -50,7 +50,7 @@ class WrapView implements RenderInterface
      * Row
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $row = null;
 
@@ -58,7 +58,7 @@ class WrapView implements RenderInterface
      * View Rendered Output
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $rendered_view = null;
 
@@ -66,7 +66,7 @@ class WrapView implements RenderInterface
      * Allowed Properties
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $property_array = array(
         'runtime_data',
@@ -79,7 +79,7 @@ class WrapView implements RenderInterface
      *
      * @param  RenderInterface $render_instance
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         RenderInterface $render_instance

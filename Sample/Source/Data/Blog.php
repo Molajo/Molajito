@@ -1,51 +1,506 @@
 <?php
 /**
- * Filesystem Model for Molajito
+ * Blog Example Data Adapter for Molajito
  *
- * @package    Filesystem Model
+ * @package    Blog
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Data;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Render\DataInterface;
 use CommonApi\Render\PaginationInterface;
+use CommonApi\Render\DataInterface;
 use stdClass;
 
 /**
- * Filesystem Model for Molajito
+ * Blog Example Data Adapter for Molajito
  *
- * @package    Filesystem
+ * @package    Blog
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class FilesystemModel extends Filesystem
+class Blog extends AbstractAdapter implements DataInterface
 {
+    /**
+     * Runtime Data
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $runtime_data = null;
+
+    /**
+     * Token
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $token = null;
+
+    /**
+     * Model Type
+     *
+     * @var    string
+     * @since  1.0.0
+     */
+    protected $model_type = '';
+
+    /**
+     * Model Name
+     *
+     * @var    string
+     * @since  1.0.0
+     */
+    protected $model_name = '';
+
+    /**
+     * Query Results
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $query_results = array();
+
+    /**
+     * Model Registry
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $model_registry = array();
+
+    /**
+     * Parameters
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $parameters = null;
+
+    /**
+     * Author Profile
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $author = null;
+
+    /**
+     * Posts
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $posts = array();
+
+    /**
+     * Categories
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $categories = array();
+
+    /**
+     * Tags
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $tags = array();
+
+    /**
+     * Featured
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $featured = array();
+
+    /**
+     * Breadcrumbs
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $breadcrumbs = array();
+
+    /**
+     * Holds primary display posts
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $display_items_per_page_count = array();
+
+    /**
+     * Count of the total items for pagination
+     *  -> not all will necessarily be displayed
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $total_items = 0;
+
+    /**
+     * Post Model Registry
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $post_model_registry = array(
+        'title'             => array('name' => 'title', 'type' => 'string'),
+        'subtitle'          => array('name' => 'subtitle', 'type' => 'string'),
+        'author'            => array('name' => 'author', 'type' => 'string'),
+        'published'         => array('name' => 'published', 'type' => 'date'),
+        'categories'        => array('name' => 'categories', 'type' => 'string'),
+        'tags'              => array('name' => 'tags', 'type' => 'string'),
+        'featured'          => array('name' => 'featured', 'type' => 'integer'),
+        'video'             => array('name' => 'video', 'type' => 'string'),
+        'content'           => array('name' => 'content', 'type' => 'html'),
+        'snippet'           => array('name' => 'snippet', 'type' => 'html'),
+        'readmore'          => array('name' => 'readmore', 'type' => 'html'),
+        'filename'          => array('name' => 'filename', 'type' => 'string'),
+        'folder'            => array('name' => 'folder', 'type' => 'string'),
+        'path_and_filename' => array('name' => 'path_and_filename', 'type' => 'string')
+    );
+
+    /**
+     * Author Model Registry
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $author_model_registry = array(
+        'name'              => array('name' => 'name', 'type' => 'string'),
+        'published'         => array('name' => 'published', 'type' => 'date'),
+        'twitter'           => array('name' => 'twitter', 'type' => 'string'),
+        'github'            => array('name' => 'github', 'type' => 'string'),
+        'googleplus'        => array('name' => 'googleplus', 'type' => 'string'),
+        'gallery_caption1'  => array('name' => 'gallery_caption1', 'type' => 'string'),
+        'gallery_image1'    => array('name' => 'gallery_image1', 'type' => 'url'),
+        'gallery_caption2'  => array('name' => 'gallery_caption2', 'type' => 'string'),
+        'gallery_image2'    => array('name' => 'gallery_image2', 'type' => 'url'),
+        'gallery_caption3'  => array('name' => 'gallery_caption3', 'type' => 'string'),
+        'gallery_image3'    => array('name' => 'gallery_image3', 'type' => 'url'),
+        'gallery_caption4'  => array('name' => 'gallery_caption4', 'type' => 'string'),
+        'gallery_image4'    => array('name' => 'gallery_image4', 'type' => 'url'),
+        'gallery_caption5'  => array('name' => 'gallery_caption5', 'type' => 'string'),
+        'gallery_image5'    => array('name' => 'gallery_image5', 'type' => 'url'),
+        'gallery_caption6'  => array('name' => 'gallery_caption6', 'type' => 'string'),
+        'gallery_image6'    => array('name' => 'gallery_image6', 'type' => 'url'),
+        'gallery_caption7'  => array('name' => 'gallery_caption7', 'type' => 'string'),
+        'gallery_image7'    => array('name' => 'gallery_image7', 'type' => 'url'),
+        'gallery_caption8'  => array('name' => 'gallery_caption8', 'type' => 'string'),
+        'gallery_image8'    => array('name' => 'gallery_image8', 'type' => 'url'),
+        'gallery_caption9'  => array('name' => 'gallery_caption9', 'type' => 'string'),
+        'gallery_image9'    => array('name' => 'gallery_image9', 'type' => 'url'),
+        'content'           => array('name' => 'content', 'type' => 'html'),
+        'snippet'           => array('name' => 'snippet', 'type' => 'html'),
+        'readmore'          => array('name' => 'readmore', 'type' => 'html'),
+        'filename'          => array('name' => 'filename', 'type' => 'string'),
+        'folder'            => array('name' => 'folder', 'type' => 'string'),
+        'path_and_filename' => array('name' => 'path_and_filename', 'type' => 'string')
+    );
+    /**
+     * Menu Model Registry
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $list_model_registry = array(
+        'link'  => array('name' => 'link', 'type' => 'url'),
+        'title' => array('name' => 'title', 'type' => 'string')
+    );
+
+    /**
+     * Pagination Model Registry
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $pagination_model_registry = array(
+        'first_page_number'              => array('name' => 'first_page_number', 'type' => 'integer'),
+        'first_page_link'                => array('name' => 'first_page_link', 'type' => 'url'),
+        'previous_page_number'           => array('name' => 'previous_page_number', 'type' => 'integer'),
+        'previous_page_link'             => array('name' => 'previous_page_link', 'type' => 'url'),
+        'current_start_parameter_number' => array('name' => 'current_start_parameter_number', 'type' => 'integer'),
+        'current_page_link'              => array('name' => 'current_page_link', 'type' => 'url'),
+        'next_page_number'               => array('name' => 'next_page_number', 'type' => 'integer'),
+        'next_page_link'                 => array('name' => 'next_page_link', 'type' => 'url'),
+        'last_page_number'               => array('name' => 'last_page_number', 'type' => 'integer'),
+        'last_page_link'                 => array('name' => 'last_page_link', 'type' => 'url'),
+        'total_items'                    => array('name' => 'total_items', 'type' => 'integer'),
+        'start_links_page_number'        => array('name' => 'start_links_page_number', 'type' => 'integer'),
+        'stop_links_page_number'         => array('name' => 'stop_links_page_number', 'type' => 'integer'),
+        'page_links_array'               => array('name' => 'page_links_array', 'type' => 'arrays')
+    );
+
+    /**
+     * First Data Request indicator
+     *
+     * @var    boolean
+     * @since  1.0.0
+     */
+    protected $first_request = true;
+
     /**
      * Class Constructor
      *
-     * @param  string               $theme_base_folder
-     * @param  string               $view_base_folder
-     * @param  array                $post_model_registry
-     * @param  array                $author_model_registry
-     * @param  PaginationInterface  $pagination
+     * @param  array               $options
+     * @param  PaginationInterface $pagination
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
-        $posts_base_folder,
-        $author_base_folder,
-        $post_model_registry,
-        $author_model_registry,
+        array $options = array(),
         PaginationInterface $pagination = null
     ) {
-        $this->loadPosts($posts_base_folder);
-        $this->loadAuthor($author_base_folder);
-        $this->post_model_registry   = $post_model_registry;
-        $this->author_model_registry = $author_model_registry;
-        $this->pagination            = $pagination;
+        parent::__construct($options, $pagination);
+
+        if (isset($options['data_folder'])) {
+            $this->loadPosts($options['data_folder']);
+            $this->loadAuthor($options['data_folder'] . '/Author');
+        }
+
+        $this->pagination = $pagination;
+    }
+
+    /**
+     * Get Data for Rendering
+     *
+     * @param   object $token
+     * @param   array  $options
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function getData($token, array $options = array())
+    {
+        $this->initialise($token, $options);
+
+        if (strtolower($token->type) == 'page') {
+        } else {
+            $this->setModel();
+            $this->getModelData();
+        }
+
+        return $this->setDataResults();
+    }
+
+    /**
+     * Initialise Class Properties
+     *
+     * @param   object $token
+     * @param   array  $options
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function initialise($token, array $options = array())
+    {
+        $this->runtime_data   = null;
+        $this->model_type     = '';
+        $this->model_name     = '';
+        $this->query_results  = array();
+        $this->model_registry = array();
+        $this->parameters     = null;
+
+        $this->token = $token;
+
+        if (isset($options['runtime_data'])) {
+            $this->runtime_data = $options['runtime_data'];
+        } else {
+            $this->runtime_data = null;
+        }
+
+        $this->parameters = new stdClass();
+
+        if ($this->first_request === true) {
+            $this->first_request = false;
+            $blog_breadcrumbs    = $this->setBreadcrumbs();
+            $this->setPostURLs($blog_breadcrumbs);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Model Type, Model Name and Field Name values used for data retrieval
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setModel()
+    {
+        $this->model_type = 'Blog';
+        $this->model_name = $this->token->name;
+
+        return $this;
+    }
+
+    /**
+     * Get Data according to Model Type and Model Name
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getModelData()
+    {
+        $method = 'get' . $this->model_name;
+
+        return $this->$method();
+    }
+
+    /**
+     * Set Rows for Lists (Menu items, categories, tags, etc.)
+     *
+     * @param   string $link
+     * @param   string $title
+     *
+     * @return  stdClass
+     * @since   1.0
+     */
+    protected function setListRow($link, $title)
+    {
+        $row            = new stdClass();
+        $row->link      = $link;
+        $row->title     = $title;
+        $row->home_link = $this->runtime_data->route->home;
+
+        return $row;
+    }
+
+    /**
+     * Set Rows for Items (Normal, featured, etc)
+     *
+     * @param   string $title
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setItemRow($title)
+    {
+        if (isset($this->posts[$title])) {
+            return $this->posts[$title];
+        }
+
+        return new stdClass();
+    }
+
+    /**
+     * Set data for return
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDataResults()
+    {
+        if (is_array($this->query_results)) {
+        } else {
+            $this->query_results = array($this->query_results);
+        }
+
+        if (is_object($this->parameters)) {
+        } else {
+            $this->parameters = new stdClass();
+        }
+
+        $this->parameters->token      = $this->token;
+        $this->parameters->model_type = $this->model_type;
+        $this->parameters->model_name = $this->model_name;
+
+        if (isset($this->token->attributes)
+            && count($this->token->attributes) > 0
+            && is_array($this->token->attributes)
+        ) {
+            foreach ($this->token->attributes as $key => $value) {
+                $this->parameters->$key = $value;
+            }
+        }
+
+        $data = new stdClass();
+
+        $data->query_results  = $this->query_results;
+        $data->model_registry = $this->model_registry;
+        $data->parameters     = $this->parameters;
+
+        return $data;
+    }
+
+    /**
+     * Get Data from Primary Data Collection
+     *
+     * @param   string $folder
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getFiles($folder)
+    {
+        $files = array();
+
+        foreach (glob($folder . '/*.phtml') as $file) {
+            if (is_file($file)) {
+                $row                    = new stdClass();
+                $filename               = basename($file);
+                $row->filename          = substr($filename, 0, strlen($filename) - 6);
+                $row->folder            = dirname($file);
+                $row->path_and_filename = $file;
+
+                $row = $this->getFields(file_get_contents($file), $row);
+
+                $files[$row->filename] = $row;
+            }
+        }
+
+        return $files;
+    }
+
+    /**
+     * Get Data from Runtime Data Collection
+     *
+     * @param   string   $content
+     * @param   stdClass $row
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getFields($content, $row)
+    {
+        $row->content  = $this->getContent($content);
+        $row->readmore = $this->getReadMore($content);
+
+        $lines = explode(PHP_EOL, substr($content, 0, strrpos($content, '---')));
+
+        foreach ($lines as $line) {
+            if (trim($line) == '---' || trim($line) == '') {
+            } else {
+
+                $metadata_array = explode(':', $line);
+
+                if (count($metadata_array) > 0) {
+                    $key = trim($metadata_array[0]);
+
+                    $value = trim($metadata_array[1]);
+
+                    if (isset($metadata_array[2])) {
+                        $value .= ':' . $metadata_array[2];
+                    }
+
+                    $row->$key = $value;
+                }
+            }
+        }
+
+        return $row;
     }
 
     /**
@@ -379,10 +834,10 @@ class FilesystemModel extends Filesystem
             return $this;
         }
 
-        $start               = $this->setPaginationStart();
-        $display_items_per_page_count      = $this->setPaginationPostsPerPage();
+        $start                         = $this->setPaginationStart();
+        $display_items_per_page_count  = $this->setPaginationPostsPerPage();
         $display_page_link_count       = $this->setPaginationDisplayLinkCount();
-        $skip_count          = ($start * $display_items_per_page_count) - $display_items_per_page_count;
+        $skip_count                    = ($start * $display_items_per_page_count) - $display_items_per_page_count;
         $display_page_link_count_count = $display_page_link_count * $display_items_per_page_count;
 
         /** Parameter Array */
@@ -424,7 +879,6 @@ class FilesystemModel extends Filesystem
             }
         }
 
-        $this->display_posts  = $this->query_results;
         $this->model_registry = $this->post_model_registry;
         $this->total_items    = $total_posts;
 
@@ -525,7 +979,12 @@ class FilesystemModel extends Filesystem
     /**
      * Given the parameter values, determine if the post qualifies
      *
-     * @return  $this
+     * @param   string $post
+     * @param   string $tag_parameter
+     * @param   string $category_parameter
+     * @param   string $name_parameter
+     *
+     * @return  boolean
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -683,6 +1142,8 @@ class FilesystemModel extends Filesystem
     /**
      * Set Previous, Current and Next URL Links
      *
+     * @param   array $blog_breadcrumbs
+     *
      * @return  $this
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
@@ -738,14 +1199,14 @@ class FilesystemModel extends Filesystem
     /**
      * Load Posts
      *
-     * @param   string $posts_base_folder
+     * @param   string $data_folder
      *
      * @return  $this
      * @since   1.0
      */
-    protected function loadPosts($posts_base_folder)
+    protected function loadPosts($data_folder)
     {
-        $posts = $this->getFiles($posts_base_folder);
+        $posts = $this->getFiles($data_folder);
         arsort($posts);
         $this->posts = $posts;
 
@@ -831,8 +1292,8 @@ class FilesystemModel extends Filesystem
         foreach ($temp as $author) {
             $content = $author->content;
 
-            $author->content   = '<p>' . $this->getReadMore($content);
-            $author->read_more = '<p>' . $this->getReadMore($content);
+            $author->content   = $this->getReadMore($content);
+            $author->read_more = $this->getReadMore($content);
 
             $this->author = $author;
         }

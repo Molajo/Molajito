@@ -27,7 +27,7 @@ class Molajo implements EscapeInterface
      * Fieldhandler Instance
      *
      * @var    object  CommonApi\Query\FieldhandlerInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $fieldhandler = '';
 
@@ -35,7 +35,7 @@ class Molajo implements EscapeInterface
      * Model Registry
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $model_registry = array();
 
@@ -43,14 +43,14 @@ class Molajo implements EscapeInterface
      * Data
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $data = array();
 
     /**
      * Constructor
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         FieldhandlerInterface $fieldhandler

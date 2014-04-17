@@ -28,7 +28,7 @@ class Position implements PositionInterface
      * Escape Instance
      *
      * @var    object   CommonApi\Render\EscapeInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $escape_instance = null;
 
@@ -37,7 +37,7 @@ class Position implements PositionInterface
      *
      * @param  EscapeInterface $escape_instance
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance

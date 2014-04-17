@@ -32,7 +32,7 @@ class Engine implements RenderInterface
      * Retrieve Data to Render View
      *
      * @var    object  CommonApi\Render\DataInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $data_instance = null;
 
@@ -40,7 +40,7 @@ class Engine implements RenderInterface
      * Retrieve View information for rendering
      *
      * @var    object  CommonApi\Render\ViewInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $view_instance = null;
 
@@ -48,7 +48,7 @@ class Engine implements RenderInterface
      * Event Handler
      *
      * @var    object  CommonApi\Render\EventInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $event_instance = null;
 
@@ -56,15 +56,24 @@ class Engine implements RenderInterface
      * Event option keys
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
-    protected $event_option_keys = array();
+    protected $event_option_keys = array(
+        'runtime_data',
+        'plugin_data',
+        'parameters',
+        'model_registry',
+        'query_results',
+        'row',
+        'rendered_view',
+        'rendered_page'
+    );
 
     /**
      * Parse Instance
      *
      * @var    object  CommonApi\Render\ParseInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $parse_instance = null;
 
@@ -72,7 +81,7 @@ class Engine implements RenderInterface
      * Exclude tokens from parsing (tokens to generate head are held until body is processed)
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $exclude_tokens = array();
 
@@ -80,7 +89,7 @@ class Engine implements RenderInterface
      * Stop Parse and Render Loop Count
      *
      * @var    int
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $stop_loop_count = 100;
 
@@ -88,7 +97,7 @@ class Engine implements RenderInterface
      * Position Instance
      *
      * @var    object  CommonApi\Render\PositionInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $position_instance = null;
 
@@ -96,7 +105,7 @@ class Engine implements RenderInterface
      * Theme Instance
      *
      * @var    object  CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $theme_instance = null;
 
@@ -104,7 +113,7 @@ class Engine implements RenderInterface
      * Page View Instance
      *
      * @var    object  CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $page_instance = null;
 
@@ -112,7 +121,7 @@ class Engine implements RenderInterface
      * Template View Instance
      *
      * @var    object  CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $template_instance = null;
 
@@ -120,7 +129,7 @@ class Engine implements RenderInterface
      * Wrap View Instance
      *
      * @var    object  CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $wrap_instance = null;
 
@@ -128,7 +137,7 @@ class Engine implements RenderInterface
      * Theme Path
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $theme_path = null;
 
@@ -136,7 +145,7 @@ class Engine implements RenderInterface
      * Runtime Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $runtime_data = null;
 
@@ -144,7 +153,7 @@ class Engine implements RenderInterface
      * Plugin Data
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $plugin_data = null;
 
@@ -152,7 +161,7 @@ class Engine implements RenderInterface
      * Parameters
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $parameters = null;
 
@@ -160,7 +169,7 @@ class Engine implements RenderInterface
      * Model Registry
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $model_registry = array();
 
@@ -168,7 +177,7 @@ class Engine implements RenderInterface
      * Query Results
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $query_results = array();
 
@@ -176,7 +185,7 @@ class Engine implements RenderInterface
      * View Rendered Output
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $rendered_view = null;
 
@@ -184,7 +193,7 @@ class Engine implements RenderInterface
      * Page Rendered Output
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $rendered_page = null;
 
@@ -192,7 +201,7 @@ class Engine implements RenderInterface
      * Tokens to Render
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $tokens = array();
 
@@ -200,7 +209,7 @@ class Engine implements RenderInterface
      * Include Path
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $include_path = null;
 
@@ -208,7 +217,7 @@ class Engine implements RenderInterface
      * Render Properties
      *
      * @var    object
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $render_array = array(
         'plugin_data',
@@ -235,7 +244,7 @@ class Engine implements RenderInterface
      * @param RenderInterface   $template_instance
      * @param RenderInterface   $wrap_instance
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         DataInterface $data_instance,
@@ -254,7 +263,6 @@ class Engine implements RenderInterface
         $this->data_instance     = $data_instance;
         $this->view_instance     = $view_instance;
         $this->event_instance    = $event_instance;
-        $this->event_option_keys = $event_option_keys;
         $this->parse_instance    = $parse_instance;
         $this->exclude_tokens    = $exclude_tokens;
         $this->stop_loop_count   = $stop_loop_count;
@@ -263,6 +271,10 @@ class Engine implements RenderInterface
         $this->page_instance     = $page_instance;
         $this->template_instance = $template_instance;
         $this->wrap_instance     = $wrap_instance;
+
+        if (count($event_option_keys) > 0) {
+            $this->event_option_keys = $event_option_keys;
+        }
     }
 
     /**
@@ -281,8 +293,7 @@ class Engine implements RenderInterface
         $this->initialiseData($data);
 
         /** Step 1. Schedule onBeforeRender Event */
-        $options = $this->event_instance->initializeEventOptions();
-        $this->scheduleEvent('onBeforeRender', $options);
+        $this->scheduleEvent('onBeforeRender', $this->setOptionValues());
 
         /** Step 2. Render Theme */
         $this->renderTheme($include_file);
@@ -294,7 +305,7 @@ class Engine implements RenderInterface
         $this->renderLoop(array());
 
         /** Step 5. Schedule onAfterRender Event */
-        $options                  = $this->event_instance->initializeEventOptions();
+        $options                  = $this->setOptionValues();
         $options['rendered_page'] = $this->rendered_page;
         $this->scheduleEvent('onAfterRender', $options);
 
@@ -357,7 +368,7 @@ class Engine implements RenderInterface
             $loop_counter ++;
 
             /** Step 1. Schedule onBeforeParse Event */
-            $options                  = $this->event_instance->initializeEventOptions();
+            $options                  = $this->setOptionValues();
             $options['rendered_page'] = $this->rendered_page;
             $options['parameters']    = $this->parameters;
 
@@ -367,7 +378,7 @@ class Engine implements RenderInterface
             $this->tokens = $this->parseTokens($exclude_tokens);
 
             /** Step 3. Schedule onAfterParse Event */
-            $options                  = $this->event_instance->initializeEventOptions();
+            $options                  = $this->setOptionValues();
             $options['rendered_page'] = $this->rendered_page;
             $options['parameters']    = $this->parameters;
 
@@ -395,7 +406,9 @@ class Engine implements RenderInterface
             /** Step 5: Check Max Loop Count and stop or continue */
             if ($loop_counter > $this->stop_loop_count) {
                 throw new RuntimeException
-                ('Molajito renderLoop: Maximum loop count exceeded: ' . $loop_counter);
+                (
+                    'Molajito renderLoop: Maximum loop count exceeded: ' . $loop_counter
+                );
             }
 
             continue;
@@ -440,7 +453,9 @@ class Engine implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito renderPosition Method Failed: ' . $e->getMessage());
+            (
+                'Molajito renderPosition Method Failed: ' . $e->getMessage()
+            );
         }
 
         return $this;
@@ -456,7 +471,7 @@ class Engine implements RenderInterface
      */
     protected function renderToken($token)
     {
-//echo '<br><br>View:  ' . $token->name . '<br />';
+//echo '<br><br>View:  ' . $token->name . '<br>';
 //echo '<pre>';
 //var_dump($token);
 //echo '<pre>';
@@ -476,7 +491,7 @@ class Engine implements RenderInterface
         $this->getData($token);
 
         /** Step 4. Schedule onBeforeRenderView Event */
-        $options                   = $this->event_instance->initializeEventOptions();
+        $options                   = $this->setOptionValues();
         $options['parameters']     = $this->parameters;
         $options['query_results']  = $this->query_results;
         $options['model_registry'] = $this->model_registry;
@@ -501,7 +516,7 @@ class Engine implements RenderInterface
         }
 
         /** Step 6. Schedule onAfterRenderView Event */
-        $options                   = $this->event_instance->initializeEventOptions();
+        $options                   = $this->setOptionValues();
         $options['parameters']     = $this->parameters;
         $options['query_results']  = $this->query_results;
         $options['model_registry'] = $this->model_registry;
@@ -536,7 +551,9 @@ class Engine implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito renderTheme Method Failed: ' . $e->getMessage());
+            (
+                'Molajito renderTheme Method Failed: ' . $e->getMessage()
+            );
         }
 
         return $this;
@@ -561,8 +578,10 @@ class Engine implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Driver renderPageView Method Failed. '
-            . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage());
+            (
+                'Molajito Driver renderPageView Method Failed. '
+                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
+            );
         }
 
         return $this;
@@ -587,8 +606,10 @@ class Engine implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Driver renderTemplateView Method Failed. '
-            . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage());
+            (
+                'Molajito Driver renderTemplateView Method Failed. '
+                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
+            );
         }
 
         return $this;
@@ -634,8 +655,10 @@ class Engine implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Driver renderWrapView Method Failed. '
-            . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage());
+            (
+                'Molajito Driver renderWrapView Method Failed. '
+                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
+            );
         }
 
         return $this;
@@ -700,8 +723,10 @@ class Engine implements RenderInterface
             $this->parameters     = $data->parameters;
 
         } catch (Exception $e) {
-            throw new RuntimeException('Molajito getData Exception for '
-            . ' Token: ' . $token->name . ' Message: ' . $e->getMessage());
+            throw new RuntimeException(
+                'Molajito getData Exception for '
+                . ' Token: ' . $token->name . ' Message: ' . $e->getMessage()
+            );
         }
 
         return $this;
@@ -743,15 +768,13 @@ class Engine implements RenderInterface
      */
     protected function setOptionValues()
     {
-        $options = array();
+        $options = $this->event_instance->initializeEventOptions();
 
-        $temp = array_merge($this->render_array, $this->event_option_keys);
+        $temp = array_unique(array_merge($this->render_array, $this->event_option_keys));
 
         foreach ($temp as $key) {
             if (isset($this->$key)) {
                 $options[$key] = $this->$key;
-            } else {
-                $options[$key] = null;
             }
         }
 

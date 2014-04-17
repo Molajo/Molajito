@@ -29,7 +29,7 @@ class Simple implements EscapeInterface
      * Data
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $data = array();
 
@@ -37,14 +37,14 @@ class Simple implements EscapeInterface
      * Data
      *
      * @var    array
-     * @since  1.0
+     * @since  1.0.0
      */
-    protected $white_list = '<b><em><i><img><p><u><strong>';
+    protected $white_list = '<b><br><em><h1><h2><h3><h4><h5><h6><hr><i><img><li><ol><p><u><ul><strong>';
 
     /**
      * Constructor
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         $white_list = null

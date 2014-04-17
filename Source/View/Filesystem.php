@@ -26,7 +26,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * Theme Base Folder
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $theme_base_folder = null;
 
@@ -34,7 +34,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * Views Base Folder
      *
      * @var    string
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $view_base_folder = null;
 
@@ -44,7 +44,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * @param  string $theme_base_folder
      * @param  string $view_base_folder
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         $theme_base_folder,
@@ -85,8 +85,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
 
         } else {
             throw new RuntimeException (
-                'Filesystem View Adapter: getExtension Invalid Scheme: '
-                . $render->scheme
+                'Molajito Filesystem View Adapter: getView Invalid Scheme: ' . $render->scheme
             );
         }
 
@@ -108,8 +107,8 @@ class Filesystem extends AbstractAdapter implements ViewInterface
             return $this->theme_base_folder . '/' . $theme . '/Index.phtml';
         }
 
-        throw new RuntimeException(
-            'Filesystem View Adapter: getTheme Failed: '
+        throw new RuntimeException (
+            'Molajito Filesystem View Adapter: getTheme Failed: '
             . $theme . ' Not found at: ' . $this->theme_base_folder . '/' . $theme . '/Index.phtml'
         );
     }
@@ -130,7 +129,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         }
 
         throw new RuntimeException(
-            'Filesystem View Adapter: getPageView Failed: '
+            'Molajito Filesystem View Adapter: getPageView Failed: '
             . $page_view . ' Not found at: ' . $this->view_base_folder
             . '/Pages/' . $page_view . '/Index.phtml'
         );
@@ -152,7 +151,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         }
 
         throw new RuntimeException(
-            'Filesystem View Adapter: getTemplateView Failed: '
+            'Molajito Filesystem View Adapter: getTemplateView Failed: '
             . $template_view . ' Not found at: ' . $this->view_base_folder
             . '/Templates/' . $template_view
         );
@@ -174,7 +173,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         }
 
         throw new RuntimeException(
-            'Filesystem View Adapter: getTemplateView Failed: '
+            'Molajito Filesystem View Adapter: getTemplateView Failed: '
             . $wrap_view . ' Not found at: ' . $this->view_base_folder
             . '/Wraps/' . $wrap_view
         );

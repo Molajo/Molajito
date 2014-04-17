@@ -21,7 +21,7 @@ your webserver and point your browser at the host. A quick review of the
 and [Wrap Views](https://github.com/Molajo/Molajito/tree/master/.dev/Sample/Views/Foundation5/Wraps)
 files will get you started.
 
-Add the [Fieldhandler](https://github.com/Molajo/Molajito/blob/master/composer.json#L32)
+Add the [Molajito](https://github.com/Molajo/Molajito/blob/master/composer.json#L32)
 and [Pagination](https://github.com/Molajo/Molajito/blob/master/composer.json#L33) packages
 to the [Composer.json](https://github.com/Molajo/Molajito/blob/master/composer.json) file
 to see additional capabilities.
@@ -231,4 +231,21 @@ echo $this->row->content;
 ```php
 
 </footer>
+
 ```
+
+## Requirements and Compliance
+ * PHP application framework independent, no dependencies
+ * Requires PHP 5.4, or above
+ * Uses [Semantic Versioning](http://semver.org/)
+ * Compliant with:
+    * [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) Basic Coding Standards
+    * [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) Coding Style
+    * [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) Coding Standards
+ * [phpDocumentor2] (https://github.com/phpDocumentor/phpDocumentor2)
+ * [phpUnit Testing] (https://github.com/sebastianbergmann/phpunit)
+ * Author [AmyStephen](http://twitter.com/AmyStephen)
+ * [Travis Continuous Improvement] (https://travis-ci.org/Molajo/Molajito)
+ * Listed on [Packagist] (https://packagist.org/packages/molajo/molajito) and installable using [Composer] (http://getcomposer.org/)
+ * Please use github to submit [pull requests](https://github.com/Molajo/Molajito/pulls) and [features](https://github.com/Molajo/Molajito/issues)
+ * Licensed under the MIT License - see the `LICENSE` file for details

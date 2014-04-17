@@ -26,7 +26,7 @@ class PageView implements RenderInterface
      * Render Instance
      *
      * @var    object   CommonApi\Render\RenderInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $render_instance = null;
 
@@ -35,7 +35,7 @@ class PageView implements RenderInterface
      *
      * @param  RenderInterface $render_instance
      *
-     * @since  1.0
+     * @since  1.0.0
      */
     public function __construct(
         RenderInterface $render_instance

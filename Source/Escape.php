@@ -26,7 +26,7 @@ class Escape implements EscapeInterface
      * Event Adapter
      *
      * @var     object  CommonApi\Render\EventInterface
-     * @since  1.0
+     * @since  1.0.0
      */
     protected $escape_adapter = null;
 
