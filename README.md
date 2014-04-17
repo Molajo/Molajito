@@ -8,10 +8,16 @@ Molajito is a template environment for frontend developers who want to focus on 
 
 ## Quick start
 
-A working example of a website that has a home page, blog, post, contact, and about us page is
-available within this package. To view the sample, configure an Apache Host to post to the
-[ Sample / Public ](https://github.com/Molajo/Molajito/tree/master/Sample/Public) folder.
-
+A working example of a website that has a
+[Home](https://raw.githubusercontent.com/Molajo/Molajito/master/Sample/Screenshots/Home.png),
+[Blog](https://raw.githubusercontent.com/Molajo/Molajito/master/Sample/Screenshots/Blog.png),
+[Post](https://raw.githubusercontent.com/Molajo/Molajito/master/Sample/Screenshots/Post.png),
+[Contact](https://raw.githubusercontent.com/Molajo/Molajito/master/Sample/Screenshots/Contact.png),
+[About](https://raw.githubusercontent.com/Molajo/Molajito/master/Sample/Screenshots/About.png),
+page is available within this package. To view the sample,
+configure an Apache Host to this
+[ Sample / Public ](https://github.com/Molajo/Molajito/tree/master/Sample/Public) folder and
+access the Host using your browser.
 
 ## Basic Process:
 
