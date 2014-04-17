@@ -4,9 +4,11 @@ Molajito Render Package
 
 [![Build Status](https://travis-ci.org/Molajo/Molajito.png?branch=master)](https://travis-ci.org/Molajo/Molajito)
 
-Molajito is a template environment for frontend developers who want to focus on markup, not programming.
+Molajito is a template environment for frontend developers who want to focus on markup, not programming.  It
+locates views, injects escaped data, integrates with Event handling, offers translation support for language
+strings, and more.
 
-## Quick start
+## Sample
 
 A working example of a website that has a
 [Home](https://raw.githubusercontent.com/Molajo/Molajito/master/Sample/Screenshots/Home.png),
@@ -201,28 +203,24 @@ To wrap a `template view`, add the `wrap=Wrapname` element to the `include state
 A typical `Wrap view` requires three files each of which Molajito will inject the `view` with
 `$this->row` (containing the rendered output from the `template view`) and `this->runtime_data`.
 
-**Header.phtml file**
-
 ```php
 
 <footer class="<?= $class ?>">
-
-```
-
-**Body.phtml file**
-
-```php
-
-
-echo $this->row->content;
-
-```
-
-**Footer.phtml file**
-
-```php
-
+    echo $this->row->content;
 </footer>
+
+```
+
+
+### Localization
+
+    {T Translate this string T}
+
+Molajito supports localization using language strings and translations. Simply create a
+[token](https://github.com/Molajo/Molajito/blob/master/Sample/Views/Foundation5/Templates/Blog/Body.phtml#L17)
+like this example and inject the translate class [with an array of language strings and translations]
+(https://github.com/Molajo/Molajito/blob/master/Sample/Bootstrap/Index.php#L20) or add an Translate Adapter for your
+Translation class.
 
 ```
 
@@ -233,7 +231,7 @@ echo $this->row->content;
  * Compliant with:
     * [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) Basic Coding Standards
     * [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) Coding Style
-    * [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) Coding Standards
+    * [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) Autoloader
  * [phpDocumentor2] (https://github.com/phpDocumentor/phpDocumentor2)
  * [phpUnit Testing] (https://github.com/sebastianbergmann/phpunit)
  * Author [AmyStephen](http://twitter.com/AmyStephen)
