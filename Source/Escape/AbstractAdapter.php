@@ -9,7 +9,6 @@
 namespace Molajito\Escape;
 
 use CommonApi\Exception\RuntimeException;
-use CommonApi\Model\FieldhandlerInterface;
 use CommonApi\Render\EscapeInterface;
 
 /**

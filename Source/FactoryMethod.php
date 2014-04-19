@@ -17,6 +17,10 @@ use CommonApi\Render\RenderInterface;
 /**
  * Molajito Factory Method
  *
+ * Isolates the complexity of dependency injection so that using the
+ * package in multiple environments is a matter of setting parameters and
+ * allowing this process to handle class construction.
+ *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
@@ -74,17 +78,21 @@ class FactoryMethod
         $view_instance     = $this->getViewInstance();
         $event_instance    = $this->getEventInstance();
         $parse_instance    = $this->getParseInstance();
+
+        // AMY ?
         $exclude_tokens    = $this->getExcludeTokens();
         $stop_loop_count   = 100;
         $position_instance = $this->getPositionInstance($escape_instance);
         $theme_instance    = $this->getThemeInstance($escape_instance, $render_instance);
         $page_instance     = $this->getPageInstance($render_instance);
+
         $template_instance = $this->getTemplateInstance(
             $escape_instance,
             $render_instance,
             $event_instance,
             $this->options['event_option_keys']
         );
+
         $wrap_instance     = $this->getWrapInstance($render_instance);
         $translate_instance = $this->getTranslateInstance($escape_instance);
 
@@ -128,7 +136,7 @@ class FactoryMethod
         $escape_class = 'simple';
 
         if (isset($this->options['escape_class'])) {
-            $escape_class = $this->options['escape_class'];
+            $escape_class = strtolower($this->options['escape_class']);
         }
 
         if ($escape_class === 'molajo') {
@@ -307,7 +315,9 @@ class FactoryMethod
             $view_class = 'filesystem';
         }
 
-        if (strtolower($view_class) === 'filesystem') {
+        $view_class = strtolower($view_class);
+
+        if ($view_class === 'filesystem') {
 
             $class = 'Molajito\\View\\Filesystem';
 
@@ -328,9 +338,8 @@ class FactoryMethod
             $class = 'Molajito\\View\\Molajo';
 
             try {
-
                 $adapter = new $class(
-                    $this->options['resource']
+                    $this->options['Resource']
                 );
 
             } catch (Exception $e) {
@@ -370,7 +379,7 @@ class FactoryMethod
     {
         if (file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/event/Source/Scheduled.php')) {
             $class          = 'Molajito\\Event\\Molajo';
-            $event_callback = $this->options['event_callback'];
+            $event_callback = $this->options['Eventcallback'];
         } else {
             $class          = 'Molajito\\Event\\Dummy';
             $event_callback = null;
@@ -577,17 +586,35 @@ class FactoryMethod
     protected function getTranslateInstance(EscapeInterface $escape_instance)
     {
         if (isset($this->options['language_strings'])) {
-            $language_strings = $this->options['language_strings'];
+            $class = 'Molajito\\Translate\\StringArrayAdapter';
+            $language = $this->options['language_strings'];
+
         } else {
-            $language_strings = array();
+            $language = $this->options['Language'];
+            $class = 'Molajito\\Translate\\MolajoLanguageAdapter';
+        }
+
+        /** Adapter */
+        try {
+            $adapter = new $class (
+                $escape_instance,
+                $parse_mask = null,
+                $model_registry = array(),
+                $language
+            );
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'MolajitoFactoryMethod getTranslateInstance: Could not instantiate Translate Adapter: ' . $class
+            );
         }
 
         $class = 'Molajito\\Translate';
 
         try {
             return new $class (
-                $escape_instance,
-                $language_strings
+                $adapter
             );
 
         } catch (Exception $e) {
@@ -596,6 +623,17 @@ class FactoryMethod
                 'MolajitoFactoryMethod getTranslateInstance: Could not instantiate Translate Class: ' . $class
             );
         }
+    }
+
+    /**
+     * Return the saved view instance t
+     *
+     * @return  object
+     * @since   1.0
+     */
+    public function getSavedViewInstance()
+    {
+        return $this->options['view_instance'];
     }
 }
 

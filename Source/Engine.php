@@ -314,6 +314,7 @@ class Engine implements RenderInterface
         /** Step 6. Schedule onAfterRender Event */
         $options                  = $this->setOptionValues();
         $options['rendered_page'] = $this->rendered_page;
+
         $this->scheduleEvent('onAfterRender', $options);
 
         return $this->rendered_page;

@@ -121,7 +121,9 @@ class Molajo implements EscapeInterface
         }
 
         try {
-            return $this->fieldhandler->escape($data_key, $data_value, $escape_key);
+            $results = $this->fieldhandler->escape($data_key, $data_value, $escape_key);
+
+            return $results->getReturnValue();
 
         } catch (Exception $e) {
             throw new RuntimeException

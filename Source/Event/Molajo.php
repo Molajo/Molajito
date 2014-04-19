@@ -37,6 +37,7 @@ class Molajo extends AbstractAdapter implements EventInterface
         $schedule_event = $this->event_callback;
 
         $temp = array();
+
         foreach ($this->event_option_keys as $key) {
             if (isset($options[$key])) {
                 $temp[$key] = $options[$key];

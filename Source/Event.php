@@ -76,6 +76,7 @@ class Event implements EventInterface
     public function scheduleEvent($event_name, array $options = array())
     {
         try {
+
             return $this->event_adapter->scheduleEvent($event_name, $options);
 
         } catch (Exception $e) {
