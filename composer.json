@@ -38,7 +38,6 @@
     "autoload": {
         "psr-4": {
             "Molajito\\": "Source/",
-            "Molajito\\Data\\": "Sample/Source/Data/",
             "Molajo\\Factories\\": "Factories/"
         }
     },
