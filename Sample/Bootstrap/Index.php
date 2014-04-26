@@ -6,7 +6,7 @@
  * @copyright 2014 Amy Stephen. All rights reserved.
  * @license   http://www.opensource.org/licenses/mit-license.html MIT License
  */
-include $molajito_base . '/vendor/autoload.php';
+include __DIR__ . '/autoload.php';
 
 /** Simulates Route process */
 include __DIR__ . '/Route.php';
