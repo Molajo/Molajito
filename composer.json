@@ -22,7 +22,6 @@
     },
 
     "require": {
-        "php": ">=5.4",
         "commonapi/language": "dev-master",
         "commonapi/model": "dev-master",
         "commonapi/render": "dev-master",
