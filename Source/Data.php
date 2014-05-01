@@ -55,6 +55,28 @@ class Data implements DataInterface
      */
     public function getData($token, array $options = array())
     {
+        if (isset($options['runtime_data'])) {
+        } else {
+            $options['runtime_data'] = null;
+        }
+
+        if (isset($options['plugin_data'])) {
+        } else {
+            $options['plugin_data'] = null;
+        }
+
+        if (is_object($token)) {
+        } else {
+            throw new RuntimeException
+            ('Molajito Data getData Method Failed: Token is not an object');
+        }
+
+        if (isset($token->attributes)
+            && is_array($token->attributes)) {
+        } else {
+            $token->attributes = array();
+        }
+
         try {
             return $this->data_adapter->getData($token, $options);
 

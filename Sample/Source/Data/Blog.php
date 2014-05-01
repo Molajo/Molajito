@@ -29,7 +29,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = null;
+    protected $runtime_data = NULL;
 
     /**
      * Token
@@ -37,7 +37,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $token = null;
+    protected $token = NULL;
 
     /**
      * Model Type
@@ -77,7 +77,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $parameters = null;
+    protected $parameters = NULL;
 
     /**
      * Author Profile
@@ -85,7 +85,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $author = null;
+    protected $author = NULL;
 
     /**
      * Posts
@@ -244,7 +244,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @var    boolean
      * @since  1.0.0
      */
-    protected $first_request = true;
+    protected $first_request = TRUE;
 
     /**
      * Class Constructor
@@ -255,17 +255,15 @@ class Blog extends AbstractAdapter implements DataInterface
      * @since  1.0.0
      */
     public function __construct(
-        array $options = array(),
-        PaginationInterface $pagination = null
+        PaginationInterface $pagination = NULL,
+        array $options = array()
     ) {
-        parent::__construct($options, $pagination);
+        parent::__construct($pagination);
 
         if (isset($options['data_folder'])) {
             $this->loadPosts($options['data_folder']);
             $this->loadAuthor($options['data_folder'] . '/Author');
         }
-
-        $this->pagination = $pagination;
     }
 
     /**
@@ -303,25 +301,16 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function initialise($token, array $options = array())
     {
-        $this->runtime_data   = null;
         $this->model_type     = '';
         $this->model_name     = '';
         $this->query_results  = array();
         $this->model_registry = array();
-        $this->parameters     = null;
+        $this->token          = $token;
+        $this->runtime_data   = $options['runtime_data'];
+        $this->parameters     = new stdClass();
 
-        $this->token = $token;
-
-        if (isset($options['runtime_data'])) {
-            $this->runtime_data = $options['runtime_data'];
-        } else {
-            $this->runtime_data = null;
-        }
-
-        $this->parameters = new stdClass();
-
-        if ($this->first_request === true) {
-            $this->first_request = false;
+        if ($this->first_request === TRUE) {
+            $this->first_request = FALSE;
             $blog_breadcrumbs    = $this->setBreadcrumbs();
             $this->setPostURLs($blog_breadcrumbs);
         }
@@ -417,10 +406,7 @@ class Blog extends AbstractAdapter implements DataInterface
         $this->parameters->model_type = $this->model_type;
         $this->parameters->model_name = $this->model_name;
 
-        if (isset($this->token->attributes)
-            && count($this->token->attributes) > 0
-            && is_array($this->token->attributes)
-        ) {
+        if (count($this->token->attributes) > 0) {
             foreach ($this->token->attributes as $key => $value) {
                 $this->parameters->$key = $value;
             }
@@ -665,7 +651,7 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function getGallery()
     {
-        for ($i = 1; $i < 10; $i ++) {
+        for ($i = 1; $i < 10; $i++) {
 
             $image   = 'gallery_image' . $i;
             $caption = 'gallery_caption' . $i;
@@ -743,7 +729,7 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function getOrbit()
     {
-        for ($i = 1; $i < 10; $i ++) {
+        for ($i = 1; $i < 10; $i++) {
 
             $image = 'orbit_image' . $i;
 
@@ -854,9 +840,9 @@ class Blog extends AbstractAdapter implements DataInterface
 
             $use_it = $this->setUseItFlag($post, $tag_parameter, $category_parameter, $name_parameter);
 
-            if ($use_it === true) {
+            if ($use_it === TRUE) {
 
-                $total_posts ++;
+                $total_posts++;
 
                 if ($skip_count < $total_posts) {
 
@@ -866,7 +852,7 @@ class Blog extends AbstractAdapter implements DataInterface
                     } else {
                         // display links
                         if ($display_items_per_page_count > $return_count) {
-                            $return_count ++;
+                            $return_count++;
                             $this->query_results[] = $post;
                         } else {
                             // counting display links -- not all display
@@ -990,15 +976,15 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function setUseItFlag($post, $tag_parameter, $category_parameter, $name_parameter)
     {
-        $use_it = false;
+        $use_it = FALSE;
 
         if ($tag_parameter == '' && $category_parameter == '' && $name_parameter == '') {
-            $use_it = true;
+            $use_it = TRUE;
 
         } elseif ($category_parameter == '' && $tag_parameter == '') {
 
             if (trim($post->filename) == trim($name_parameter)) {
-                $use_it = true;
+                $use_it = TRUE;
             }
 
         } elseif ($category_parameter == '') {
@@ -1007,7 +993,7 @@ class Blog extends AbstractAdapter implements DataInterface
                 $post_tags = explode(',', $post->tags);
 
                 if ($tag_parameter == '' || in_array($tag_parameter, $post_tags)) {
-                    $use_it = true;
+                    $use_it = TRUE;
                 }
             }
 
@@ -1017,7 +1003,7 @@ class Blog extends AbstractAdapter implements DataInterface
                 $post_categories = explode(',', $post->categories);
 
                 if ($category_parameter == '' || in_array($category_parameter, $post_categories)) {
-                    $use_it = true;
+                    $use_it = TRUE;
                 }
             }
         }
@@ -1089,19 +1075,16 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function setBreadcrumbs()
     {
-        $home      = $this->runtime_data->route->home;
-        $home_text = $this->runtime_data->route->home_text;
-
         $breadcrumbs = array();
 
         /** Home */
         $row           = new stdClass();
-        $row->text     = $home_text;
-        $row->link     = $home;
+        $row->text     = $this->runtime_data->route->home_text;
+        $row->link     = $this->runtime_data->route->home;
         $breadcrumbs[] = $row;
         $home_row      = $row;
 
-        $this->breadcrumbs[$home] = $breadcrumbs;
+        $this->breadcrumbs[$this->runtime_data->route->home] = $breadcrumbs;
 
         /** Blog */
         $blog_breadcrumbs   = array();
@@ -1150,9 +1133,6 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function setPostURLs($blog_breadcrumbs)
     {
-        $home = $this->runtime_data->route->home;
-        $blog = $this->runtime_data->route->blog;
-
         if (count($this->posts) == 0) {
             return $this;
         }

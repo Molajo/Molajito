@@ -33,13 +33,11 @@ abstract class AbstractAdapter implements DataInterface
     /**
      * Class Constructor
      *
-     * @param  array               $options
      * @param  PaginationInterface $pagination
      *
      * @since  1.0.0
      */
     public function __construct(
-        array $options = array(),
         PaginationInterface $pagination = null
     ) {
         $this->pagination = $pagination;

@@ -8,8 +8,8 @@
  */
 namespace Molajito;
 
-use CommonApi\Language\TranslateInterface;
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Language\TranslateInterface;
 use CommonApi\Render\DataInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\ParseInterface;
@@ -133,6 +133,14 @@ class Engine implements RenderInterface
      * @since  1.0.0
      */
     protected $wrap_instance = null;
+
+    /**
+     * Wrap View Instance
+     *
+     * @var    object  CommonApi\Language\TranslateInterface
+     * @since  1.0.0
+     */
+    protected $translate_instance = null;
 
     /**
      * Theme Path
@@ -770,7 +778,7 @@ class Engine implements RenderInterface
     /**
      * Set Option Properties for passing into Event and Rendering Classes
      *
-     * @return  string
+     * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

@@ -279,7 +279,7 @@ class FactoryMethod
         $class = 'Molajito\\Data\\' . ucfirst(strtolower($this->options['data_class']));
 
         try {
-            $adapter = new $class ($data_options, $pagination);
+            $adapter = new $class ($pagination, $data_options);
         } catch (Exception $e) {
             throw new RuntimeException
             (

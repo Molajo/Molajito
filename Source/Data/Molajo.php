@@ -29,7 +29,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = null;
+    protected $runtime_data = NULL;
 
     /**
      * Plugin Data
@@ -37,7 +37,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $plugin_data = null;
+    protected $plugin_data = NULL;
 
     /**
      * Token
@@ -45,7 +45,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $token = null;
+    protected $token = NULL;
 
     /**
      * Model Type
@@ -93,20 +93,19 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $parameters = null;
+    protected $parameters = NULL;
 
     /**
      * Class Constructor
      *
-     * @param  array               $options
      * @param  PaginationInterface $pagination
      *
      * @since  1.0.0
      */
     public function __construct(
-        array $options = array(),
-        PaginationInterface $pagination = null
+        PaginationInterface $pagination = NULL
     ) {
+
         $this->pagination = $pagination;
     }
 
@@ -154,30 +153,15 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function initialise($token, array $options = array())
     {
-        $this->runtime_data   = null;
-        $this->plugin_data    = null;
         $this->model_type     = '';
         $this->model_name     = '';
         $this->field_name     = '';
         $this->query_results  = array();
         $this->model_registry = array();
-        $this->parameters     = null;
-
-        $this->token = $token;
-
-        if (isset($options['runtime_data'])) {
-            $this->runtime_data = $options['runtime_data'];
-        } else {
-            $this->runtime_data = null;
-        }
-
-        if (isset($options['plugin_data'])) {
-            $this->plugin_data = $options['plugin_data'];
-        } else {
-            $this->plugin_data = null;
-        }
-
-        $this->parameters = new stdClass();
+        $this->token          = $token;
+        $this->runtime_data   = $options['runtime_data'];
+        $this->plugin_data    = $options['plugin_data'];
+        $this->parameters     = new stdClass();
 
         return $this;
     }
@@ -262,7 +246,7 @@ class Molajo extends AbstractAdapter implements DataInterface
 
             foreach ($hold_parameters as $key => $value) {
                 if (isset($this->parameters->$key)) {
-                    if ($this->parameters->$key === null) {
+                    if ($this->parameters->$key === NULL) {
                         $this->parameters->$key = $value;
                     }
                 } else {
@@ -377,10 +361,7 @@ class Molajo extends AbstractAdapter implements DataInterface
         $this->parameters->model_name = $this->model_name;
         $this->parameters->field_name = $this->field_name;
 
-        if (isset($this->token->attributes)
-            && count($this->token->attributes) > 0
-            && is_array($this->token->attributes)
-        ) {
+        if (count($this->token->attributes) > 0) {
             foreach ($this->token->attributes as $key => $value) {
                 $this->parameters->$key = $value;
             }
