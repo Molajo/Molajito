@@ -59,7 +59,9 @@ class TemplateView extends AbstractRenderer implements RenderInterface
         if (file_exists($this->include_path . '/Custom.phtml')) {
             $this->renderViewCustom();
         } else {
-            $this->renderLoop();
+            if (count($this->query_results) > 0) {
+                $this->renderLoop();
+            }
         }
 
         return $this->rendered_view;
@@ -87,42 +89,28 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      */
     public function renderLoop()
     {
-        $total_rows          = count($this->query_results);
-        $row_count           = 1;
-        $first               = 1;
-        $even_or_odd         = 'odd';
-        $this->rendered_view = '';
-
-        if (count($this->query_results) > 0) {
-        } else {
-            return $this;
-        }
+        $row_count   = 1;
+        $even_or_odd = 'odd';
 
         foreach ($this->query_results as $this->row) {
 
-            if ($row_count == $total_rows) {
-                $last_row = 1;
-            } else {
-                $last_row = 0;
-            }
-
             $this->row->row_count   = $row_count;
             $this->row->even_or_odd = $even_or_odd;
-            $this->row->total_rows  = $total_rows;
-            $this->row->last_row    = $last_row;
-            $this->row->first       = $first;
-            $temp                   = $this->escape_instance->escape(array($this->row), $this->model_registry);
-            $this->row              = $temp[0];
+            $this->row->total_rows  = count($this->query_results);
 
-            if ($first === 1) {
-                $this->renderViewHead();
+            if ($row_count === 1) {
+                $this->row->first = 1;
+            } else {
+                $this->row->first = 0;
             }
 
-            $this->renderViewBody();
-
-            if ($last_row == 1) {
-                $this->renderViewFooter();
+            if ($row_count === count($this->query_results)) {
+                $this->row->last_row = 1;
+            } else {
+                $this->row->last_row = 0;
             }
+
+            $this->renderViewNormal();
 
             if ($even_or_odd == 'odd') {
                 $even_or_odd = 'even';
@@ -131,44 +119,33 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             }
 
             $row_count++;
-
-            $first = 0;
         }
 
-        return $this->rendered_view;
+        return $this;
     }
 
     /**
-     * Render Template View Head
+     * Render Normal Template
      *
      * @return  $this
      * @since   1.0
      */
-    protected function renderViewHead()
+    protected function renderViewNormal()
     {
-        return $this->renderViewPart('onBeforeRenderViewHead', '/Header.phtml', FALSE);
-    }
+        $temp      = $this->escape_instance->escape(array($this->row), $this->model_registry);
+        $this->row = $temp[0];
 
-    /**
-     * Render Template View Body
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function renderViewBody()
-    {
-        return $this->renderViewPart('onBeforeRenderViewItem', '/Body.phtml', FALSE);
-    }
+        if ($this->row->first === 1) {
+            $this->renderViewPart('onBeforeRenderViewHead', '/Header.phtml', FALSE);
+        }
 
-    /**
-     * Render Template View Body
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function renderViewFooter()
-    {
-        return $this->renderViewPart('onBeforeRenderViewFooter', '/Footer.phtml', FALSE);
+        $this->renderViewPart('onBeforeRenderViewItem', '/Body.phtml', FALSE);
+
+        if ($this->row->last_row === 1) {
+            $this->renderViewPart('onBeforeRenderViewFooter', '/Footer.phtml', FALSE);
+        }
+
+        return $this;
     }
 
     /**
@@ -188,15 +165,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             $file_path = $file;
 
         } else {
-            $options                   = $this->initializeEventOptions();
-            $options['parameters']     = $this->parameters;
-            $options['model_registry'] = $this->model_registry;
-            $options['row']            = $this->row;
-            $options['rendered_view']  = $this->rendered_view;
-            $options['rendered_page']  = $this->rendered_page;
-
-            $this->scheduleEvent($event, $options);
-
+            $this->executeRenderEvent($event);
             $file_path = $this->include_path . $file;
         }
 
@@ -225,6 +194,29 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             ('Molajito TemplateView renderTemplateViewOutput: '
                 . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
         }
+
+        return $this;
+    }
+
+    /**
+     * Execute Event
+     *
+     * @param   string $event
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function executeRenderEvent($event)
+    {
+        $options                   = $this->initializeEventOptions();
+        $options['parameters']     = $this->parameters;
+        $options['model_registry'] = $this->model_registry;
+        $options['row']            = $this->row;
+        $options['rendered_view']  = $this->rendered_view;
+        $options['rendered_page']  = $this->rendered_page;
+
+        $this->scheduleEvent($event, $options);
 
         return $this;
     }

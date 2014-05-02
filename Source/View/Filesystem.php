@@ -8,7 +8,6 @@
  */
 namespace Molajito\View;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\ViewInterface;
 use stdClass;
 
@@ -71,46 +70,28 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->extension        = new stdClass();
         $render->extension->title = ucfirst(strtolower($token->name));
 
-        if ($render->scheme == 'Page') {
+        if ($render->scheme === 'Page') {
             $base = $this->view_base_folder;
             $folder = '/Pages/';
             $file = '/Index.phtml';
 
-        } elseif ($render->scheme == 'Template') {
-            $base = $this->view_base_folder;
-            $folder = '/Templates/';
-            $file = '';
-
-        } elseif ($render->scheme == 'Wrap') {
+        } elseif ($render->scheme === 'Wrap') {
             $base = $this->view_base_folder;
             $folder = '/Wraps/';
             $file = '';
 
-        } elseif ($render->scheme == 'Theme') {
+        } elseif ($render->scheme === 'Theme') {
             $base = $this->theme_base_folder;
             $folder = '';
             $file = '/Index.phtml';
 
         } else {
-            throw new RuntimeException (
-                'Molajito Filesystem View Adapter: getView Invalid Scheme: ' . $render->scheme
-            );
+            $base = $this->view_base_folder;
+            $folder = '/Templates/';
+            $file = '';
         }
 
-        $name = ucfirst(strtolower(trim($token->name)));
-
-        if ($file === '' && is_dir($base . $folder . $name . $file)) {
-
-        } elseif (is_file($base . $folder . $name . $file)) {
-
-        } else {
-            throw new RuntimeException(
-                'Molajito View Filesystem Adapter: getView Resource not found: '
-                . $base . $folder . $name . $file
-            );
-        }
-
-        $render->extension->include_path = $base . $folder . $name . $file;
+        $render->extension->include_path = $base . $folder . $render->extension->title . $file;
 
         return $render;
     }

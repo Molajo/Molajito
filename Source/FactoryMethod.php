@@ -482,17 +482,7 @@ class FactoryMethod
      */
     protected function getThemeInstance(EscapeInterface $escape_instance, RenderInterface $render_instance)
     {
-        $class = 'Molajito\\Render\\Theme';
-
-        try {
-            return new $class ($escape_instance, $render_instance, NULL, NULL);
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'MolajitoFactoryMethod getThemeInstance: Could not instantiate Theme Class: ' . $class
-            );
-        }
+        return $this->getRenderViewInstance('Molajito\\Render\\Theme', $escape_instance, $render_instance, NULL, NULL);
     }
 
     /**
@@ -506,17 +496,7 @@ class FactoryMethod
      */
     protected function getPageInstance(RenderInterface $render_instance)
     {
-        $class = 'Molajito\\Render\\PageView';
-
-        try {
-            return new $class (NULL, $render_instance, NULL, NULL);
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'MolajitoFactoryMethod getPageInstance: Could not instantiate PageView Class: ' . $class
-            );
-        }
+        return $this->getRenderViewInstance('Molajito\\Render\\PageView', NULL, $render_instance, NULL, NULL);
     }
 
     /**
@@ -537,17 +517,8 @@ class FactoryMethod
         EventInterface $event_instance,
         array $event_option_keys = array()
     ) {
-        $class = 'Molajito\\Render\\TemplateView';
-
-        try {
-            return new $class ($escape_instance, $render_instance, $event_instance, $event_option_keys);
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'MolajitoFactoryMethod getTemplateInstance: Could not instantiate TemplateView Class: ' . $class
-            );
-        }
+        return $this->getRenderViewInstance('Molajito\\Render\\TemplateView',
+            $escape_instance, $render_instance, $event_instance, $event_option_keys);
     }
 
     /**
@@ -561,15 +532,36 @@ class FactoryMethod
      */
     protected function getWrapInstance(RenderInterface $render_instance)
     {
-        $class = 'Molajito\\Render\\WrapView';
+        return $this->getRenderViewInstance('Molajito\\Render\\WrapView', NULL, $render_instance, NULL, NULL);
+    }
 
+    /**
+     * Instantiate Template View Renderer Class
+     *
+     * @param   string          $class
+     * @param   EscapeInterface $escape_instance
+     * @param   RenderInterface $render_instance
+     * @param   EventInterface  $event_instance
+     * @param   array           $event_option_keys
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getRenderViewInstance(
+        $class,
+        EscapeInterface $escape_instance,
+        RenderInterface $render_instance,
+        EventInterface $event_instance,
+        array $event_option_keys = array()
+    ) {
         try {
-            return new $class (NULL, $render_instance, NULL, NULL);
+            return new $class ($escape_instance, $render_instance, $event_instance, $event_option_keys);
 
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'MolajitoFactoryMethod getWrapInstance: Could not instantiate WrapView Class: ' . $class
+                'MolajitoFactoryMethod getViewInstance: Could not instantiate TemplateView Class: ' . $class
             );
         }
     }
