@@ -30,7 +30,7 @@ class Position implements PositionInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = null;
+    protected $escape_instance = NULL;
 
     /**
      * Constructor
@@ -94,7 +94,7 @@ class Position implements PositionInterface
             $positions = $resource_extension->$type->parameters->positions;
         }
 
-        if ($positions === null || trim($positions) == '') {
+        if ($positions === NULL || trim($positions) == '') {
             return '';
         }
 

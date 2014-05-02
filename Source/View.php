@@ -28,7 +28,7 @@ class View implements ViewInterface
      * @var     object  CommonApi\Render\ViewInterface
      * @since  1.0.0
      */
-    protected $view_adapter = null;
+    protected $view_adapter = NULL;
 
     /**
      * Class Constructor
@@ -50,6 +50,7 @@ class View implements ViewInterface
      *
      * @return  $this
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function getView($token)
     {

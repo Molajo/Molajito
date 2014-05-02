@@ -32,16 +32,16 @@ class MolajoLanguageAdapter extends AbstractAdapter implements TranslateInterfac
     /**
      * Class Constructor
      *
-     * @param  EscapeInterface     $escape_instance
-     * @param  null|string         $parse_mask
-     * @param  array               $model_registry
-     * @param  TranslateInterface  $language_controller
+     * @param  EscapeInterface    $escape_instance
+     * @param  null|string        $parse_mask
+     * @param  array              $model_registry
+     * @param  TranslateInterface $language_controller
      *
      * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        $parse_mask = null,
+        $parse_mask = NULL,
         array $model_registry = array(),
         TranslateInterface $language_controller
     ) {

@@ -28,7 +28,7 @@ class PageView implements RenderInterface
      * @var    object   CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $render_instance = null;
+    protected $render_instance = NULL;
 
     /**
      * Constructor
@@ -51,6 +51,7 @@ class PageView implements RenderInterface
      *
      * @return  string
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function render($include_path, array $data = array())
     {
@@ -69,7 +70,7 @@ class PageView implements RenderInterface
         } catch (Exception $e) {
             throw new RuntimeException
             ('Molajito PageView renderOutput Failed: '
-            . ' for File path: ' . $include_path . ' Message: ' . $e->getMessage());
+                . ' for File path: ' . $include_path . ' Message: ' . $e->getMessage());
         }
     }
 }

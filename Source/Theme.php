@@ -29,7 +29,7 @@ class Theme implements RenderInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = null;
+    protected $escape_instance = NULL;
 
     /**
      * Render Instance
@@ -37,7 +37,7 @@ class Theme implements RenderInterface
      * @var    object   CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $render_instance = null;
+    protected $render_instance = NULL;
 
     /**
      * Runtime Data
@@ -45,7 +45,7 @@ class Theme implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = null;
+    protected $runtime_data = NULL;
 
     /**
      * Allowed Properties
@@ -105,7 +105,7 @@ class Theme implements RenderInterface
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
             } else {
-                $this->$key = null;
+                $this->$key = NULL;
             }
         }
 

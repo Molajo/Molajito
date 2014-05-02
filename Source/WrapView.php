@@ -28,7 +28,7 @@ class WrapView implements RenderInterface
      * @var    object   CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $render_instance = null;
+    protected $render_instance = NULL;
 
     /**
      * Path to Include File
@@ -44,7 +44,7 @@ class WrapView implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = null;
+    protected $runtime_data = NULL;
 
     /**
      * Row
@@ -52,7 +52,7 @@ class WrapView implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $row = null;
+    protected $row = NULL;
 
     /**
      * View Rendered Output
@@ -60,7 +60,7 @@ class WrapView implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_view = null;
+    protected $rendered_view = NULL;
 
     /**
      * Allowed Properties
@@ -127,7 +127,7 @@ class WrapView implements RenderInterface
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
             } else {
-                $this->$key = null;
+                $this->$key = NULL;
             }
         }
 
@@ -211,7 +211,7 @@ class WrapView implements RenderInterface
         } catch (Exception $e) {
             throw new RuntimeException
             ('Molajito WrapRenderer renderOutput Failed. '
-            . ' File path: ' . $include_path . ' ' . $e->getMessage());
+                . ' File path: ' . $include_path . ' ' . $e->getMessage());
         }
     }
 

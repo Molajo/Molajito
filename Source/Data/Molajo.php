@@ -8,7 +8,6 @@
  */
 namespace Molajito\Data;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\DataInterface;
 use CommonApi\Render\PaginationInterface;
 use stdClass;
@@ -274,13 +273,7 @@ class Molajo extends AbstractAdapter implements DataInterface
 
         $this->model_registry = new stdClass();
 
-        if (isset($this->query_results->parameters)) {
-            $this->parameters = $this->query_results->parameters;
-            unset($this->query_results->parameters);
-
-        } else {
-            $this->parameters = $this->runtime_data->render->extension->parameters;
-        }
+        $this->setParameters();
 
         return $this;
     }
@@ -313,6 +306,19 @@ class Molajo extends AbstractAdapter implements DataInterface
             }
         }
 
+        $this->setParameters();
+
+        return $this;
+    }
+
+    /**
+     * Set Parameters from Query Results or Extension Parameters
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setParameters()
+    {
         if (isset($this->query_results->parameters)) {
             $this->parameters = $this->query_results->parameters;
             unset($this->query_results->parameters);

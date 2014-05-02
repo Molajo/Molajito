@@ -8,7 +8,6 @@
  */
 namespace Molajito\Escape;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 
 /**
@@ -47,7 +46,7 @@ abstract class AbstractAdapter implements EscapeInterface
     }
 
     /**
-     * Fieldhandler Query Output for data element
+     * Escape Data Element
      *
      * @param   string     $data_key
      * @param   null|mixed $data_value
@@ -56,5 +55,5 @@ abstract class AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    abstract protected function escapeDataElement($data_key, $data_value = null);
+    abstract protected function escapeDataElement($data_key, $data_value = NULL);
 }

@@ -28,7 +28,7 @@ class Translate implements TranslateInterface
      * @var     object  CommonApi\Language\TranslateInterface
      * @since  1.0.0
      */
-    protected $translate_adapter = null;
+    protected $translate_adapter = NULL;
 
     /**
      * Class Constructor
@@ -38,7 +38,7 @@ class Translate implements TranslateInterface
      * @since   1.0
      */
     public function __construct(
-        TranslateInterface  $translate_adapter
+        TranslateInterface $translate_adapter
     ) {
         $this->translate_adapter = $translate_adapter;
     }

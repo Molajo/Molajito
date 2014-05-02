@@ -30,7 +30,7 @@ class TemplateView implements RenderInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = null;
+    protected $escape_instance = NULL;
 
     /**
      * Render Instance
@@ -38,7 +38,7 @@ class TemplateView implements RenderInterface
      * @var    object   CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $render_instance = null;
+    protected $render_instance = NULL;
 
     /**
      * Event Handler
@@ -46,7 +46,7 @@ class TemplateView implements RenderInterface
      * @var    object  CommonApi\Render\EventInterface
      * @since  1.0.0
      */
-    protected $event_instance = null;
+    protected $event_instance = NULL;
 
     /**
      * Event option keys
@@ -70,7 +70,7 @@ class TemplateView implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = null;
+    protected $runtime_data = NULL;
 
     /**
      * Plugin Data
@@ -78,7 +78,7 @@ class TemplateView implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $plugin_data = null;
+    protected $plugin_data = NULL;
 
     /**
      * Parameters
@@ -86,7 +86,7 @@ class TemplateView implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $parameters = null;
+    protected $parameters = NULL;
 
     /**
      * Model Registry
@@ -110,7 +110,7 @@ class TemplateView implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_view = null;
+    protected $rendered_view = NULL;
 
     /**
      * Page Rendered Output
@@ -118,7 +118,7 @@ class TemplateView implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_page = null;
+    protected $rendered_page = NULL;
 
     /**
      * Object containing a single row for using within View
@@ -126,7 +126,7 @@ class TemplateView implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $row = null;
+    protected $row = NULL;
 
     /**
      * Render Properties
@@ -207,7 +207,7 @@ class TemplateView implements RenderInterface
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
             } else {
-                $this->$key = null;
+                $this->$key = NULL;
             }
         }
 
@@ -224,7 +224,7 @@ class TemplateView implements RenderInterface
     {
         $this->query_results = $this->escape_instance->escape($this->query_results, $this->model_registry);
         $file_path           = $this->include_path . '/Custom.phtml';
-        $this->rendered_view = $this->renderOutput($file_path, true);
+        $this->rendered_view = $this->renderOutput($file_path, TRUE);
 
         return $this;
     }
@@ -261,9 +261,8 @@ class TemplateView implements RenderInterface
             $this->row->total_rows  = $total_rows;
             $this->row->last_row    = $last_row;
             $this->row->first       = $first;
-
-            $temp      = $this->escape_instance->escape(array($this->row), $this->model_registry);
-            $this->row = $temp[0];
+            $temp                   = $this->escape_instance->escape(array($this->row), $this->model_registry);
+            $this->row              = $temp[0];
 
             if ($first === 1) {
                 $this->renderViewHead();
@@ -281,7 +280,7 @@ class TemplateView implements RenderInterface
                 $even_or_odd = 'odd';
             }
 
-            $row_count ++;
+            $row_count++;
 
             $first = 0;
         }
@@ -309,7 +308,7 @@ class TemplateView implements RenderInterface
         $file_path = $this->include_path . '/Header.phtml';
 
         if (file_exists($file_path)) {
-            $this->rendered_view = $this->renderOutput($file_path, false);
+            $this->rendered_view = $this->renderOutput($file_path, FALSE);
         }
 
         return $this;
@@ -335,7 +334,7 @@ class TemplateView implements RenderInterface
         $file_path = $this->include_path . '/Body.phtml';
 
         if (file_exists($file_path)) {
-            $this->rendered_view .= $this->renderOutput($file_path, false);
+            $this->rendered_view .= $this->renderOutput($file_path, FALSE);
         }
 
         return $this;
@@ -361,7 +360,7 @@ class TemplateView implements RenderInterface
         $file_path = $this->include_path . '/Footer.phtml';
 
         if (file_exists($file_path)) {
-            $this->rendered_view .= $this->renderOutput($file_path, false);
+            $this->rendered_view .= $this->renderOutput($file_path, FALSE);
         }
 
         return $this;
@@ -378,7 +377,7 @@ class TemplateView implements RenderInterface
         $options = array();
 
         foreach ($this->event_option_keys as $key) {
-            $options[$key] = null;
+            $options[$key] = NULL;
         }
 
         return $options;
@@ -418,7 +417,7 @@ class TemplateView implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderOutput($file_path, $custom = false)
+    protected function renderOutput($file_path, $custom = FALSE)
     {
         $options                 = array();
         $options['runtime_data'] = $this->runtime_data;
@@ -426,7 +425,7 @@ class TemplateView implements RenderInterface
         $options['runtime_data'] = $this->runtime_data;
         $options['plugin_data']  = $this->plugin_data;
 
-        if ($custom === false) {
+        if ($custom === FALSE) {
             $options['row'] = $this->row;
         } else {
             $options['query_results'] = $this->query_results;
@@ -438,7 +437,7 @@ class TemplateView implements RenderInterface
         } catch (Exception $e) {
             throw new RuntimeException
             ('Molajito TemplateView renderOutput: '
-            . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
+                . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
         }
     }
 }

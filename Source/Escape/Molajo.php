@@ -21,7 +21,7 @@ use Exception;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Molajo implements EscapeInterface
+class Molajo extends AbstractAdapter implements EscapeInterface
 {
     /**
      * Fieldhandler Instance
@@ -87,9 +87,9 @@ class Molajo implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function escapeDataElement($data_key, $data_value = null)
+    protected function escapeDataElement($data_key, $data_value = NULL)
     {
-        $escape_key = null;
+        $escape_key = NULL;
 
         if (count($this->model_registry) > 0) {
             foreach ($this->model_registry as $model_item) {
@@ -99,7 +99,7 @@ class Molajo implements EscapeInterface
             }
         }
 
-        if ($escape_key === null) {
+        if ($escape_key === NULL) {
             if (is_numeric($data_value)) {
                 return $data_value;
 

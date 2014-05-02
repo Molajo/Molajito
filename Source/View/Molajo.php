@@ -29,7 +29,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $resource = null;
+    protected $resource = NULL;
 
     /**
      * Constructor
@@ -50,6 +50,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
      *
      * @return  stdClass
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function getView($token)
     {
@@ -93,7 +94,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajo View Adapter: getTheme Failed: '
-            . $theme . ' Message: ' . $e->getMessage());
+                . $theme . ' Message: ' . $e->getMessage());
         }
     }
 
@@ -113,7 +114,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajo View Adapter: getPageView Exception '
-            . $page_view . ' Message: ' . $e->getMessage());
+                . $page_view . ' Message: ' . $e->getMessage());
         }
     }
 
@@ -133,7 +134,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajo View Adapter: getTemplateView Exception '
-            . $template_view . ' Message: ' . $e->getMessage());
+                . $template_view . ' Message: ' . $e->getMessage());
         }
     }
 
@@ -157,7 +158,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
 
         } catch (Exception $e) {
             throw new RuntimeException('Molajo View Adapter: getWrapView Exception '
-            . $wrap_view . ' Message: ' . $e->getMessage());
+                . $wrap_view . ' Message: ' . $e->getMessage());
         }
     }
 }

@@ -41,7 +41,7 @@ class StringArrayAdapter extends AbstractAdapter implements TranslateInterface
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        $parse_mask = null,
+        $parse_mask = NULL,
         array $model_registry = array(),
         array $language_strings = array()
     ) {

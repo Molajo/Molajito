@@ -28,7 +28,7 @@ class Event implements EventInterface
      * @var     object  CommonApi\Render\EventInterface
      * @since  1.0.0
      */
-    protected $event_adapter = null;
+    protected $event_adapter = NULL;
 
     /**
      * Class Constructor

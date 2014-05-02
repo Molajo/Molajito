@@ -30,7 +30,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = null;
+    protected $escape_instance = NULL;
 
     /**
      * Escape Row
@@ -77,12 +77,12 @@ abstract class AbstractAdapter implements TranslateInterface
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        $parse_mask = null,
+        $parse_mask = NULL,
         array $model_registry = array()
     ) {
-        $this->escape_instance  = $escape_instance;
+        $this->escape_instance = $escape_instance;
 
-        if ($parse_mask === null || trim($parse_mask) == '') {
+        if ($parse_mask === NULL || trim($parse_mask) == '') {
         } else {
             $this->parse_mask = $parse_mask;
         }
@@ -113,7 +113,7 @@ abstract class AbstractAdapter implements TranslateInterface
             return $this->rendered_page;
         }
 
-        for ($i = 0; $i < count($tokens_to_translate[1]); $i ++) {
+        for ($i = 0; $i < count($tokens_to_translate[1]); $i++) {
             $token  = $tokens_to_translate[0][$i];
             $string = $tokens_to_translate[1][$i];
 

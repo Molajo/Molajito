@@ -44,7 +44,7 @@ class Render implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $parameters = null;
+    protected $parameters = NULL;
 
     /**
      * Query Results: for Custom.phtml files
@@ -60,7 +60,7 @@ class Render implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $row = null;
+    protected $row = NULL;
 
     /**
      * Include File
@@ -68,7 +68,7 @@ class Render implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $include_path = null;
+    protected $include_path = NULL;
 
     /**
      * Allowed Properties
@@ -115,7 +115,7 @@ class Render implements RenderInterface
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
             } else {
-                $this->$key = null;
+                $this->$key = NULL;
             }
         }
 
@@ -133,8 +133,9 @@ class Render implements RenderInterface
      */
     protected function includeFile($include_path)
     {
-        if (file_exists($include_path)) {
-            $this->include_path = $include_path;
+        $this->include_path = $include_path;
+
+        if (file_exists($this->include_path)) {
         } else {
             throw new RuntimeException
             ('Molajito Render - rendering file not found: ' . $include_path);

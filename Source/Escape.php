@@ -28,7 +28,7 @@ class Escape implements EscapeInterface
      * @var     object  CommonApi\Render\EventInterface
      * @since  1.0.0
      */
-    protected $escape_adapter = null;
+    protected $escape_adapter = NULL;
 
     /**
      * Class Constructor
@@ -46,14 +46,14 @@ class Escape implements EscapeInterface
     /**
      * Escape Query Output prior to Rendering
      *
-     * @param   array $data
-     * @param   array $model_registry
+     * @param   array  $data
+     * @param   object $model_registry
      *
      * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), array $model_registry = array())
+    public function escape(array $data = array(), $model_registry)
     {
         try {
             return $this->escape_adapter->escape($data, $model_registry);

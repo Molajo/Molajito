@@ -28,7 +28,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $theme_base_folder = null;
+    protected $theme_base_folder = NULL;
 
     /**
      * Views Base Folder
@@ -36,7 +36,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $view_base_folder = null;
+    protected $view_base_folder = NULL;
 
     /**
      * Constructor

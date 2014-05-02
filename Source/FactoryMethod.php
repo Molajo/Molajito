@@ -72,12 +72,12 @@ class FactoryMethod
             );
         }
 
-        $escape_instance   = $this->getEscapeInstance();
-        $render_instance   = $this->getRenderInstance();
-        $data_instance     = $this->getDataInstance();
-        $view_instance     = $this->getViewInstance();
-        $event_instance    = $this->getEventInstance();
-        $parse_instance    = $this->getParseInstance();
+        $escape_instance = $this->getEscapeInstance();
+        $render_instance = $this->getRenderInstance();
+        $data_instance   = $this->getDataInstance();
+        $view_instance   = $this->getViewInstance();
+        $event_instance  = $this->getEventInstance();
+        $parse_instance  = $this->getParseInstance();
 
         // AMY ?
         $exclude_tokens    = $this->getExcludeTokens();
@@ -93,7 +93,7 @@ class FactoryMethod
             $this->options['event_option_keys']
         );
 
-        $wrap_instance     = $this->getWrapInstance($render_instance);
+        $wrap_instance      = $this->getWrapInstance($render_instance);
         $translate_instance = $this->getTranslateInstance($escape_instance);
 
         $class = 'Molajito\\Engine';
@@ -268,7 +268,7 @@ class FactoryMethod
             $class      = 'Molajo\\Pagination';
             $pagination = new $class();
         } else {
-            $pagination = null;
+            $pagination = NULL;
         }
 
         $data_options = array();
@@ -382,7 +382,7 @@ class FactoryMethod
             $event_callback = $this->options['Eventcallback'];
         } else {
             $class          = 'Molajito\\Event\\Dummy';
-            $event_callback = null;
+            $event_callback = NULL;
         }
 
         try {
@@ -586,19 +586,19 @@ class FactoryMethod
     protected function getTranslateInstance(EscapeInterface $escape_instance)
     {
         if (isset($this->options['language_strings'])) {
-            $class = 'Molajito\\Translate\\StringArrayAdapter';
+            $class    = 'Molajito\\Translate\\StringArrayAdapter';
             $language = $this->options['language_strings'];
 
         } else {
             $language = $this->options['Language'];
-            $class = 'Molajito\\Translate\\MolajoLanguageAdapter';
+            $class    = 'Molajito\\Translate\\MolajoLanguageAdapter';
         }
 
         /** Adapter */
         try {
             $adapter = new $class (
                 $escape_instance,
-                $parse_mask = null,
+                $parse_mask = NULL,
                 $model_registry = array(),
                 $language
             );

@@ -28,7 +28,7 @@ class Data implements DataInterface
      * @var     object  CommonApi\Render\DataInterface
      * @since  1.0.0
      */
-    protected $data_adapter = null;
+    protected $data_adapter = NULL;
 
     /**
      * Class Constructor
@@ -70,7 +70,7 @@ class Data implements DataInterface
     /**
      * Edit Options
      *
-     * @param   array  $options
+     * @param   array $options
      *
      * @return  array
      * @since   1.0
@@ -79,12 +79,12 @@ class Data implements DataInterface
     {
         if (isset($options['runtime_data'])) {
         } else {
-            $options['runtime_data'] = null;
+            $options['runtime_data'] = NULL;
         }
 
         if (isset($options['plugin_data'])) {
         } else {
-            $options['plugin_data'] = null;
+            $options['plugin_data'] = NULL;
         }
 
         return $options;
@@ -108,7 +108,8 @@ class Data implements DataInterface
         }
 
         if (isset($token->attributes)
-            && is_array($token->attributes)) {
+            && is_array($token->attributes)
+        ) {
         } else {
             $token->attributes = array();
         }

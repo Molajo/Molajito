@@ -35,7 +35,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\DataInterface
      * @since  1.0.0
      */
-    protected $data_instance = null;
+    protected $data_instance = NULL;
 
     /**
      * Retrieve View information for rendering
@@ -43,7 +43,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\ViewInterface
      * @since  1.0.0
      */
-    protected $view_instance = null;
+    protected $view_instance = NULL;
 
     /**
      * Event Handler
@@ -51,7 +51,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\EventInterface
      * @since  1.0.0
      */
-    protected $event_instance = null;
+    protected $event_instance = NULL;
 
     /**
      * Event option keys
@@ -76,7 +76,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\ParseInterface
      * @since  1.0.0
      */
-    protected $parse_instance = null;
+    protected $parse_instance = NULL;
 
     /**
      * Exclude tokens from parsing (tokens to generate head are held until body is processed)
@@ -100,7 +100,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\PositionInterface
      * @since  1.0.0
      */
-    protected $position_instance = null;
+    protected $position_instance = NULL;
 
     /**
      * Theme Instance
@@ -108,7 +108,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $theme_instance = null;
+    protected $theme_instance = NULL;
 
     /**
      * Page View Instance
@@ -116,7 +116,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $page_instance = null;
+    protected $page_instance = NULL;
 
     /**
      * Template View Instance
@@ -124,7 +124,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $template_instance = null;
+    protected $template_instance = NULL;
 
     /**
      * Wrap View Instance
@@ -132,7 +132,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $wrap_instance = null;
+    protected $wrap_instance = NULL;
 
     /**
      * Wrap View Instance
@@ -140,7 +140,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Language\TranslateInterface
      * @since  1.0.0
      */
-    protected $translate_instance = null;
+    protected $translate_instance = NULL;
 
     /**
      * Theme Path
@@ -148,7 +148,7 @@ class Engine implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $theme_path = null;
+    protected $theme_path = NULL;
 
     /**
      * Runtime Data
@@ -156,7 +156,7 @@ class Engine implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = null;
+    protected $runtime_data = NULL;
 
     /**
      * Plugin Data
@@ -164,7 +164,7 @@ class Engine implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $plugin_data = null;
+    protected $plugin_data = NULL;
 
     /**
      * Parameters
@@ -172,7 +172,7 @@ class Engine implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $parameters = null;
+    protected $parameters = NULL;
 
     /**
      * Model Registry
@@ -196,7 +196,7 @@ class Engine implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_view = null;
+    protected $rendered_view = NULL;
 
     /**
      * Page Rendered Output
@@ -204,7 +204,7 @@ class Engine implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_page = null;
+    protected $rendered_page = NULL;
 
     /**
      * Tokens to Render
@@ -220,7 +220,7 @@ class Engine implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $include_path = null;
+    protected $include_path = NULL;
 
     /**
      * Render Properties
@@ -355,13 +355,13 @@ class Engine implements RenderInterface
             $this->plugin_data = new stdClass();
         }
 
-        $this->parameters     = null;
+        $this->parameters     = NULL;
         $this->model_registry = array();
         $this->query_results  = array();
-        $this->rendered_view  = null;
-        $this->rendered_page  = null;
+        $this->rendered_view  = NULL;
+        $this->rendered_page  = NULL;
         $this->tokens         = array();
-        $this->include_path   = null;
+        $this->include_path   = NULL;
 
         return $this;
     }
@@ -379,9 +379,9 @@ class Engine implements RenderInterface
     {
         $loop_counter = 0;
 
-        while (true === true) {
+        while (TRUE === TRUE) {
 
-            $loop_counter ++;
+            $loop_counter++;
 
             /** Step 1. Schedule onBeforeParse Event */
             $options                  = $this->setOptionValues();
@@ -631,13 +631,14 @@ class Engine implements RenderInterface
         $options['row'] = $row;
 
         /** Step 3. Render Wrap */
+
         return $this->renderViewType('wrap_instance');
     }
 
     /**
      * Render Object
      *
-     * @param   string  $type
+     * @param   string $type
      *
      * @return  $this
      * @since   1.0

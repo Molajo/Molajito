@@ -37,7 +37,7 @@ class Dummy extends AbstractAdapter implements EventInterface
             if (isset($options[$key])) {
                 $temp[$key] = $options[$key];
             } else {
-                $temp[$key] = null;
+                $temp[$key] = NULL;
             }
         }
 

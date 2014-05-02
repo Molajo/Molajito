@@ -10,7 +10,6 @@
  */
 namespace Molajito\Escape;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 
 /**
@@ -23,7 +22,7 @@ use CommonApi\Render\EscapeInterface;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Simple implements EscapeInterface
+class Simple extends AbstractAdapter implements EscapeInterface
 {
     /**
      * Data
@@ -39,7 +38,7 @@ class Simple implements EscapeInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $white_list = '<b><br><em><h1><h2><h3><h4><h5><h6><hr><i><img><li><ol><p><u><ul><strong>';
+    protected $white_list = '<b><br><em><h1><h2><h3><h4><h5><h6><hr><i><img><li><ol><p><ul><strong>';
 
     /**
      * Constructor
@@ -47,9 +46,9 @@ class Simple implements EscapeInterface
      * @since  1.0.0
      */
     public function __construct(
-        $white_list = null
+        $white_list = NULL
     ) {
-        if ($white_list === null) {
+        if ($white_list === NULL) {
         } else {
             $this->white_list = $white_list;
         }
@@ -73,15 +72,16 @@ class Simple implements EscapeInterface
     }
 
     /**
-     * Simple Query Output for data element
+     * Escape Data Element
      *
+     * @param   string     $data_key
      * @param   null|mixed $data_value
      *
      * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function escapeDataElement($data_value = null)
+    protected function escapeDataElement($data_key, $data_value = NULL)
     {
         if (is_numeric($data_value)) {
             return $data_value;
@@ -91,8 +91,11 @@ class Simple implements EscapeInterface
 
         } elseif (is_array($data_value)) {
             return $data_value;
+
+        } elseif (is_string($data_value)) {
+            return strip_tags($data_value, $this->white_list);
         }
 
-        return strip_tags($data_value, $this->white_list);
+        return NULL;
     }
 }

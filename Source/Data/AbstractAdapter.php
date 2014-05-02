@@ -8,7 +8,6 @@
  */
 namespace Molajito\Data;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\PaginationInterface;
 use CommonApi\Render\DataInterface;
 
@@ -28,7 +27,7 @@ abstract class AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $pagination = null;
+    protected $pagination = NULL;
 
     /**
      * Parameters
@@ -46,7 +45,7 @@ abstract class AbstractAdapter implements DataInterface
      * @since  1.0.0
      */
     public function __construct(
-        PaginationInterface $pagination = null
+        PaginationInterface $pagination = NULL
     ) {
         $this->pagination = $pagination;
     }
@@ -68,7 +67,7 @@ abstract class AbstractAdapter implements DataInterface
      * Set Parameters from Token Attributes
      *
      * @param   object $token
-     * @param   array  $parameters
+     * @param   object $parameters
      *
      * @return  object
      * @since   1.0
