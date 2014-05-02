@@ -482,10 +482,10 @@ class FactoryMethod
      */
     protected function getThemeInstance(EscapeInterface $escape_instance, RenderInterface $render_instance)
     {
-        $class = 'Molajito\\Theme';
+        $class = 'Molajito\\Render\\Theme';
 
         try {
-            return new $class ($escape_instance, $render_instance);
+            return new $class ($escape_instance, $render_instance, NULL, NULL);
 
         } catch (Exception $e) {
             throw new RuntimeException
@@ -506,10 +506,10 @@ class FactoryMethod
      */
     protected function getPageInstance(RenderInterface $render_instance)
     {
-        $class = 'Molajito\\PageView';
+        $class = 'Molajito\\Render\\PageView';
 
         try {
-            return new $class ($render_instance);
+            return new $class (NULL, $render_instance, NULL, NULL);
 
         } catch (Exception $e) {
             throw new RuntimeException
@@ -537,7 +537,7 @@ class FactoryMethod
         EventInterface $event_instance,
         array $event_option_keys = array()
     ) {
-        $class = 'Molajito\\TemplateView';
+        $class = 'Molajito\\Render\\TemplateView';
 
         try {
             return new $class ($escape_instance, $render_instance, $event_instance, $event_option_keys);
@@ -561,10 +561,10 @@ class FactoryMethod
      */
     protected function getWrapInstance(RenderInterface $render_instance)
     {
-        $class = 'Molajito\\WrapView';
+        $class = 'Molajito\\Render\\WrapView';
 
         try {
-            return new $class ($render_instance);
+            return new $class (NULL, $render_instance, NULL, NULL);
 
         } catch (Exception $e) {
             throw new RuntimeException

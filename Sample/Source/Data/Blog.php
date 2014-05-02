@@ -554,17 +554,7 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function getCategories()
     {
-        foreach ($this->categories as $category => $list) {
-
-            $this->query_results[] = $this->setListRow(
-                $this->runtime_data->route->blog . '&category=' . $category,
-                ucfirst(strtolower($category))
-            );
-        }
-
-        $this->model_registry = $this->list_model_registry;
-
-        return $this;
+        return $this->getCategoryTagListRow('categories');
     }
 
     /**
@@ -1030,11 +1020,31 @@ class Blog extends AbstractAdapter implements DataInterface
      */
     protected function getTags()
     {
-        foreach ($this->tags as $tag => $list) {
+        return $this->getCategoryTagListRow('tags');
+    }
+
+    /**
+     * Get Categories or Tags List Rows
+     *
+     * @param   string  $type
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getCategoryTagListRow($type = 'tags')
+    {
+        if ($type === 'categories') {
+            $slug = 'category';
+        } else {
+            $type = 'tags';
+            $slug = 'tag';
+        }
+
+        foreach ($this->$type as $value => $list) {
 
             $this->query_results[] = $this->setListRow(
-                $this->runtime_data->route->blog . '&tag=' . $tag,
-                ucfirst(strtolower($tag))
+                $this->runtime_data->route->blog . '&' . $slug . '=' . $value,
+                ucfirst(strtolower($value))
             );
         }
 

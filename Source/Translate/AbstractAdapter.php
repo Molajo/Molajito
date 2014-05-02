@@ -56,7 +56,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $parse_mask = '#{T (.*) T}#iU';
+    protected $translate_mask = '#{T (.*) T}#iU';
 
     /**
      * Rendered Page
@@ -70,21 +70,21 @@ abstract class AbstractAdapter implements TranslateInterface
      * Class Constructor
      *
      * @param  EscapeInterface $escape_instance
-     * @param  null|string     $parse_mask
+     * @param  null|string     $translate_mask
      * @param  array           $model_registry
      *
      * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        $parse_mask = NULL,
+        $translate_mask = NULL,
         array $model_registry = array()
     ) {
         $this->escape_instance = $escape_instance;
 
-        if ($parse_mask === NULL || trim($parse_mask) == '') {
+        if ($translate_mask === NULL || trim($translate_mask) == '') {
         } else {
-            $this->parse_mask = $parse_mask;
+            $this->translate_mask = $translate_mask;
         }
 
         if (count($model_registry) > 0) {
@@ -141,7 +141,7 @@ abstract class AbstractAdapter implements TranslateInterface
     {
         $tokens_to_translate = array();
 
-        preg_match_all($this->parse_mask, $this->rendered_page, $tokens_to_translate);
+        preg_match_all($this->translate_mask, $this->rendered_page, $tokens_to_translate);
 
         return $tokens_to_translate;
     }

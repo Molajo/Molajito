@@ -60,105 +60,33 @@ class Molajo extends AbstractAdapter implements ViewInterface
         $render->scheme = strtolower($scheme);
 
         if ($scheme == 'Page') {
-            $render->extension = $this->getPageView(ucfirst(strtolower($token->name)));
+            $protocol_location = 'Page:///Molajo//Views//Pages//';
 
         } elseif ($scheme == 'Template') {
-            $render->extension = $this->getTemplateView(ucfirst(strtolower($token->name)));
+            $protocol_location = 'Template:///Molajo//Views//Templates//';
 
         } elseif ($scheme == 'Wrap') {
-            $render->extension = $this->getWrapView(ucfirst(strtolower($token->name)));
+            $protocol_location = 'Wrap:///Molajo//Views//Wraps//';
 
         } elseif ($scheme == 'Theme') {
-            $render->extension = $this->getTheme(ucfirst(strtolower($token->name)));
+            $protocol_location = 'Theme:///Molajo//Themes//';
 
         } else {
             throw new RuntimeException ('Molajo View Adapter: getExtension Invalid Scheme: ' . $scheme);
         }
 
+        try {
+            $render->extension = $this->resource->get(
+                $protocol_location
+                . ucfirst(strtolower($token->name))
+            );
+
+        } catch (Exception $e) {
+            throw new RuntimeException('Molajito View Molajo Adapter Failed: '
+                . $protocol_location . ucfirst(strtolower($token->name))
+                . ' Message: ' . $e->getMessage());
+        }
+
         return $render;
-    }
-
-    /**
-     * Get Theme Resource Extension
-     *
-     * @param   string $theme
-     *
-     * @return  object
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getTheme($theme)
-    {
-        try {
-            return $this->resource->get('Theme:///Molajo//Themes//' . $theme);
-
-        } catch (Exception $e) {
-            throw new RuntimeException('Molajo View Adapter: getTheme Failed: '
-                . $theme . ' Message: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Get Page View Resource
-     *
-     * @param   string $page_view
-     *
-     * @return  object
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getPageView($page_view)
-    {
-        try {
-            return $this->resource->get('Page:///Molajo//Views//Pages//' . $page_view);
-
-        } catch (Exception $e) {
-            throw new RuntimeException('Molajo View Adapter: getPageView Exception '
-                . $page_view . ' Message: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Get Template View Resource
-     *
-     * @param   string $template_view
-     *
-     * @return  object
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getTemplateView($template_view)
-    {
-        try {
-            return $this->resource->get('Template:///Molajo//Views//Templates//' . $template_view);
-
-        } catch (Exception $e) {
-            throw new RuntimeException('Molajo View Adapter: getTemplateView Exception '
-                . $template_view . ' Message: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Get Wrap View Resource
-     *
-     * @param   string $wrap_view
-     *
-     * @return  object
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getWrapView($wrap_view)
-    {
-        if (trim($wrap_view) == '') {
-            return new stdClass();
-        }
-
-        try {
-            return $this->resource->get('Wrap:///Molajo//Views//Wraps//' . $wrap_view);
-
-        } catch (Exception $e) {
-            throw new RuntimeException('Molajo View Adapter: getWrapView Exception '
-                . $wrap_view . ' Message: ' . $e->getMessage());
-        }
     }
 }

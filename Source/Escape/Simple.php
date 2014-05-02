@@ -35,7 +35,7 @@ class Simple extends AbstractAdapter implements EscapeInterface
     /**
      * Data
      *
-     * @var    array
+     * @var    string
      * @since  1.0.0
      */
     protected $white_list = '<b><br><em><h1><h2><h3><h4><h5><h6><hr><i><img><li><ol><p><ul><strong>';
@@ -57,14 +57,14 @@ class Simple extends AbstractAdapter implements EscapeInterface
     /**
      * Simple Query Output prior to Rendering
      *
-     * @param   array $data
-     * @param   array $model_registry
+     * @param   array       $data
+     * @param   null|object $model_registry
      *
      * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), array $model_registry = array())
+    public function escape(array $data = array(), $model_registry = NULL)
     {
         $this->data = parent::escape($data, $model_registry);
 

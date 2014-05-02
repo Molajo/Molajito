@@ -21,16 +21,16 @@ use CommonApi\Render\EscapeInterface;
 abstract class AbstractAdapter implements EscapeInterface
 {
     /**
-     * Fieldhandler Query Output prior to Rendering
+     * Escape prior to Rendering
      *
-     * @param   array $data
-     * @param   array $model_registry
+     * @param   array       $data
+     * @param   null|object $model_registry
      *
      * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), array $model_registry = array())
+    public function escape(array $data = array(), $model_registry = NULL)
     {
         if (count($data) == 0) {
             return $data;

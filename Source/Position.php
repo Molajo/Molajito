@@ -192,7 +192,7 @@ class Position implements PositionInterface
             $data[]    = $row;
 
             try {
-                $escaped = $this->escape_instance->escape($data);
+                $escaped = $this->escape_instance->escape($data, NULL);
 
             } catch (Exception $e) {
                 throw new RuntimeException

@@ -72,16 +72,24 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->extension->title = ucfirst(strtolower($token->name));
 
         if ($render->scheme == 'Page') {
-            $render->extension->include_path = $this->getPageView(ucfirst(strtolower($token->name)));
+            $base = $this->view_base_folder;
+            $folder = '/Pages/';
+            $file = '/Index.phtml';
 
         } elseif ($render->scheme == 'Template') {
-            $render->extension->include_path = $this->getTemplateView(ucfirst(strtolower($token->name)));
+            $base = $this->view_base_folder;
+            $folder = '/Templates/';
+            $file = '';
 
         } elseif ($render->scheme == 'Wrap') {
-            $render->extension->include_path = $this->getWrapView(ucfirst(strtolower($token->name)));
+            $base = $this->view_base_folder;
+            $folder = '/Wraps/';
+            $file = '';
 
         } elseif ($render->scheme == 'Theme') {
-            $render->extension->include_path = $this->getTheme(ucfirst(strtolower($token->name)));
+            $base = $this->theme_base_folder;
+            $folder = '';
+            $file = '/Index.phtml';
 
         } else {
             throw new RuntimeException (
@@ -89,93 +97,21 @@ class Filesystem extends AbstractAdapter implements ViewInterface
             );
         }
 
+        $name = ucfirst(strtolower(trim($token->name)));
+
+        if ($file === '' && is_dir($base . $folder . $name . $file)) {
+
+        } elseif (is_file($base . $folder . $name . $file)) {
+
+        } else {
+            throw new RuntimeException(
+                'Molajito View Filesystem Adapter: getView Resource not found: '
+                . $base . $folder . $name . $file
+            );
+        }
+
+        $render->extension->include_path = $base . $folder . $name . $file;
+
         return $render;
-    }
-
-    /**
-     * Get Theme Resource Extension
-     *
-     * @param   string $theme
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getTheme($theme)
-    {
-        if (is_file($this->theme_base_folder . '/' . $theme . '/Index.phtml')) {
-            return $this->theme_base_folder . '/' . $theme . '/Index.phtml';
-        }
-
-        throw new RuntimeException (
-            'Molajito Filesystem View Adapter: getTheme Failed: '
-            . $theme . ' Not found at: ' . $this->theme_base_folder . '/' . $theme . '/Index.phtml'
-        );
-    }
-
-    /**
-     * Get Page View Resource
-     *
-     * @param   string $page_view
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getPageView($page_view)
-    {
-        if (is_file($this->view_base_folder . '/Pages/' . $page_view . '/Index.phtml')) {
-            return $this->view_base_folder . '/Pages/' . $page_view . '/Index.phtml';
-        }
-
-        throw new RuntimeException(
-            'Molajito Filesystem View Adapter: getPageView Failed: '
-            . $page_view . ' Not found at: ' . $this->view_base_folder
-            . '/Pages/' . $page_view . '/Index.phtml'
-        );
-    }
-
-    /**
-     * Get Template View Resource
-     *
-     * @param   string $template_view
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getTemplateView($template_view)
-    {
-        if (is_dir($this->view_base_folder . '/Templates/' . $template_view)) {
-            return $this->view_base_folder . '/Templates/' . $template_view;
-        }
-
-        throw new RuntimeException(
-            'Molajito Filesystem View Adapter: getTemplateView Failed: '
-            . $template_view . ' Not found at: ' . $this->view_base_folder
-            . '/Templates/' . $template_view
-        );
-    }
-
-    /**
-     * Get Wrap View Resource
-     *
-     * @param   string $wrap_view
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getWrapView($wrap_view)
-    {
-        if (is_dir($this->view_base_folder . '/Wraps/' . $wrap_view)) {
-            return $this->view_base_folder . '/Wraps/' . $wrap_view;
-        }
-
-        throw new RuntimeException(
-            'Molajito Filesystem View Adapter: getTemplateView Failed: '
-            . $wrap_view . ' Not found at: ' . $this->view_base_folder
-            . '/Wraps/' . $wrap_view
-        );
     }
 }
