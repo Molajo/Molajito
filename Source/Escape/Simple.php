@@ -67,17 +67,7 @@ class Simple implements EscapeInterface
      */
     public function escape(array $data = array(), array $model_registry = array())
     {
-        if (count($data) == 0) {
-            return $data;
-        }
-
-        $this->data = $data;
-
-        foreach ($this->data as $row) {
-            foreach ($row as $data_key => $data_value) {
-                $row->$data_key = $this->escapeDataElement($data_value);
-            }
-        }
+        $this->data = parent::escape($data, $model_registry);
 
         return $this->data;
     }

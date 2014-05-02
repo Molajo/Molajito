@@ -59,7 +59,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      *
      * @param   object $token
      *
-     * @return  $this
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -97,7 +97,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      *
      * @param   string $theme
      *
-     * @return  object
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -118,7 +118,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      *
      * @param   string $page_view
      *
-     * @return  object
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -140,7 +140,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      *
      * @param   string $template_view
      *
-     * @return  object
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -162,7 +162,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      *
      * @param   string $wrap_view
      *
-     * @return  object
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

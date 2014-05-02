@@ -8,13 +8,8 @@
  */
 namespace Molajo\Factories\Molajito;
 
-use Exception;
-use CommonApi\Exception\RuntimeException;
 use CommonApi\IoC\FactoryInterface;
 use CommonApi\IoC\FactoryBatchInterface;
-use CommonApi\Render\EscapeInterface;
-use CommonApi\Render\EventInterface;
-use CommonApi\Render\RenderInterface;
 use Molajo\IoC\FactoryMethodBase;
 use stdClass;
 
@@ -140,7 +135,6 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
             $wrap_view_id     = $this->dependencies['Runtimedata']->resource->parameters->wrap_view_id;
         }
 
-        $resource_extensions                                     = new stdClass();
         $this->dependencies['Runtimedata']->resource->extensions = new stdClass();
 
         /** Get Theme */

@@ -77,7 +77,14 @@ class Event implements EventInterface
     {
         try {
 
-            return $this->event_adapter->scheduleEvent($event_name, $options);
+            $event_options = $this->event_adapter->scheduleEvent($event_name, $options);
+
+            if (is_array($event_options)) {
+            } else {
+                $event_options = array();
+            }
+
+            return $event_options;
 
         } catch (Exception $e) {
             throw new RuntimeException

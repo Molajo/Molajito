@@ -31,6 +31,14 @@ abstract class AbstractAdapter implements DataInterface
     protected $pagination = null;
 
     /**
+     * Parameters
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $parameters = NULL;
+
+    /**
      * Class Constructor
      *
      * @param  PaginationInterface $pagination
@@ -54,4 +62,26 @@ abstract class AbstractAdapter implements DataInterface
      * @throws  \CommonApi\Exception\RuntimeException
      */
     abstract public function getData($token, array $options = array());
+
+
+    /**
+     * Set Parameters from Token Attributes
+     *
+     * @param   object $token
+     * @param   array  $parameters
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setParametersFromToken($token, $parameters)
+    {
+        if (count($token->attributes) > 0) {
+            foreach ($token->attributes as $key => $value) {
+                $parameters->$key = $value;
+            }
+        }
+
+        return $parameters;
+    }
 }

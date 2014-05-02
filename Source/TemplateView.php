@@ -397,14 +397,11 @@ class TemplateView implements RenderInterface
     {
         $event_results = $this->event_instance->scheduleEvent($event_name, $options);
 
-        if (count($event_results) > 0 && is_array($event_results)) {
-        } else {
-            return $this;
-        }
-
-        foreach ($event_results as $key => $value) {
-            if (in_array($key, $this->event_option_keys)) {
-                $this->$key = $value;
+        if (count($event_results) > 0) {
+            foreach ($event_results as $key => $value) {
+                if (in_array($key, $this->event_option_keys)) {
+                    $this->$key = $value;
+                }
             }
         }
 

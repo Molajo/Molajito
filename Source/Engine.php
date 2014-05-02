@@ -333,7 +333,7 @@ class Engine implements RenderInterface
      *
      * @param   array $data
      *
-     * @return  string
+     * @return  $this
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -584,23 +584,7 @@ class Engine implements RenderInterface
      */
     protected function renderPageView()
     {
-        $options = $this->setOptionValues();
-
-        try {
-            $this->rendered_view = $this->page_instance->render(
-                $this->include_path,
-                $options
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'Molajito Driver renderPageView Method Failed. '
-                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
-            );
-        }
-
-        return $this;
+        return $this->render_object('page_instance');
     }
 
     /**
@@ -612,23 +596,7 @@ class Engine implements RenderInterface
      */
     protected function renderTemplateView()
     {
-        $options = $this->setOptionValues();
-
-        try {
-            $this->rendered_view = $this->template_instance->render(
-                $this->include_path,
-                $options
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'Molajito Driver renderTemplateView Method Failed. '
-                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
-            );
-        }
-
-        return $this;
+        return $this->render_object('template_instance');
     }
 
     /**
@@ -663,8 +631,24 @@ class Engine implements RenderInterface
         $options['row'] = $row;
 
         /** Step 3. Render Wrap */
+        return $this->render_object('wrap_instance');
+    }
+
+    /**
+     * Render Object
+     *
+     * @param   string  $type
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function renderObject($type)
+    {
+        $options = $this->setOptionValues();
+
         try {
-            $this->rendered_view = $this->wrap_instance->render(
+            $this->rendered_view = $this->$type->render(
                 $this->include_path,
                 $options
             );
@@ -672,7 +656,7 @@ class Engine implements RenderInterface
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'Molajito Driver renderWrapView Method Failed. '
+                'Molajito Driver renderObject Method Failed. Type: ' . $type
                 . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
             );
         }
@@ -761,14 +745,11 @@ class Engine implements RenderInterface
     {
         $event_results = $this->event_instance->scheduleEvent($event_name, $options);
 
-        if (count($event_results) > 0 && is_array($event_results)) {
-        } else {
-            return $this;
-        }
-
-        foreach ($event_results as $key => $value) {
-            if (in_array($key, $this->event_option_keys)) {
-                $this->$key = $value;
+        if (count($event_results) > 0) {
+            foreach ($event_results as $key => $value) {
+                if (in_array($key, $this->event_option_keys)) {
+                    $this->$key = $value;
+                }
             }
         }
 

@@ -115,7 +115,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @param   object $token
      * @param   array  $options
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -340,7 +340,7 @@ class Molajo extends AbstractAdapter implements DataInterface
     /**
      * Set data for return
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -361,11 +361,7 @@ class Molajo extends AbstractAdapter implements DataInterface
         $this->parameters->model_name = $this->model_name;
         $this->parameters->field_name = $this->field_name;
 
-        if (count($this->token->attributes) > 0) {
-            foreach ($this->token->attributes as $key => $value) {
-                $this->parameters->$key = $value;
-            }
-        }
+        $this->parameters = $this->setParametersFromToken($this->token, $this->parameters);
 
         $data = new stdClass();
 

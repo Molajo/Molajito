@@ -187,7 +187,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   string $token
      * @param   string $translation
      *
-     * @return  $this
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

@@ -127,7 +127,7 @@ class Render implements RenderInterface
      *
      * @param   string $include_path
      *
-     * @return  $this
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

@@ -272,7 +272,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @param   object $token
      * @param   array  $options
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -386,7 +386,7 @@ class Blog extends AbstractAdapter implements DataInterface
     /**
      * Set data for return
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -406,11 +406,7 @@ class Blog extends AbstractAdapter implements DataInterface
         $this->parameters->model_type = $this->model_type;
         $this->parameters->model_name = $this->model_name;
 
-        if (count($this->token->attributes) > 0) {
-            foreach ($this->token->attributes as $key => $value) {
-                $this->parameters->$key = $value;
-            }
-        }
+        $this->parameters = $this->setParametersFromToken($this->token, $this->parameters);
 
         $data = new stdClass();
 
@@ -456,7 +452,7 @@ class Blog extends AbstractAdapter implements DataInterface
      * @param   string   $content
      * @param   stdClass $row
      *
-     * @return  $this
+     * @return  stdClass
      * @since   1.0
      */
     protected function getFields($content, $row)
@@ -511,7 +507,7 @@ class Blog extends AbstractAdapter implements DataInterface
     /**
      * Get Author
      *
-     * @return  array
+     * @return  $this
      * @since   1.0
      */
     protected function getAuthor()
@@ -874,7 +870,7 @@ class Blog extends AbstractAdapter implements DataInterface
     /**
      * Set Pagination Start
      *
-     * @return  $this
+     * @return  integer
      * @since   1.0
      */
     protected function setPaginationStart()
@@ -1069,7 +1065,7 @@ class Blog extends AbstractAdapter implements DataInterface
     /**
      * Set Breadcrumbs
      *
-     * @return  array
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -1301,7 +1297,7 @@ class Blog extends AbstractAdapter implements DataInterface
      *
      * @param   string $content
      *
-     * @return  $this
+     * @return  string
      * @since   1.0
      */
     protected function getReadMore($content)
@@ -1320,7 +1316,7 @@ class Blog extends AbstractAdapter implements DataInterface
      *
      * @param   string $content
      *
-     * @return  $this
+     * @return  string
      * @since   1.0
      */
     protected function getSnippet($content)

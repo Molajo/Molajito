@@ -48,7 +48,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
      *
      * @param   object $token
      *
-     * @return  $this
+     * @return  stdClass
      * @since   1.0
      */
     public function getView($token)
