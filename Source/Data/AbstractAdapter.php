@@ -70,7 +70,7 @@ abstract class AbstractAdapter implements DataInterface
      * @param   object $token
      * @param   array  $parameters
      *
-     * @return  array
+     * @return  object
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

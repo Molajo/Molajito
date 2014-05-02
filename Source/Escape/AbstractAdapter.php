@@ -37,15 +37,13 @@ abstract class AbstractAdapter implements EscapeInterface
             return $data;
         }
 
-        $this->data           = $data;
-
-        foreach ($this->data as $row) {
+        foreach ($data as $row) {
             foreach ($row as $data_key => $data_value) {
                 $row->$data_key = $this->escapeDataElement($data_key, $data_value);
             }
         }
 
-        return $this->data;
+        return $data;
     }
 
     /**

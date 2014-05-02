@@ -57,7 +57,7 @@ if (substr($page_url, - 1) === '/') {
  */
 $parameter_page     = '';
 $parameter_name     = '';
-$parameter_star     = '';
+$parameter_start    = '';
 $parameter_category = '';
 $parameter_tag      = '';
 

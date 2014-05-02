@@ -584,7 +584,7 @@ class Engine implements RenderInterface
      */
     protected function renderPageView()
     {
-        return $this->render_object('page_instance');
+        return $this->renderViewType('page_instance');
     }
 
     /**
@@ -596,7 +596,7 @@ class Engine implements RenderInterface
      */
     protected function renderTemplateView()
     {
-        return $this->render_object('template_instance');
+        return $this->renderViewType('template_instance');
     }
 
     /**
@@ -631,7 +631,7 @@ class Engine implements RenderInterface
         $options['row'] = $row;
 
         /** Step 3. Render Wrap */
-        return $this->render_object('wrap_instance');
+        return $this->renderViewType('wrap_instance');
     }
 
     /**
@@ -643,7 +643,7 @@ class Engine implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderObject($type)
+    protected function renderViewType($type)
     {
         $options = $this->setOptionValues();
 
