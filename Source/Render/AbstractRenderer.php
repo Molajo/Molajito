@@ -9,9 +9,9 @@
 namespace Molajito\Render;
 
 use CommonApi\Exception\RuntimeException;
+use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\RenderInterface;
-use CommonApi\Render\EscapeInterface;
 use Exception;
 
 /**
@@ -47,14 +47,6 @@ abstract class AbstractRenderer implements RenderInterface
      * @since  1.0.0
      */
     protected $event_instance = NULL;
-
-    /**
-     * Event option keys
-     *
-     * @var    array
-     * @since  1.0.0
-     */
-    protected $event_option_keys = array();
 
     /**
      * Path to Include File
@@ -142,56 +134,21 @@ abstract class AbstractRenderer implements RenderInterface
      * @param  EscapeInterface $escape_instance
      * @param  RenderInterface $render_instance
      * @param  EventInterface  $event_instance
-     * @param  array           $event_option_keys
      *
      * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance,
         RenderInterface $render_instance,
-        EventInterface $event_instance,
-        array $event_option_keys = array()
+        EventInterface $event_instance
     ) {
         $this->render_instance   = $render_instance;
         $this->event_instance    = $event_instance;
-        $this->event_option_keys = $event_option_keys;
         $this->escape_instance   = $escape_instance;
     }
 
     /**
-     * Render Page View
-     *
-     * @param   string $include_path
-     * @param   array  $data
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function render($include_path, array $data = array())
-    {
-        return $this->renderOutput($include_path, $data);
-    }
-
-    /**
-     * Get class properties for input data
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function getProperties()
-    {
-        $data = array();
-
-        foreach ($this->property_array as $key) {
-            $data[$key] = $this->$key;
-        }
-
-        return $data;
-    }
-
-    /**
-     * Set class properties for input data
+     * Set Theme/View Class Properties
      *
      * @param   array $data
      * @param   array $properties
@@ -213,44 +170,78 @@ abstract class AbstractRenderer implements RenderInterface
     }
 
     /**
-     * Initialise Options Array for Event
+     * Get Theme/View Class Properties for array sent into Render Class
      *
      * @return  array
      * @since   1.0
      */
-    protected function initializeEventOptions()
+    protected function getProperties()
     {
-        $options = array();
+        $data = array();
 
-        foreach ($this->event_option_keys as $key) {
-            $options[$key] = NULL;
+        foreach ($this->property_array as $key) {
+            $data[$key] = $this->$key;
         }
 
-        return $options;
+        return $data;
     }
 
     /**
-     * Schedule the Render Event
+     * Send Theme/View data into Event and retrieve data from Event for Theme/View
      *
      * @param   string $event_name
      * @param   array  $options
      *
-     * @return  $this
+     * @return  array
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function scheduleEvent($event_name, $options)
+    public function scheduleEvent($event_name, array $options = array())
     {
-        $event_results = $this->event_instance->scheduleEvent($event_name, $options);
+        $event_options = $this->event_instance->initializeEventOptions();
 
-        if (count($event_results) > 0) {
-            foreach ($event_results as $key => $value) {
-                if (in_array($key, $this->event_option_keys)) {
-                    $this->$key = $value;
-                }
+        foreach ($event_options as $key) {
+
+            if (isset($options[$key])) {
+                $event_options[$key] = $options[$key];
+
+            } elseif (isset($this->$key)) {
+                $event_options[$key] = $this->$key;
             }
         }
 
-        return $this;
+        try {
+            $event_results = $this->event_adapter->scheduleEvent($event_name, $event_options);
+
+            if (is_array($event_results) && count($event_results) > 0) {
+                foreach ($event_results as $key => $value) {
+                    if (isset($this->$key)) {
+                        $this->$key = $value;
+                    }
+                }
+            }
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'Molajito Driver scheduleEvent Method Failed: ' . $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * Render Page View
+     *
+     * @param   string $include_path
+     * @param   array  $data
+     *
+     * @return  string
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function render($include_path, array $data = array())
+    {
+        return $this->renderOutput($include_path, $data);
     }
 
     /**

@@ -57,14 +57,14 @@ class Simple extends AbstractAdapter implements EscapeInterface
     /**
      * Simple Query Output prior to Rendering
      *
-     * @param   array       $data
-     * @param   null|object $model_registry
+     * @param   array  $data
+     * @param   array  $model_registry
      *
      * @return  array
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), $model_registry = NULL)
+    public function escape(array $data = array(), array $model_registry = array())
     {
         $this->data = parent::escape($data, $model_registry);
 

@@ -1075,7 +1075,7 @@ class Blog extends AbstractAdapter implements DataInterface
     /**
      * Set Breadcrumbs
      *
-     * @return  stdClass
+     * @return  stdClass[]
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -1131,7 +1131,7 @@ class Blog extends AbstractAdapter implements DataInterface
     /**
      * Set Previous, Current and Next URL Links
      *
-     * @param   array $blog_breadcrumbs
+     * @param   stdClass[] $blog_breadcrumbs
      *
      * @return  $this
      * @since   1.0

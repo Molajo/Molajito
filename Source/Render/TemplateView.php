@@ -84,7 +84,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
     /**
      * Render Template Views Loop
      *
-     * @return  string
+     * @return  $this
      * @since   1.0
      */
     public function renderLoop()

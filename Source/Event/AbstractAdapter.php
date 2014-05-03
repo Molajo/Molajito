@@ -58,6 +58,7 @@ abstract class AbstractAdapter implements EventInterface
         array $event_option_keys = array()
     ) {
         $this->event_callback = $event_callback;
+
         if (count($event_option_keys) > 0) {
             $this->event_option_keys = $event_option_keys;
         }

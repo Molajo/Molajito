@@ -482,7 +482,8 @@ class FactoryMethod
      */
     protected function getThemeInstance(EscapeInterface $escape_instance, RenderInterface $render_instance)
     {
-        return $this->getRenderViewInstance('Molajito\\Render\\Theme', $escape_instance, $render_instance, NULL, NULL);
+        return $this->getRenderViewInstance('Molajito\\Render\\Theme',
+            $escape_instance, $render_instance, NULL, array());
     }
 
     /**
@@ -496,7 +497,8 @@ class FactoryMethod
      */
     protected function getPageInstance(RenderInterface $render_instance)
     {
-        return $this->getRenderViewInstance('Molajito\\Render\\PageView', NULL, $render_instance, NULL, NULL);
+        return $this->getRenderViewInstance('Molajito\\Render\\PageView',
+            NULL, $render_instance, NULL, array());
     }
 
     /**
@@ -532,17 +534,18 @@ class FactoryMethod
      */
     protected function getWrapInstance(RenderInterface $render_instance)
     {
-        return $this->getRenderViewInstance('Molajito\\Render\\WrapView', NULL, $render_instance, NULL, NULL);
+        return $this->getRenderViewInstance('Molajito\\Render\\WrapView',
+            NULL, $render_instance, NULL, array());
     }
 
     /**
      * Instantiate Template View Renderer Class
      *
-     * @param   string          $class
-     * @param   EscapeInterface $escape_instance
-     * @param   RenderInterface $render_instance
-     * @param   EventInterface  $event_instance
-     * @param   array           $event_option_keys
+     * @param   string               $class
+     * @param   null|EscapeInterface $escape_instance
+     * @param   RenderInterface      $render_instance
+     * @param   null|EventInterface  $event_instance
+     * @param   array                $event_option_keys
      *
      * @return  object
      * @since   1.0
@@ -550,9 +553,9 @@ class FactoryMethod
      */
     protected function getRenderViewInstance(
         $class,
-        EscapeInterface $escape_instance,
+        EscapeInterface $escape_instance = NULL,
         RenderInterface $render_instance,
-        EventInterface $event_instance,
+        EventInterface $event_instance = NULL,
         array $event_option_keys = array()
     ) {
         try {
