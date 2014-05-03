@@ -211,7 +211,7 @@ abstract class AbstractRenderer implements RenderInterface
         }
 
         try {
-            $event_results = $this->event_adapter->scheduleEvent($event_name, $event_options);
+            $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
 
             if (is_array($event_results) && count($event_results) > 0) {
                 foreach ($event_results as $key => $value) {

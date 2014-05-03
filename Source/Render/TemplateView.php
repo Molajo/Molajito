@@ -52,9 +52,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
 
         $this->include_path = $include_path;
 
-        $render_array = array_unique(array_merge($this->render_array, $this->event_option_keys));
-
-        $this->setProperties($data, $render_array);
+        $this->setProperties($data, $this->render_array);
 
         if (file_exists($this->include_path . '/Custom.phtml')) {
             $this->renderViewCustom();
@@ -165,7 +163,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             $file_path = $file;
 
         } else {
-            $this->executeRenderEvent($event);
+            $this->scheduleEvent($event);
             $file_path = $this->include_path . $file;
         }
 
@@ -194,29 +192,6 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             ('Molajito TemplateView renderTemplateViewOutput: '
                 . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
         }
-
-        return $this;
-    }
-
-    /**
-     * Execute Event
-     *
-     * @param   string $event
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function executeRenderEvent($event)
-    {
-        $options                   = $this->initializeEventOptions();
-        $options['parameters']     = $this->parameters;
-        $options['model_registry'] = $this->model_registry;
-        $options['row']            = $this->row;
-        $options['rendered_view']  = $this->rendered_view;
-        $options['rendered_page']  = $this->rendered_page;
-
-        $this->scheduleEvent($event, $options);
 
         return $this;
     }

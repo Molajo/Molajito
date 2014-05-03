@@ -248,7 +248,6 @@ class Token extends AbstractRenderer implements RenderInterface
         $this->query_results  = array();
         $this->rendered_view  = NULL;
         $this->rendered_page  = NULL;
-        $this->tokens         = array();
         $this->include_path   = NULL;
 
         return $this;
@@ -400,7 +399,7 @@ class Token extends AbstractRenderer implements RenderInterface
      */
     protected function renderViewType($type)
     {
-        $options = $this->setOptionValues();
+        $options = $this->getProperties();
 
         try {
             $this->rendered_view = $this->$type->render(
@@ -444,7 +443,7 @@ class Token extends AbstractRenderer implements RenderInterface
         $this->include_path = $this->runtime_data->render->extension->include_path;
 
         /** Step 2. Data */
-        $options        = $this->setOptionValues();
+        $options        = $this->getProperties();
         $row            = new stdClass();
         $row->title     = '';
         $row->subtitle  = '';
