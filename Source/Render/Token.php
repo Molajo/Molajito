@@ -259,7 +259,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @param   object $token
      * @param   string $rendered_page
      *
-     * @return  $this
+     * @return  string
      * @since   1.0
      */
     protected function renderToken($token, $rendered_page)
