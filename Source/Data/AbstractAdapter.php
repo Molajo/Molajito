@@ -62,7 +62,6 @@ abstract class AbstractAdapter implements DataInterface
      */
     abstract public function getData($token, array $options = array());
 
-
     /**
      * Set Parameters from Token Attributes
      *

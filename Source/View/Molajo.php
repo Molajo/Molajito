@@ -8,9 +8,9 @@
  */
 namespace Molajito\View;
 
-use Exception;
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\ViewInterface;
+use Exception;
 use stdClass;
 
 /**
@@ -59,20 +59,10 @@ class Molajo extends AbstractAdapter implements ViewInterface
         $scheme         = ucfirst(strtolower($token->type));
         $render->scheme = strtolower($scheme);
 
-        if ($scheme == 'Page') {
-            $protocol_location = 'Page:///Molajo//Views//Pages//';
-
-        } elseif ($scheme == 'Template') {
-            $protocol_location = 'Template:///Molajo//Views//Templates//';
-
-        } elseif ($scheme == 'Wrap') {
-            $protocol_location = 'Wrap:///Molajo//Views//Wraps//';
-
-        } elseif ($scheme == 'Theme') {
+        if ($scheme === 'Theme') {
             $protocol_location = 'Theme:///Molajo//Themes//';
-
         } else {
-            throw new RuntimeException ('Molajo View Adapter: getExtension Invalid Scheme: ' . $scheme);
+            $protocol_location = $scheme . ':///Molajo//Views//' . $scheme . 's//';
         }
 
         try {

@@ -8,6 +8,7 @@
  */
 namespace Molajito\View;
 
+use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\ViewInterface;
 use stdClass;
 
@@ -70,24 +71,19 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->extension        = new stdClass();
         $render->extension->title = ucfirst(strtolower($token->name));
 
-        if ($render->scheme === 'Page') {
-            $base = $this->view_base_folder;
-            $folder = '/Pages/';
-            $file = '/Index.phtml';
-
-        } elseif ($render->scheme === 'Wrap') {
-            $base = $this->view_base_folder;
-            $folder = '/Wraps/';
-            $file = '';
-
-        } elseif ($render->scheme === 'Theme') {
+        if ($render->scheme === 'Theme') {
             $base = $this->theme_base_folder;
             $folder = '';
             $file = '/Index.phtml';
 
+        } elseif ($render->scheme === 'Page') {
+            $base = $this->view_base_folder;
+            $folder = '/' . $render->scheme . 's/';
+            $file = '/Index.phtml';
+
         } else {
             $base = $this->view_base_folder;
-            $folder = '/Templates/';
+            $folder = '/' . $render->scheme . 's/';
             $file = '';
         }
 

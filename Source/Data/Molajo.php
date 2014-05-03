@@ -104,7 +104,6 @@ class Molajo extends AbstractAdapter implements DataInterface
     public function __construct(
         PaginationInterface $pagination = NULL
     ) {
-
         $this->pagination = $pagination;
     }
 

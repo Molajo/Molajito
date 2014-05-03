@@ -32,8 +32,8 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      */
     public function __construct(array $options = array())
     {
-        $options['product_name']             = basename(__DIR__);
-        $options['product_namespace']        = 'Molajito\\Engine';
+        $options['product_name']      = basename(__DIR__);
+        $options['product_namespace'] = 'Molajito\\Engine';
 
         parent::__construct($options);
     }
@@ -47,7 +47,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @return  array
      * @since   1.0
      */
-    public function setDependencies(array $reflection = null)
+    public function setDependencies(array $reflection = NULL)
     {
         $this->reflection   = array();
         $this->dependencies = array();
@@ -71,7 +71,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      */
     public function instantiateClass()
     {
-        $options                         = array();
+        $options = array();
 
         foreach ($this->dependencies as $key => $value) {
             $options[$key] = $value;
@@ -82,12 +82,10 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $options['data_class']           = 'molajo';
         $options['data_options']         = array();
         $options['view_class']           = 'molajo';
-
         $class                           = 'Molajito\\FactoryMethod';
         $factory                         = new $class($options);
         $this->product_result            = $factory->instantiateClass();
-
-        $this->options['view_instance'] = $factory->getSavedViewInstance();
+        $this->options['view_instance']  = $factory->getSavedViewInstance();
 
         return $this;
     }
