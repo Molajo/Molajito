@@ -171,12 +171,12 @@ class FactoryMethod
             && file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/Fieldhandler/Source/Driver.php')
         ) {
             $fieldhandler = $this->getInstance('Molajo\\Fieldhandler\\Driver');
-            $adapter      = $this->getInstanceProperty('Molajito\\Escape\\Molajo', $fieldhandler);
+            $adapter      = $this->getInstance('Molajito\\Escape\\Molajo', $fieldhandler);
         } else {
             $adapter = $this->getInstance('Molajito\\Escape\\Simple');
         }
 
-        return $this->getInstanceProperty('Molajito\\Escape', $adapter);
+        return $this->getInstance('Molajito\\Escape', $adapter);
     }
 
     /**
@@ -200,9 +200,9 @@ class FactoryMethod
             $class = $this->options['data_class'];
         }
 
-        $adapter = $this->getInstanceProperty('Molajito\\Data\\' . ucfirst(strtolower($class)), $pagination);
+        $adapter = $this->getInstance('Molajito\\Data\\' . ucfirst(strtolower($class)), $pagination);
 
-        return $this->getInstanceProperty('Molajito\\Data', $adapter);
+        return $this->getInstance('Molajito\\Data', $adapter);
     }
 
     /**
@@ -221,19 +221,19 @@ class FactoryMethod
         }
 
         if (strtolower($class) === 'filesystem') {
-            $adapter = $this->getInstanceProperty(
+            $adapter = $this->getInstance(
                 'Molajito\\View\\Filesystem',
                 $this->options['theme_base_folder'],
                 $this->options['view_base_folder']
             );
         } else {
-            $adapter = $this->getInstanceProperty(
+            $adapter = $this->getInstance(
                 'Molajito\\View\\' . ucfirst(strtolower($class)),
                 $this->options['Resource']
             );
         }
 
-        $this->options['view_instance'] = $this->getInstanceProperty('Molajito\\View', $adapter);
+        $this->options['view_instance'] = $this->getInstance('Molajito\\View', $adapter);
 
         return $this->options['view_instance'];
     }
@@ -252,13 +252,13 @@ class FactoryMethod
             $class = 'Molajito\\Event\\Molajo';
         }
 
-        $adapter = $this->getInstanceProperty(
+        $adapter = $this->getInstance(
             $class,
             $this->options['Eventcallback'],
             $this->options['event_option_keys']
         );
 
-        return $this->getInstanceProperty('Molajito\\Event', $adapter);
+        return $this->getInstance('Molajito\\Event', $adapter);
     }
 
     /**
@@ -320,43 +320,21 @@ class FactoryMethod
             );
         }
 
-        return $this->getInstanceProperty('Molajito\\Translate', $adapter);
-    }
-
-    /**
-     * Get Instance of Class with no Constructor Parameters
-     *
-     * @param   string $class
-     *
-     * @return  object
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getInstance($class)
-    {
-        try {
-            return new $class ();
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'MolajitoFactoryMethod getInstance: Could not instantiate class: ' . $class
-            );
-        }
+        return $this->getInstance('Molajito\\Translate', $adapter);
     }
 
     /**
      * Get Instance of Class with no Constructor Parameters
      *
      * @param   string      $class
-     * @param   object      $property1
+     * @param   null|object $property1
      * @param   null|object $property2
      *
      * @return  object
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getInstanceProperty($class, $property1, $property2 = NULL)
+    protected function getInstance($class, $property1 = NULL, $property2 = NULL)
     {
         try {
             if ($property2 === NULL) {
@@ -368,7 +346,7 @@ class FactoryMethod
         } catch (Exception $e) {
             throw new RuntimeException
             (
-                'MolajitoFactoryMethod getInstanceProperty: Could not instantiate class: ' . $class
+                'MolajitoFactoryMethod getInstance: Could not instantiate class: ' . $class
             );
         }
     }

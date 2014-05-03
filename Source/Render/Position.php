@@ -56,17 +56,17 @@ class Position implements PositionInterface
      */
     public function getPositionTemplateViews($position_name, $resource_extension)
     {
-        $templates = $this->getPositionTemplates('page', $position_name, $resource_extension);
+        $result = $this->getPositionTemplates('page', $position_name, $resource_extension);
 
-        if (is_array($templates) && count($templates) > 0) {
-        } else {
-            $templates = $this->getPositionTemplates('theme', $position_name, $resource_extension);
+        if ($result === false) {
+            $result = $this->getPositionTemplates('theme', $position_name, $resource_extension);
         }
 
-        if (is_array($templates) && count($templates) > 0) {
-        } else {
+        if ($result === false) {
             $templates   = array();
             $templates[] = $position_name;
+        } else {
+            $templates = $result;
         }
 
         return $this->createIncludeStatements($templates);
@@ -79,7 +79,7 @@ class Position implements PositionInterface
      * @param   string $position_name
      * @param   object $resource_extension
      *
-     * @return  string
+     * @return  boolean|array
      * @since   1.0
      */
     protected function getPositionTemplates($type, $position_name, $resource_extension)
@@ -94,17 +94,17 @@ class Position implements PositionInterface
             $positions = $resource_extension->$type->parameters->positions;
         }
 
-        if ($positions === NULL || trim($positions) == '') {
-            return '';
+        if ($positions === NULL || trim($positions) === '') {
+            return false;
         }
 
         $positions = $this->buildPositionArray($positions);
 
-        if (is_array($positions) && count($positions) > 0) {
+        if (count($positions) > 0) {
             return $this->searchPositionArray($position_name, $positions);
         }
 
-        return '';
+        return false;
     }
 
     /**
@@ -152,7 +152,7 @@ class Position implements PositionInterface
      * @param   string $position_name
      * @param   array  $positions
      *
-     * @return  array
+     * @return  boolean|array
      * @since   1.0
      */
     protected function searchPositionArray($position_name, array $positions = array())
@@ -163,7 +163,7 @@ class Position implements PositionInterface
             return $positions[$position_name];
         }
 
-        return array();
+        return false;
     }
 
     /**
@@ -171,8 +171,8 @@ class Position implements PositionInterface
      *
      * @param   array $templates
      *
-     * @return string
-     * @throws \CommonApi\Exception\RuntimeException
+     * @return  string
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function createIncludeStatements(array $templates = array())
     {
