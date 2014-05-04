@@ -173,6 +173,31 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function setModel()
     {
+        $this->setModelType();
+        $this->setModelName();
+
+        if (trim($this->model_type) === '' && trim($this->model_name) === '') {
+            $name = strtolower($this->token->name);
+            if (isset($this->plugin_data->$name)) {
+                $this->model_type = 'plugin_data';
+                $this->model_name = $name;
+            }
+        }
+
+        $this->setFieldName();
+
+        return $this;
+    }
+
+    /**
+     * Set Model Type
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setModelType()
+    {
         if (isset($this->token->attributes['model_type'])) {
             $this->model_type = $this->token->attributes['model_type'];
 
@@ -185,44 +210,56 @@ class Molajo extends AbstractAdapter implements DataInterface
 
         $this->model_type = strtolower($this->model_type);
 
-        if (isset($this->token->attributes['model_name'])) {
+        return $this;
+    }
 
+    /**
+     * Set Model Name
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setModelName()
+    {
+        if (isset($this->token->attributes['model_name'])) {
             $name = strtolower($this->token->attributes['model_name']);
 
             if ($this->model_type == 'runtime_data'
-                && isset($this->runtime_data->$name)
-            ) {
+                && isset($this->runtime_data->$name)) {
                 $this->model_name = $name;
 
             } elseif (isset($this->plugin_data->$name)) {
-
                 $this->model_type = 'plugin_data';
                 $this->model_name = $name;
             }
         }
 
-        if (trim($this->model_name) == ''
+        if (trim($this->model_name) === ''
             && isset($this->runtime_data->render->extension->parameters->model_name)
         ) {
             $this->model_name = $this->runtime_data->render->extension->parameters->model_name;
         }
 
-        if (trim($this->model_type) == '' && trim($this->model_name) == '') {
-            $name = strtolower($this->token->name);
-            if (isset($this->plugin_data->$name)) {
-                $this->model_type = 'plugin_data';
-                $this->model_name = $name;
-            }
-        }
-
         $this->model_name = strtolower($this->model_name);
 
+        return $this;
+    }
+
+    /**
+     * Set Field Name
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setFieldName()
+    {
         if (isset($this->token->attributes['field_name'])) {
             $this->field_name = $this->token->attributes['field_name'];
         }
 
         $this->field_name = strtolower($this->field_name);
-
 
         return $this;
     }
@@ -296,7 +333,7 @@ class Molajo extends AbstractAdapter implements DataInterface
                 $this->query_results = $this->plugin_data->$name;
             }
 
-            if ($this->field_name == '') {
+            if ($this->field_name === '') {
 
             } elseif (isset($this->query_results[$this->field_name])) {
                 $x                     = $this->query_results[$this->field_name];

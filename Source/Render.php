@@ -111,11 +111,9 @@ class Render implements RenderInterface
      */
     protected function setProperties(array $data = array())
     {
-        foreach ($this->property_array as $key) {
-            if (isset($data[$key])) {
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->property_array)) {
                 $this->$key = $data[$key];
-            } else {
-                $this->$key = NULL;
             }
         }
 

@@ -64,7 +64,7 @@ class Parse implements ParseInterface
         $this->rendered_page  = $rendered_page;
         $this->exclude_tokens = $exclude_tokens;
 
-        if ($parse_mask === NULL || trim($parse_mask) == '') {
+        if ($parse_mask === NULL || trim($parse_mask) === '') {
         } else {
             $this->parse_mask = $parse_mask;
         }
@@ -132,7 +132,7 @@ class Parse implements ParseInterface
 
         if (count($pieces) > 0) {
             foreach ($pieces as $piece) {
-                if (trim($piece) == '') {
+                if (trim($piece) === '') {
                 } else {
                     $token_elements[] = $piece;
                 }

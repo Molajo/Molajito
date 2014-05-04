@@ -82,7 +82,7 @@ abstract class AbstractAdapter implements TranslateInterface
     ) {
         $this->escape_instance = $escape_instance;
 
-        if ($translate_mask === NULL || trim($translate_mask) == '') {
+        if ($translate_mask === NULL || trim($translate_mask) === '') {
         } else {
             $this->translate_mask = $translate_mask;
         }
@@ -117,7 +117,7 @@ abstract class AbstractAdapter implements TranslateInterface
             $token  = $tokens_to_translate[0][$i];
             $string = $tokens_to_translate[1][$i];
 
-            if (trim($string) == '') {
+            if (trim($string) === '') {
                 $filtered = '';
             } else {
                 $translation = $this->translateToken($string);

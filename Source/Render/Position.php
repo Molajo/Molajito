@@ -62,11 +62,11 @@ class Position implements PositionInterface
             $result = $this->getPositionTemplates('theme', $position_name, $resource_extension);
         }
 
-        if ($result === FALSE) {
+        if (is_array($result)) {
+            $templates = $result;
+        } else {
             $templates   = array();
             $templates[] = $position_name;
-        } else {
-            $templates = $result;
         }
 
         return $this->createIncludeStatements($templates);
@@ -88,12 +88,12 @@ class Position implements PositionInterface
 
         if (isset($resource_extension->$type->parameters->positions)) {
             $positions = $resource_extension->$type->parameters->positions;
-            
+
         } elseif (isset($resource_extension->$type->menuitem->parameters->positions)) {
             $positions = $resource_extension->$type->menuitem->parameters->positions;
         }
 
-        if ($positions === NULL || trim($positions) === '') {
+        if ($positions === NULL || trim($positions) ==== '') {
             return FALSE;
         }
 
@@ -172,7 +172,7 @@ class Position implements PositionInterface
 
         foreach ($templates as $template) {
 
-            if ($rendered_page == '') {
+            if ($rendered_page === '') {
             } else {
                 $rendered_page .= PHP_EOL;
             }

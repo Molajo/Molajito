@@ -295,7 +295,7 @@ class Token extends AbstractRenderer implements RenderInterface
 
             $this->renderTemplateView();
 
-            if ($token->wrap == '') {
+            if ($token->wrap === '') {
 
             } else {
                 $this->renderWrapView($token);
