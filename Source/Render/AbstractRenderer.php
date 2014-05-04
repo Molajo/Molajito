@@ -213,11 +213,9 @@ abstract class AbstractRenderer implements RenderInterface
         try {
             $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
 
-            if (is_array($event_results) && count($event_results) > 0) {
-                foreach ($event_results as $key => $value) {
-                    if (isset($this->$key)) {
-                        $this->$key = $value;
-                    }
+            foreach ($event_results as $key => $value) {
+                if (in_array($key, $this->property_array)) {
+                    $this->$key = $value;
                 }
             }
 
