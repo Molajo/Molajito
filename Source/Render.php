@@ -73,7 +73,7 @@ class Render implements RenderInterface
     /**
      * Allowed Properties
      *
-     * @var    object
+     * @var    array
      * @since  1.0.0
      */
     protected $property_array = array(

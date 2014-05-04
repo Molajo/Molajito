@@ -222,26 +222,26 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function setModelName()
     {
+        $this->model_name = '';
+
         if (isset($this->token->attributes['model_name'])) {
+
             $name = strtolower($this->token->attributes['model_name']);
 
-            if ($this->model_type == 'runtime_data'
-                && isset($this->runtime_data->$name)) {
+            if ($this->model_type == 'runtime_data' && isset($this->runtime_data->$name)) {
                 $this->model_name = $name;
+                return $this;
 
             } elseif (isset($this->plugin_data->$name)) {
                 $this->model_type = 'plugin_data';
                 $this->model_name = $name;
+                return $this;
             }
         }
 
-        if (trim($this->model_name) === ''
-            && isset($this->runtime_data->render->extension->parameters->model_name)
-        ) {
-            $this->model_name = $this->runtime_data->render->extension->parameters->model_name;
+        if (isset($this->runtime_data->render->extension->parameters->model_name)) {
+            $this->model_name = strtolower($this->runtime_data->render->extension->parameters->model_name);
         }
-
-        $this->model_name = strtolower($this->model_name);
 
         return $this;
     }
