@@ -36,15 +36,7 @@ class Molajo extends AbstractAdapter implements EventInterface
     {
         $schedule_event = $this->event_callback;
 
-        $temp = array();
-
-        foreach ($this->event_option_keys as $key) {
-            if (isset($options[$key])) {
-                $temp[$key] = $options[$key];
-            } else {
-                $temp[$key] = NULL;
-            }
-        }
+        $temp = $this->setEventOptions($options);
 
         try {
             return $schedule_event($event_name, $temp);
@@ -55,5 +47,26 @@ class Molajo extends AbstractAdapter implements EventInterface
                 'Molajito Event scheduleEvent Failure: ' . $e->getMessage()
             );
         }
+    }
+    /**
+     * Set Event Options
+     *
+     * @param   array  $options
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function setEventOptions(array $options = array())
+    {
+        $temp = array();
+
+        foreach ($this->event_option_keys as $key) {
+            if (isset($options[$key])) {
+                $temp[$key] = $options[$key];
+            }
+        }
+
+        return $temp;
     }
 }

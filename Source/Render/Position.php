@@ -93,7 +93,7 @@ class Position implements PositionInterface
             $positions = $resource_extension->$type->menuitem->parameters->positions;
         }
 
-        if ($positions === NULL || trim($positions) ==== '') {
+        if ($positions === NULL || trim($positions) === '') {
             return FALSE;
         }
 

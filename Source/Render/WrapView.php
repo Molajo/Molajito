@@ -45,7 +45,7 @@ class WrapView extends AbstractRenderer implements RenderInterface
     {
         $this->include_path = $include_path;
 
-        $this->setProperties($data);
+        $this->setProperties($data, $this->property_array);
 
         $this->rendered_view = '';
 

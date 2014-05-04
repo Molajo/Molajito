@@ -161,8 +161,6 @@ abstract class AbstractRenderer implements RenderInterface
         foreach ($properties as $key) {
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
-            } else {
-                $this->$key = NULL;
             }
         }
 

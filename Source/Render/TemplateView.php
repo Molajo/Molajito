@@ -28,7 +28,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $render_array = array(
+    protected $property_array = array(
         'plugin_data',
         'runtime_data',
         'model_registry',
@@ -52,7 +52,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
 
         $this->include_path = $include_path;
 
-        $this->setProperties($data, $this->render_array);
+        $this->setProperties($data, $this->property_array);
 
         if (file_exists($this->include_path . '/Custom.phtml')) {
             $this->renderViewCustom();
