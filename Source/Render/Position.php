@@ -58,11 +58,11 @@ class Position implements PositionInterface
     {
         $result = $this->getPositionTemplates('page', $position_name, $resource_extension);
 
-        if ($result === false) {
+        if ($result === FALSE) {
             $result = $this->getPositionTemplates('theme', $position_name, $resource_extension);
         }
 
-        if ($result === false) {
+        if ($result === FALSE) {
             $templates   = array();
             $templates[] = $position_name;
         } else {
@@ -86,16 +86,15 @@ class Position implements PositionInterface
     {
         $positions = '';
 
-        if (isset($resource_extension->$type->menuitem->parameters->positions)) {
+        if (isset($resource_extension->$type->parameters->positions)) {
+            $positions = $resource_extension->$type->parameters->positions;
+            
+        } elseif (isset($resource_extension->$type->menuitem->parameters->positions)) {
             $positions = $resource_extension->$type->menuitem->parameters->positions;
         }
 
-        if (isset($resource_extension->$type->parameters->positions)) {
-            $positions = $resource_extension->$type->parameters->positions;
-        }
-
         if ($positions === NULL || trim($positions) === '') {
-            return false;
+            return FALSE;
         }
 
         $positions = $this->buildPositionArray($positions);
@@ -104,7 +103,7 @@ class Position implements PositionInterface
             return $this->searchPositionArray($position_name, $positions);
         }
 
-        return false;
+        return FALSE;
     }
 
     /**
@@ -119,7 +118,7 @@ class Position implements PositionInterface
     {
         $temp = explode('{{', $positions);
 
-        if (is_array($temp) && count($temp) > 0) {
+        if (count($temp) > 0) {
         } else {
             return array();
         }
@@ -128,18 +127,11 @@ class Position implements PositionInterface
 
         foreach ($temp as $field) {
 
-            if (trim($field) == '') {
-            } else {
+            $remove_brackets = substr(trim($field), 0, strlen($field) - 2);
+            $position_template_array = explode('=', $remove_brackets);
 
-                $new_field = substr(trim($field), 0, strlen($field) - 2);
-                $temp2     = explode('=', $new_field);
-
-                if (is_array($temp2) && count($temp2) == 2) {
-                    $templates = explode(',', $temp2[1]);
-                    if (is_array($templates) && count($templates) > 0) {
-                        $positions_array[strtolower($temp2[0])] = $templates;
-                    }
-                }
+            if (count($position_template_array) === 2) {
+                $positions_array[strtolower($position_template_array[0])] = explode(',', $position_template_array[1]);
             }
         }
 
@@ -163,7 +155,7 @@ class Position implements PositionInterface
             return $positions[$position_name];
         }
 
-        return false;
+        return FALSE;
     }
 
     /**
