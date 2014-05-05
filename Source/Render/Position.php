@@ -30,7 +30,7 @@ class Position implements PositionInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = NULL;
+    protected $escape_instance = null;
 
     /**
      * Constructor
@@ -58,7 +58,7 @@ class Position implements PositionInterface
     {
         $result = $this->getPositionTemplates('page', $position_name, $resource_extension);
 
-        if ($result === FALSE) {
+        if ($result === false) {
             $result = $this->getPositionTemplates('theme', $position_name, $resource_extension);
         }
 
@@ -93,8 +93,8 @@ class Position implements PositionInterface
             $positions = $resource_extension->$type->menuitem->parameters->positions;
         }
 
-        if ($positions === NULL || trim($positions) === '') {
-            return FALSE;
+        if ($positions === null || trim($positions) === '') {
+            return false;
         }
 
         $positions = $this->buildPositionArray($positions);
@@ -103,7 +103,7 @@ class Position implements PositionInterface
             return $this->searchPositionArray($position_name, $positions);
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -127,7 +127,7 @@ class Position implements PositionInterface
 
         foreach ($temp as $field) {
 
-            $remove_brackets = substr(trim($field), 0, strlen($field) - 2);
+            $remove_brackets         = substr(trim($field), 0, strlen($field) - 2);
             $position_template_array = explode('=', $remove_brackets);
 
             if (count($position_template_array) === 2) {
@@ -155,7 +155,7 @@ class Position implements PositionInterface
             return $positions[$position_name];
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -172,31 +172,45 @@ class Position implements PositionInterface
 
         foreach ($templates as $template) {
 
+            $template_name = $this->escapeTemplateName($template);
+
             if ($rendered_page === '') {
             } else {
                 $rendered_page .= PHP_EOL;
             }
 
-            /** Escape Template Names */
-            $row       = new stdClass();
-            $row->name = $template;
-            $data      = array();
-            $data[]    = $row;
-
-            try {
-                $escaped = $this->escape_instance->escape($data, NULL);
-
-            } catch (Exception $e) {
-                throw new RuntimeException
-                ('Molajito Position createIncludeStatements method failed: ' . $e->getMessage());
-            }
-
-            $template = $escaped[0]->name;
-
-            /** Create Rendered Output */
-            $rendered_page .= '{I template=' . ucfirst(strtolower(trim($template))) . ' I} ';
+            $rendered_page .= '{I template=' . ucfirst(strtolower(trim($template_name))) . ' I} ';
         }
 
         return $rendered_page;
+    }
+
+    /**
+     * Create Include Statements for Position Templates
+     *
+     * @param   string $template_name
+     *
+     * @return  string
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function escapeTemplateName($template_name)
+    {
+
+        $row       = new stdClass();
+        $row->name = $template_name;
+        $data      = array();
+        $data[]    = $row;
+
+        try {
+            $escaped = $this->escape_instance->escape($data, null);
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'Molajito Position createIncludeStatements method failed: ' . $e->getMessage()
+            );
+        }
+
+        return $escaped[0]->name;
     }
 }
