@@ -89,6 +89,34 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      */
     protected function escapeDataElement($data_key, $data_value = NULL)
     {
+        $escape_key = $this->setEscapeDataType($data_key, $data_value);
+
+        try {
+            $results = $this->fieldhandler->escape($data_key, $data_value, $escape_key);
+
+            return $results->getReturnValue();
+
+        } catch (Exception $e) {
+            throw new RuntimeException
+            (
+                'Molajito Escape Molajo: Fieldhandler class Failed for Key: ' . $data_key
+                . ' Fieldhandler: ' . $data_value . ' ' . $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * Set the Escape Data Type
+     *
+     * @param   string     $data_key
+     * @param   null|mixed $data_value
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setEscapeDataType($data_key, $data_value = NULL)
+    {
         $escape_key = NULL;
 
         if (count($this->model_registry) > 0) {
@@ -114,17 +142,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
             }
         }
 
-        try {
-            $results = $this->fieldhandler->escape($data_key, $data_value, $escape_key);
-
-            return $results->getReturnValue();
-
-        } catch (Exception $e) {
-            throw new RuntimeException
-            (
-                'Molajito Escape Molajo: Fieldhandler class Failed for Key: ' . $data_key
-                . ' Fieldhandler: ' . $data_value . ' ' . $e->getMessage()
-            );
-        }
+        return $escape_key;
     }
 }
