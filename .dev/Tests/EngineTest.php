@@ -160,6 +160,10 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers Molajito\Parse::parseRenderedOutput
+     * @covers Molajito\Parse::parseTokens
+     * @covers Molajito\Parse::setRenderToken
+     * @covers Molajito\Parse::excludeTokens
      * @covers Molajito\Translate::translateString
      * @covers Molajito\Translate\StringArrayAdapter::translateString
      * @covers Molajito\Translate\AbstractAdapter::translateString
