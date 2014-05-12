@@ -55,7 +55,7 @@ class Translate implements TranslateInterface
     public function translateString($string)
     {
         try {
-            return $this->translate_adapter->translate($string);
+            return $this->translate_adapter->translateString($string);
 
         } catch (Exception $e) {
 

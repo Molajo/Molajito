@@ -56,7 +56,7 @@ class Parse implements ParseInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function parse(
+    public function parseRenderedOutput(
         $rendered_page,
         array $exclude_tokens = array(),
         $parse_mask = null

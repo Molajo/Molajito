@@ -122,7 +122,7 @@ class Engine implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render($include_file, array $data = array())
+    public function renderOutput($include_file, array $data = array())
     {
         /** Step 1. Render Theme */
         $this->rendered_page = $this->token_instance->renderTheme($include_file, $data);

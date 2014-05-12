@@ -95,7 +95,7 @@ class Render implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render($include_path, array $data = array())
+    public function renderOutput($include_path, array $data = array())
     {
         $this->setProperties($data);
 

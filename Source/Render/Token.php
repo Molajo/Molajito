@@ -158,7 +158,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderTheme($include_file, $data)
+    public function renderTheme($include_file, $data)
     {
         /** Step 1. Initialise Rendering Data */
         $this->initialiseData($data);
@@ -168,7 +168,7 @@ class Token extends AbstractRenderer implements RenderInterface
 
         /** Step 3. Render Theme */
         try {
-            $this->rendered_page = $this->theme_instance->render(
+            $this->rendered_page = $this->theme_instance->renderOutput(
                 $include_file,
                 array('runtime_data' => $this->runtime_data)
             );
@@ -401,7 +401,7 @@ class Token extends AbstractRenderer implements RenderInterface
         $options = $this->getProperties();
 
         try {
-            $this->rendered_view = $this->$type->render(
+            $this->rendered_view = $this->$type->renderOutput(
                 $this->include_path,
                 $options
             );
@@ -450,7 +450,7 @@ class Token extends AbstractRenderer implements RenderInterface
 
         /** Step 3. Render Wrap */
         try {
-            $this->rendered_view = $this->wrap_instance->render(
+            $this->rendered_view = $this->wrap_instance->renderOutput(
                 $this->include_path,
                 $options
             );
