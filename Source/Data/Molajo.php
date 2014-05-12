@@ -84,7 +84,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $model_registry = array();
+    protected $model_registry = null;
 
     /**
      * Parameters
@@ -176,7 +176,7 @@ class Molajo extends AbstractAdapter implements DataInterface
         $this->setModelType();
         $this->setModelName();
 
-        if (trim($this->model_type) === '' && trim($this->model_name) === '') {
+        if (trim($this->model_type) === 'default' && trim($this->model_name) === 'default') {
             $name = strtolower($this->token->name);
             if (isset($this->plugin_data->$name)) {
                 $this->model_type = 'plugin_data';
@@ -198,6 +198,8 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function setModelType()
     {
+        $this->model_type = 'default';
+
         if (isset($this->token->attributes['model_type'])) {
             $this->model_type = $this->token->attributes['model_type'];
 
@@ -222,7 +224,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function setModelName()
     {
-        $this->model_name = '';
+        $this->model_name = 'default';
 
         if (isset($this->token->attributes['model_name'])) {
 
@@ -355,19 +357,20 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function setParameters()
     {
-        if (isset($this->query_results->parameters)) {
-            $this->parameters = $this->query_results->parameters;
-            unset($this->query_results->parameters);
+// todo: is this possible?
+//        if (isset($this->query_results->parameters)) {
+//            $this->parameters = $this->query_results->parameters;
+//            unset($this->query_results->parameters);
 
-        } else {
+//        } else {
             $this->parameters = $this->runtime_data->render->extension->parameters;
-        }
+//        }
 
         return $this;
     }
 
     /**
-     * Get Data from Primary Data Collection
+     * Get Default Data - just parameters, no query results
      *
      * @return  $this
      * @since   1.0
@@ -375,6 +378,8 @@ class Molajo extends AbstractAdapter implements DataInterface
     protected function getDefaultData()
     {
         $this->parameters = $this->runtime_data->render->extension->parameters;
+
+        $this->model_registry = new stdClass();
 
         return $this;
     }
