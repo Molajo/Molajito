@@ -197,8 +197,7 @@ class Engine implements RenderInterface
             /** Step 5: Check Max Loop Count and stop or continue */
             if ($loop_counter > $this->stop_loop_count) {
 
-                throw new RuntimeException
-                (
+                throw new RuntimeException(
                     'Molajito renderLoop: Maximum loop count exceeded: ' . $loop_counter
                 );
             }

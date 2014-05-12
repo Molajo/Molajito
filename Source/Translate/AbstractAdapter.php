@@ -177,8 +177,7 @@ abstract class AbstractAdapter implements TranslateInterface
             return $rows[0]->language_string;
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Array::filterTranslation Failed: ' . $e->getMessage()
             );
         }

@@ -59,8 +59,7 @@ class Translate implements TranslateInterface
 
         } catch (Exception $e) {
 
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Translate: Failed for String: ' . $string . ' ' . $e->getMessage()
             );
         }

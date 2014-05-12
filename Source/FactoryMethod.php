@@ -70,8 +70,7 @@ class FactoryMethod
             && is_dir($this->options['molajito_base_folder'])
         ) {
         } else {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'MolajitoFactoryMethod instantiateClass: Must provide options entry to molajito_base_folder.'
             );
         }
@@ -125,8 +124,7 @@ class FactoryMethod
             );
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'MolajitoFactoryMethod instantiateClass: Could not instantiate Token Class: ' . $class
             );
         }
@@ -144,8 +142,7 @@ class FactoryMethod
                 $translate_instance
             );
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'MolajitoFactoryMethod instantiateClass: Could not instantiate Molajito Engine: ' . $class
             );
         }
@@ -284,8 +281,7 @@ class FactoryMethod
             return new $class ($escape_instance, $render_instance, $event_instance);
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'MolajitoFactoryMethod getRenderViewInstance: Could not instantiate TemplateView Class: ' . $class
             );
         }
@@ -315,8 +311,7 @@ class FactoryMethod
             $adapter = new $class ($escape_instance, $parse_mask = null, $model_registry = array(), $language);
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'MolajitoFactoryMethod getTranslateInstance: Could not instantiate Translate Adapter: ' . $class
             );
         }
@@ -345,8 +340,7 @@ class FactoryMethod
             return new $class ($property1, $property2);
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'MolajitoFactoryMethod getInstance: Could not instantiate class: ' . $class
             );
         }

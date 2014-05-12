@@ -62,8 +62,7 @@ class Data implements DataInterface
             );
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Data getData Method Failed: ' . $e->getMessage()
             );
         }
@@ -105,8 +104,7 @@ class Data implements DataInterface
     {
         if (is_object($token)) {
         } else {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Data editToken Method Failed: Token is not an object'
             );
         }

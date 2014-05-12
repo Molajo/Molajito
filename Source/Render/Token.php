@@ -174,8 +174,7 @@ class Token extends AbstractRenderer implements RenderInterface
             );
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Token Renderer renderTheme Method Failed for '
                 . ' Theme: ' . $include_file . ' ' . $e->getMessage()
             );
@@ -208,8 +207,7 @@ class Token extends AbstractRenderer implements RenderInterface
             );
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito renderPosition Method Failed: ' . $e->getMessage()
             );
         }
@@ -231,7 +229,7 @@ class Token extends AbstractRenderer implements RenderInterface
         if (isset($data['runtime_data'])) {
             $this->runtime_data = $data['runtime_data'];
         } else {
-            throw new RuntimeException ('Molajito Token Renderer requires Runtime Data');
+            throw new RuntimeException('Molajito Token Renderer requires Runtime Data');
         }
 
         if (isset($data['page_name'])) {
@@ -410,8 +408,7 @@ class Token extends AbstractRenderer implements RenderInterface
 
         } catch (Exception $e) {
 
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Driver renderObject Method Failed. Type: ' . $type
                 . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
             );
@@ -459,8 +456,7 @@ class Token extends AbstractRenderer implements RenderInterface
             );
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Driver renderObject Method Failed. Type: Wrap '
                 . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
             );

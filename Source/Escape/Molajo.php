@@ -97,8 +97,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
             return $results->getReturnValue();
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Escape Molajo: Fieldhandler class Failed for Key: ' . $data_key
                 . ' Fieldhandler: ' . $data_value . ' ' . $e->getMessage()
             );

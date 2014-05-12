@@ -136,8 +136,7 @@ class Render implements RenderInterface
 
         if (file_exists($this->include_path)) {
         } else {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Render - rendering file not found: ' . $include_path
             );
         }

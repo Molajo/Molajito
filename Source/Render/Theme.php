@@ -65,8 +65,7 @@ class Theme extends AbstractRenderer implements RenderInterface
 
         if (file_exists($file_path)) {
         } else {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Theme Renderer - rendering file not found: ' . $file_path
             );
         }
@@ -75,8 +74,7 @@ class Theme extends AbstractRenderer implements RenderInterface
             return $this->renderOutput($file_path, $this->getProperties());
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Theme renderOutput: ' . $e->getMessage()
             );
         }

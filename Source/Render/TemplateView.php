@@ -189,8 +189,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             $this->rendered_view .= $this->renderOutput($file_path, $options);
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito TemplateView renderTemplateViewOutput: '
                 . ' File path: ' . $file_path . 'Message: ' . $e->getMessage()
             );

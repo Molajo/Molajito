@@ -208,8 +208,7 @@ abstract class AbstractRenderer implements RenderInterface
             }
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito Driver scheduleEvent Method Failed: ' . $e->getMessage()
             );
         }
@@ -270,8 +269,7 @@ abstract class AbstractRenderer implements RenderInterface
     {
         if (file_exists($file_path)) {
         } else {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito AbstractRenderer renderOutput: File not found: ' . $file_path
             );
         }
@@ -280,8 +278,7 @@ abstract class AbstractRenderer implements RenderInterface
             return $this->render_instance->render($file_path, $options);
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Molajito AbstractRenderer renderOutput: '
                 . ' File path: ' . $file_path . 'Message: ' . $e->getMessage()
             );

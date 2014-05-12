@@ -56,8 +56,7 @@ class Event implements EventInterface
             return $this->event_adapter->initializeEventOptions();
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Render Driver initializeEventOptions Method Failed: ' . $e->getMessage()
             );
         }
@@ -86,8 +85,7 @@ class Event implements EventInterface
             return $event_options;
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Render Driver scheduleEvent Method Failed: ' . $e->getMessage()
             );
         }

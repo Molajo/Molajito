@@ -59,8 +59,7 @@ class Escape implements EscapeInterface
             return $this->escape_adapter->escape($data, $model_registry);
 
         } catch (Exception $e) {
-            throw new RuntimeException
-            (
+            throw new RuntimeException(
                 'Escape Driver escape Method Failed: ' . $e->getMessage()
             );
         }
