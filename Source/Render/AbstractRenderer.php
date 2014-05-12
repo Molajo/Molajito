@@ -250,9 +250,9 @@ abstract class AbstractRenderer implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function render($include_path, array $data = array())
+    public function renderOutput($include_path, array $data = array())
     {
-        return $this->renderOutput($include_path, $data);
+        return $this->performRendering($include_path, $data);
     }
 
     /**
@@ -265,7 +265,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderOutput($file_path, array $options = array())
+    protected function performRendering($file_path, array $options = array())
     {
         if (file_exists($file_path)) {
         } else {
@@ -275,7 +275,7 @@ abstract class AbstractRenderer implements RenderInterface
         }
 
         try {
-            return $this->render_instance->renderOutput($file_path, $options);
+            return $this->render_instance->render($file_path, $options);
 
         } catch (Exception $e) {
             throw new RuntimeException(

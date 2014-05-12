@@ -30,7 +30,7 @@ abstract class AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), array $model_registry = array())
+    public function escapeOutput(array $data = array(), array $model_registry = array())
     {
         if (count($data) == 0) {
             return $data;

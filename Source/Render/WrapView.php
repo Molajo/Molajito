@@ -42,7 +42,7 @@ class WrapView extends AbstractRenderer implements RenderInterface
      * @return  string
      * @since   1.0
      */
-    public function render($include_path, array $data = array())
+    public function renderOutput($include_path, array $data = array())
     {
         $this->include_path = $include_path;
 
@@ -50,9 +50,9 @@ class WrapView extends AbstractRenderer implements RenderInterface
 
         $this->rendered_view = '';
 
-        $this->renderViewPart('/Header.phtml');
-        $this->renderViewPart('/Body.phtml');
-        $this->renderViewPart('/Footer.phtml');
+        $this->renderViewWrap('/Header.phtml');
+        $this->renderViewWrap('/Body.phtml');
+        $this->renderViewWrap('/Footer.phtml');
 
         return $this->rendered_view;
     }
@@ -61,18 +61,16 @@ class WrapView extends AbstractRenderer implements RenderInterface
      * Render View Part: Header, Body, Footer
      *
      * @param   string      $file
-     * @param   null|string $event   unused for Wrap
-     * @param   boolean     $custom  unused for Wrap
      *
      * @return  $this
      * @since   1.0
      */
-    protected function renderViewPart($file, $event = null, $custom = false)
+    protected function renderViewWrap($file)
     {
         $file_path = $this->include_path . $file;
 
         if (file_exists($file_path)) {
-            $this->rendered_view .= $this->renderOutput($file_path, $this->getProperties());
+            $this->rendered_view .= $this->performRendering($file_path, $this->getProperties());
         }
 
         return $this;

@@ -71,11 +71,11 @@ class Theme extends AbstractRenderer implements RenderInterface
         }
 
         try {
-            return $this->renderOutput($file_path, $this->getProperties());
+            return $this->performRendering($file_path, $this->getProperties());
 
         } catch (Exception $e) {
             throw new RuntimeException(
-                'Molajito Theme renderOutput: ' . $e->getMessage()
+                'Molajito Theme includeFile: ' . $e->getMessage()
             );
         }
     }

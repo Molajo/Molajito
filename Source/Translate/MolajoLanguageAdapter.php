@@ -61,6 +61,6 @@ class MolajoLanguageAdapter extends AbstractAdapter implements TranslateInterfac
      */
     protected function translateToken($string)
     {
-        return $this->language_controller->translate($string);
+        return $this->language_controller->translateString($string);
     }
 }

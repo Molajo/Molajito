@@ -134,7 +134,7 @@ class Engine implements RenderInterface
         $this->renderLoop(array());
 
         /** Step 4. Translate */
-        $this->rendered_page = $this->translate_instance->translate($this->rendered_page);
+        $this->rendered_page = $this->translate_instance->translateString($this->rendered_page);
 
         /** Step 5. Schedule onAfterRender Event */
         $options                  = array();

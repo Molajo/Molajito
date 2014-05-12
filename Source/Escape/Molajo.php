@@ -68,11 +68,11 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), array $model_registry = array())
+    public function escapeOutput(array $data = array(), array $model_registry = array())
     {
         $this->model_registry = $model_registry;
 
-        $this->data = parent::escape($data, $model_registry);
+        $this->data = parent::escapeOutput($data, $model_registry);
 
         return $this->data;
     }

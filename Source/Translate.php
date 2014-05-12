@@ -52,7 +52,7 @@ class Translate implements TranslateInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function translate($string)
+    public function translateString($string)
     {
         try {
             return $this->translate_adapter->translate($string);

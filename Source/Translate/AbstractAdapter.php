@@ -104,7 +104,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function translate($string)
+    public function translateString($string)
     {
         $this->rendered_page = $string;
 
