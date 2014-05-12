@@ -40,6 +40,14 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Null Value without Model Registry
      *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @return  $this
      * @since   1.0
      */
@@ -59,6 +67,14 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Numeric Value without Model Registry
+     *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
      * @since   1.0
@@ -80,6 +96,14 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Array without Model Registry
      *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @return  $this
      * @since   1.0
      */
@@ -100,6 +124,14 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
     /**
      * Test HTML without Model Registry
      *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @return  $this
      * @since   1.0
      */
@@ -115,13 +147,5 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<p>I am a dog.</p>', $results[0]->test_field);
 
         return $this;
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
     }
 }

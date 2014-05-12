@@ -136,8 +136,14 @@ class EngineTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Molajito\Engine::renderOutput
+     * @covers Molajito\Engine::renderLoop
+     * @covers Molajito\Engine::parseTokens
+     * @covers Molajito\Engine::parseTokens
+     * @covers Molajito\Engine::parseTokens
      * @covers Molajito\Render\Token::renderTheme
      * @covers Molajito\Render\Token::initialiseData
+     * @covers Molajito\Render\Token::renderPosition
+     * @covers Molajito\Render\Token::renderToken
      * @covers Molajito\Render\Theme::renderOutput
      * @covers Molajito\Render\Theme::setProperties
      * @covers Molajito\Render\Theme::includeFile
@@ -153,8 +159,14 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Event\Dummy::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     *
-     * initializeEventOptions
+     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers Molajito\Translate::translateString
+     * @covers Molajito\Translate\StringArrayAdapter::translateString
+     * @covers Molajito\Translate\AbstractAdapter::translateString
+     * @covers Molajito\Translate\AbstractAdapter::parseTokens
+     * @covers Molajito\Translate\AbstractAdapter::translateToken
+     * @covers Molajito\Translate\AbstractAdapter::filterTranslation
+     * @covers Molajito\Translate\AbstractAdapter::replaceToken
      *
      * @return  $this
      * @since   1.0
