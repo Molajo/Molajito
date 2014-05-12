@@ -29,7 +29,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      * @var    object  CommonApi\Query\FieldhandlerInterface
      * @since  1.0.0
      */
-    protected $fieldhandler = '';
+    protected $fieldhandler;
 
     /**
      * Model Registry
@@ -83,7 +83,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      * @param   string     $data_key
      * @param   null|mixed $data_value
      *
-     * @return  array
+     * @return  mixed
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -92,9 +92,10 @@ class Molajo extends AbstractAdapter implements EscapeInterface
         $escape_key = $this->setEscapeDataType($data_key, $data_value);
 
         try {
-            $results = $this->fieldhandler->escape($data_key, $data_value, $escape_key);
 
-            return $results->getReturnValue();
+            $results = $this->fieldhandler->sanitize($data_key, $data_value, $escape_key);
+
+            return $results->getFieldValue();
 
         } catch (Exception $e) {
             throw new RuntimeException(
@@ -132,6 +133,9 @@ class Molajo extends AbstractAdapter implements EscapeInterface
 
             } elseif (is_null($data_value)) {
                 $escape_key = 'string';
+
+            } elseif (is_array($data_value)) {
+                $escape_key = 'array';
 
             } elseif (is_object($data_value)) {
                 $escape_key = null;

@@ -41,6 +41,15 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Null Value without Model Registry
      *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @return  $this
      * @since   1.0
      */
@@ -64,6 +73,15 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Numeric Value without Model Registry
+     *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
      * @since   1.0
@@ -89,6 +107,15 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Array without Model Registry
      *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @return  $this
      * @since   1.0
      */
@@ -113,6 +140,15 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Test HTML without Model Registry
      *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @return  $this
      * @since   1.0
      */
@@ -133,44 +169,53 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
 }
 
 
 class MockFieldHandler implements FieldhandlerInterface
 {
+
     protected $white_list = '<b><em><i><img><p><u><strong>';
+
+    protected $field_value = null;
 
     public function validate(
         $field_name,
         $field_value = null,
-        $fieldhandler_type_chain,
-        $options = array()
+        $constraint,
+        array $options = array()
     ) {
 
     }
 
-    public function filter(
+    public function sanitize(
         $field_name,
         $field_value = null,
-        $fieldhandler_type_chain,
-        $options = array()
+        $constraint,
+        array $options = array()
     ) {
+        if (is_numeric($field_value)) {
+            $this->field_value = $field_value;
 
+        } elseif (is_null($field_value)) {
+            $this->field_value = $field_value;
+
+        } elseif (is_array($field_value)) {
+            $this->field_value = $field_value;
+        } else {
+            $this->field_value = strip_tags($field_value, $this->white_list);
+        }
+
+        $instance = new MockFieldHandlerResponse($this->field_value);
+
+        return $instance;
     }
 
-    public function escape(
+    public function format(
         $field_name,
         $field_value = null,
-        $fieldhandler_type_chain,
-        $options = array()
+        $constraint,
+        array $options = array()
     ) {
         if (is_numeric($field_value)) {
             return $field_value;
@@ -182,6 +227,22 @@ class MockFieldHandler implements FieldhandlerInterface
             return $field_value;
         }
 
-        return strip_tags($field_value, $this->white_list);
+        $this->field_value = strip_tags($field_value, $this->white_list);
+    }
+}
+
+class MockFieldHandlerResponse
+{
+    public function __construct(
+        $field_value
+    ) {
+        $this->field_value = $field_value;
+    }
+
+    protected $field_value = null;
+
+    public function getFieldValue()
+    {
+        return $this->field_value;
     }
 }
