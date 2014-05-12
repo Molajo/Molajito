@@ -27,7 +27,7 @@ abstract class AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $pagination = NULL;
+    protected $pagination = null;
 
     /**
      * Parameters
@@ -35,7 +35,7 @@ abstract class AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $parameters = NULL;
+    protected $parameters = null;
 
     /**
      * Class Constructor
@@ -45,7 +45,7 @@ abstract class AbstractAdapter implements DataInterface
      * @since  1.0.0
      */
     public function __construct(
-        PaginationInterface $pagination = NULL
+        PaginationInterface $pagination = null
     ) {
         $this->pagination = $pagination;
     }

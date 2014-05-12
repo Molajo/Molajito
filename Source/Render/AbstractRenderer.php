@@ -30,7 +30,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = NULL;
+    protected $escape_instance = null;
 
     /**
      * Render Instance
@@ -38,7 +38,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    object   CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $render_instance = NULL;
+    protected $render_instance = null;
 
     /**
      * Event Handler
@@ -46,7 +46,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\EventInterface
      * @since  1.0.0
      */
-    protected $event_instance = NULL;
+    protected $event_instance = null;
 
     /**
      * Path to Include File
@@ -62,7 +62,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = NULL;
+    protected $runtime_data = null;
 
     /**
      * Plugin Data
@@ -70,7 +70,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $plugin_data = NULL;
+    protected $plugin_data = null;
 
     /**
      * Parameters
@@ -78,7 +78,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $parameters = NULL;
+    protected $parameters = null;
 
     /**
      * Model Registry
@@ -86,7 +86,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $model_registry = NULL;
+    protected $model_registry = null;
 
     /**
      * Allowed Properties
@@ -110,7 +110,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_view = NULL;
+    protected $rendered_view = null;
 
     /**
      * Page Rendered Output
@@ -118,7 +118,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_page = NULL;
+    protected $rendered_page = null;
 
     /**
      * Object containing a single row for using within View
@@ -126,7 +126,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $row = NULL;
+    protected $row = null;
 
     /**
      * Constructor
@@ -142,9 +142,9 @@ abstract class AbstractRenderer implements RenderInterface
         RenderInterface $render_instance,
         EventInterface $event_instance
     ) {
-        $this->render_instance   = $render_instance;
-        $this->event_instance    = $event_instance;
-        $this->escape_instance   = $escape_instance;
+        $this->render_instance = $render_instance;
+        $this->event_instance  = $event_instance;
+        $this->escape_instance = $escape_instance;
     }
 
     /**
@@ -159,8 +159,8 @@ abstract class AbstractRenderer implements RenderInterface
     protected function setProperties(array $data = array(), array $properties = array())
     {
         foreach ($properties as $key) {
-            if (isset($data[$key])) {
-                $this->$key = $data[$key];
+            if (isset($data[ $key ])) {
+                $this->$key = $data[ $key ];
             }
         }
 
@@ -178,7 +178,7 @@ abstract class AbstractRenderer implements RenderInterface
         $data = array();
 
         foreach ($this->property_array as $key) {
-            $data[$key] = $this->$key;
+            $data[ $key ] = $this->$key;
         }
 
         return $data;
@@ -218,7 +218,7 @@ abstract class AbstractRenderer implements RenderInterface
     /**
      * Set Event Options
      *
-     * @param   array  $options
+     * @param   array $options
      *
      * @return  array
      * @since   1.0
@@ -230,11 +230,11 @@ abstract class AbstractRenderer implements RenderInterface
 
         foreach ($event_options as $key) {
 
-            if (isset($options[$key])) {
-                $event_options[$key] = $options[$key];
+            if (isset($options[ $key ])) {
+                $event_options[ $key ] = $options[ $key ];
 
             } elseif (isset($this->$key)) {
-                $event_options[$key] = $this->$key;
+                $event_options[ $key ] = $this->$key;
             }
         }
 
@@ -271,7 +271,9 @@ abstract class AbstractRenderer implements RenderInterface
         if (file_exists($file_path)) {
         } else {
             throw new RuntimeException
-            ('Molajito AbstractRenderer renderOutput: File not found: ' . $file_path);
+            (
+                'Molajito AbstractRenderer renderOutput: File not found: ' . $file_path
+            );
         }
 
         try {
@@ -279,8 +281,10 @@ abstract class AbstractRenderer implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito AbstractRenderer renderOutput: '
-                . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
+            (
+                'Molajito AbstractRenderer renderOutput: '
+                . ' File path: ' . $file_path . 'Message: ' . $e->getMessage()
+            );
         }
     }
 }

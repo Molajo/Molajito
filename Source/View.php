@@ -28,7 +28,7 @@ class View implements ViewInterface
      * @var     object  CommonApi\Render\ViewInterface
      * @since  1.0.0
      */
-    protected $view_adapter = NULL;
+    protected $view_adapter = null;
 
     /**
      * Class Constructor
@@ -59,7 +59,9 @@ class View implements ViewInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Render Driver getView Method Failed: ' . $e->getMessage());
+            (
+                'Render Driver getView Method Failed: ' . $e->getMessage()
+            );
         }
     }
 }

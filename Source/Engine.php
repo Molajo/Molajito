@@ -29,7 +29,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\ParseInterface
      * @since  1.0.0
      */
-    protected $parse_instance = NULL;
+    protected $parse_instance = null;
 
     /**
      * Exclude tokens from parsing (tokens to generate head are held until body is processed)
@@ -53,7 +53,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $token_instance = NULL;
+    protected $token_instance = null;
 
     /**
      * Wrap View Instance
@@ -61,7 +61,7 @@ class Engine implements RenderInterface
      * @var    object  CommonApi\Language\TranslateInterface
      * @since  1.0.0
      */
-    protected $translate_instance = NULL;
+    protected $translate_instance = null;
 
     /**
      * Page Rendered Output
@@ -69,7 +69,7 @@ class Engine implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_page = NULL;
+    protected $rendered_page = null;
 
     /**
      * View Rendered Output
@@ -77,7 +77,7 @@ class Engine implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_view = NULL;
+    protected $rendered_view = null;
 
     /**
      * Tokens to Render
@@ -158,7 +158,7 @@ class Engine implements RenderInterface
     {
         $loop_counter = 0;
 
-        while (TRUE === TRUE) {
+        while (true === true) {
 
             $loop_counter++;
 

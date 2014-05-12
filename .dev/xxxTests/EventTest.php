@@ -29,15 +29,16 @@ class EventTest extends \PHPUnit_Framework_TestCase
     /**
      * @var $event_option_keys
      */
-    protected $event_option_keys = array(
-        'runtime_data',
-        'parameters',
-        'query',
-        'model_registry',
-        'row',
-        'rendered_view',
-        'rendered_page'
-    );
+    protected $event_option_keys
+        = array(
+            'runtime_data',
+            'parameters',
+            'query',
+            'model_registry',
+            'row',
+            'rendered_view',
+            'rendered_page'
+        );
 
     /**
      * Instantiate Event Instance
@@ -65,7 +66,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $options = $this->event_instance->initializeEventOptions();
 
         foreach ($this->event_option_keys as $event) {
-            $this->assertEquals($options[$event], null);
+            $this->assertEquals($options[ $event ], null);
         }
 
         return $this;
@@ -82,7 +83,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $options = array();
 
         foreach ($this->event_option_keys as $event) {
-            $options[$event] = $event;
+            $options[ $event ] = $event;
         }
 
         $event_name = 'test';
@@ -93,7 +94,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($this->event_option_keys as $event) {
-            $this->assertEquals($options[$event], $event);
+            $this->assertEquals($options[ $event ], $event);
         }
 
         return $this;

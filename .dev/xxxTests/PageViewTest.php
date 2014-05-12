@@ -55,7 +55,8 @@ class PageViewTest extends \PHPUnit_Framework_TestCase
 
         $results = $this->pageview_instance->render(
             $include_path,
-            $rendering_properties);
+            $rendering_properties
+        );
 
         $this->assertEquals($collect, $results);
 

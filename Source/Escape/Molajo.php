@@ -87,7 +87,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function escapeDataElement($data_key, $data_value = NULL)
+    protected function escapeDataElement($data_key, $data_value = null)
     {
         $escape_key = $this->setEscapeDataType($data_key, $data_value);
 
@@ -115,9 +115,9 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function setEscapeDataType($data_key, $data_value = NULL)
+    protected function setEscapeDataType($data_key, $data_value = null)
     {
-        $escape_key = NULL;
+        $escape_key = null;
 
         if (count($this->model_registry) > 0) {
             foreach ($this->model_registry as $model_item) {
@@ -127,7 +127,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
             }
         }
 
-        if ($escape_key === NULL) {
+        if ($escape_key === null) {
             if (is_numeric($data_value)) {
                 $escape_key = 'numeric';
 
@@ -135,7 +135,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
                 $escape_key = 'string';
 
             } elseif (is_object($data_value)) {
-                $escape_key = NULL;
+                $escape_key = null;
 
             } else {
                 $escape_key = 'string';

@@ -32,7 +32,7 @@ class TranslateTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $simple = new Simple();
+        $simple          = new Simple();
         $escape_instance = new Escape($simple);
 
         $language_strings = array(
@@ -52,12 +52,14 @@ class TranslateTest extends \PHPUnit_Framework_TestCase
     public function testTranslate()
     {
 
-        $page = 'Hello
+        $page
+            = 'Hello
         and goodbye.
         {T This should return without brackets. T}
         {T thing T}';
 
-        $should_be = 'Hello
+        $should_be
+            = 'Hello
         and goodbye.
         This should return without brackets.
         it is a thing.';

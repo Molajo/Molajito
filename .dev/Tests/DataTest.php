@@ -30,14 +30,15 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /**
      * @var $keys
      */
-    protected $keys = array(
-        'model_type',
-        'model_name',
-        'field_name',
-        'query_results',
-        'model_registry',
-        'parameters'
-    );
+    protected $keys
+        = array(
+            'model_type',
+            'model_name',
+            'field_name',
+            'query_results',
+            'model_registry',
+            'parameters'
+        );
 
     /**
      * Create Data Instance
@@ -48,7 +49,25 @@ class DataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Runtime Data
+     * @covers Molajito\Data::__construct
+     * @covers Molajito\Data::getData
+     * @covers Molajito\Data::editOptions
+     * @covers Molajito\Data::editToken
+     * @covers Molajito\Data\Molajo::__construct
+     * @covers Molajito\Data\Molajo::getData
+     * @covers Molajito\Data\Molajo::initialise
+     * @covers Molajito\Data\Molajo::setModel
+     * @covers Molajito\Data\Molajo::setModelType
+     * @covers Molajito\Data\Molajo::setModelName
+     * @covers Molajito\Data\Molajo::setFieldName
+     * @covers Molajito\Data\Molajo::getPrimaryData
+     * @covers Molajito\Data\Molajo::getRuntimeData
+     * @covers Molajito\Data\Molajo::getPluginData
+     * @covers Molajito\Data\Molajo::setParameters
+     * @covers Molajito\Data\Molajo::getDefaultData
+     * @covers Molajito\Data\Molajo::setDataResults
+     * @covers Molajito\Data\AbstractAdapter::__construct
+     * @covers Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
      * @since   1.0
@@ -89,7 +108,25 @@ class DataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Data Model
+     * @covers Molajito\Data::__construct
+     * @covers Molajito\Data::getData
+     * @covers Molajito\Data::editOptions
+     * @covers Molajito\Data::editToken
+     * @covers Molajito\Data\Molajo::__construct
+     * @covers Molajito\Data\Molajo::getData
+     * @covers Molajito\Data\Molajo::initialise
+     * @covers Molajito\Data\Molajo::setModel
+     * @covers Molajito\Data\Molajo::setModelType
+     * @covers Molajito\Data\Molajo::setModelName
+     * @covers Molajito\Data\Molajo::setFieldName
+     * @covers Molajito\Data\Molajo::getPrimaryData
+     * @covers Molajito\Data\Molajo::getRuntimeData
+     * @covers Molajito\Data\Molajo::getPluginData
+     * @covers Molajito\Data\Molajo::setParameters
+     * @covers Molajito\Data\Molajo::getDefaultData
+     * @covers Molajito\Data\Molajo::setDataResults
+     * @covers Molajito\Data\AbstractAdapter::__construct
+     * @covers Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
      * @since   1.0
@@ -130,7 +167,25 @@ class DataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Plugin Data
+     * @covers Molajito\Data::__construct
+     * @covers Molajito\Data::getData
+     * @covers Molajito\Data::editOptions
+     * @covers Molajito\Data::editToken
+     * @covers Molajito\Data\Molajo::__construct
+     * @covers Molajito\Data\Molajo::getData
+     * @covers Molajito\Data\Molajo::initialise
+     * @covers Molajito\Data\Molajo::setModel
+     * @covers Molajito\Data\Molajo::setModelType
+     * @covers Molajito\Data\Molajo::setModelName
+     * @covers Molajito\Data\Molajo::setFieldName
+     * @covers Molajito\Data\Molajo::getPrimaryData
+     * @covers Molajito\Data\Molajo::getRuntimeData
+     * @covers Molajito\Data\Molajo::getPluginData
+     * @covers Molajito\Data\Molajo::setParameters
+     * @covers Molajito\Data\Molajo::getDefaultData
+     * @covers Molajito\Data\Molajo::setDataResults
+     * @covers Molajito\Data\AbstractAdapter::__construct
+     * @covers Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
      * @since   1.0
@@ -186,9 +241,25 @@ class DataTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Get Plugin Data -- Field
-     *
-     * @param   array $options
+     * @covers Molajito\Data::__construct
+     * @covers Molajito\Data::getData
+     * @covers Molajito\Data::editOptions
+     * @covers Molajito\Data::editToken
+     * @covers Molajito\Data\Molajo::__construct
+     * @covers Molajito\Data\Molajo::getData
+     * @covers Molajito\Data\Molajo::initialise
+     * @covers Molajito\Data\Molajo::setModel
+     * @covers Molajito\Data\Molajo::setModelType
+     * @covers Molajito\Data\Molajo::setModelName
+     * @covers Molajito\Data\Molajo::setFieldName
+     * @covers Molajito\Data\Molajo::getPrimaryData
+     * @covers Molajito\Data\Molajo::getRuntimeData
+     * @covers Molajito\Data\Molajo::getPluginData
+     * @covers Molajito\Data\Molajo::setParameters
+     * @covers Molajito\Data\Molajo::getDefaultData
+     * @covers Molajito\Data\Molajo::setDataResults
+     * @covers Molajito\Data\AbstractAdapter::__construct
+     * @covers Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
      * @since   1.0
@@ -245,13 +316,5 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data->parameters->token, $token);
 
         return $this;
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
     }
 }

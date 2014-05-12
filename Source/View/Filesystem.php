@@ -28,7 +28,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $theme_base_folder = NULL;
+    protected $theme_base_folder = null;
 
     /**
      * Views Base Folder
@@ -36,7 +36,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $view_base_folder = NULL;
+    protected $view_base_folder = null;
 
     /**
      * Constructor
@@ -72,19 +72,19 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->extension->title = ucfirst(strtolower($token->name));
 
         if ($render->scheme === 'Theme') {
-            $base = $this->theme_base_folder;
+            $base   = $this->theme_base_folder;
             $folder = '';
-            $file = '/Index.phtml';
+            $file   = '/Index.phtml';
 
         } elseif ($render->scheme === 'Page') {
-            $base = $this->view_base_folder;
+            $base   = $this->view_base_folder;
             $folder = '/' . $render->scheme . 's/';
-            $file = '/Index.phtml';
+            $file   = '/Index.phtml';
 
         } else {
-            $base = $this->view_base_folder;
+            $base   = $this->view_base_folder;
             $folder = '/' . $render->scheme . 's/';
-            $file = '';
+            $file   = '';
         }
 
         $render->extension->include_path = $base . $folder . $render->extension->title . $file;

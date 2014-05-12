@@ -43,7 +43,7 @@ class Parse implements ParseInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_page = NULL;
+    protected $rendered_page = null;
 
     /**
      * Parse rendered output returning an array of tokens to be rendered
@@ -59,12 +59,12 @@ class Parse implements ParseInterface
     public function parse(
         $rendered_page,
         array $exclude_tokens = array(),
-        $parse_mask = NULL
+        $parse_mask = null
     ) {
         $this->rendered_page  = $rendered_page;
         $this->exclude_tokens = $exclude_tokens;
 
-        if ($parse_mask === NULL || trim($parse_mask) === '') {
+        if ($parse_mask === null || trim($parse_mask) === '') {
         } else {
             $this->parse_mask = $parse_mask;
         }
@@ -166,7 +166,7 @@ class Parse implements ParseInterface
 
             } else {
                 $count_attributes++;
-                $token->attributes[$pair[0]] = $pair[1];
+                $token->attributes[ $pair[0] ] = $pair[1];
             }
         }
 

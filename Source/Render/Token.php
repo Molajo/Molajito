@@ -34,7 +34,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\DataInterface
      * @since  1.0.0
      */
-    protected $data_instance = NULL;
+    protected $data_instance = null;
 
     /**
      * Retrieve View information for rendering
@@ -42,7 +42,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\ViewInterface
      * @since  1.0.0
      */
-    protected $view_instance = NULL;
+    protected $view_instance = null;
 
     /**
      * Theme Instance
@@ -50,7 +50,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $theme_instance = NULL;
+    protected $theme_instance = null;
 
     /**
      * Position Instance
@@ -58,7 +58,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\PositionInterface
      * @since  1.0.0
      */
-    protected $position_instance = NULL;
+    protected $position_instance = null;
 
     /**
      * Page View Instance
@@ -66,7 +66,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $page_instance = NULL;
+    protected $page_instance = null;
 
     /**
      * Template View Instance
@@ -74,7 +74,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $template_instance = NULL;
+    protected $template_instance = null;
 
     /**
      * Wrap View Instance
@@ -82,7 +82,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    object  CommonApi\Render\RenderInterface
      * @since  1.0.0
      */
-    protected $wrap_instance = NULL;
+    protected $wrap_instance = null;
 
     /**
      * Theme Path
@@ -90,7 +90,7 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    string
      * @since  1.0.0
      */
-    protected $theme_path = NULL;
+    protected $theme_path = null;
 
     /**
      * Render Properties
@@ -98,14 +98,15 @@ class Token extends AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $property_array = array(
-        'plugin_data',
-        'runtime_data',
-        'model_registry',
-        'parameters',
-        'query_results',
-        'row'
-    );
+    protected $property_array
+        = array(
+            'plugin_data',
+            'runtime_data',
+            'model_registry',
+            'parameters',
+            'query_results',
+            'row'
+        );
 
     /**
      * Constructor
@@ -243,12 +244,12 @@ class Token extends AbstractRenderer implements RenderInterface
             $this->plugin_data = new stdClass();
         }
 
-        $this->parameters     = NULL;
+        $this->parameters     = null;
         $this->model_registry = array();
         $this->query_results  = array();
-        $this->rendered_view  = NULL;
-        $this->rendered_page  = NULL;
-        $this->include_path   = NULL;
+        $this->rendered_view  = null;
+        $this->rendered_page  = null;
+        $this->include_path   = null;
 
         return $this;
     }

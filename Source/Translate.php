@@ -28,7 +28,7 @@ class Translate implements TranslateInterface
      * @var     object  CommonApi\Language\TranslateInterface
      * @since  1.0.0
      */
-    protected $translate_adapter = NULL;
+    protected $translate_adapter = null;
 
     /**
      * Class Constructor

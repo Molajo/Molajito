@@ -28,9 +28,10 @@ class Theme extends AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $property_array = array(
-        'runtime_data'
-    );
+    protected $property_array
+        = array(
+            'runtime_data'
+        );
 
     /**
      * Render Theme output
@@ -65,7 +66,9 @@ class Theme extends AbstractRenderer implements RenderInterface
         if (file_exists($file_path)) {
         } else {
             throw new RuntimeException
-            ('Molajito Theme Renderer - rendering file not found: ' . $file_path);
+            (
+                'Molajito Theme Renderer - rendering file not found: ' . $file_path
+            );
         }
 
         try {
@@ -73,7 +76,9 @@ class Theme extends AbstractRenderer implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Theme renderOutput: ' . $e->getMessage());
+            (
+                'Molajito Theme renderOutput: ' . $e->getMessage()
+            );
         }
     }
 }

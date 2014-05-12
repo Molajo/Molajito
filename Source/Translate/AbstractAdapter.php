@@ -30,7 +30,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @var    object   CommonApi\Render\EscapeInterface
      * @since  1.0.0
      */
-    protected $escape_instance = NULL;
+    protected $escape_instance = null;
 
     /**
      * Escape Row
@@ -46,9 +46,10 @@ abstract class AbstractAdapter implements TranslateInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $model_registry = array(
-        'language_string' => array('name' => 'language_string', 'type' => 'string')
-    );
+    protected $model_registry
+        = array(
+            'language_string' => array('name' => 'language_string', 'type' => 'string')
+        );
 
     /**
      * Parse Mask for Array Literals
@@ -77,12 +78,12 @@ abstract class AbstractAdapter implements TranslateInterface
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        $translate_mask = NULL,
+        $translate_mask = null,
         array $model_registry = array()
     ) {
         $this->escape_instance = $escape_instance;
 
-        if ($translate_mask === NULL || trim($translate_mask) === '') {
+        if ($translate_mask === null || trim($translate_mask) === '') {
         } else {
             $this->translate_mask = $translate_mask;
         }
@@ -114,8 +115,8 @@ abstract class AbstractAdapter implements TranslateInterface
         }
 
         for ($i = 0; $i < count($tokens_to_translate[1]); $i++) {
-            $token  = $tokens_to_translate[0][$i];
-            $string = $tokens_to_translate[1][$i];
+            $token  = $tokens_to_translate[0][ $i ];
+            $string = $tokens_to_translate[1][ $i ];
 
             if (trim($string) === '') {
                 $filtered = '';
@@ -177,7 +178,9 @@ abstract class AbstractAdapter implements TranslateInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Array::filterTranslation Failed: ' . $e->getMessage());
+            (
+                'Molajito Array::filterTranslation Failed: ' . $e->getMessage()
+            );
         }
     }
 

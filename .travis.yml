@@ -11,7 +11,10 @@ notifications:
     - amystephen@gmail.com
 
 before_script:
-  - composer install --prefer-source
+  - wget http://getcomposer.org/composer.phar
+  - php composer.phar install --dev
 
 script:
- - phpunit  -c .dev/phpunit.xml
+  - phpunit  -c .dev/phpunit.xml --coverage-clover=coverage.clover
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

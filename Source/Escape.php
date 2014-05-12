@@ -28,7 +28,7 @@ class Escape implements EscapeInterface
      * @var     object  CommonApi\Render\EventInterface
      * @since  1.0.0
      */
-    protected $escape_adapter = NULL;
+    protected $escape_adapter = null;
 
     /**
      * Class Constructor
@@ -46,8 +46,8 @@ class Escape implements EscapeInterface
     /**
      * Escape Query Output prior to Rendering
      *
-     * @param   array  $data
-     * @param   array  $model_registry
+     * @param   array $data
+     * @param   array $model_registry
      *
      * @return  array
      * @since   1.0

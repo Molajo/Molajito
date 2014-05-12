@@ -131,7 +131,7 @@ class Position implements PositionInterface
             $position_template_array = explode('=', $remove_brackets);
 
             if (count($position_template_array) === 2) {
-                $positions_array[strtolower($position_template_array[0])] = explode(',', $position_template_array[1]);
+                $positions_array[ strtolower($position_template_array[0]) ] = explode(',', $position_template_array[1]);
             }
         }
 
@@ -151,8 +151,8 @@ class Position implements PositionInterface
     {
         $position_name = strtolower($position_name);
 
-        if (isset($positions[$position_name])) {
-            return $positions[$position_name];
+        if (isset($positions[ $position_name ])) {
+            return $positions[ $position_name ];
         }
 
         return false;

@@ -25,17 +25,17 @@ class Data implements DataInterface
     /**
      * Data Adapter
      *
-     * @var     object  CommonApi\Render\DataInterface
+     * @var    object  CommonApi\Render\DataInterface
      * @since  1.0.0
      */
-    protected $data_adapter = NULL;
+    protected $data_adapter = null;
 
     /**
      * Class Constructor
      *
-     * @param   DataInterface $data_adapter
+     * @param  DataInterface $data_adapter
      *
-     * @since   1.0
+     * @since  1.0
      */
     public function __construct(
         DataInterface $data_adapter
@@ -63,7 +63,9 @@ class Data implements DataInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito Data getData Method Failed: ' . $e->getMessage());
+            (
+                'Molajito Data getData Method Failed: ' . $e->getMessage()
+            );
         }
     }
 
@@ -79,12 +81,12 @@ class Data implements DataInterface
     {
         if (isset($options['runtime_data'])) {
         } else {
-            $options['runtime_data'] = NULL;
+            $options['runtime_data'] = null;
         }
 
         if (isset($options['plugin_data'])) {
         } else {
-            $options['plugin_data'] = NULL;
+            $options['plugin_data'] = null;
         }
 
         return $options;
@@ -104,7 +106,9 @@ class Data implements DataInterface
         if (is_object($token)) {
         } else {
             throw new RuntimeException
-            ('Molajito Data editToken Method Failed: Token is not an object');
+            (
+                'Molajito Data editToken Method Failed: Token is not an object'
+            );
         }
 
         if (isset($token->attributes)

@@ -29,7 +29,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $resource = NULL;
+    protected $resource = null;
 
     /**
      * Constructor
@@ -72,9 +72,11 @@ class Molajo extends AbstractAdapter implements ViewInterface
             );
 
         } catch (Exception $e) {
-            throw new RuntimeException('Molajito View Molajo Adapter Failed: '
+            throw new RuntimeException(
+                'Molajito View Molajo Adapter Failed: '
                 . $protocol_location . ucfirst(strtolower($token->name))
-                . ' Message: ' . $e->getMessage());
+                . ' Message: ' . $e->getMessage()
+            );
         }
 
         return $render;

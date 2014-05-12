@@ -118,7 +118,8 @@ class FactoryMethod
         $class = 'Molajito\\Render\\Token';
 
         try {
-            $token_instance = new $class ($escape_instance, $render_instance, $event_instance,
+            $token_instance = new $class (
+                $escape_instance, $render_instance, $event_instance,
                 $data_instance, $view_instance,
                 $theme_instance, $position_instance, $page_instance, $template_instance, $wrap_instance
             );
@@ -191,7 +192,7 @@ class FactoryMethod
         if (file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/pagination/Source/Pagination.php')) {
             $pagination = $this->getInstance('Molajo\\Pagination');
         } else {
-            $pagination = NULL;
+            $pagination = null;
         }
 
         $class = 'Molajo';
@@ -275,9 +276,9 @@ class FactoryMethod
      */
     protected function getRenderInstance(
         $class,
-        EscapeInterface $escape_instance = NULL,
+        EscapeInterface $escape_instance = null,
         $render_instance,
-        EventInterface $event_instance = NULL
+        EventInterface $event_instance = null
     ) {
         try {
             return new $class ($escape_instance, $render_instance, $event_instance);
@@ -311,7 +312,7 @@ class FactoryMethod
         }
 
         try {
-            $adapter = new $class ($escape_instance, $parse_mask = NULL, $model_registry = array(), $language);
+            $adapter = new $class ($escape_instance, $parse_mask = null, $model_registry = array(), $language);
 
         } catch (Exception $e) {
             throw new RuntimeException
@@ -334,10 +335,10 @@ class FactoryMethod
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getInstance($class, $property1 = NULL, $property2 = NULL)
+    protected function getInstance($class, $property1 = null, $property2 = null)
     {
         try {
-            if ($property2 === NULL) {
+            if ($property2 === null) {
                 return new $class ($property1);
             }
 

@@ -41,7 +41,7 @@ class StringArrayAdapter extends AbstractAdapter implements TranslateInterface
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        $parse_mask = NULL,
+        $parse_mask = null,
         array $model_registry = array(),
         array $language_strings = array()
     ) {
@@ -60,8 +60,8 @@ class StringArrayAdapter extends AbstractAdapter implements TranslateInterface
      */
     protected function translateToken($string)
     {
-        if (isset($this->language_strings[$string])) {
-            return $this->language_strings[$string];
+        if (isset($this->language_strings[ $string ])) {
+            return $this->language_strings[ $string ];
         }
 
         return $string;

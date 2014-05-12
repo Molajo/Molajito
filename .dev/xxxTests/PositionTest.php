@@ -33,8 +33,8 @@ class PositionTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $simple = new Simple();
-        $escape = new Escape($simple);
+        $simple                  = new Simple();
+        $escape                  = new Escape($simple);
         $this->position_instance = new Position($escape);
     }
 
@@ -50,10 +50,10 @@ class PositionTest extends \PHPUnit_Framework_TestCase
         $expected .= PHP_EOL;
         $expected .= '{I template=Food I} ';
 
-        $resource_extension = new stdClass();
-        $resource_extension->page = new stdClass();
-        $resource_extension->page->menuitem = new stdClass();
-        $resource_extension->page->menuitem->parameters = new stdClass();
+        $resource_extension                                        = new stdClass();
+        $resource_extension->page                                  = new stdClass();
+        $resource_extension->page->menuitem                        = new stdClass();
+        $resource_extension->page->menuitem->parameters            = new stdClass();
         $resource_extension->page->menuitem->parameters->positions = '{{test=dog,food}}{{more=not,used}}';
 
         $position_name = 'Test';

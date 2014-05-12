@@ -55,5 +55,5 @@ abstract class AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    abstract protected function escapeDataElement($data_key, $data_value = NULL);
+    abstract protected function escapeDataElement($data_key, $data_value = null);
 }

@@ -28,14 +28,15 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $property_array = array(
-        'plugin_data',
-        'runtime_data',
-        'model_registry',
-        'parameters',
-        'query_results',
-        'row'
-    );
+    protected $property_array
+        = array(
+            'plugin_data',
+            'runtime_data',
+            'model_registry',
+            'parameters',
+            'query_results',
+            'row'
+        );
 
     /**
      * Render output for specified file and data
@@ -76,7 +77,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
         $this->query_results = $this->escape_instance->escape($this->query_results, $this->model_registry);
         $file_path           = $this->include_path . '/Custom.phtml';
 
-        return $this->renderViewPart(NULL, $file_path, FALSE);
+        return $this->renderViewPart(null, $file_path, false);
     }
 
     /**
@@ -134,13 +135,13 @@ class TemplateView extends AbstractRenderer implements RenderInterface
         $this->row = $temp[0];
 
         if ($this->row->first === 1) {
-            $this->renderViewPart('onBeforeRenderViewHead', '/Header.phtml', FALSE);
+            $this->renderViewPart('onBeforeRenderViewHead', '/Header.phtml', false);
         }
 
-        $this->renderViewPart('onBeforeRenderViewItem', '/Body.phtml', FALSE);
+        $this->renderViewPart('onBeforeRenderViewItem', '/Body.phtml', false);
 
         if ($this->row->last_row === 1) {
-            $this->renderViewPart('onBeforeRenderViewFooter', '/Footer.phtml', FALSE);
+            $this->renderViewPart('onBeforeRenderViewFooter', '/Footer.phtml', false);
         }
 
         return $this;
@@ -157,9 +158,9 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderViewPart($event = NULL, $file, $custom = FALSE)
+    protected function renderViewPart($event = null, $file, $custom = false)
     {
-        if ($event === NULL) {
+        if ($event === null) {
             $file_path = $file;
 
         } else {
@@ -178,7 +179,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
         $options['runtime_data'] = $this->runtime_data;
         $options['plugin_data']  = $this->plugin_data;
 
-        if ($custom === FALSE) {
+        if ($custom === false) {
             $options['row'] = $this->row;
         } else {
             $options['query_results'] = $this->query_results;
@@ -189,8 +190,10 @@ class TemplateView extends AbstractRenderer implements RenderInterface
 
         } catch (Exception $e) {
             throw new RuntimeException
-            ('Molajito TemplateView renderTemplateViewOutput: '
-                . ' File path: ' . $file_path . 'Message: ' . $e->getMessage());
+            (
+                'Molajito TemplateView renderTemplateViewOutput: '
+                . ' File path: ' . $file_path . 'Message: ' . $e->getMessage()
+            );
         }
 
         return $this;

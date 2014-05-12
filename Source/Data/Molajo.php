@@ -28,7 +28,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $runtime_data = NULL;
+    protected $runtime_data = null;
 
     /**
      * Plugin Data
@@ -36,7 +36,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $plugin_data = NULL;
+    protected $plugin_data = null;
 
     /**
      * Token
@@ -44,7 +44,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $token = NULL;
+    protected $token = null;
 
     /**
      * Model Type
@@ -92,7 +92,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @var    object
      * @since  1.0.0
      */
-    protected $parameters = NULL;
+    protected $parameters = null;
 
     /**
      * Class Constructor
@@ -102,7 +102,7 @@ class Molajo extends AbstractAdapter implements DataInterface
      * @since  1.0.0
      */
     public function __construct(
-        PaginationInterface $pagination = NULL
+        PaginationInterface $pagination = null
     ) {
         $this->pagination = $pagination;
     }
@@ -281,7 +281,7 @@ class Molajo extends AbstractAdapter implements DataInterface
 
             foreach ($hold_parameters as $key => $value) {
                 if (isset($this->parameters->$key)) {
-                    if ($this->parameters->$key === NULL) {
+                    if ($this->parameters->$key === null) {
                         $this->parameters->$key = $value;
                     }
                 } else {
@@ -335,8 +335,8 @@ class Molajo extends AbstractAdapter implements DataInterface
 
             if ($this->field_name === '') {
 
-            } elseif (isset($this->query_results[$this->field_name])) {
-                $x                     = $this->query_results[$this->field_name];
+            } elseif (isset($this->query_results[ $this->field_name ])) {
+                $x                     = $this->query_results[ $this->field_name ];
                 $this->query_results   = array();
                 $this->query_results[] = $x;
             }

@@ -31,7 +31,7 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $render = new Render();
+        $render              = new Render();
         $this->wrap_instance = new WrapView($render);
     }
 

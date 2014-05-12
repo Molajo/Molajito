@@ -44,15 +44,16 @@ class EngineTest extends \PHPUnit_Framework_TestCase
     /**
      * @var  $event_option_keys
      */
-    protected $event_option_keys = array(
-        'runtime_data',
-        'parameters',
-        'query',
-        'model_registry',
-        'row',
-        'rendered_view',
-        'rendered_page'
-    );
+    protected $event_option_keys
+        = array(
+            'runtime_data',
+            'parameters',
+            'query',
+            'model_registry',
+            'row',
+            'rendered_view',
+            'rendered_page'
+        );
 
     /**
      * @var  $extension_resource

@@ -34,16 +34,17 @@ abstract class AbstractAdapter implements EventInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $event_option_keys = array(
-        'runtime_data',
-        'plugin_data',
-        'parameters',
-        'model_registry',
-        'query_results',
-        'row',
-        'rendered_view',
-        'rendered_page'
-    );
+    protected $event_option_keys
+        = array(
+            'runtime_data',
+            'plugin_data',
+            'parameters',
+            'model_registry',
+            'query_results',
+            'row',
+            'rendered_view',
+            'rendered_page'
+        );
 
     /**
      * Constructor
@@ -54,7 +55,7 @@ abstract class AbstractAdapter implements EventInterface
      * @since  1.0.0
      */
     public function __construct(
-        callable $event_callback = NULL,
+        callable $event_callback = null,
         array $event_option_keys = array()
     ) {
         $this->event_callback = $event_callback;
@@ -75,7 +76,7 @@ abstract class AbstractAdapter implements EventInterface
         $options = array();
 
         foreach ($this->event_option_keys as $key) {
-            $options[$key] = NULL;
+            $options[ $key ] = null;
         }
 
         return $options;

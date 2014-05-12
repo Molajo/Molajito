@@ -47,7 +47,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @return  array
      * @since   1.0
      */
-    public function setDependencies(array $reflection = NULL)
+    public function setDependencies(array $reflection = null)
     {
         $this->reflection   = array();
         $this->dependencies = array();
@@ -74,7 +74,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $options = array();
 
         foreach ($this->dependencies as $key => $value) {
-            $options[$key] = $value;
+            $options[ $key ] = $value;
         }
 
         $options['molajito_base_folder'] = $this->dependencies['Runtimedata']->base_path;

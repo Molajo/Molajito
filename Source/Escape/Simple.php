@@ -46,9 +46,9 @@ class Simple extends AbstractAdapter implements EscapeInterface
      * @since  1.0.0
      */
     public function __construct(
-        $white_list = NULL
+        $white_list = null
     ) {
-        if ($white_list === NULL) {
+        if ($white_list === null) {
         } else {
             $this->white_list = $white_list;
         }
@@ -57,8 +57,8 @@ class Simple extends AbstractAdapter implements EscapeInterface
     /**
      * Simple Query Output prior to Rendering
      *
-     * @param   array  $data
-     * @param   array  $model_registry
+     * @param   array $data
+     * @param   array $model_registry
      *
      * @return  array
      * @since   1.0
@@ -81,7 +81,7 @@ class Simple extends AbstractAdapter implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function escapeDataElement($data_key, $data_value = NULL)
+    protected function escapeDataElement($data_key, $data_value = null)
     {
         if (is_numeric($data_value)) {
             return $data_value;
@@ -96,6 +96,6 @@ class Simple extends AbstractAdapter implements EscapeInterface
             return strip_tags($data_value, $this->white_list);
         }
 
-        return NULL;
+        return null;
     }
 }
