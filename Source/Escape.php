@@ -53,10 +53,10 @@ class Escape implements EscapeInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function escape(array $data = array(), array $model_registry = array())
+    public function escapeOutput(array $data = array(), array $model_registry = array())
     {
         try {
-            return $this->escape_adapter->escape($data, $model_registry);
+            return $this->escape_adapter->escapeOutput($data, $model_registry);
 
         } catch (Exception $e) {
             throw new RuntimeException(

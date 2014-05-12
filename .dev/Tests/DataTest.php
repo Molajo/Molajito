@@ -45,6 +45,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+
         $this->data_resource = new Data(new Molajo());
     }
 

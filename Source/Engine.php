@@ -99,17 +99,17 @@ class Engine implements RenderInterface
      * @since  1.0.0
      */
     public function __construct(
+        RenderInterface $token_instance,
+        TranslateInterface $translate_instance,
         ParseInterface $parse_instance,
         array $exclude_tokens = array(),
-        $stop_loop_count = 100,
-        RenderInterface $token_instance,
-        TranslateInterface $translate_instance
+        $stop_loop_count = 100
     ) {
+        $this->token_instance     = $token_instance;
+        $this->translate_instance = $translate_instance;
         $this->parse_instance     = $parse_instance;
         $this->exclude_tokens     = $exclude_tokens;
         $this->stop_loop_count    = $stop_loop_count;
-        $this->token_instance     = $token_instance;
-        $this->translate_instance = $translate_instance;
     }
 
     /**
@@ -218,6 +218,6 @@ class Engine implements RenderInterface
      */
     protected function parseTokens(array $exclude_tokens = array())
     {
-        return $this->parse_instance->parse($this->rendered_page, $exclude_tokens);
+        return $this->parse_instance->parseRenderedOutput($this->rendered_page, $exclude_tokens);
     }
 }

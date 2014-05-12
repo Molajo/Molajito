@@ -85,32 +85,32 @@ class FactoryMethod
         $stop_loop_count   = 100;
         $theme_instance    = $this->getRenderInstance(
             'Molajito\\Render\\Theme',
-            $escape_instance,
             $render_instance,
+            $escape_instance,
             $event_instance
         );
         $position_instance = $this->getRenderInstance(
             'Molajito\\Render\\Position',
-            $escape_instance,
             $render_instance,
+            $escape_instance,
             $event_instance
         );
         $page_instance     = $this->getRenderInstance(
             'Molajito\\Render\\Page',
-            $escape_instance,
             $render_instance,
+            $escape_instance,
             $event_instance
         );
         $template_instance = $this->getRenderInstance(
             'Molajito\\Render\\Template',
-            $escape_instance,
             $render_instance,
+            $escape_instance,
             $event_instance
         );
         $wrap_instance     = $this->getRenderInstance(
             'Molajito\\Render\\Wrap',
-            $escape_instance,
             $render_instance,
+            $escape_instance,
             $event_instance
         );
 
@@ -135,11 +135,11 @@ class FactoryMethod
 
         try {
             $molajito = new $class (
+                $token_instance,
+                $translate_instance,
                 $parse_instance,
                 $exclude_tokens,
-                $stop_loop_count,
-                $token_instance,
-                $translate_instance
+                $stop_loop_count
             );
         } catch (Exception $e) {
             throw new RuntimeException(
@@ -263,8 +263,8 @@ class FactoryMethod
      * Instantiate Theme or View Render Class
      *
      * @param   string               $class
-     * @param   null|EscapeInterface $escape_instance
      * @param   object               $render_instance
+     * @param   null|EscapeInterface $escape_instance
      * @param   null|EventInterface  $event_instance
      *
      * @return  object
@@ -273,8 +273,8 @@ class FactoryMethod
      */
     protected function getRenderInstance(
         $class,
-        EscapeInterface $escape_instance = null,
         $render_instance,
+        EscapeInterface $escape_instance = null,
         EventInterface $event_instance = null
     ) {
         try {
@@ -290,7 +290,7 @@ class FactoryMethod
     /**
      * Instantiate Translate Class with Adapter
      *
-     * @param   $escape_instance \CommonApi\Exception\EscapeInterface
+     * @param   $escape_instance \CommonApi\Render\EscapeInterface
      *
      * @return  object
      * @since   1.0

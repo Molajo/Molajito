@@ -50,7 +50,7 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
         $row->test_field = null;
         $query_results[] = $row;
 
-        $results = $this->escape_instance->escape($query_results);
+        $results = $this->escape_instance->escapeOutput($query_results);
 
         $this->assertEquals(null, $results[0]->test_field);
 
@@ -70,7 +70,7 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
         $row->test_field = 33;
         $query_results[] = $row;
 
-        $results = $this->escape_instance->escape($query_results);
+        $results = $this->escape_instance->escapeOutput($query_results);
 
         $this->assertEquals(33, $results[0]->test_field);
 
@@ -90,7 +90,7 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
         $row->test_field = array(1, 2, 3);
         $query_results[] = $row;
 
-        $results = $this->escape_instance->escape($query_results);
+        $results = $this->escape_instance->escapeOutput($query_results);
 
         $this->assertEquals(array(1, 2, 3), $results[0]->test_field);
 
@@ -110,7 +110,7 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
         $row->test_field = '<article><p>I am a dog.</p></article>';
         $query_results[] = $row;
 
-        $results = $this->escape_instance->escape($query_results);
+        $results = $this->escape_instance->escapeOutput($query_results);
 
         $this->assertEquals('<p>I am a dog.</p>', $results[0]->test_field);
 

@@ -60,12 +60,14 @@ class WrapView extends AbstractRenderer implements RenderInterface
     /**
      * Render View Part: Header, Body, Footer
      *
-     * @param   string $file
+     * @param   string      $file
+     * @param   null|string $event   unused for Wrap
+     * @param   boolean     $custom  unused for Wrap
      *
      * @return  $this
      * @since   1.0
      */
-    protected function renderViewPart($file)
+    protected function renderViewPart($file, $event = null, $custom = false)
     {
         $file_path = $this->include_path . $file;
 

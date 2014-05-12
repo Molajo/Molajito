@@ -172,7 +172,7 @@ abstract class AbstractAdapter implements TranslateInterface
         $this->row->language_string = $string;
 
         try {
-            $rows = $this->escape_instance->escape(array($this->row), $this->model_registry);
+            $rows = $this->escape_instance->escapeOutput(array($this->row), $this->model_registry);
 
             return $rows[0]->language_string;
 

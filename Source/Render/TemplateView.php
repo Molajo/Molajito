@@ -74,10 +74,10 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      */
     protected function renderViewCustom()
     {
-        $this->query_results = $this->escape_instance->escape($this->query_results, $this->model_registry);
+        $this->query_results = $this->escape_instance->escapeOutput($this->query_results, $this->model_registry);
         $file_path           = $this->include_path . '/Custom.phtml';
 
-        return $this->renderViewPart(null, $file_path, false);
+        return $this->renderViewPart($file_path, null, false);
     }
 
     /**
@@ -131,17 +131,17 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      */
     protected function renderViewNormal()
     {
-        $temp      = $this->escape_instance->escape(array($this->row), $this->model_registry);
+        $temp      = $this->escape_instance->escapeOutput(array($this->row), $this->model_registry);
         $this->row = $temp[0];
 
         if ($this->row->first === 1) {
-            $this->renderViewPart('onBeforeRenderViewHead', '/Header.phtml', false);
+            $this->renderViewPart('/Header.phtml', 'onBeforeRenderViewHead', false);
         }
 
-        $this->renderViewPart('onBeforeRenderViewItem', '/Body.phtml', false);
+        $this->renderViewPart('/Body.phtml', 'onBeforeRenderViewItem', false);
 
         if ($this->row->last_row === 1) {
-            $this->renderViewPart('onBeforeRenderViewFooter', '/Footer.phtml', false);
+            $this->renderViewPart('/Footer.phtml', 'onBeforeRenderViewFooter', false);
         }
 
         return $this;
@@ -150,15 +150,15 @@ class TemplateView extends AbstractRenderer implements RenderInterface
     /**
      * Render View Part: Header, Body, Footer
      *
-     * @param   null|string $event
      * @param   string      $file
+     * @param   null|string $event
      * @param   boolean     $custom
      *
      * @return  $this
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function renderViewPart($event = null, $file, $custom = false)
+    protected function renderViewPart($file, $event = null, $custom = false)
     {
         if ($event === null) {
             $file_path = $file;

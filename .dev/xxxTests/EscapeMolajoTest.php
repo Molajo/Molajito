@@ -55,7 +55,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
             'test_field' => array('name' => 'test_field', 'type' => 'url')
         );
 
-        $results = $this->escape_instance->escape($query_results, $model_registry);
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
 
         $this->assertEquals(null, $results[0]->test_field);
 
@@ -79,7 +79,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
             'test_field' => array('name' => 'test_field', 'type' => 'integer')
         );
 
-        $results = $this->escape_instance->escape($query_results, $model_registry);
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
 
         $this->assertEquals(33, $results[0]->test_field);
 
@@ -103,7 +103,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
             'test_field' => array('name' => 'test_field', 'type' => 'array')
         );
 
-        $results = $this->escape_instance->escape($query_results, $model_registry);
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
 
         $this->assertEquals(array(1, 2, 3), $results[0]->test_field);
 
@@ -127,7 +127,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
             'test_field' => array('name' => 'test_field', 'type' => 'html')
         );
 
-        $results = $this->escape_instance->escape($query_results, $model_registry);
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
 
         $this->assertEquals('<p>I am a dog.</p>', $results[0]->test_field);
 

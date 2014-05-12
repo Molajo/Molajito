@@ -275,7 +275,7 @@ abstract class AbstractRenderer implements RenderInterface
         }
 
         try {
-            return $this->render_instance->render($file_path, $options);
+            return $this->render_instance->renderOutput($file_path, $options);
 
         } catch (Exception $e) {
             throw new RuntimeException(
