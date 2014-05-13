@@ -52,8 +52,6 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Template View
-     *
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
      * @covers Molajito\Event\Dummy::initializeEventOptions
@@ -127,8 +125,6 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test 'Normal' Template View
-     *
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
      * @covers Molajito\Event\Dummy::initializeEventOptions
@@ -194,6 +190,168 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Header.phtml';
         include $include_path . '/Body.phtml';
         include $include_path . '/Footer.phtml';
+        $collect = ob_get_clean();
+
+        $results = $this->template_view->renderOutput($include_path, $data);
+
+        $this->assertEquals($collect, $results);
+
+        return $this;
+    }
+
+    /**
+     * @covers Molajito\Event::initializeEventOptions
+     * @covers Molajito\Event::scheduleEvent
+     * @covers Molajito\Event\Dummy::initializeEventOptions
+     * @covers Molajito\Event\Dummy::scheduleEvent
+     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @covers Molajito\Render\TemplateView::renderOutput
+     * @covers Molajito\Render\TemplateView::renderViewCustom
+     * @covers Molajito\Render\TemplateView::renderLoop
+     * @covers Molajito\Render\TemplateView::initializeRenderLoop
+     * @covers Molajito\Render\TemplateView::renderViewNormal
+     * @covers Molajito\Render\TemplateView::renderViewCustom
+     * @covers Molajito\Render\TemplateView::renderViewPart
+     * @covers Molajito\Render\TemplateView::setRenderViewOptions
+     *
+     * @covers Molajito\Render\AbstractRenderer::renderOutput
+     * @covers Molajito\Render\AbstractRenderer::setProperties
+     * @covers Molajito\Render\AbstractRenderer::getProperties
+     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers Molajito\Render\AbstractRenderer::performRendering
+     *
+     * @covers Molajito\Render::renderOutput
+     * @covers Molajito\Render::setProperties
+     * @covers Molajito\Render::includeFile
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testOnlyHeaderExists()
+    {
+        $data = array();
+
+        // two rows but only one header
+        $data['query_results']   = array();
+
+        $row                     = new stdClass();
+        $row->id                 = 1;
+        $row->title              = 'I am a title 1';
+        $row->content_text       = '<p>I am a paragraph 1</p>';
+        $data['query_results'][] = $row;
+
+        $row                     = new stdClass();
+        $row->id                 = 2;
+        $row->title              = 'I am a title 2';
+        $row->content_text       = '<p>I am a paragraph 2</p>';
+        $data['query_results'][] = $row;
+
+        $data['parameters'] = array();
+
+        $data['model_registry'] = array(
+            'id'           => array('name' => 'id', 'type' => 'integer'),
+            'title'        => array('name' => 'title', 'type' => 'string'),
+            'content_text' => array('name' => 'content_text', 'type' => 'html')
+        );
+
+        $include_path = __DIR__ . '/ViewFilesystem/Views/Templates/Headeronly';
+
+        ob_start();
+        include $include_path . '/Header.phtml';
+        $collect = ob_get_clean();
+
+        $results = $this->template_view->renderOutput($include_path, $data);
+
+        $this->assertEquals($collect, $results);
+
+        return $this;
+    }
+
+    /**
+     * @covers Molajito\Event::initializeEventOptions
+     * @covers Molajito\Event::scheduleEvent
+     * @covers Molajito\Event\Dummy::initializeEventOptions
+     * @covers Molajito\Event\Dummy::scheduleEvent
+     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @covers Molajito\Render\TemplateView::renderOutput
+     * @covers Molajito\Render\TemplateView::renderViewCustom
+     * @covers Molajito\Render\TemplateView::renderLoop
+     * @covers Molajito\Render\TemplateView::initializeRenderLoop
+     * @covers Molajito\Render\TemplateView::renderViewNormal
+     * @covers Molajito\Render\TemplateView::renderViewCustom
+     * @covers Molajito\Render\TemplateView::renderViewPart
+     * @covers Molajito\Render\TemplateView::setRenderViewOptions
+     *
+     * @covers Molajito\Render\AbstractRenderer::renderOutput
+     * @covers Molajito\Render\AbstractRenderer::setProperties
+     * @covers Molajito\Render\AbstractRenderer::getProperties
+     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers Molajito\Render\AbstractRenderer::performRendering
+     *
+     * @covers Molajito\Render::renderOutput
+     * @covers Molajito\Render::setProperties
+     * @covers Molajito\Render::includeFile
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testOnlyBodyExists()
+    {
+        $data = array();
+
+        $data['query_results']   = array();
+
+        $row                     = new stdClass();
+        $row->id                 = 1;
+        $row->title              = 'I am a title 1';
+        $row->content_text       = '<p>I am a paragraph 1</p>';
+        $data['query_results'][] = $row;
+
+        $row                     = new stdClass();
+        $row->id                 = 2;
+        $row->title              = 'I am a title 2';
+        $row->content_text       = '<p>I am a paragraph 2</p>';
+        $data['query_results'][] = $row;
+
+        $data['parameters'] = array();
+
+        $data['model_registry'] = array(
+            'id'           => array('name' => 'id', 'type' => 'integer'),
+            'title'        => array('name' => 'title', 'type' => 'string'),
+            'content_text' => array('name' => 'content_text', 'type' => 'html')
+        );
+
+        $include_path = __DIR__ . '/ViewFilesystem/Views/Templates/Bodyonly';
+
+        ob_start();
+        include $include_path . '/Body.phtml';
+        include $include_path . '/Body.phtml';
         $collect = ob_get_clean();
 
         $results = $this->template_view->renderOutput($include_path, $data);

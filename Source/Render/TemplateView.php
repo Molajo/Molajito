@@ -8,9 +8,7 @@
  */
 namespace Molajito\Render;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\RenderInterface;
-use Exception;
 
 /**
  * Molajito Template View Renderer
@@ -58,7 +56,10 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      */
     protected function renderViewCustom()
     {
-        $this->query_results = $this->escape_instance->escapeOutput($this->query_results, $this->model_registry);
+        $this->query_results = $this->escape_instance->escapeOutput(
+            $this->query_results,
+            $this->model_registry
+        );
         $file_path           = $this->include_path . '/Custom.phtml';
 
         return $this->renderViewPart($file_path, null, true);
@@ -183,7 +184,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
     /**
      * Set Render View Options
      *
-     * @param   boolean     $custom
+     * @param   boolean $custom
      *
      * @return  $this
      * @since   1.0

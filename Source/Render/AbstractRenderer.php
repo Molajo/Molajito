@@ -83,18 +83,10 @@ abstract class AbstractRenderer implements RenderInterface
     /**
      * Model Registry
      *
-     * @var    object
-     * @since  1.0.0
-     */
-    protected $model_registry = null;
-
-    /**
-     * Allowed Properties
-     *
      * @var    array
      * @since  1.0.0
      */
-    //protected $property_array = array();
+    protected $model_registry = array();
 
     /**
      * Query Results

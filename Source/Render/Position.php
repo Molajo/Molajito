@@ -127,8 +127,8 @@ class Position implements PositionInterface
     /**
      * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
      *
-     * @param   string $position_name
-     * @param   array  $position_parameter
+     * @param   string  $position_name
+     * @param   string  $position_parameter
      *
      * @return  array
      * @since   1.0
@@ -151,7 +151,7 @@ class Position implements PositionInterface
     protected function buildPositionArray($position)
     {
         $positions_array = array();
-        
+
         $position_templates = explode('{{', $position);
 
         if (count($position_templates) > 0) {
