@@ -81,28 +81,10 @@ class Parse implements ParseInterface
      */
     public function parseTokens()
     {
-        $matches = $this->parseTokensMatch();
-
-        if (count($matches) === 0) {
-            return array();
-        }
-
-        return $this->buildTokensToRender($matches);
-    }
-
-    /**
-     * Parse tokens in rendered page
-     *
-     * @return  array
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function parseTokensMatch()
-    {
         preg_match_all($this->parse_mask, $this->rendered_page, $matches);
 
-        if (is_array($matches)) {
-            return $matches;
+        if (count($matches) > 0) {
+            return $this->buildTokensToRender($matches);
         }
 
         return array();
@@ -126,32 +108,10 @@ class Parse implements ParseInterface
         }
 
         if (count($this->exclude_tokens) > 0) {
-            return $this->removeExcludeTokens($tokens_to_render);
+            return $this->excludeTokens($tokens_to_render);
         }
 
         return $tokens_to_render;
-    }
-
-    /**
-     * Remove tokens in excluded array
-     *
-     *
-     * @return  array
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function removeExcludeTokens($tokens_to_render)
-    {
-        $new = array();
-
-        foreach ($tokens_to_render as $object) {
-            if (in_array($object->name, $this->exclude_tokens)) {
-            } else {
-                $new[] = $object;
-            }
-        }
-
-        return $this->excludeTokens($new);
     }
 
     /**
@@ -212,7 +172,6 @@ class Parse implements ParseInterface
     /**
      * Set Token Elements
      *
-     * @param   string $parsed_token
      *
      * @return  array
      * @since   1.0
@@ -258,6 +217,7 @@ class Parse implements ParseInterface
      *
      * @param   stdClass $token
      * @param   array    $pair
+     * @param integer $first
      *
      * @return  object
      * @since   1.0
@@ -276,7 +236,7 @@ class Parse implements ParseInterface
     /**
      * Remove tokens specified in the exclude tokens list
      *
-     * @param   object $token
+     * @param   stdClass $token
      * @param   array  $pair
      *
      * @return  object
@@ -298,7 +258,7 @@ class Parse implements ParseInterface
     /**
      * Process Subsequent Token Elements
      *
-     * @param   object $token
+     * @param   stdClass $token
      * @param   array  $pair
      *
      * @return  object
@@ -326,19 +286,14 @@ class Parse implements ParseInterface
      */
     protected function excludeTokens($tokens)
     {
-        if (count($this->exclude_tokens) == 0) {
-            return $tokens;
-        }
-
-        $temp   = $tokens;
-        $tokens = array();
-        foreach ($temp as $object) {
+        $use_tokens = array();
+        foreach ($tokens as $object) {
             if (in_array($object->type, $this->exclude_tokens)) {
             } else {
-                $tokens[] = $object;
+                $use_tokens[] = $object;
             }
         }
 
-        return $tokens;
+        return $use_tokens;
     }
 }
