@@ -80,11 +80,11 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      *
      * @covers Molajito\View\Filesystem::__construct
      * @covers Molajito\View\Filesystem::getView
+     * @covers Molajito\View\Filesystem::getBase
+     * @covers Molajito\View\Filesystem::getFolder
+     * @covers Molajito\View\Filesystem::getFile
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
-     * @covers Molajito\View\Filesystem::getThemeView
-     * @covers Molajito\View\Filesystem::getPageView
-     * @covers Molajito\View\Filesystem::getTemplateWrapView
      *
      * @return  $this
      * @since   1.0
@@ -108,11 +108,11 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      *
      * @covers Molajito\View\Filesystem::__construct
      * @covers Molajito\View\Filesystem::getView
+     * @covers Molajito\View\Filesystem::getBase
+     * @covers Molajito\View\Filesystem::getFolder
+     * @covers Molajito\View\Filesystem::getFile
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
-     * @covers Molajito\View\Filesystem::getThemeView
-     * @covers Molajito\View\Filesystem::getPageView
-     * @covers Molajito\View\Filesystem::getTemplateWrapView
      *
      * @return  $this
      * @since   1.0
@@ -136,11 +136,11 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      *
      * @covers Molajito\View\Filesystem::__construct
      * @covers Molajito\View\Filesystem::getView
+     * @covers Molajito\View\Filesystem::getBase
+     * @covers Molajito\View\Filesystem::getFolder
+     * @covers Molajito\View\Filesystem::getFile
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
-     * @covers Molajito\View\Filesystem::getThemeView
-     * @covers Molajito\View\Filesystem::getPageView
-     * @covers Molajito\View\Filesystem::getTemplateWrapView
      *
      * @return  $this
      * @since   1.0

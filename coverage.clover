@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1399993956">
-  <project timestamp="1399993956">
+<coverage generated="1399994998">
+  <project timestamp="1399994998">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -1131,44 +1131,45 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Filesystem.php">
         <class name="Filesystem" namespace="Molajito\View" fullPackage="Filesystem" package="Filesystem">
-          <metrics methods="5" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="25" elements="34" coveredelements="29"/>
+          <metrics methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="26" elements="35" coveredelements="31"/>
         </class>
         <line num="49" type="method" name="__construct" crap="1" count="7"/>
         <line num="53" type="stmt" count="7"/>
         <line num="54" type="stmt" count="7"/>
         <line num="55" type="stmt" count="7"/>
-        <line num="66" type="method" name="getView" crap="3" count="4"/>
+        <line num="66" type="method" name="getView" crap="1" count="4"/>
         <line num="68" type="stmt" count="4"/>
         <line num="69" type="stmt" count="4"/>
         <line num="70" type="stmt" count="4"/>
         <line num="71" type="stmt" count="4"/>
         <line num="72" type="stmt" count="4"/>
         <line num="74" type="stmt" count="4"/>
-        <line num="75" type="stmt" count="1"/>
+        <line num="75" type="stmt" count="4"/>
+        <line num="76" type="stmt" count="4"/>
         <line num="77" type="stmt" count="4"/>
-        <line num="78" type="stmt" count="1"/>
-        <line num="80" type="stmt" count="1"/>
-        <line num="81" type="stmt" count="2"/>
-        <line num="84" type="stmt" count="4"/>
-        <line num="85" type="stmt" count="4"/>
-        <line num="87" type="stmt" count="4"/>
-        <line num="96" type="method" name="getThemeView" crap="2" count="0"/>
-        <line num="98" type="stmt" count="0"/>
-        <line num="99" type="stmt" count="0"/>
-        <line num="100" type="stmt" count="0"/>
-        <line num="102" type="stmt" count="0"/>
-        <line num="111" type="method" name="getPageView" crap="1" count="1"/>
-        <line num="113" type="stmt" count="1"/>
-        <line num="114" type="stmt" count="1"/>
-        <line num="115" type="stmt" count="1"/>
-        <line num="117" type="stmt" count="1"/>
-        <line num="128" type="method" name="getTemplateWrapView" crap="1" count="2"/>
-        <line num="130" type="stmt" count="2"/>
-        <line num="131" type="stmt" count="2"/>
-        <line num="132" type="stmt" count="2"/>
-        <line num="134" type="stmt" count="2"/>
-        <line num="137" type="stmt" count="0"/>
-        <metrics loc="136" ncloc="72" classes="1" methods="5" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="25" elements="34" coveredelements="29"/>
+        <line num="78" type="stmt" count="4"/>
+        <line num="79" type="stmt" count="4"/>
+        <line num="81" type="stmt" count="4"/>
+        <line num="92" type="method" name="getBase" crap="2.26" count="3"/>
+        <line num="94" type="stmt" count="3"/>
+        <line num="95" type="stmt" count="0"/>
+        <line num="96" type="stmt" count="0"/>
+        <line num="97" type="stmt" count="3"/>
+        <line num="100" type="stmt" count="3"/>
+        <line num="111" type="method" name="getFolder" crap="2.26" count="3"/>
+        <line num="113" type="stmt" count="3"/>
+        <line num="114" type="stmt" count="0"/>
+        <line num="115" type="stmt" count="0"/>
+        <line num="116" type="stmt" count="3"/>
+        <line num="119" type="stmt" count="3"/>
+        <line num="130" type="method" name="getFile" crap="3" count="3"/>
+        <line num="132" type="stmt" count="3"/>
+        <line num="133" type="stmt" count="1"/>
+        <line num="134" type="stmt" count="1"/>
+        <line num="135" type="stmt" count="2"/>
+        <line num="138" type="stmt" count="3"/>
+        <line num="141" type="stmt" count="0"/>
+        <metrics loc="140" ncloc="72" classes="1" methods="5" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="26" elements="35" coveredelements="29"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Molajo.php">
         <class name="Molajo" namespace="Molajito\View" fullPackage="Molajo" package="Molajo">
@@ -1441,6 +1442,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="53" loc="5065" ncloc="2682" classes="30" methods="142" coveredmethods="83" conditionals="0" coveredconditionals="0" statements="975" coveredstatements="630" elements="1117" coveredelements="713"/>
+    <metrics files="53" loc="5069" ncloc="2682" classes="30" methods="142" coveredmethods="82" conditionals="0" coveredconditionals="0" statements="976" coveredstatements="631" elements="1118" coveredelements="713"/>
   </project>
 </coverage>

@@ -71,66 +71,70 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->extension        = new stdClass();
         $render->extension->title = ucfirst(strtolower($token->name));
 
-        if ($render->scheme === 'Theme') {
-            $parts = $this->getThemeView();
-
-        } elseif ($render->scheme === 'Page') {
-            $parts = $this->getPageView();
-
-        } else {
-            $parts = $this->getTemplateWrapView($render);
-        }
-
         $render->extension->include_path
-            = $parts['base'] . $parts['folder'] . $render->extension->title . '/' . $parts['file'];
+            = $this->getBase($render->scheme)
+            . $this->getFolder($render->scheme)
+            . $render->extension->title
+            . '/'
+            . $this->getFile($render->scheme);
 
         return $render;
     }
 
     /**
-     * Get Theme Information
+     * Get Base Folder
      *
-     * @return  object
+     * @param   string $scheme
+     *
+     * @return  string
      * @since   1.0
      */
-    public function getThemeView()
+    public function getBase($scheme)
     {
-        $base   = $this->theme_base_folder;
-        $folder = '/';
-        $file   = 'Index.phtml';
+        if ($scheme === 'Theme') {
+            $base = $this->theme_base_folder;
+        } else {
+            $base = $this->view_base_folder;
+        }
 
-        return array('base' => $base, 'folder' => $folder, 'file' => $file);
+        return $base;
     }
 
     /**
-     * Get PageView Information
+     * Get Base Folder
      *
-     * @return  object
+     * @param   string $scheme
+     *
+     * @return  string
      * @since   1.0
      */
-    public function getPageView()
+    public function getFolder($scheme)
     {
-        $base   = $this->view_base_folder;
-        $folder = '/Pages/';
-        $file   = 'Index.phtml';
+        if ($scheme === 'Theme') {
+            $folder = '/';
+        } else {
+            $folder = '/' . $scheme . 's/';
+        }
 
-        return array('base' => $base, 'folder' => $folder, 'file' => $file);
+        return $folder;
     }
 
     /**
-     * Get Template and Wrap View Information
+     * Get File
      *
-     * @param  object $render
+     * @param   string $scheme
      *
-     * @return  object
+     * @return  string
      * @since   1.0
      */
-    public function getTemplateWrapView($render)
+    public function getFile($scheme)
     {
-        $base   = $this->view_base_folder;
-        $folder = '/' . $render->scheme . 's/';
-        $file   = '';
+        if ($scheme === 'Theme' || $scheme === 'Page') {
+            $file = 'Index.phtml';
+        } else {
+            $file = '';
+        }
 
-        return array('base' => $base, 'folder' => $folder, 'file' => $file);
+        return $file;
     }
 }
