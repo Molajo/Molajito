@@ -72,23 +72,65 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->extension->title = ucfirst(strtolower($token->name));
 
         if ($render->scheme === 'Theme') {
-            $base   = $this->theme_base_folder;
-            $folder = '/';
-            $file   = 'Index.phtml';
+            $parts = $this->getThemeView();
 
         } elseif ($render->scheme === 'Page') {
-            $base   = $this->view_base_folder;
-            $folder = '/' . $render->scheme . 's/';
-            $file   = 'Index.phtml';
+            $parts = $this->getPageView();
 
         } else {
-            $base   = $this->view_base_folder;
-            $folder = '/' . $render->scheme . 's/';
-            $file   = '';
+            $parts = $this->getTemplateWrapView($render);
         }
 
-        $render->extension->include_path = $base . $folder . $render->extension->title . '/' . $file;
+        $render->extension->include_path
+            = $parts['base'] . $parts['folder'] . $render->extension->title . '/' . $parts['file'];
 
         return $render;
+    }
+
+    /**
+     * Get Theme Information
+     *
+     * @return  object
+     * @since   1.0
+     */
+    public function getThemeView()
+    {
+        $base   = $this->theme_base_folder;
+        $folder = '/';
+        $file   = 'Index.phtml';
+
+        return array('base' => $base, 'folder' => $folder, 'file' => $file);
+    }
+
+    /**
+     * Get PageView Information
+     *
+     * @return  object
+     * @since   1.0
+     */
+    public function getPageView()
+    {
+        $base   = $this->view_base_folder;
+        $folder = '/Pages/';
+        $file   = 'Index.phtml';
+
+        return array('base' => $base, 'folder' => $folder, 'file' => $file);
+    }
+
+    /**
+     * Get Template and Wrap View Information
+     *
+     * @param  object $render
+     *
+     * @return  object
+     * @since   1.0
+     */
+    public function getTemplateWrapView($render)
+    {
+        $base   = $this->view_base_folder;
+        $folder = '/' . $render->scheme . 's/';
+        $file   = '';
+
+        return array('base' => $base, 'folder' => $folder, 'file' => $file);
     }
 }

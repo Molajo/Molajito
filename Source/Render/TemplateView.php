@@ -60,7 +60,8 @@ class TemplateView extends AbstractRenderer implements RenderInterface
             $this->query_results,
             $this->model_registry
         );
-        $file_path           = $this->include_path . '/Custom.phtml';
+
+        $file_path = $this->include_path . '/Custom.phtml';
 
         return $this->renderViewPart($file_path, null, true);
     }
