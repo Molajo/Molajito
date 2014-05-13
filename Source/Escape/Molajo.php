@@ -150,9 +150,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
         if (is_numeric($data_value)) {
             $escape_key = 'numeric';
 
-        } elseif (is_null($data_value)) {
-            $escape_key = 'string';
-
         } elseif (is_array($data_value)) {
             $escape_key = 'array';
 

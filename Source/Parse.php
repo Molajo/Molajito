@@ -82,6 +82,7 @@ class Parse implements ParseInterface
     public function parseTokens()
     {
         $matches = $this->parseTokensMatch();
+
         if (count($matches) === 0) {
             return array();
         }
@@ -100,7 +101,11 @@ class Parse implements ParseInterface
     {
         preg_match_all($this->parse_mask, $this->rendered_page, $matches);
 
-        return $matches;
+        if (is_array($matches)) {
+            return $matches;
+        }
+
+        return array();
     }
 
     /**
@@ -201,6 +206,7 @@ class Parse implements ParseInterface
     protected function setTokenElements($parsed_token)
     {
         $token_elements = array();
+
         $pieces         = explode(' ', $parsed_token);
 
         if (count($pieces) > 0) {
@@ -226,7 +232,6 @@ class Parse implements ParseInterface
      */
     protected function processTokenElements($token_elements, $token)
     {
-        $count_attributes = 0;
         $first            = 1;
 
         foreach ($token_elements as $part) {
