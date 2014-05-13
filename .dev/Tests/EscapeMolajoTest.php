@@ -217,6 +217,75 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
+
+    /**
+     * Test HTML without Model Registry
+     *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testMolajoNoModelRegistryObjectField()
+    {
+        $test          = new stdClass();
+        $test->isnull  = null;
+        $test->isarray = array();
+        $test->string  = 'string';
+
+        $query_results = array();
+        $row           = new stdClass();
+        $row->object   = $test;
+
+        $query_results[] = $row;
+
+        $model_registry = array();
+
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
+
+        $this->assertEquals(null, $results[0]->object);
+
+        return $this;
+    }
+
+    /**
+     * No data
+     *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testMolajoNoData()
+    {
+        $query_results = array();
+
+        $model_registry = array();
+
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
+
+        $this->assertEquals(array(), $results);
+
+        return $this;
+    }
 }
 
 

@@ -32,10 +32,6 @@ abstract class AbstractAdapter implements EscapeInterface
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {
-        if (count($data) == 0) {
-            return $data;
-        }
-
         foreach ($data as $row) {
             foreach ($row as $data_key => $data_value) {
                 $row->$data_key = $this->escapeDataElement($data_key, $data_value);

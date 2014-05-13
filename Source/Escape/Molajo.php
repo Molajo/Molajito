@@ -91,18 +91,13 @@ class Molajo extends AbstractAdapter implements EscapeInterface
     {
         $escape_key = $this->setEscapeDataType($data_key, $data_value);
 
-        try {
-
-            $results = $this->fieldhandler->sanitize($data_key, $data_value, $escape_key);
-
-            return $results->getFieldValue();
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Escape Molajo: Fieldhandler class Failed for Key: ' . $data_key
-                . ' Fieldhandler: ' . $data_value . ' ' . $e->getMessage()
-            );
+        if ($escape_key === 'object') {
+            return null;
         }
+
+        $results = $this->fieldhandler->sanitize($data_key, $data_value, $escape_key);
+
+        return $results->getFieldValue();
     }
 
     /**
@@ -120,7 +115,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
         $escape_key = $this->setEscapeDataTypeModelRegistry($data_key);
 
         if ($escape_key === false) {
-        } else {
             $escape_key = $this->setDefaultEscapeDataType($data_value);
         }
 
@@ -138,11 +132,9 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      */
     protected function setEscapeDataTypeModelRegistry($data_key)
     {
-        if (count($this->model_registry) > 0) {
-            foreach ($this->model_registry as $model_item) {
-                if ($model_item['name'] == $data_key) {
-                    return $model_item['type'];
-                }
+        foreach ($this->model_registry as $model_item) {
+            if ($model_item['name'] == $data_key) {
+                return $model_item['type'];
             }
         }
 
