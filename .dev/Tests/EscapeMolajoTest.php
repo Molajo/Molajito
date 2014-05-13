@@ -9,6 +9,7 @@
 namespace Molajito\Test;
 
 use CommonApi\Model\FieldhandlerInterface;
+use Exception;
 use Molajito\Escape;
 use Molajito\Escape\Molajo;
 use stdClass;
@@ -169,6 +170,41 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
+
+
+    /**
+     * Test Null Value without Model Registry
+     *
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Molajo::__construct
+     * @covers  Molajito\Escape\Molajo::escapeOutput
+     * @covers  Molajito\Escape\Molajo::escapeDataElement
+     * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @expectedException        \CommonApi\Exception\RuntimeException
+     * @expectedExceptionMessage Escape Driver escape Method Failed: Molajito Escape Molajo: Fieldhandler class Failed for Key: test_field Fieldhandler: pancake Molajito Escape Molajo
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testMolajoException()
+    {
+        $query_results   = array();
+        $row             = new stdClass();
+        $row->test_field = 'pancake';
+        $query_results[] = $row;
+
+        $model_registry = array(
+            'test_field' => array('name' => 'test_field', 'type' => 'exception')
+        );
+
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
+
+        return $this;
+    }
 }
 
 
@@ -202,6 +238,10 @@ class MockFieldHandler implements FieldhandlerInterface
 
         } elseif (is_array($field_value)) {
             $this->field_value = $field_value;
+
+        } elseif ($constraint === 'exception') {
+            throw new Exception('Molajito Escape Molajo');
+
         } else {
             $this->field_value = strip_tags($field_value, $this->white_list);
         }
