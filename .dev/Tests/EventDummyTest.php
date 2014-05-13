@@ -55,7 +55,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $event_callback = function ($event_name, array $options = array()) {
-
             return $options;
         };
 
