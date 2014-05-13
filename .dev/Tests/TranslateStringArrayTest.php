@@ -21,7 +21,7 @@ use Molajito\Escape\Simple;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class TranslateTest extends \PHPUnit_Framework_TestCase
+class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $translate
