@@ -9,8 +9,6 @@
 namespace Molajito;
 
 use CommonApi\Render\ViewInterface;
-use CommonApi\Exception\RuntimeException;
-use Exception;
 
 /**
  * Proxy Class for Molajito View Adapters

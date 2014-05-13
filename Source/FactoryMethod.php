@@ -12,6 +12,12 @@ use Exception;
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
+use CommonApi\Render\DataInterface;
+use CommonApi\Render\ParseInterface;
+use CommonApi\Render\PositionInterface;
+use CommonApi\Render\RenderInterface;
+use CommonApi\Language\TranslateInterface;
+use CommonApi\Render\ViewInterface;
 
 /**
  * Molajito Factory Method
@@ -75,51 +81,102 @@ class FactoryMethod
             );
         }
 
-        $escape_instance   = $this->getEscapeInstance();
-        $render_instance   = $this->getInstance('Molajo\\Render');
-        $data_instance     = $this->getDataInstance();
-        $view_instance     = $this->getViewInstance();
-        $event_instance    = $this->getEventInstance();
-        $parse_instance    = $this->getInstance('Molajo\\Parse');
-        $exclude_tokens    = $this->options['exclude_tokens'];
-        $stop_loop_count   = 100;
+        $escape_instance = $this->getEscapeInstance();
+        $render_instance = $this->getInstance('Molajo\\Render');
+        $data_instance   = $this->getDataInstance();
+        $view_instance   = $this->getViewInstance();
+        $event_instance  = $this->getEventInstance();
+        $parse_instance  = $this->getInstance('Molajo\\Parse');
+        $exclude_tokens  = $this->options['exclude_tokens'];
+        $stop_loop_count = 100;
 
         $views = $this->getRenderInstance($render_instance, $escape_instance, $event_instance);
 
-        $class = 'Molajito\\Render\\Token';
-
-        try {
-            $token_instance = new $class (
-                $escape_instance, $render_instance, $event_instance,
-                $data_instance, $view_instance,
-                $views[0], $views[1], $views[2], $views[3], $views[4]
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'MolajitoFactoryMethod instantiateClass: Could not instantiate Token Class: ' . $class
-            );
-        }
+        $token_instance = $this->instantiateRenderToken(
+            $escape_instance,
+            $render_instance,
+            $event_instance,
+            $data_instance,
+            $view_instance,
+            $views[0],
+            $views[1],
+            $views[2],
+            $views[3],
+            $views[4]
+        );
 
         $translate_instance = $this->getTranslateInstance($escape_instance);
 
-        $class = 'Molajito\\Engine';
+        return $this->instantiateEngineClass(
+            $token_instance,
+            $translate_instance,
+            $parse_instance,
+            $exclude_tokens,
+            $stop_loop_count
+        );
+    }
 
-        try {
-            $molajito = new $class (
-                $token_instance,
-                $translate_instance,
-                $parse_instance,
-                $exclude_tokens,
-                $stop_loop_count
-            );
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'MolajitoFactoryMethod instantiateClass: Could not instantiate Molajito Engine: ' . $class
-            );
-        }
+    /**
+     * Instantiate Engine Class
+     *
+     * @param  ParseInterface     $token_instance
+     * @param  TranslateInterface $translate_instance
+     * @param  ParseInterface     $parse_instance
+     * @param  array              $exclude_tokens
+     * @param  integer            $stop_loop_count
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function instantiateEngineClass(
+        $token_instance,
+        $translate_instance,
+        $parse_instance,
+        $exclude_tokens,
+        $stop_loop_count
+    ) {
+        $class = 'Molajito\\Render\\Token';
 
-        return $molajito;
+        return new $class ($token_instance, $translate_instance, $parse_instance, $exclude_tokens, $stop_loop_count);
+    }
+
+    /**
+     * Instantiate Render Token Class
+     *
+     * @param  EscapeInterface   $escape_instance
+     * @param  RenderInterface   $render_instance
+     * @param  EventInterface    $event_instance
+     * @param  DataInterface     $data_instance
+     * @param  ViewInterface     $view_instance
+     * @param  RenderInterface   $theme_instance
+     * @param  PositionInterface $position_instance
+     * @param  RenderInterface   $page_instance
+     * @param  RenderInterface   $template_instance
+     * @param  RenderInterface   $wrap_instance
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function instantiateRenderToken(
+        $escape_instance,
+        $render_instance,
+        $event_instance,
+        $data_instance,
+        $view_instance,
+        $theme_instance,
+        $position_instance,
+        $page_instance,
+        $template_instance,
+        $wrap_instance
+    ) {
+        $class = 'Molajito\\Render\\Token';
+        return new $class (
+            $escape_instance, $render_instance, $event_instance,
+            $data_instance, $view_instance,
+            $theme_instance, $position_instance, $page_instance, $template_instance, $wrap_instance
+        );
     }
 
     /**
@@ -248,7 +305,7 @@ class FactoryMethod
         EventInterface $event_instance = null
     ) {
 
-        $class_array = array();
+        $class_array   = array();
         $class_array[] = 'Molajito\\Render\\Theme';
         $class_array[] = 'Molajito\\Render\\Position';
         $class_array[] = 'Molajito\\Render\\Page';

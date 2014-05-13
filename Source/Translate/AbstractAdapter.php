@@ -114,19 +114,7 @@ abstract class AbstractAdapter implements TranslateInterface
             return $this->rendered_page;
         }
 
-        for ($i = 0; $i < count($tokens_to_translate[1]); $i++) {
-            $token  = $tokens_to_translate[0][ $i ];
-            $string = $tokens_to_translate[1][ $i ];
-
-            if (trim($string) === '') {
-                $filtered = '';
-            } else {
-                $translation = $this->translateToken($string);
-                $filtered    = $this->filterTranslation($translation);
-            }
-
-            $this->rendered_page = $this->replaceToken($token, $filtered);
-        }
+        $this->processTranslateStrings($tokens_to_translate);
 
         return $this->rendered_page;
     }
@@ -145,6 +133,52 @@ abstract class AbstractAdapter implements TranslateInterface
         preg_match_all($this->translate_mask, $this->rendered_page, $tokens_to_translate);
 
         return $tokens_to_translate;
+    }
+
+    /**
+     * Loop through all strings and translate
+     *
+     * @param   array $tokens_to_translate
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function processTranslateStrings($tokens_to_translate)
+    {
+        for ($i = 0; $i < count($tokens_to_translate[1]); $i++) {
+
+            $this->processTranslateString(
+                $tokens_to_translate[0][ $i ],
+                $tokens_to_translate[1][ $i ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Loop through all strings and translate
+     *
+     * @param   string  $token
+     * @param   string  $string
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function processTranslateString($token, $string)
+    {
+        if (trim($string) === '') {
+            $filtered = '';
+        } else {
+            $translation = $this->translateToken($string);
+            $filtered    = $this->filterTranslation($translation);
+        }
+
+        $this->rendered_page = $this->replaceToken($token, $filtered);
+
+        return $this;
     }
 
     /**

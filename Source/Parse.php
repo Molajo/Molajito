@@ -135,7 +135,6 @@ class Parse implements ParseInterface
     /**
      * Remove tokens in excluded array
      *
-     * @param   array $matches
      *
      * @return  array
      * @since   1.0
@@ -180,7 +179,7 @@ class Parse implements ParseInterface
      *
      * @param   string $parsed_token
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      */
     protected function initialiseToken($parsed_token)
@@ -225,7 +224,7 @@ class Parse implements ParseInterface
      * Process Token Elements and complete Token Construction
      *
      * @param   array  $token_elements
-     * @param   object $token
+     * @param   stdClass $token
      *
      * @return  object
      * @since   1.0
@@ -252,7 +251,7 @@ class Parse implements ParseInterface
     /**
      * Remove tokens specified in the exclude tokens list
      *
-     * @param   object $tokens
+     * @param   object $token
      * @param   array  $pair
      *
      * @return  object
@@ -274,7 +273,7 @@ class Parse implements ParseInterface
     /**
      * Process Subsequent Token Elements
      *
-     * @param   object $tokens
+     * @param   object $token
      * @param   array  $pair
      *
      * @return  object

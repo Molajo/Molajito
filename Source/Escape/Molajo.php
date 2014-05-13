@@ -139,7 +139,7 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      *
      * @param   null|mixed $data_value
      *
-     * @return  array
+     * @return  string
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

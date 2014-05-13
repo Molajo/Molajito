@@ -219,6 +219,7 @@ class Engine implements RenderInterface
     /**
      * Schedule onBeforeParse Event
      *
+     * @param string $event
      * @return  $this
      * @since   1.0
      */

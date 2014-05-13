@@ -61,6 +61,9 @@ class TranslateTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Translate\StringArrayAdapter::translateString
      * @covers Molajito\Translate\StringArrayAdapter::translateToken
      * @covers Molajito\Translate\AbstractAdapter::translateString
+     * @covers Molajito\Translate\AbstractAdapter::processTranslateStrings
+     * @covers Molajito\Translate\AbstractAdapter::processTranslateString
+     * @covers Molajito\Translate\AbstractAdapter::translateToken
      * @covers Molajito\Translate\AbstractAdapter::parseTokens
      * @covers Molajito\Translate\AbstractAdapter::translateToken
      * @covers Molajito\Translate\AbstractAdapter::filterTranslation
