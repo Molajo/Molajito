@@ -198,29 +198,23 @@ abstract class AbstractRenderer implements RenderInterface
      * @param   string $event_name
      * @param   array  $options
      *
-     * @return  array
+     * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function scheduleEvent($event_name, array $options = array())
     {
         $event_options = $this->setEventOptions($options);
+        
+        $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
 
-        try {
-            $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
+        foreach ($event_results as $key => $value) {
 
-            foreach ($event_results as $key => $value) {
-
-                if (in_array($key, $this->property_array)) {
-                    $this->$key = $value;
-                }
+            if (in_array($key, $this->property_array)) {
+                $this->$key = $value;
             }
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Driver scheduleEvent Method Failed: ' . $e->getMessage()
-            );
         }
+
+        return $this;
     }
 
     /**
