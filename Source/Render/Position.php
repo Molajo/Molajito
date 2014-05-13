@@ -200,14 +200,7 @@ class Position implements PositionInterface
         $data      = array();
         $data[]    = $row;
 
-        try {
-            $escaped = $this->escape_instance->escapeOutput($data);
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Position createIncludeStatements method failed: ' . $e->getMessage()
-            );
-        }
+        $escaped = $this->escape_instance->escapeOutput($data);
 
         return $escaped[0]->name;
     }

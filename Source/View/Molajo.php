@@ -65,19 +65,7 @@ class Molajo extends AbstractAdapter implements ViewInterface
             $protocol_location = $scheme . ':///Molajo//Views//' . $scheme . 's//';
         }
 
-        try {
-            $render->extension = $this->resource->get(
-                $protocol_location
-                . ucfirst(strtolower($token->name))
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito View Molajo Adapter Failed: '
-                . $protocol_location . ucfirst(strtolower($token->name))
-                . ' Message: ' . $e->getMessage()
-            );
-        }
+        $render->extension = $this->resource->get($protocol_location . ucfirst(strtolower($token->name)));
 
         return $render;
     }

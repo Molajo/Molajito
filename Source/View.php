@@ -50,17 +50,9 @@ class View implements ViewInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function getView($token)
     {
-        try {
-            return $this->view_adapter->getView($token);
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Render Driver getView Method Failed: ' . $e->getMessage()
-            );
-        }
+        return $this->view_adapter->getView($token);
     }
 }

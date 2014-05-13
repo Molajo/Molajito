@@ -120,6 +120,26 @@ class Parse implements ParseInterface
      */
     protected function setRenderToken($parsed_token)
     {
+        $token = $this->initialiseToken($parsed_token);
+
+        $token_elements = $this->setTokenElements($parsed_token);
+        if (count($token_elements) == 0) {
+            return array();
+        }
+
+        return $this->processTokenElements($token_elements, $token);
+    }
+
+    /**
+     * Initialize Token Object
+     *
+     * @param   string $parsed_token
+     *
+     * @return  object
+     * @since   1.0
+     */
+    protected function initialiseToken($parsed_token)
+    {
         $token               = new stdClass();
         $token->type         = '';
         $token->name         = '';
@@ -127,6 +147,19 @@ class Parse implements ParseInterface
         $token->attributes   = array();
         $token->replace_this = '{I ' . $parsed_token . ' I}';
 
+        return $token;
+    }
+
+    /**
+     * Set Token Elements
+     *
+     * @param   string $parsed_token
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function setTokenElements($parsed_token)
+    {
         $token_elements = array();
         $pieces         = explode(' ', $parsed_token);
 
@@ -139,10 +172,20 @@ class Parse implements ParseInterface
             }
         }
 
-        if (count($token_elements) == 0) {
-            return array();
-        }
+        return $token_elements;
+    }
 
+    /**
+     * Process Token Elements and complete Token Construction
+     *
+     * @param   array  $token_elements
+     * @param   object $token
+     *
+     * @return  object
+     * @since   1.0
+     */
+    protected function processTokenElements($token_elements, $token)
+    {
         $count_attributes = 0;
         $first            = 1;
 

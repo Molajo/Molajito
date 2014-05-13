@@ -55,17 +55,7 @@ class Data implements DataInterface
      */
     public function getData($token, array $options = array())
     {
-        try {
-            return $this->data_adapter->getData(
-                $this->editToken($token),
-                $this->editOptions($options)
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Data getData Method Failed: ' . $e->getMessage()
-            );
-        }
+        return $this->data_adapter->getData($this->editToken($token), $this->editOptions($options));
     }
 
     /**
@@ -98,17 +88,9 @@ class Data implements DataInterface
      *
      * @return  object
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function editToken($token)
     {
-        if (is_object($token)) {
-        } else {
-            throw new RuntimeException(
-                'Molajito Data editToken Method Failed: Token is not an object'
-            );
-        }
-
         if (isset($token->attributes)
             && is_array($token->attributes)
         ) {

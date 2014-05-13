@@ -162,39 +162,17 @@ class Engine implements RenderInterface
 
             $loop_counter++;
 
-            /** Step 1. Schedule onBeforeParse Event */
-            $options                  = array();
-            $options['rendered_page'] = $this->rendered_page;
+            $this->scheduleParseEvents('onBeforeParse');
 
-            $this->token_instance->scheduleEvent('onBeforeParse', $options);
+            $this->parseTokens($exclude_tokens);
 
-            /** Step 2. Parse Output for Tokens */
-            $this->tokens = $this->parseTokens($exclude_tokens);
-
-            /** Step 3. Schedule onAfterParse Event */
-            $options                  = array();
-            $options['rendered_page'] = $this->rendered_page;
-
-            $this->token_instance->scheduleEvent('onAfterParse', $options);
+            $this->scheduleParseEvents('onAfterParse');
 
             if (is_array($this->tokens) && count($this->tokens) > 0) {
             } else {
                 break;
             }
 
-            /** Step 4. Render Output for Tokens */
-            $tokens = $this->tokens;
-
-            foreach ($tokens as $token) {
-
-                if (strtolower($token->type) === 'position') {
-                    $this->rendered_page = $this->token_instance->renderPosition($token);
-                } else {
-                    $this->rendered_page = $this->token_instance->renderToken($token, $this->rendered_page);
-                }
-            }
-
-            /** Step 5: Check Max Loop Count and stop or continue */
             if ($loop_counter > $this->stop_loop_count) {
 
                 throw new RuntimeException(
@@ -209,15 +187,55 @@ class Engine implements RenderInterface
     }
 
     /**
+     * Schedule onBeforeParse Event
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function scheduleParseEvents($event)
+    {
+        $options                  = array();
+        $options['rendered_page'] = $this->rendered_page;
+
+        $this->token_instance->scheduleEvent($event, $options);
+
+        return $this;
+    }
+
+    /**
      * Invoke Parse Class to retrieve tokens to use in rendering
      *
      * @param   array $exclude_tokens
      *
-     * @return  array
+     * @return  $this
      * @since   1.0
      */
     protected function parseTokens(array $exclude_tokens = array())
     {
-        return $this->parse_instance->parseRenderedOutput($this->rendered_page, $exclude_tokens);
+        $this->tokens = $this->parse_instance->parseRenderedOutput($this->rendered_page, $exclude_tokens);
+
+        return $this;
+    }
+
+    /**
+     * Render Output for Tokens
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function renderTokenOutput()
+    {
+        $tokens = $this->tokens;
+
+        foreach ($tokens as $token) {
+
+            if (strtolower($token->type) === 'position') {
+                $this->rendered_page = $this->token_instance->renderPosition($token);
+            } else {
+                $this->rendered_page = $this->token_instance->renderToken($token, $this->rendered_page);
+            }
+        }
+
+        return $this;
     }
 }

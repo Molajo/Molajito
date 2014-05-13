@@ -169,7 +169,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setModel()
     {
