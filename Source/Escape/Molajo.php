@@ -128,17 +128,36 @@ class Molajo extends AbstractAdapter implements EscapeInterface
         }
 
         if ($escape_key === null) {
+            $escape_key = $this->setDefaultEscapeDataType($data_value);
+        }
+
+        return $escape_key;
+    }
+
+    /**
+     * Set the Default Escape Data Type
+     *
+     * @param   null|mixed $data_value
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDefaultEscapeDataType($data_value = null)
+    {
+        $escape_key = 'string';
+
+        if (is_numeric($data_value)) {
+            $escape_key = 'numeric';
+
+        } elseif (is_null($data_value)) {
             $escape_key = 'string';
 
-            if (is_numeric($data_value)) {
-                $escape_key = 'numeric';
+        } elseif (is_array($data_value)) {
+            $escape_key = 'array';
 
-            } elseif (is_null($data_value)) {
-                $escape_key = 'string';
-
-            } elseif (is_array($data_value)) {
-                $escape_key = 'array';
-            }
+        } elseif (is_object($data_value)) {
+            $escape_key = 'object';
         }
 
         return $escape_key;

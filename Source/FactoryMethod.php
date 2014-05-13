@@ -83,36 +83,8 @@ class FactoryMethod
         $parse_instance    = $this->getInstance('Molajo\\Parse');
         $exclude_tokens    = $this->options['exclude_tokens'];
         $stop_loop_count   = 100;
-        $theme_instance    = $this->getRenderInstance(
-            'Molajito\\Render\\Theme',
-            $render_instance,
-            $escape_instance,
-            $event_instance
-        );
-        $position_instance = $this->getRenderInstance(
-            'Molajito\\Render\\Position',
-            $render_instance,
-            $escape_instance,
-            $event_instance
-        );
-        $page_instance     = $this->getRenderInstance(
-            'Molajito\\Render\\Page',
-            $render_instance,
-            $escape_instance,
-            $event_instance
-        );
-        $template_instance = $this->getRenderInstance(
-            'Molajito\\Render\\Template',
-            $render_instance,
-            $escape_instance,
-            $event_instance
-        );
-        $wrap_instance     = $this->getRenderInstance(
-            'Molajito\\Render\\Wrap',
-            $render_instance,
-            $escape_instance,
-            $event_instance
-        );
+
+        $views = $this->getRenderInstance($render_instance, $escape_instance, $event_instance);
 
         $class = 'Molajito\\Render\\Token';
 
@@ -120,7 +92,7 @@ class FactoryMethod
             $token_instance = new $class (
                 $escape_instance, $render_instance, $event_instance,
                 $data_instance, $view_instance,
-                $theme_instance, $position_instance, $page_instance, $template_instance, $wrap_instance
+                $views[0], $views[1], $views[2], $views[3], $views[4]
             );
 
         } catch (Exception $e) {
@@ -260,9 +232,8 @@ class FactoryMethod
     }
 
     /**
-     * Instantiate Theme or View Render Class
+     * Instantiate Theme and View Render Classes
      *
-     * @param   string               $class
      * @param   object               $render_instance
      * @param   null|EscapeInterface $escape_instance
      * @param   null|EventInterface  $event_instance
@@ -272,19 +243,25 @@ class FactoryMethod
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getRenderInstance(
-        $class,
         $render_instance,
         EscapeInterface $escape_instance = null,
         EventInterface $event_instance = null
     ) {
-        try {
-            return new $class ($escape_instance, $render_instance, $event_instance);
 
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'MolajitoFactoryMethod getRenderViewInstance: Could not instantiate TemplateView Class: ' . $class
-            );
+        $class_array = array();
+        $class_array[] = 'Molajito\\Render\\Theme';
+        $class_array[] = 'Molajito\\Render\\Position';
+        $class_array[] = 'Molajito\\Render\\Page';
+        $class_array[] = 'Molajito\\Render\\Template';
+        $class_array[] = 'Molajito\\Render\\Wrap';
+
+        $new_array = array();
+
+        foreach ($class_array as $class) {
+            $new_array[] = new $class ($escape_instance, $render_instance, $event_instance);
         }
+
+        return $new_array;
     }
 
     /**

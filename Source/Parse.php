@@ -81,33 +81,73 @@ class Parse implements ParseInterface
      */
     public function parseTokens()
     {
-        $matches          = array();
-        $tokens_to_render = array();
+        $matches = $this->parseTokensMatch();
+        if (count($matches) === 0) {
+            return array();
+        }
 
+        return $this->buildTokensToRender($matches);
+    }
+
+    /**
+     * Parse tokens in rendered page
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function parseTokensMatch()
+    {
         preg_match_all($this->parse_mask, $this->rendered_page, $matches);
 
-        if (count($matches) == 0) {
-            return $tokens_to_render;
-        }
+        return $matches;
+    }
+
+    /**
+     * Build Tokens for Rendering
+     *
+     * @param   array $matches
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function buildTokensToRender($matches)
+    {
+        $tokens_to_render = array();
 
         foreach ($matches[1] as $parsed_token) {
             $tokens_to_render[] = $this->setRenderToken($parsed_token);
         }
 
         if (count($this->exclude_tokens) > 0) {
-            $temp             = $tokens_to_render;
-            $tokens_to_render = array();
-            foreach ($temp as $object) {
-                if (in_array($object->name, $this->exclude_tokens)) {
-                } else {
-                    $tokens_to_render[] = $object;
-                }
+            return $this->removeExcludeTokens($tokens_to_render);
+        }
+
+        return $tokens_to_render;
+    }
+
+    /**
+     * Remove tokens in excluded array
+     *
+     * @param   array $matches
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function removeExcludeTokens($tokens_to_render)
+    {
+        $new = array();
+
+        foreach ($tokens_to_render as $object) {
+            if (in_array($object->name, $this->exclude_tokens)) {
+            } else {
+                $new[] = $object;
             }
         }
 
-        $tokens_to_render = $this->excludeTokens($tokens_to_render);
-
-        return $tokens_to_render;
+        return $this->excludeTokens($new);
     }
 
     /**
@@ -195,22 +235,53 @@ class Parse implements ParseInterface
 
             if ($first === 1) {
                 $first = 0;
-
-                if (count($pair) == 1) {
-                    $token->type = 'position';
-                    $token->name = trim(strtolower($part));
-                } else {
-                    $token->type = trim(strtolower($pair[0]));
-                    $token->name = trim(strtolower($pair[1]));
-                }
-
-            } elseif (count($pair) == 2 && $pair[0] == 'wrap') {
-                $token->wrap = $pair[1];
-
+                $token = $this->processFirstTokenElements($token, $pair);
             } else {
-                $count_attributes++;
-                $token->attributes[ $pair[0] ] = $pair[1];
+                $token = $this->processSubsequentTokenElements($token, $pair);
             }
+        }
+
+        return $token;
+    }
+
+    /**
+     * Remove tokens specified in the exclude tokens list
+     *
+     * @param   object $tokens
+     * @param   array  $pair
+     *
+     * @return  object
+     * @since   1.0
+     */
+    protected function processFirstTokenElements($token, $pair)
+    {
+        if (count($pair) == 1) {
+            $token->type = 'position';
+            $token->name = trim(strtolower($pair[0]));
+        } else {
+            $token->type = trim(strtolower($pair[0]));
+            $token->name = trim(strtolower($pair[1]));
+        }
+
+        return $token;
+    }
+
+    /**
+     * Process Subsequent Token Elements
+     *
+     * @param   object $tokens
+     * @param   array  $pair
+     *
+     * @return  object
+     * @since   1.0
+     */
+    protected function processSubsequentTokenElements($token, $pair)
+    {
+        if (count($pair) == 2 && $pair[0] == 'wrap') {
+            $token->wrap = $pair[1];
+
+        } else {
+            $token->attributes[ $pair[0] ] = $pair[1];
         }
 
         return $token;

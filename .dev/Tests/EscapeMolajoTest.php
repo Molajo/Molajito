@@ -48,6 +48,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeOutput
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -81,6 +82,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeOutput
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -114,6 +116,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeOutput
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -147,6 +150,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeOutput
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -180,6 +184,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeOutput
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -217,6 +222,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers                   Molajito\Escape\Molajo::escapeOutput
      * @covers                   Molajito\Escape\Molajo::escapeDataElement
      * @covers                   Molajito\Escape\Molajo::setEscapeDataType
+     * @covers                   Molajito\Escape\Molajo::setDefaultEscapeDataType
      * @covers                   Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers                   Molajito\Escape\AbstractAdapter::escapeDataElement
      *

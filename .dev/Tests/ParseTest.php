@@ -42,7 +42,12 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::initialiseToken
      * @covers Molajito\Parse::setTokenElements
      * @covers Molajito\Parse::processTokenElements
+     * @covers Molajito\Parse::processFirstTokenElements
+     * @covers Molajito\Parse::processSubsequentTokenElements
      * @covers Molajito\Parse::parseTokens
+     * @covers Molajito\Parse::parseTokensMatch
+     * @covers Molajito\Parse::buildTokensToRender
+     * @covers Molajito\Parse::removeExcludeTokens
      * @covers Molajito\Parse::setRenderToken
      * @covers Molajito\Parse::excludeTokens
      *
@@ -69,7 +74,12 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::initialiseToken
      * @covers Molajito\Parse::setTokenElements
      * @covers Molajito\Parse::processTokenElements
+     * @covers Molajito\Parse::processFirstTokenElements
+     * @covers Molajito\Parse::processSubsequentTokenElements
      * @covers Molajito\Parse::parseTokens
+     * @covers Molajito\Parse::parseTokensMatch
+     * @covers Molajito\Parse::buildTokensToRender
+     * @covers Molajito\Parse::removeExcludeTokens
      * @covers Molajito\Parse::setRenderToken
      * @covers Molajito\Parse::excludeTokens
      *
@@ -103,7 +113,12 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::initialiseToken
      * @covers Molajito\Parse::setTokenElements
      * @covers Molajito\Parse::processTokenElements
+     * @covers Molajito\Parse::processFirstTokenElements
+     * @covers Molajito\Parse::processSubsequentTokenElements
      * @covers Molajito\Parse::parseTokens
+     * @covers Molajito\Parse::parseTokensMatch
+     * @covers Molajito\Parse::buildTokensToRender
+     * @covers Molajito\Parse::removeExcludeTokens
      * @covers Molajito\Parse::setRenderToken
      * @covers Molajito\Parse::excludeTokens
      *
@@ -134,7 +149,12 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::initialiseToken
      * @covers Molajito\Parse::setTokenElements
      * @covers Molajito\Parse::processTokenElements
+     * @covers Molajito\Parse::processFirstTokenElements
+     * @covers Molajito\Parse::processSubsequentTokenElements
      * @covers Molajito\Parse::parseTokens
+     * @covers Molajito\Parse::parseTokensMatch
+     * @covers Molajito\Parse::buildTokensToRender
+     * @covers Molajito\Parse::removeExcludeTokens
      * @covers Molajito\Parse::setRenderToken
      * @covers Molajito\Parse::excludeTokens
      *
@@ -168,7 +188,13 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::initialiseToken
      * @covers Molajito\Parse::setTokenElements
      * @covers Molajito\Parse::processTokenElements
+     * @covers Molajito\Parse::processFirstTokenElements
+     * @covers Molajito\Parse::processSubsequentTokenElements
      * @covers Molajito\Parse::parseTokens
+     * @covers Molajito\Parse::parseTokensMatch
+     * @covers Molajito\Parse::buildTokensToRender
+     * @covers Molajito\Parse::removeExcludeTokens
+     * @covers Molajito\Parse::setRenderToken
      * @covers Molajito\Parse::setRenderToken
      * @covers Molajito\Parse::excludeTokens
      *

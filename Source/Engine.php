@@ -162,13 +162,9 @@ class Engine implements RenderInterface
 
             $loop_counter++;
 
-            $this->scheduleParseEvents('onBeforeParse');
+            $this->renderLoopProcessToken($exclude_tokens);
 
-            $this->parseTokens($exclude_tokens);
-
-            $this->scheduleParseEvents('onAfterParse');
-
-            if (is_array($this->tokens) && count($this->tokens) > 0) {
+            if (count($this->tokens) > 0) {
             } else {
                 break;
             }
@@ -182,6 +178,25 @@ class Engine implements RenderInterface
 
             continue;
         }
+
+        return $this;
+    }
+
+    /**
+     * Schedule onBeforeParse Event
+     *
+     * @param   array  $exclude_tokens
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function renderLoopProcessToken($exclude_tokens)
+    {
+        $this->scheduleParseEvents('onBeforeParse');
+
+        $this->parseTokens($exclude_tokens);
+
+        $this->scheduleParseEvents('onAfterParse');
 
         return $this;
     }

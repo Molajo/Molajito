@@ -137,6 +137,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Molajito\Engine::renderOutput
      * @covers Molajito\Engine::renderLoop
+     * @covers Molajito\Engine::renderLoopProcessToken
      * @covers Molajito\Engine::scheduleParseEvents
      * @covers Molajito\Engine::parseTokens
      * @covers Molajito\Engine::renderTokenOutput
@@ -171,6 +172,8 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::initialiseToken
      * @covers Molajito\Parse::setTokenElements
      * @covers Molajito\Parse::processTokenElements
+     * @covers Molajito\Parse::processFirstTokenElements
+     * @covers Molajito\Parse::processSubsequentTokenElements
      * @covers Molajito\Translate::translateString
      * @covers Molajito\Translate\StringArrayAdapter::translateString
      * @covers Molajito\Translate\StringArrayAdapter::translateToken
