@@ -52,7 +52,6 @@ class EngineTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers Molajito\Escape\Simple::__construct
      * @covers Molajito\Escape::__construct
-     * @covers Molajito\Event\AbstractAdapter::__construct
      * @covers Molajito\Event\Dummy::__construct
      * @covers Molajito\Event::__construct
      * @covers Molajito\Data\AbstractAdapter::__construct

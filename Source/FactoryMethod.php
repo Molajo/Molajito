@@ -357,4 +357,3 @@ class FactoryMethod
         return $this->options['view_instance'];
     }
 }
-

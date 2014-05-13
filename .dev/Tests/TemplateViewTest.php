@@ -70,8 +70,12 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Render\PageView::renderOutput
-     * @covers Molajito\Render\PageView::setProperties
+     * @covers Molajito\Render\TemplateView::renderOutput
+     * @covers Molajito\Render\TemplateView::renderViewCustom
+     * @covers Molajito\Render\TemplateView::renderLoop
+     * @covers Molajito\Render\TemplateView::renderViewNormal
+     * @covers Molajito\Render\TemplateView::renderViewCustom
+     * @covers Molajito\Render\TemplateView::renderViewPart
      *
      * @covers Molajito\Render\AbstractRenderer::renderOutput
      * @covers Molajito\Render\AbstractRenderer::setProperties

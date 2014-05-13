@@ -10,8 +10,6 @@ namespace Molajito\Test;
 
 use Molajito\Render;
 use Molajito\Render\Position;
-use Molajito\Event;
-use Molajito\Event\Dummy;
 use Molajito\Escape;
 use Molajito\Escape\Simple;
 use stdClass;
@@ -46,14 +44,6 @@ class PositionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Position
-     *
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      *
      * @covers Molajito\Escape::__construct
      * @covers Molajito\Escape::escapeOutput
