@@ -119,7 +119,7 @@ class FactoryMethod
     /**
      * Instantiate Engine Class
      *
-     * @param  object             $token_instance
+     * @param  FactoryMethod             $token_instance
      * @param  TranslateInterface $translate_instance
      * @param  ParseInterface     $parse_instance
      * @param  array              $exclude_tokens

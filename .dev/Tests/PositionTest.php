@@ -43,27 +43,114 @@ class PositionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Position
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Escape::__construct
-     * @covers Molajito\Escape::escapeOutput
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape\Simple::escapeOutput
-     * @covers Molajito\Escape\Simple::escapeDataElement
-     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
-     *
-     * @covers Molajito\Render\Position::getPositionTemplateViews
-     * @covers Molajito\Render\Position::getPositionTemplates
-     * @covers Molajito\Render\Position::buildPositionArray
-     * @covers Molajito\Render\Position::searchPositionArray
-     * @covers Molajito\Render\Position::createIncludeStatements
-     * @covers Molajito\Render\Position::escapeTemplateName
+     * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::matchPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplatesParameters
+     * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::getPositionTemplate
+     * @covers  Molajito\Render\Position::searchPositionArray
+     * @covers  Molajito\Render\Position::createIncludeStatements
+     * @covers  Molajito\Render\Position::escapeTemplateName
      *
      * @return  $this
      * @since   1.0
      */
-    public function testPositionRender()
+    public function testPositionNoMatch()
+    {
+        $expected = '{I template=Nomatch I} ';
+
+        $resource_extension                                        = new stdClass();
+        $resource_extension->page                                  = new stdClass();
+        $resource_extension->page->menuitem                        = new stdClass();
+        $resource_extension->page->menuitem->parameters            = new stdClass();
+        $resource_extension->page->menuitem->parameters->positions = '{{test=dog,food}}{{more=not,used}}';
+
+        $position_name = 'Nomatch';
+
+        $results = $this->position->getPositionTemplateViews($position_name, $resource_extension);
+
+        $this->assertEquals($expected, $results);
+
+        return $this;
+    }
+
+    /**
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::matchPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplatesParameters
+     * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::getPositionTemplate
+     * @covers  Molajito\Render\Position::searchPositionArray
+     * @covers  Molajito\Render\Position::createIncludeStatements
+     * @covers  Molajito\Render\Position::escapeTemplateName
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testPositionThemeParameters()
+    {
+        $expected = '{I template=Dog I} ';
+        $expected .= PHP_EOL;
+        $expected .= '{I template=Food I} ';
+
+        $resource_extension                               = new stdClass();
+        $resource_extension->theme                        = new stdClass();
+        $resource_extension->theme->parameters            = new stdClass();
+        $resource_extension->theme->parameters->positions = '{{test=dog,food}}{{more=not,used}}';
+
+        $position_name = 'Test';
+
+        $results = $this->position->getPositionTemplateViews($position_name, $resource_extension);
+
+        $this->assertEquals($expected, $results);
+
+        return $this;
+    }
+
+    /**
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::matchPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplatesParameters
+     * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::getPositionTemplate
+     * @covers  Molajito\Render\Position::searchPositionArray
+     * @covers  Molajito\Render\Position::createIncludeStatements
+     * @covers  Molajito\Render\Position::escapeTemplateName
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testPositionMenuitem()
     {
         $expected = '{I template=Dog I} ';
         $expected .= PHP_EOL;
@@ -74,6 +161,50 @@ class PositionTest extends \PHPUnit_Framework_TestCase
         $resource_extension->page->menuitem                        = new stdClass();
         $resource_extension->page->menuitem->parameters            = new stdClass();
         $resource_extension->page->menuitem->parameters->positions = '{{test=dog,food}}{{more=not,used}}';
+
+        $position_name = 'Test';
+
+        $results = $this->position->getPositionTemplateViews($position_name, $resource_extension);
+
+        $this->assertEquals($expected, $results);
+
+        return $this;
+    }
+
+    /**
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
+     * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::matchPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplates
+     * @covers  Molajito\Render\Position::getPositionTemplatesParameters
+     * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::getPositionTemplate
+     * @covers  Molajito\Render\Position::searchPositionArray
+     * @covers  Molajito\Render\Position::createIncludeStatements
+     * @covers  Molajito\Render\Position::escapeTemplateName
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testPositionMenuitemLastEntry()
+    {
+        $expected = '{I template=Dog I} ';
+        $expected .= PHP_EOL;
+        $expected .= '{I template=Food I} ';
+
+        $resource_extension                                        = new stdClass();
+        $resource_extension->page                                  = new stdClass();
+        $resource_extension->page->menuitem                        = new stdClass();
+        $resource_extension->page->menuitem->parameters            = new stdClass();
+        $resource_extension->page->menuitem->parameters->positions = '{{test=dog1,food1}}{{more=not,used}}{{test=dog,food}}';
 
         $position_name = 'Test';
 
