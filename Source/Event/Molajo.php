@@ -30,7 +30,6 @@ class Molajo extends AbstractAdapter implements EventInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function scheduleEvent($event_name, array $options = array())
     {
@@ -38,14 +37,7 @@ class Molajo extends AbstractAdapter implements EventInterface
 
         $temp = $this->setEventOptions($options);
 
-        try {
-            return $schedule_event($event_name, $temp);
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Event scheduleEvent Failure: ' . $e->getMessage()
-            );
-        }
+        return $schedule_event($event_name, $temp);
     }
 
     /**

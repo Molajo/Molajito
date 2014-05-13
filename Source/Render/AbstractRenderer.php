@@ -284,21 +284,6 @@ abstract class AbstractRenderer implements RenderInterface
      */
     protected function performRendering($file_path, array $options = array())
     {
-        if (file_exists($file_path)) {
-        } else {
-            throw new RuntimeException(
-                'Molajito AbstractRenderer renderOutput: File not found: ' . $file_path
-            );
-        }
-
-        try {
-            return $this->render_instance->renderOutput($file_path, $options);
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito AbstractRenderer renderOutput: '
-                . ' File path: ' . $file_path . 'Message: ' . $e->getMessage()
-            );
-        }
+        return $this->render_instance->renderOutput($file_path, $options);
     }
 }

@@ -66,8 +66,9 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Render\TemplateView::__construct
      * @covers Molajito\Render\WrapView::__construct
      * @covers Molajito\Render\Token::__construct
-     * @covers Molajito\Translate\StringArrayAdapter::__construct
      * @covers Molajito\Translate::__construct
+     * @covers Molajito\Translate\StringArrayAdapter::__construct
+     * @covers Molajito\Translate\AbstractAdapter::__construct
      * @covers Molajito\Engine::__construct
      *
      * Setup
@@ -168,6 +169,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Parse::excludeTokens
      * @covers Molajito\Translate::translateString
      * @covers Molajito\Translate\StringArrayAdapter::translateString
+     * @covers Molajito\Translate\StringArrayAdapter::translateToken
      * @covers Molajito\Translate\AbstractAdapter::translateString
      * @covers Molajito\Translate\AbstractAdapter::parseTokens
      * @covers Molajito\Translate\AbstractAdapter::translateToken

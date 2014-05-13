@@ -138,34 +138,6 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
-
-    /**
-     * Get Wrap View Extension
-     *
-     * @covers Molajito\View\Molajo::__construct
-     * @covers Molajito\View\Molajo::getView
-     * @covers Molajito\View::__construct
-     * @covers Molajito\View::getView
-     *
-     * @expectedException        \CommonApi\Exception\RuntimeException
-     * @expectedExceptionMessage Render Driver getView Method Failed: Molajito View Molajo Adapter Failed: Wrap:///Molajo//Views//Wraps//Test Message: ResourceMock2 Exception
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    public function testExceptionGetView()
-    {
-        $adapter = new Molajo(new ResourceMock2());
-        $view    = new View($adapter);
-
-        $token       = new stdClass();
-        $token->name = 'Test';
-        $token->type = 'Wrap';
-
-        $extensions = $view->getView($token);
-
-        return $this;
-    }
 }
 
 /**

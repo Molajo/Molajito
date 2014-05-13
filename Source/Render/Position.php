@@ -195,7 +195,6 @@ class Position implements PositionInterface
      */
     protected function escapeTemplateName($template_name)
     {
-
         $row       = new stdClass();
         $row->name = $template_name;
         $data      = array();

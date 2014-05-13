@@ -171,9 +171,8 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
         return $this;
     }
 
-
     /**
-     * Test Null Value without Model Registry
+     * Test HTML without Model Registry
      *
      * @covers  Molajito\Escape::__construct
      * @covers  Molajito\Escape::escapeOutput
@@ -184,11 +183,48 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testMolajoNoEscapeKey()
+    {
+        $query_results   = array();
+        $row             = new stdClass();
+        $row->numeric    = 123;
+        $row->isnull     = null;
+        $row->isarray    = array();
+        $row->string     = 'string';
+        $query_results[] = $row;
+
+        $model_registry = array();
+
+        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
+
+        $this->assertEquals(123, $results[0]->numeric);
+        $this->assertEquals(null, $results[0]->isnull);
+        $this->assertEquals(array(), $results[0]->isarray);
+        $this->assertEquals('string', $results[0]->string);
+
+        return $this;
+    }
+
+    /**
+     * Test Null Value without Model Registry
+     *
+     * @covers                   Molajito\Escape::__construct
+     * @covers                   Molajito\Escape::escapeOutput
+     * @covers                   Molajito\Escape\Molajo::__construct
+     * @covers                   Molajito\Escape\Molajo::escapeOutput
+     * @covers                   Molajito\Escape\Molajo::escapeDataElement
+     * @covers                   Molajito\Escape\Molajo::setEscapeDataType
+     * @covers                   Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers                   Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @expectedException        \CommonApi\Exception\RuntimeException
      * @expectedExceptionMessage Escape Driver escape Method Failed: Molajito Escape Molajo: Fieldhandler class Failed for Key: test_field Fieldhandler: pancake Molajito Escape Molajo
      *
      * @return  $this
-     * @since   1.0
+     * @since                    1.0
      */
     public function testMolajoException()
     {

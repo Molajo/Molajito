@@ -9,8 +9,6 @@
 namespace Molajito;
 
 use CommonApi\Render\EventInterface;
-use CommonApi\Exception\RuntimeException;
-use Exception;
 
 /**
  * Proxy Class for Molajito Event Adapters
@@ -52,14 +50,7 @@ class Event implements EventInterface
      */
     public function initializeEventOptions()
     {
-        try {
-            return $this->event_adapter->initializeEventOptions();
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Render Driver initializeEventOptions Method Failed: ' . $e->getMessage()
-            );
-        }
+        return $this->event_adapter->initializeEventOptions();
     }
 
     /**
@@ -74,20 +65,13 @@ class Event implements EventInterface
      */
     public function scheduleEvent($event_name, array $options = array())
     {
-        try {
-            $event_options = $this->event_adapter->scheduleEvent($event_name, $options);
+        $event_options = $this->event_adapter->scheduleEvent($event_name, $options);
 
-            if (is_array($event_options)) {
-            } else {
-                $event_options = array();
-            }
-
-            return $event_options;
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Render Driver scheduleEvent Method Failed: ' . $e->getMessage()
-            );
+        if (is_array($event_options)) {
+        } else {
+            $event_options = array();
         }
+
+        return $event_options;
     }
 }

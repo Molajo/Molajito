@@ -9,8 +9,6 @@
 namespace Molajito;
 
 use CommonApi\Language\TranslateInterface;
-use CommonApi\Exception\RuntimeException;
-use Exception;
 
 /**
  * Proxy Class for Molajito Translate Adapters
@@ -54,14 +52,6 @@ class Translate implements TranslateInterface
      */
     public function translateString($string)
     {
-        try {
-            return $this->translate_adapter->translateString($string);
-
-        } catch (Exception $e) {
-
-            throw new RuntimeException(
-                'Molajito Translate: Failed for String: ' . $string . ' ' . $e->getMessage()
-            );
-        }
+        return $this->translate_adapter->translateString($string);
     }
 }

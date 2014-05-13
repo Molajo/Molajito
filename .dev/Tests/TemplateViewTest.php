@@ -171,9 +171,9 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
 
         $data['query_results']   = array();
         $row                     = new stdClass();
-        $row->id                 = 0;
-        $row->title              = 'I am a title';
-        $row->content_text       = '<p>I am a paragraph</p>';
+        $row->id                 = 1;
+        $row->title              = 'I am a title 1';
+        $row->content_text       = '<p>I am a paragraph 1</p>';
         $data['query_results'][] = $row;
 
         $data['parameters'] = array();
