@@ -126,7 +126,7 @@ class Molajo extends AbstractAdapter implements DataInterface
         if ($this->model_type == 'primary') {
             $this->getPrimaryData();
 
-        } elseif ($this->model_type == 'runtime_data') {
+        } elseif ($this->model_type === 'runtime_data') {
             $this->getRuntimeData();
 
         } elseif ($this->model_type == 'plugin_data') {
@@ -151,8 +151,8 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function initialise($token, array $options = array())
     {
-        $this->model_type     = '';
-        $this->model_name     = '';
+        $this->model_type     = 'default';
+        $this->model_name     = 'default';
         $this->field_name     = '';
         $this->query_results  = array();
         $this->model_registry = array();
@@ -173,14 +173,11 @@ class Molajo extends AbstractAdapter implements DataInterface
     protected function setModel()
     {
         $this->setModelType();
+
         $this->setModelName();
 
-        if (trim($this->model_type) === 'default' && trim($this->model_name) === 'default') {
-            $name = strtolower($this->token->name);
-            if (isset($this->plugin_data->$name)) {
-                $this->model_type = 'plugin_data';
-                $this->model_name = $name;
-            }
+        if ($this->model_type === 'default' && $this->model_name === 'default') {
+            $this->setDefaultModelTypeName();
         }
 
         $this->setFieldName();
@@ -197,21 +194,68 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function setModelType()
     {
-        $this->model_type = 'default';
+        $model_type = $this->setModelTypeToken();
 
-        if (isset($this->token->attributes['model_type'])) {
-            $this->model_type = $this->token->attributes['model_type'];
-
-        } elseif (isset($this->runtime_data->render->extension->parameters->model_type)) {
-            $this->model_type = $this->runtime_data->render->extension->parameters->model_type;
-
-        } elseif (isset($this->runtime_data->render->extension->menuitem->parameters->model_type)) {
-            $this->model_type = $this->runtime_data->render->extension->menuitem->parameters->model_type;
+        if ($model_type === '') {
+            $model_type = $this->setModelTypeExtensionParameters();
         }
 
-        $this->model_type = strtolower($this->model_type);
+        if ($model_type === '') {
+            $model_type = $this->setModelTypeMenuitemParameters();
+        }
+
+        if ($model_type === '') {
+            $model_type = 'default';
+        }
+
+        $this->model_type = strtolower($model_type);
 
         return $this;
+    }
+
+    /**
+     * Set Model Type using Token
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setModelTypeToken()
+    {
+        if (isset($this->token->attributes['model_type'])) {
+            return $this->token->attributes['model_type'];
+        }
+
+        return '';
+    }
+
+    /**
+     * Set Model Type using Token
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setModelTypeExtensionParameters()
+    {
+        if (isset($this->runtime_data->render->extension->parameters->model_type)) {
+            return $this->runtime_data->render->extension->parameters->model_type;
+        }
+
+        return '';
+    }
+
+    /**
+     * Set Model Type using Token
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setModelTypeMenuitemParameters()
+    {
+        if (isset($this->runtime_data->render->extension->menuitem->parameters->model_type)) {
+            return $this->runtime_data->render->extension->menuitem->parameters->model_type;
+        }
+
+        return '';
     }
 
     /**
@@ -219,32 +263,63 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setModelName()
     {
-        $this->model_name = 'default';
+        $name = '';
 
         if (isset($this->token->attributes['model_name'])) {
-
-            $name = strtolower($this->token->attributes['model_name']);
-
-            if ($this->model_type == 'runtime_data' && isset($this->runtime_data->$name)) {
-                $this->model_name = $name;
-                return $this;
-
-            } elseif (isset($this->plugin_data->$name)) {
-                $this->model_type = 'plugin_data';
-                $this->model_name = $name;
-                return $this;
-            }
+            $name = $this->setModelNameToken();
         }
 
-        if (isset($this->runtime_data->render->extension->parameters->model_name)) {
-            $this->model_name = strtolower($this->runtime_data->render->extension->parameters->model_name);
+        if ($name === '') {
+            $name = $this->setModelExtensionParameters();
         }
+
+        if ($name === '') {
+            $name = 'default';
+        }
+
+        $this->model_name = strtolower($name);
 
         return $this;
+    }
+
+    /**
+     * Set Model Name using Token
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setModelNameToken()
+    {
+        $name = strtolower($this->token->attributes['model_name']);
+
+        if ($this->model_type == 'runtime_data' && isset($this->runtime_data->$name)) {
+            return $name;
+        }
+
+        if (isset($this->plugin_data->$name)) {
+            $this->model_type = 'plugin_data';
+            return $name;
+        }
+
+        return '';
+    }
+
+    /**
+     * Set Model Name using Extension Parameters
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setModelExtensionParameters()
+    {
+        if (isset($this->runtime_data->render->extension->parameters->model_name)) {
+            return strtolower($this->runtime_data->render->extension->parameters->model_name);
+        }
+
+        return '';
     }
 
     /**
@@ -261,6 +336,25 @@ class Molajo extends AbstractAdapter implements DataInterface
         }
 
         $this->field_name = strtolower($this->field_name);
+
+        return $this;
+    }
+
+    /**
+     * Set Model Type
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDefaultModelTypeName()
+    {
+        $name = strtolower($this->token->name);
+
+        if (isset($this->plugin_data->$name)) {
+            $this->model_type = 'plugin_data';
+            $this->model_name = $name;
+        }
 
         return $this;
     }
@@ -362,7 +456,7 @@ class Molajo extends AbstractAdapter implements DataInterface
 //            unset($this->query_results->parameters);
 
 //        } else {
-            $this->parameters = $this->runtime_data->render->extension->parameters;
+        $this->parameters = $this->runtime_data->render->extension->parameters;
 //        }
 
         return $this;
