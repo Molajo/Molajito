@@ -49,6 +49,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
      * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -83,6 +84,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
      * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -117,6 +119,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
      * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -151,6 +154,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
      * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -185,6 +189,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\Molajo::escapeDataElement
      * @covers  Molajito\Escape\Molajo::setEscapeDataType
      * @covers  Molajito\Escape\Molajo::setDefaultEscapeDataType
+     * @covers  Molajito\Escape\Molajo::setEscapeDataTypeModelRegistry
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
@@ -209,41 +214,6 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $results[0]->isnull);
         $this->assertEquals(array(), $results[0]->isarray);
         $this->assertEquals('string', $results[0]->string);
-
-        return $this;
-    }
-
-    /**
-     * Test Null Value without Model Registry
-     *
-     * @covers                   Molajito\Escape::__construct
-     * @covers                   Molajito\Escape::escapeOutput
-     * @covers                   Molajito\Escape\Molajo::__construct
-     * @covers                   Molajito\Escape\Molajo::escapeOutput
-     * @covers                   Molajito\Escape\Molajo::escapeDataElement
-     * @covers                   Molajito\Escape\Molajo::setEscapeDataType
-     * @covers                   Molajito\Escape\Molajo::setDefaultEscapeDataType
-     * @covers                   Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers                   Molajito\Escape\AbstractAdapter::escapeDataElement
-     *
-     * @expectedException        \CommonApi\Exception\RuntimeException
-     * @expectedExceptionMessage Escape Driver escape Method Failed: Molajito Escape Molajo: Fieldhandler class Failed for Key: test_field Fieldhandler: pancake Molajito Escape Molajo
-     *
-     * @return  $this
-     * @since                    1.0
-     */
-    public function testMolajoException()
-    {
-        $query_results   = array();
-        $row             = new stdClass();
-        $row->test_field = 'pancake';
-        $query_results[] = $row;
-
-        $model_registry = array(
-            'test_field' => array('name' => 'test_field', 'type' => 'exception')
-        );
-
-        $results = $this->escape_instance->escapeOutput($query_results, $model_registry);
 
         return $this;
     }
