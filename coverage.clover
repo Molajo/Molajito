@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1399943652">
-  <project timestamp="1399943652">
+<coverage generated="1399944677">
+  <project timestamp="1399944677">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -329,19 +329,19 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View.php">
         <class name="View" namespace="Molajito" fullPackage="Molajo" package="Molajo">
-          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="2" elements="9" coveredelements="3"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="3" elements="9" coveredelements="5"/>
         </class>
-        <line num="40" type="method" name="__construct" crap="1" count="1"/>
-        <line num="43" type="stmt" count="1"/>
-        <line num="44" type="stmt" count="1"/>
-        <line num="55" type="method" name="getView" crap="6" count="0"/>
-        <line num="58" type="stmt" count="0"/>
+        <line num="40" type="method" name="__construct" crap="1" count="5"/>
+        <line num="43" type="stmt" count="5"/>
+        <line num="44" type="stmt" count="5"/>
+        <line num="55" type="method" name="getView" crap="4.05" count="4"/>
+        <line num="58" type="stmt" count="4"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
         <line num="62" type="stmt" count="0"/>
         <line num="63" type="stmt" count="0"/>
         <line num="67" type="stmt" count="0"/>
-        <metrics loc="66" ncloc="29" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="2" elements="9" coveredelements="3"/>
+        <metrics loc="66" ncloc="29" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="3" elements="9" coveredelements="4"/>
       </file>
     </package>
     <package name="Molajito\Data">
@@ -1133,6 +1133,34 @@
         <line num="95" type="stmt" count="0"/>
         <metrics loc="94" ncloc="50" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="3" elements="24" coveredelements="4"/>
       </file>
+      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Molajo.php">
+        <class name="Molajo" namespace="Molajito\View" fullPackage="Molajo" package="Molajo">
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="15" elements="21" coveredelements="17"/>
+        </class>
+        <line num="41" type="method" name="__construct" crap="1" count="4"/>
+        <line num="43" type="stmt" count="4"/>
+        <line num="44" type="stmt" count="4"/>
+        <line num="55" type="method" name="getView" crap="3.12" count="4"/>
+        <line num="57" type="stmt" count="4"/>
+        <line num="58" type="stmt" count="4"/>
+        <line num="59" type="stmt" count="4"/>
+        <line num="60" type="stmt" count="4"/>
+        <line num="62" type="stmt" count="4"/>
+        <line num="63" type="stmt" count="1"/>
+        <line num="64" type="stmt" count="1"/>
+        <line num="65" type="stmt" count="3"/>
+        <line num="69" type="stmt" count="4"/>
+        <line num="71" type="stmt" count="4"/>
+        <line num="72" type="stmt" count="4"/>
+        <line num="74" type="stmt" count="4"/>
+        <line num="75" type="stmt" count="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="78" type="stmt" count="0"/>
+        <line num="79" type="stmt" count="0"/>
+        <line num="82" type="stmt" count="4"/>
+        <line num="85" type="stmt" count="0"/>
+        <metrics loc="84" ncloc="47" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="15" elements="21" coveredelements="16"/>
+      </file>
     </package>
     <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/exception/ExceptionInterface.php">
       <line num="23" type="stmt" count="0"/>
@@ -1383,6 +1411,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="49" loc="4668" ncloc="2529" classes="29" methods="115" coveredmethods="43" conditionals="0" coveredconditionals="0" statements="964" coveredstatements="487" elements="1079" coveredelements="530"/>
+    <metrics files="50" loc="4752" ncloc="2576" classes="30" methods="117" coveredmethods="44" conditionals="0" coveredconditionals="0" statements="983" coveredstatements="503" elements="1100" coveredelements="547"/>
   </project>
 </coverage>

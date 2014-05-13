@@ -9,6 +9,7 @@
 namespace Molajito\Test;
 
 use Molajito\View;
+use Molajito\View\Filesystem;
 use Molajito\View\Molajo;
 use stdClass;
 
@@ -23,25 +24,36 @@ use stdClass;
 class ViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var $view_instance
+     * @var $view
      */
     protected $view_instance;
 
     /**
-     * Create View Class
+     * Create Theme Instance
      */
     protected function setUp()
     {
-        $this->view_instance = new View(new Molajo(new ResourceMock()));
+        /** View */
+//        $theme_base_folder = $include_path = __DIR__ . '/Views/';
+//        $view_base_folder  = $include_path = __DIR__ . '/Views/';
+
+//        $adapter = new Filesystem($theme_base_folder, $view_base_folder);
+        $adapter = new Molajo(new ResourceMock());
+        $this->view_instance    = new View($adapter);
     }
 
     /**
-     * Get Theme Extension
+     * Test Theme
+     *
+     * @covers Molajito\View\Molajo::__construct
+     * @covers Molajito\View\Molajo::getView
+     * @covers Molajito\View::__construct
+     * @covers Molajito\View::getView
      *
      * @return  $this
      * @since   1.0
      */
-    public function testGetExtensionTheme()
+    public function testTheme()
     {
         $token       = new stdClass();
         $token->name = 'Test';
@@ -58,6 +70,11 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Get Page View Extension
+     *
+     * @covers Molajito\View\Molajo::__construct
+     * @covers Molajito\View\Molajo::getView
+     * @covers Molajito\View::__construct
+     * @covers Molajito\View::getView
      *
      * @return  $this
      * @since   1.0
@@ -79,6 +96,11 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     /**
      * Get Template View Extension
      *
+     * @covers Molajito\View\Molajo::__construct
+     * @covers Molajito\View\Molajo::getView
+     * @covers Molajito\View::__construct
+     * @covers Molajito\View::getView
+     *
      * @return  $this
      * @since   1.0
      */
@@ -99,6 +121,11 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     /**
      * Get Wrap View Extension
      *
+     * @covers Molajito\View\Molajo::__construct
+     * @covers Molajito\View\Molajo::getView
+     * @covers Molajito\View::__construct
+     * @covers Molajito\View::getView
+     *
      * @return  $this
      * @since   1.0
      */
@@ -115,16 +142,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
-    }
 }
-
 
 /**
  * Mock Resource Class
@@ -150,3 +168,4 @@ class ResourceMock
         return $request;
     }
 }
+
