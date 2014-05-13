@@ -159,13 +159,38 @@ class Position implements PositionInterface
      */
     protected function buildPositionArray($position)
     {
+        $position_templates = explode('{{', $position);
+
+        if (count($position_templates) > 0) {
+            $positions_array = $this->buildPositionTemplatesArray($position_templates);
+        } else {
+            $positions_array = array();
+        }
+
+        return $positions_array;
+    }
+
+    /**
+     * Build Position Templates array
+     *
+     * @param   array $position_templates
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function buildPositionTemplatesArray(array $position_templates = array())
+    {
         $positions_array = array();
 
-        $temp = explode('{{', $position);
+        foreach ($position_templates as $field) {
 
-        if (count($temp) > 0) {
-            foreach ($temp as $field) {
-                $positions_array = $this->getPositionTemplate($positions_array, $field);
+            $position_template = $this->getPositionTemplate($field);
+
+            if (count($position_template) === 2) {
+                $position       = $position_template['position'];
+                $template_array = $position_template['templates'];
+
+                $positions_array[ $position ] = $template_array;
             }
         }
 
@@ -173,23 +198,25 @@ class Position implements PositionInterface
     }
 
     /**
-     * Get a single Template from the Position Array
+     * Build Position Templates array
      *
-     * @param   array  $positions_array
-     * @param   string $field
+     * @param   string $position_template
      *
      * @return  array
      * @since   1.0
      */
-    protected function getPositionTemplate($positions_array, $field)
+    protected function getPositionTemplate($position_template)
     {
-        $remove_brackets = substr(trim($field), 0, strlen($field) - 2);
+        $remove_brackets = substr(trim($position_template), 0, strlen($position_template) - 2);
 
         $template_array = explode('=', $remove_brackets);
 
         if (count($template_array) === 2) {
-            $positions_array[ strtolower($template_array[0]) ]
-                = explode(',', $template_array[1]);
+            $position        = strtolower($template_array[0]);
+            $template_array  = explode(',', $template_array[1]);
+            $positions_array = array('position' => $position, 'templates' => $template_array);
+        } else {
+            $positions_array = array();
         }
 
         return $positions_array;

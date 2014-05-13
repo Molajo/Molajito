@@ -56,6 +56,7 @@ class PositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplatesParameters
      * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
@@ -98,6 +99,7 @@ class PositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplatesParameters
      * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
@@ -141,6 +143,7 @@ class PositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplatesParameters
      * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
@@ -185,6 +188,7 @@ class PositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplatesParameters
      * @covers  Molajito\Render\Position::getPositionTemplatesMenuitem
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
