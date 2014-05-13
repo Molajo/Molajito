@@ -169,12 +169,8 @@ abstract class AbstractAdapter implements TranslateInterface
      */
     public function processTranslateString($token, $string)
     {
-        if (trim($string) === '') {
-            $filtered = '';
-        } else {
-            $translation = $this->translateToken($string);
-            $filtered    = $this->filterTranslation($translation);
-        }
+        $translation = $this->translateToken($string);
+        $filtered    = $this->filterTranslation($translation);
 
         $this->rendered_page = $this->replaceToken($token, $filtered);
 
