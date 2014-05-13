@@ -8,7 +8,6 @@
  */
 namespace Molajito\View;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\ViewInterface;
 use stdClass;
 
@@ -70,13 +69,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         $render->scheme           = ucfirst(strtolower($token->type));
         $render->extension        = new stdClass();
         $render->extension->title = ucfirst(strtolower($token->name));
-
-        $render->extension->include_path
-            = $this->getBase($render->scheme)
-            . $this->getFolder($render->scheme)
-            . $render->extension->title
-            . '/'
-            . $this->getFile($render->scheme);
+        $render->extension->include_path = $this->getLocation($render->scheme, $render->extension->title);
 
         return $render;
     }
@@ -85,56 +78,27 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      * Get Base Folder
      *
      * @param   string $scheme
+     * @param   string $extension_title
      *
      * @return  string
      * @since   1.0
      */
-    public function getBase($scheme)
+    public function getLocation($scheme, $extension_title)
     {
         if ($scheme === 'Theme') {
             $base = $this->theme_base_folder;
-        } else {
-            $base = $this->view_base_folder;
-        }
-
-        return $base;
-    }
-
-    /**
-     * Get Base Folder
-     *
-     * @param   string $scheme
-     *
-     * @return  string
-     * @since   1.0
-     */
-    public function getFolder($scheme)
-    {
-        if ($scheme === 'Theme') {
             $folder = '/';
         } else {
+            $base = $this->view_base_folder;
             $folder = '/' . $scheme . 's/';
         }
 
-        return $folder;
-    }
-
-    /**
-     * Get File
-     *
-     * @param   string $scheme
-     *
-     * @return  string
-     * @since   1.0
-     */
-    public function getFile($scheme)
-    {
         if ($scheme === 'Theme' || $scheme === 'Page') {
             $file = 'Index.phtml';
         } else {
             $file = '';
         }
 
-        return $file;
+        return $base . $folder . $extension_title . '/' . $file;
     }
 }
