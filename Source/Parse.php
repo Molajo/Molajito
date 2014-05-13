@@ -83,8 +83,8 @@ class Parse implements ParseInterface
     {
         preg_match_all($this->parse_mask, $this->rendered_page, $matches);
 
-        if (count($matches) > 0) {
-            return $this->buildTokensToRender($matches);
+        if (count($matches[1]) > 0) {
+            return $this->buildTokensToRender($matches[1]);
         }
 
         return array();
@@ -99,11 +99,11 @@ class Parse implements ParseInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function buildTokensToRender($matches)
+    public function buildTokensToRender(array $matches = array())
     {
         $tokens_to_render = array();
 
-        foreach ($matches[1] as $parsed_token) {
+        foreach ($matches as $parsed_token) {
             $tokens_to_render[] = $this->setRenderToken($parsed_token);
         }
 
@@ -127,9 +127,6 @@ class Parse implements ParseInterface
         $token = $this->initialiseToken($parsed_token);
 
         $token_elements = $this->setTokenElements($parsed_token);
-        if (count($token_elements) == 0) {
-            return array();
-        }
 
         return $this->processTokenElements($token_elements, $token);
     }
@@ -172,6 +169,7 @@ class Parse implements ParseInterface
     /**
      * Set Token Elements
      *
+     * @param   array  $pieces
      *
      * @return  array
      * @since   1.0
@@ -181,10 +179,7 @@ class Parse implements ParseInterface
         $token_elements = array();
 
         foreach ($pieces as $piece) {
-            if (trim($piece) === '') {
-            } else {
-                $token_elements[] = $piece;
-            }
+            $token_elements[] = $piece;
         }
 
         return $token_elements;

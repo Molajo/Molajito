@@ -85,14 +85,17 @@ class Simple extends AbstractAdapter implements EscapeInterface
     {
         if (is_numeric($data_value)) {
             return $data_value;
+        }
 
-        } elseif (is_null($data_value)) {
+        if (is_null($data_value)) {
             return $data_value;
+        }
 
-        } elseif (is_array($data_value)) {
+        if (is_array($data_value)) {
             return $data_value;
+        }
 
-        } elseif (is_string($data_value)) {
+        if (is_string($data_value)) {
             return strip_tags($data_value, $this->white_list);
         }
 

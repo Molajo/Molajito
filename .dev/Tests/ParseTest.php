@@ -212,4 +212,42 @@ class ParseTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
+
+    /**
+     * Wrap Parse
+     *
+     * @covers  Molajito\Parse::parseRenderedOutput
+     * @covers  Molajito\Parse::excludeTokens
+     * @covers  Molajito\Parse::setRenderToken
+     * @covers  Molajito\Parse::initialiseToken
+     * @covers  Molajito\Parse::setTokenElements
+     * @covers  Molajito\Parse::setTokenElementsPieces
+     * @covers  Molajito\Parse::processTokenElements
+     * @covers  Molajito\Parse::processTokenPair
+     * @covers  Molajito\Parse::processFirstTokenElements
+     * @covers  Molajito\Parse::processSubsequentTokenElements
+     * @covers  Molajito\Parse::parseTokens
+     * @covers  Molajito\Parse::buildTokensToRender
+     * @covers  Molajito\Parse::excludeTokens
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function testParseAttributes()
+    {
+        $include_path = __DIR__ . '/Parse/Attributes.phtml';
+
+        ob_start();
+        include $include_path;
+        $rendered_page = ob_get_clean();
+
+        $results = $this->parse->parseRenderedOutput($rendered_page, array(), null);
+
+        $this->assertEquals('template', $results[0]->type);
+        $this->assertEquals('xyz', $results[0]->name);
+        $this->assertEquals('', $results[0]->wrap);
+        $this->assertEquals(array('class' => 'Sunny'), $results[0]->attributes);
+
+        return $this;
+    }
 }

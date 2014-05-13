@@ -8,9 +8,7 @@
  */
 namespace Molajito;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
-use Exception;
 
 /**
  * Molajito Escape Proxy
@@ -51,17 +49,9 @@ class Escape implements EscapeInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {
-        try {
-            return $this->escape_adapter->escapeOutput($data, $model_registry);
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Escape Driver escape Method Failed: ' . $e->getMessage()
-            );
-        }
+        return $this->escape_adapter->escapeOutput($data, $model_registry);
     }
 }
