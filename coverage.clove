@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400010748">
-  <project timestamp="1400010748">
+<coverage generated="1400014343">
+  <project timestamp="1400014343">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -190,21 +190,17 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event.php">
         <class name="Event" namespace="Molajito" fullPackage="Molajo" package="Molajo">
-          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="7" elements="11" coveredelements="10"/>
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
         </class>
         <line num="38" type="method" name="__construct" crap="1" count="3"/>
         <line num="41" type="stmt" count="3"/>
         <line num="42" type="stmt" count="3"/>
-        <line num="51" type="method" name="initializeEventOptions" crap="1" count="7"/>
-        <line num="53" type="stmt" count="7"/>
-        <line num="66" type="method" name="scheduleEvent" crap="2.03" count="7"/>
-        <line num="68" type="stmt" count="7"/>
-        <line num="70" type="stmt" count="7"/>
-        <line num="71" type="stmt" count="7"/>
-        <line num="72" type="stmt" count="0"/>
-        <line num="75" type="stmt" count="7"/>
-        <line num="78" type="stmt" count="0"/>
-        <metrics loc="77" ncloc="32" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="7" elements="11" coveredelements="9"/>
+        <line num="51" type="method" name="initializeEventOptions" crap="1" count="8"/>
+        <line num="53" type="stmt" count="8"/>
+        <line num="66" type="method" name="scheduleEvent" crap="1" count="8"/>
+        <line num="68" type="stmt" count="8"/>
+        <line num="71" type="stmt" count="0"/>
+        <metrics loc="70" ncloc="25" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Parse.php">
         <class name="Parse" namespace="Molajito" fullPackage="Molajo" package="Molajo">
@@ -592,23 +588,23 @@
     <package name="Molajito\Event">
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/AbstractAdapter.php">
         <class name="AbstractAdapter" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
-          <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="8" elements="13" coveredelements="10"/>
+          <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="12"/>
         </class>
-        <line num="57" type="method" name="__construct" crap="2.26" count="3"/>
-        <line num="61" type="stmt" count="3"/>
-        <line num="63" type="stmt" count="3"/>
-        <line num="64" type="stmt" count="0"/>
-        <line num="65" type="stmt" count="0"/>
-        <line num="66" type="stmt" count="3"/>
-        <line num="74" type="method" name="initializeEventOptions" crap="2" count="7"/>
-        <line num="76" type="stmt" count="7"/>
-        <line num="78" type="stmt" count="7"/>
-        <line num="79" type="stmt" count="7"/>
-        <line num="80" type="stmt" count="7"/>
-        <line num="82" type="stmt" count="7"/>
+        <line num="57" type="method" name="__construct" crap="2" count="5"/>
+        <line num="61" type="stmt" count="5"/>
+        <line num="63" type="stmt" count="5"/>
+        <line num="64" type="stmt" count="2"/>
+        <line num="65" type="stmt" count="2"/>
+        <line num="66" type="stmt" count="5"/>
+        <line num="74" type="method" name="initializeEventOptions" crap="2" count="8"/>
+        <line num="76" type="stmt" count="8"/>
+        <line num="78" type="stmt" count="8"/>
+        <line num="79" type="stmt" count="8"/>
+        <line num="80" type="stmt" count="8"/>
+        <line num="82" type="stmt" count="8"/>
         <line num="95" type="method" name="scheduleEvent" crap="1" count="0"/>
         <line num="97" type="stmt" count="0"/>
-        <metrics loc="96" ncloc="45" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="8" elements="12" coveredelements="9"/>
+        <metrics loc="96" ncloc="45" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/Dummy.php">
         <class name="Dummy" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
@@ -618,6 +614,25 @@
         <line num="34" type="stmt" count="7"/>
         <line num="37" type="stmt" count="0"/>
         <metrics loc="36" ncloc="12" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/Molajo.php">
+        <class name="Molajo" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
+          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="3" elements="12" coveredelements="4"/>
+        </class>
+        <line num="34" type="method" name="scheduleEvent" crap="1" count="1"/>
+        <line num="36" type="stmt" count="1"/>
+        <line num="38" type="stmt" count="1"/>
+        <line num="40" type="stmt" count="1"/>
+        <line num="52" type="method" name="setEventOptions" crap="12" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="57" type="stmt" count="0"/>
+        <line num="58" type="stmt" count="0"/>
+        <line num="59" type="stmt" count="0"/>
+        <line num="60" type="stmt" count="0"/>
+        <line num="62" type="stmt" count="0"/>
+        <line num="65" type="stmt" count="0"/>
+        <metrics loc="64" ncloc="31" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="3" elements="12" coveredelements="4"/>
       </file>
     </package>
     <package name="Molajito\Render">
@@ -1408,6 +1423,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="54" loc="4999" ncloc="2625" classes="30" methods="140" coveredmethods="94" conditionals="0" coveredconditionals="0" statements="940" coveredstatements="617" elements="1080" coveredelements="711"/>
+    <metrics files="55" loc="5056" ncloc="2649" classes="31" methods="142" coveredmethods="97" conditionals="0" coveredconditionals="0" statements="946" coveredstatements="619" elements="1088" coveredelements="716"/>
   </project>
 </coverage>

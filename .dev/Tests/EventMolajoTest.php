@@ -9,7 +9,7 @@
 namespace Molajito\Test;
 
 use Molajito\Event;
-use Molajito\Event\Dummy;
+use Molajito\Event\Molajo;
 
 /**
  * Event Handler Test
@@ -19,7 +19,7 @@ use Molajito\Event\Dummy;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class EventDummyTest extends \PHPUnit_Framework_TestCase
+class EventMolajoTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $event_instance
@@ -45,8 +45,9 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
      *
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
+     * @covers Molajito\Event\Molajo::__construct
+     * @covers Molajito\Event\Molajo::initializeEventOptions
+     * @covers Molajito\Event\Molajo::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
@@ -58,7 +59,7 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
             return $options;
         };
 
-        $dummy = new Dummy($event_callback, $this->event_option_keys);
+        $dummy = new Molajo($event_callback, $this->event_option_keys);
 
         $this->event_instance = new Event($dummy);
     }
@@ -68,8 +69,9 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
      *
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
+     * @covers Molajito\Event\Molajo::__construct
+     * @covers Molajito\Event\Molajo::initializeEventOptions
+     * @covers Molajito\Event\Molajo::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
@@ -93,8 +95,9 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
      *
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
+     * @covers Molajito\Event\Molajo::__construct
+     * @covers Molajito\Event\Molajo::initializeEventOptions
+     * @covers Molajito\Event\Molajo::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
