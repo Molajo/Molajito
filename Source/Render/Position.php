@@ -82,71 +82,62 @@ class Position implements PositionInterface
      */
     protected function matchPositionTemplates($type, $position_name, $resource_extension)
     {
-        $template_array = $this->getPositionTemplates($type, $position_name, $resource_extension, 'Parameters');
+        $position_parameters = $this->getPositionParameters($type, $resource_extension);
 
-        if (count($template_array) === 0) {
-            $template_array = $this->getPositionTemplates($type, $position_name, $resource_extension, 'Menuitem');
+        $template_array = array();
+
+        if (count($position_parameters) > 0) {
+            foreach ($position_parameters as $position_parameter) {
+
+                $template_array = $this->getPositionTemplates($position_name, $position_parameter);
+
+                if (count($template_array) > 0) {
+                    break;
+                }
+            }
         }
 
         return $template_array;
     }
 
     /**
-     * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
+     * Get Position Parameters for Type
      *
      * @param   string $type
-     * @param   string $position_name
      * @param   object $resource_extension
-     * @param   string $method_partial (Parameters or Menuitems)
      *
      * @return  array
      * @since   1.0
      */
-    protected function getPositionTemplates($type, $position_name, $resource_extension, $method_partial)
+    protected function getPositionParameters($type, $resource_extension)
     {
-        $method = 'getPositionTemplates' . $method_partial;
+        $position_parameters = array();
 
-        $positions = $this->$method($type, $resource_extension);
+        if (isset($resource_extension->$type->parameters->positions)) {
+            $position_parameters[] = $resource_extension->$type->parameters->positions;
+        }
 
-        $positions_array = $this->buildPositionArray($positions);
+        if (isset($resource_extension->$type->menuitem->parameters->positions)) {
+            $position_parameters[] = $resource_extension->$type->menuitem->parameters->positions;
+        }
+
+        return $position_parameters;
+    }
+
+    /**
+     * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
+     *
+     * @param   string $position_name
+     * @param   array  $position_parameter
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getPositionTemplates($position_name, $position_parameter)
+    {
+        $positions_array = $this->buildPositionArray($position_parameter);
 
         return $this->searchPositionArray($position_name, $positions_array);
-    }
-
-    /**
-     * Retrieve Position data from Parameters, if existing
-     *
-     * @param   string $type
-     * @param   object $resource_extension
-     *
-     * @return  boolean|array
-     * @since   1.0
-     */
-    protected function getPositionTemplatesParameters($type, $resource_extension)
-    {
-        if (isset($resource_extension->$type->parameters->positions)) {
-            return $resource_extension->$type->parameters->positions;
-        }
-
-        return false;
-    }
-
-    /**
-     * Retrieves all position data (unnmatched) from Menuitem, if existing
-     *
-     * @param   string $type
-     * @param   object $resource_extension
-     *
-     * @return  boolean|array
-     * @since   1.0
-     */
-    protected function getPositionTemplatesMenuitem($type, $resource_extension)
-    {
-        if (isset($resource_extension->$type->menuitem->parameters->positions)) {
-            return $resource_extension->$type->menuitem->parameters->positions;
-        }
-
-        return false;
     }
 
     /**
@@ -159,12 +150,12 @@ class Position implements PositionInterface
      */
     protected function buildPositionArray($position)
     {
+        $positions_array = array();
+        
         $position_templates = explode('{{', $position);
 
         if (count($position_templates) > 0) {
             $positions_array = $this->buildPositionTemplatesArray($position_templates);
-        } else {
-            $positions_array = array();
         }
 
         return $positions_array;
