@@ -163,7 +163,7 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
      * @return  $this
      * @since   1.0
      */
-    public function customWhiteList()
+    public function testCustomWhiteList()
     {
         $white_list = '<b>';
 
@@ -178,7 +178,7 @@ class EscapeSimpleTest extends \PHPUnit_Framework_TestCase
 
         $results = $escape_instance->escapeOutput($query_results);
 
-        $this->assertEquals('I <b>am</b> a dog.</p>', $results[0]->test_field);
+        $this->assertEquals('I <b>am</b> a dog.', $results[0]->test_field);
 
         return $this;
     }

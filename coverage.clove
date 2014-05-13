@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400017041">
-  <project timestamp="1400017041">
+<coverage generated="1400017424">
+  <project timestamp="1400017424">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -180,11 +180,11 @@
         <class name="Escape" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
         </class>
-        <line num="38" type="method" name="__construct" crap="1" count="30"/>
-        <line num="41" type="stmt" count="30"/>
-        <line num="42" type="stmt" count="30"/>
-        <line num="53" type="method" name="escapeOutput" crap="1" count="23"/>
-        <line num="55" type="stmt" count="23"/>
+        <line num="38" type="method" name="__construct" crap="1" count="31"/>
+        <line num="41" type="stmt" count="31"/>
+        <line num="42" type="stmt" count="31"/>
+        <line num="53" type="method" name="escapeOutput" crap="1" count="24"/>
+        <line num="55" type="stmt" count="24"/>
         <line num="58" type="stmt" count="0"/>
         <metrics loc="57" ncloc="20" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </file>
@@ -506,13 +506,13 @@
         <class name="AbstractAdapter" namespace="Molajito\Escape" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="8" coveredelements="7"/>
         </class>
-        <line num="33" type="method" name="escapeOutput" crap="3" count="23"/>
-        <line num="35" type="stmt" count="23"/>
-        <line num="36" type="stmt" count="22"/>
-        <line num="37" type="stmt" count="22"/>
-        <line num="38" type="stmt" count="22"/>
-        <line num="39" type="stmt" count="23"/>
-        <line num="41" type="stmt" count="23"/>
+        <line num="33" type="method" name="escapeOutput" crap="3" count="24"/>
+        <line num="35" type="stmt" count="24"/>
+        <line num="36" type="stmt" count="23"/>
+        <line num="37" type="stmt" count="23"/>
+        <line num="38" type="stmt" count="23"/>
+        <line num="39" type="stmt" count="24"/>
+        <line num="41" type="stmt" count="24"/>
         <line num="54" type="method" name="escapeDataElement" crap="1" count="0"/>
         <line num="56" type="stmt" count="0"/>
         <metrics loc="55" ncloc="20" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="7" coveredelements="7"/>
@@ -561,28 +561,28 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape/Simple.php">
         <class name="Simple" namespace="Molajito\Escape" fullPackage="Molajo" package="Molajo">
-          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="14" elements="18" coveredelements="17"/>
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="18" coveredelements="18"/>
         </class>
-        <line num="48" type="method" name="__construct" crap="2.06" count="23"/>
-        <line num="51" type="stmt" count="23"/>
-        <line num="52" type="stmt" count="23"/>
-        <line num="53" type="stmt" count="0"/>
-        <line num="55" type="stmt" count="23"/>
-        <line num="67" type="method" name="escapeOutput" crap="1" count="16"/>
-        <line num="69" type="stmt" count="16"/>
-        <line num="71" type="stmt" count="16"/>
-        <line num="84" type="method" name="escapeDataElement" crap="5" count="16"/>
-        <line num="86" type="stmt" count="16"/>
+        <line num="48" type="method" name="__construct" crap="2" count="24"/>
+        <line num="51" type="stmt" count="24"/>
+        <line num="52" type="stmt" count="24"/>
+        <line num="53" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="24"/>
+        <line num="67" type="method" name="escapeOutput" crap="1" count="17"/>
+        <line num="69" type="stmt" count="17"/>
+        <line num="71" type="stmt" count="17"/>
+        <line num="84" type="method" name="escapeDataElement" crap="5" count="17"/>
+        <line num="86" type="stmt" count="17"/>
         <line num="87" type="stmt" count="5"/>
-        <line num="90" type="stmt" count="15"/>
+        <line num="90" type="stmt" count="16"/>
         <line num="91" type="stmt" count="1"/>
-        <line num="94" type="stmt" count="14"/>
+        <line num="94" type="stmt" count="15"/>
         <line num="95" type="stmt" count="1"/>
-        <line num="98" type="stmt" count="13"/>
-        <line num="99" type="stmt" count="12"/>
+        <line num="98" type="stmt" count="14"/>
+        <line num="99" type="stmt" count="13"/>
         <line num="102" type="stmt" count="1"/>
         <line num="105" type="stmt" count="0"/>
-        <metrics loc="104" ncloc="48" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="14" elements="18" coveredelements="16"/>
+        <metrics loc="104" ncloc="48" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="18" coveredelements="18"/>
       </file>
     </package>
     <package name="Molajito\Event">
@@ -1425,6 +1425,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="55" loc="5082" ncloc="2659" classes="32" methods="144" coveredmethods="104" conditionals="0" coveredconditionals="0" statements="943" coveredstatements="634" elements="1087" coveredelements="738"/>
+    <metrics files="55" loc="5082" ncloc="2659" classes="32" methods="144" coveredmethods="105" conditionals="0" coveredconditionals="0" statements="943" coveredstatements="635" elements="1087" coveredelements="740"/>
   </project>
 </coverage>
