@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1399944677">
-  <project timestamp="1399944677">
+<coverage generated="1399947568">
+  <project timestamp="1399947568">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -331,11 +331,11 @@
         <class name="View" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="3" elements="9" coveredelements="5"/>
         </class>
-        <line num="40" type="method" name="__construct" crap="1" count="5"/>
-        <line num="43" type="stmt" count="5"/>
-        <line num="44" type="stmt" count="5"/>
-        <line num="55" type="method" name="getView" crap="4.05" count="4"/>
-        <line num="58" type="stmt" count="4"/>
+        <line num="40" type="method" name="__construct" crap="1" count="9"/>
+        <line num="43" type="stmt" count="9"/>
+        <line num="44" type="stmt" count="9"/>
+        <line num="55" type="method" name="getView" crap="4.05" count="8"/>
+        <line num="58" type="stmt" count="8"/>
         <line num="60" type="stmt" count="0"/>
         <line num="61" type="stmt" count="0"/>
         <line num="62" type="stmt" count="0"/>
@@ -1158,7 +1158,6 @@
         <line num="78" type="stmt" count="0"/>
         <line num="79" type="stmt" count="0"/>
         <line num="82" type="stmt" count="4"/>
-        <line num="85" type="stmt" count="0"/>
         <metrics loc="84" ncloc="47" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="15" elements="21" coveredelements="16"/>
       </file>
     </package>

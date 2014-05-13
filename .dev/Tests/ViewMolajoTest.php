@@ -9,7 +9,6 @@
 namespace Molajito\Test;
 
 use Molajito\View;
-use Molajito\View\Filesystem;
 use Molajito\View\Molajo;
 use stdClass;
 
@@ -21,7 +20,7 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class ViewTest extends \PHPUnit_Framework_TestCase
+class ViewMolajoTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $view
@@ -34,10 +33,6 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** View */
-//        $theme_base_folder = $include_path = __DIR__ . '/Views/';
-//        $view_base_folder  = $include_path = __DIR__ . '/Views/';
-
-//        $adapter = new Filesystem($theme_base_folder, $view_base_folder);
         $adapter = new Molajo(new ResourceMock());
         $this->view_instance    = new View($adapter);
     }

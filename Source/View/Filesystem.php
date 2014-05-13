@@ -73,13 +73,13 @@ class Filesystem extends AbstractAdapter implements ViewInterface
 
         if ($render->scheme === 'Theme') {
             $base   = $this->theme_base_folder;
-            $folder = '';
-            $file   = '/Index.phtml';
+            $folder = '/';
+            $file   = 'Index.phtml';
 
         } elseif ($render->scheme === 'Page') {
             $base   = $this->view_base_folder;
             $folder = '/' . $render->scheme . 's/';
-            $file   = '/Index.phtml';
+            $file   = 'Index.phtml';
 
         } else {
             $base   = $this->view_base_folder;
@@ -87,7 +87,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
             $file   = '';
         }
 
-        $render->extension->include_path = $base . $folder . $render->extension->title . $file;
+        $render->extension->include_path = $base . $folder . $render->extension->title . '/' . $file;
 
         return $render;
     }
