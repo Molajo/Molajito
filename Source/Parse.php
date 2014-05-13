@@ -204,16 +204,27 @@ class Parse implements ParseInterface
      */
     protected function setTokenElements($parsed_token)
     {
+        $pieces = explode(' ', $parsed_token);
+
+        return $this->setTokenElementsPieces($pieces);
+    }
+
+    /**
+     * Set Token Elements
+     *
+     * @param   string $parsed_token
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function setTokenElementsPieces($pieces)
+    {
         $token_elements = array();
 
-        $pieces         = explode(' ', $parsed_token);
-
-        if (count($pieces) > 0) {
-            foreach ($pieces as $piece) {
-                if (trim($piece) === '') {
-                } else {
-                    $token_elements[] = $piece;
-                }
+        foreach ($pieces as $piece) {
+            if (trim($piece) === '') {
+            } else {
+                $token_elements[] = $piece;
             }
         }
 
@@ -223,7 +234,7 @@ class Parse implements ParseInterface
     /**
      * Process Token Elements and complete Token Construction
      *
-     * @param   array  $token_elements
+     * @param   array    $token_elements
      * @param   stdClass $token
      *
      * @return  object
@@ -231,18 +242,32 @@ class Parse implements ParseInterface
      */
     protected function processTokenElements($token_elements, $token)
     {
-        $first            = 1;
+        $first = 1;
 
         foreach ($token_elements as $part) {
+            $pair  = explode('=', $part);
+            $token = $this->processTokenPair($token, $pair, $first);
+            $first = 0;
+        }
 
-            $pair = explode('=', $part);
+        return $token;
+    }
 
-            if ($first === 1) {
-                $first = 0;
-                $token = $this->processFirstTokenElements($token, $pair);
-            } else {
-                $token = $this->processSubsequentTokenElements($token, $pair);
-            }
+    /**
+     * Process Token Pair
+     *
+     * @param   stdClass $token
+     * @param   array    $pair
+     *
+     * @return  object
+     * @since   1.0
+     */
+    protected function processTokenPair($token, $pair, $first)
+    {
+        if ($first === 1) {
+            $token = $this->processFirstTokenElements($token, $pair);
+        } else {
+            $token = $this->processSubsequentTokenElements($token, $pair);
         }
 
         return $token;
