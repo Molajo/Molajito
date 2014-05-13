@@ -48,6 +48,8 @@ class EventMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Event\Molajo::__construct
      * @covers Molajito\Event\Molajo::initializeEventOptions
      * @covers Molajito\Event\Molajo::scheduleEvent
+     * @covers Molajito\Event\Molajo::setEventOptions
+     * @covers Molajito\Event\AbstractAdapter::__construct
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
@@ -72,6 +74,8 @@ class EventMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Event\Molajo::__construct
      * @covers Molajito\Event\Molajo::initializeEventOptions
      * @covers Molajito\Event\Molajo::scheduleEvent
+     * @covers Molajito\Event\Molajo::setEventOptions
+     * @covers Molajito\Event\AbstractAdapter::__construct
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
@@ -98,6 +102,8 @@ class EventMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Event\Molajo::__construct
      * @covers Molajito\Event\Molajo::initializeEventOptions
      * @covers Molajito\Event\Molajo::scheduleEvent
+     * @covers Molajito\Event\Molajo::setEventOptions
+     * @covers Molajito\Event\AbstractAdapter::__construct
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions

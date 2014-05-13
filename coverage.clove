@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400014343">
-  <project timestamp="1400014343">
+<coverage generated="1400015008">
+  <project timestamp="1400015008">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -617,22 +617,22 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/Molajo.php">
         <class name="Molajo" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
-          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="3" elements="12" coveredelements="4"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
         </class>
         <line num="34" type="method" name="scheduleEvent" crap="1" count="1"/>
         <line num="36" type="stmt" count="1"/>
         <line num="38" type="stmt" count="1"/>
         <line num="40" type="stmt" count="1"/>
-        <line num="52" type="method" name="setEventOptions" crap="12" count="0"/>
-        <line num="54" type="stmt" count="0"/>
-        <line num="56" type="stmt" count="0"/>
-        <line num="57" type="stmt" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
-        <line num="60" type="stmt" count="0"/>
-        <line num="62" type="stmt" count="0"/>
+        <line num="52" type="method" name="setEventOptions" crap="3" count="1"/>
+        <line num="54" type="stmt" count="1"/>
+        <line num="56" type="stmt" count="1"/>
+        <line num="57" type="stmt" count="1"/>
+        <line num="58" type="stmt" count="1"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="60" type="stmt" count="1"/>
+        <line num="62" type="stmt" count="1"/>
         <line num="65" type="stmt" count="0"/>
-        <metrics loc="64" ncloc="31" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="3" elements="12" coveredelements="4"/>
+        <metrics loc="64" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
       </file>
     </package>
     <package name="Molajito\Render">
@@ -1423,6 +1423,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="55" loc="5056" ncloc="2649" classes="31" methods="142" coveredmethods="97" conditionals="0" coveredconditionals="0" statements="946" coveredstatements="619" elements="1088" coveredelements="716"/>
+    <metrics files="55" loc="5056" ncloc="2649" classes="31" methods="142" coveredmethods="98" conditionals="0" coveredconditionals="0" statements="946" coveredstatements="626" elements="1088" coveredelements="724"/>
   </project>
 </coverage>

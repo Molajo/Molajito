@@ -49,7 +49,7 @@ class Molajo extends AbstractAdapter implements EventInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function setEventOptions(array $options = array())
+    protected function setEventOptions(array $options = array())
     {
         $temp = array();
 
