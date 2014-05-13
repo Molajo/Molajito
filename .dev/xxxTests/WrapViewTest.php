@@ -56,7 +56,7 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Footer.phtml';
         $collect = ob_get_clean();
 
-        $results = $this->wrap_instance->render(
+        $results = $this->wrap_instance->renderOutput(
             $include_path,
             $rendering_properties
         );

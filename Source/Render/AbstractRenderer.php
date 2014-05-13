@@ -94,7 +94,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $property_array = array();
+    //protected $property_array = array();
 
     /**
      * Query Results
@@ -127,6 +127,22 @@ abstract class AbstractRenderer implements RenderInterface
      * @since  1.0.0
      */
     protected $row = null;
+
+    /**
+     * Render Properties
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $property_array
+        = array(
+            'plugin_data',
+            'runtime_data',
+            'model_registry',
+            'parameters',
+            'query_results',
+            'row'
+        );
 
     /**
      * Constructor
@@ -202,6 +218,7 @@ abstract class AbstractRenderer implements RenderInterface
             $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
 
             foreach ($event_results as $key => $value) {
+
                 if (in_array($key, $this->property_array)) {
                     $this->$key = $value;
                 }
@@ -227,7 +244,7 @@ abstract class AbstractRenderer implements RenderInterface
     {
         $event_options = $this->event_instance->initializeEventOptions();
 
-        foreach ($event_options as $key) {
+        foreach ($event_options as $key => $value) {
 
             if (isset($options[ $key ])) {
                 $event_options[ $key ] = $options[ $key ];

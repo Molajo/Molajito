@@ -23,22 +23,6 @@ use Exception;
 class TemplateView extends AbstractRenderer implements RenderInterface
 {
     /**
-     * Render Properties
-     *
-     * @var    array
-     * @since  1.0.0
-     */
-    protected $property_array
-        = array(
-            'plugin_data',
-            'runtime_data',
-            'model_registry',
-            'parameters',
-            'query_results',
-            'row'
-        );
-
-    /**
      * Render output for specified file and data
      *
      * @param   string $include_path
@@ -47,7 +31,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      * @return  string
      * @since   1.0
      */
-    public function render($include_path, array $data = array())
+    public function renderOutput($include_path, array $data = array())
     {
         $this->rendered_view = '';
 
@@ -77,7 +61,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
         $this->query_results = $this->escape_instance->escapeOutput($this->query_results, $this->model_registry);
         $file_path           = $this->include_path . '/Custom.phtml';
 
-        return $this->renderViewPart($file_path, null, false);
+        return $this->renderViewPart($file_path, null, true);
     }
 
     /**
@@ -165,6 +149,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
 
         } else {
             $this->scheduleEvent($event);
+
             $file_path = $this->include_path . $file;
         }
 
@@ -186,7 +171,7 @@ class TemplateView extends AbstractRenderer implements RenderInterface
         }
 
         try {
-            $this->rendered_view .= $this->renderOutput($file_path, $options);
+            $this->rendered_view .= $this->render_instance->renderOutput($file_path, $options);
 
         } catch (Exception $e) {
             throw new RuntimeException(

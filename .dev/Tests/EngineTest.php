@@ -153,6 +153,9 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Render\AbstractRenderer::scheduleEvent
      * @covers Molajito\Render\AbstractRenderer::setEventOptions
      * @covers Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers Molajito\Render::renderOutput
+     * @covers Molajito\Render::setProperties
+     * @covers Molajito\Render::includeFile
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
      * @covers Molajito\Event\Dummy::initializeEventOptions
