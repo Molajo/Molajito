@@ -186,19 +186,12 @@ class Engine implements RenderInterface
 
             $this->renderLoopProcessToken($exclude_tokens);
 
-            if (count($this->tokens) > 0) {
+            if ($this->testEndOfLoopProcessing($loop_counter) === true) {
+                $loop_counter++;
+                continue;
             } else {
                 break;
             }
-
-            if ($loop_counter > $this->stop_loop_count) {
-
-                throw new RuntimeException(
-                    'Molajito renderLoop: Maximum loop count exceeded: ' . $loop_counter
-                );
-            }
-
-            $loop_counter++;
         }
 
         return $this;
@@ -274,5 +267,30 @@ class Engine implements RenderInterface
         }
 
         return $this;
+    }
+
+    /**
+     * Determine continuance of loop processing
+     *
+     * @param   integer $loop_counter
+     *
+     * @return  boolean
+     * @since   1.0
+     */
+    protected function testEndOfLoopProcessing($loop_counter)
+    {
+        if (count($this->tokens) > 0) {
+        } else {
+            return false;
+        }
+
+        if ($loop_counter > $this->stop_loop_count) {
+
+            throw new RuntimeException(
+                'Molajito renderLoop: Maximum loop count exceeded: ' . $loop_counter
+            );
+        }
+
+        return true;
     }
 }
