@@ -88,6 +88,30 @@ class Engine implements RenderInterface
     protected $tokens = array();
 
     /**
+     * Parameters
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $parameters = null;
+
+    /**
+     * Model Registry
+     *
+     * @var    object
+     * @since  1.0.0
+     */
+    protected $model_registry = null;
+
+    /**
+     * Query Results
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $query_results = array();
+
+    /**
      * Constructor
      *
      * @param  ParseInterface     $parse_instance
@@ -160,8 +184,6 @@ class Engine implements RenderInterface
 
         while (true === true) {
 
-            $loop_counter++;
-
             $this->renderLoopProcessToken($exclude_tokens);
 
             if (count($this->tokens) > 0) {
@@ -176,7 +198,7 @@ class Engine implements RenderInterface
                 );
             }
 
-            continue;
+            $loop_counter++;
         }
 
         return $this;

@@ -242,13 +242,6 @@ class Token extends AbstractRenderer implements RenderInterface
             $this->plugin_data = new stdClass();
         }
 
-        $this->parameters     = null;
-        $this->model_registry = array();
-        $this->query_results  = array();
-        $this->rendered_view  = null;
-        $this->rendered_page  = null;
-        $this->include_path   = null;
-
         return $this;
     }
 

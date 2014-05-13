@@ -73,9 +73,11 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Render\TemplateView::renderOutput
      * @covers Molajito\Render\TemplateView::renderViewCustom
      * @covers Molajito\Render\TemplateView::renderLoop
+     * @covers Molajito\Render\TemplateView::initializeRenderLoop
      * @covers Molajito\Render\TemplateView::renderViewNormal
      * @covers Molajito\Render\TemplateView::renderViewCustom
      * @covers Molajito\Render\TemplateView::renderViewPart
+     * @covers Molajito\Render\TemplateView::setRenderViewOptions
      *
      * @covers Molajito\Render\AbstractRenderer::renderOutput
      * @covers Molajito\Render\AbstractRenderer::setProperties
@@ -146,9 +148,11 @@ class TemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Render\TemplateView::renderOutput
      * @covers Molajito\Render\TemplateView::renderViewCustom
      * @covers Molajito\Render\TemplateView::renderLoop
+     * @covers Molajito\Render\TemplateView::initializeRenderLoop
      * @covers Molajito\Render\TemplateView::renderViewNormal
      * @covers Molajito\Render\TemplateView::renderViewCustom
      * @covers Molajito\Render\TemplateView::renderViewPart
+     * @covers Molajito\Render\TemplateView::setRenderViewOptions
      *
      * @covers Molajito\Render\AbstractRenderer::renderOutput
      * @covers Molajito\Render\AbstractRenderer::setProperties
