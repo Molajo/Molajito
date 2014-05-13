@@ -204,7 +204,7 @@ abstract class AbstractRenderer implements RenderInterface
     public function scheduleEvent($event_name, array $options = array())
     {
         $event_options = $this->setEventOptions($options);
-        
+
         $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
 
         foreach ($event_results as $key => $value) {

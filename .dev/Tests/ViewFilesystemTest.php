@@ -57,6 +57,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\View\Filesystem::getView
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
+     * @covers Molajito\View\Filesystem::getLocation
      *
      * @return  $this
      * @since   1.0
@@ -83,6 +84,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\View\Filesystem::getLocation
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
+     * @covers Molajito\View\Filesystem::getLocation
      *
      * @return  $this
      * @since   1.0
@@ -109,6 +111,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\View\Filesystem::getLocation
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
+     * @covers Molajito\View\Filesystem::getLocation
      *
      * @return  $this
      * @since   1.0
@@ -135,6 +138,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\View\Filesystem::getLocation
      * @covers Molajito\View::__construct
      * @covers Molajito\View::getView
+     * @covers Molajito\View\Filesystem::getLocation
      *
      * @return  $this
      * @since   1.0
