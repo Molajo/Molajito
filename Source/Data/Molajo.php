@@ -95,19 +95,6 @@ class Molajo extends AbstractAdapter implements DataInterface
     protected $parameters = null;
 
     /**
-     * Class Constructor
-     *
-     * @param  PaginationInterface $pagination
-     *
-     * @since  1.0.0
-     */
-    public function __construct(
-        PaginationInterface $pagination = null
-    ) {
-        $this->pagination = $pagination;
-    }
-
-    /**
      * Get Data for Rendering
      *
      * @param   object $token

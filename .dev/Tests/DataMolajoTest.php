@@ -57,6 +57,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
      * @covers  Molajito\Data\Molajo::initialise
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
@@ -128,6 +129,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data::editToken
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::initialise
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
@@ -198,6 +200,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data::editToken
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::initialise
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
@@ -285,6 +288,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data::editToken
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::initialise
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
@@ -378,6 +382,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data::editToken
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::initialise
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
@@ -465,6 +470,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data::editToken
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::initialise
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
@@ -557,6 +563,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
      * @covers  Molajito\Data\Molajo::initialise
+     * @covers  Molajito\Data\Molajo::setModel
      * @covers  Molajito\Data\Molajo::getPrimaryData
      * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
