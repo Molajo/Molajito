@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Test
+ * Render Theme Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -14,14 +14,14 @@ use Molajito\Escape\Simple;
 use Molajito\Render;
 
 /**
- * Theme Test
+ * Render Theme Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class ThemeTest extends \PHPUnit_Framework_TestCase
+class RenderThemeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $theme_instance

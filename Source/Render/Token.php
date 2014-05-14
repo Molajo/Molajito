@@ -178,24 +178,28 @@ class Token extends AbstractRenderer implements RenderInterface
     /**
      * Render Token for Position Type
      *
-     * @param   object $token
+     * @param   string  $position_name
+     * @param   array   $data
      *
      * @return  $this
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function renderPosition($token)
+    public function renderPosition($token, $data)
     {
-        /** Step 1. Initialise */
+        /** Step 1. Initialise Rendering Data */
+        $this->initialiseData($data);
         $position_name = $token->name;
 
         /** Step 2. Render Position */
         $this->rendered_view = $this->position_instance->getPositionTemplateViews(
-            $position_name,
-            $this->runtime_data->render->extension
+            $position_name, $this->runtime_data
         );
 
-        return $this;
+        /** Step 5. Replace Token with Rendered View */
+        $this->replaceTokenWithRenderedOutput($token);
+
+        return $this->rendered_page;
     }
 
     /**
@@ -254,6 +258,12 @@ class Token extends AbstractRenderer implements RenderInterface
             $this->plugin_data = $data['plugin_data'];
         } else {
             $this->plugin_data = new stdClass();
+        }
+
+        if (isset($data['rendered_page'])) {
+            $this->rendered_page = $data['rendered_page'];
+        } else {
+            $this->rendered_page = '';
         }
 
         return $this;
@@ -429,14 +439,14 @@ class Token extends AbstractRenderer implements RenderInterface
      *
      * @param   object $token
      *
-     * @return  $this
+     * @return  string
      * @since   1.0
      */
     protected function replaceTokenWithRenderedOutput($token)
     {
         $this->rendered_page
-            = str_replace($token->replace_this, $this->rendered_view, $this->rendered_page);
+            = str_replace($token->replace_this, trim($this->rendered_view), $this->rendered_page);
 
-        return $this;
+        return $this->rendered_page;
     }
 }

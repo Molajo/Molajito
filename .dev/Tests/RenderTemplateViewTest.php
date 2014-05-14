@@ -1,6 +1,6 @@
 <?php
 /**
- * Template View Test
+ * Render Template View Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -17,14 +17,14 @@ use Molajito\Escape\Simple;
 use stdClass;
 
 /**
- * Template View Test
+ * Render Template View Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class TemplateViewTest extends \PHPUnit_Framework_TestCase
+class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $template_view

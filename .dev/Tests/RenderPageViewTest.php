@@ -1,6 +1,6 @@
 <?php
 /**
- * Page View Test
+ * Render Page View Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -16,14 +16,14 @@ use Molajito\Escape;
 use Molajito\Escape\Simple;
 
 /**
- * Page View Test
+ * Render Page View Test
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class PageViewTest extends \PHPUnit_Framework_TestCase
+class RenderPageViewTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $pageview_instance

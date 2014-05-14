@@ -22,7 +22,7 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class PositionTest extends \PHPUnit_Framework_TestCase
+class RenderPositionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var $position
