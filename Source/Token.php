@@ -280,18 +280,12 @@ class Token implements TokenInterface
     {
         $this->initialiseData($token, $data);
 
-        if ($this->render_types[ $this->token->type ]['onBeforeEvent'] === null) {
-        } else {
-            $this->scheduleEvent($this->render_types[ $this->token->type ]['onBeforeEvent']);
-        }
+        $this->scheduleEvent('onBeforeEvent');
 
-        $method = $this->render_types[ $this->token->type ]['method'];
+        $method              = $this->render_types[ $this->token->type ]['method'];
         $this->rendered_view = $this->$method();
 
-        if ($this->render_types[ $this->token->type ]['onAfterEvent'] === null) {
-        } else {
-            $this->scheduleEvent($this->render_types[ $this->token->type ]['onAfterEvent']);
-        }
+        $this->scheduleEvent('onAfterEvent');
 
         $this->replaceTokenWithRenderedOutput();
 
@@ -312,23 +306,17 @@ class Token implements TokenInterface
     {
         $this->token = $token;
 
-        foreach ($this->property_array as $key) {
-            if (isset($data[ $key ])) {
-                $this->$key = $data[ $key ];
-            } else {
-                $this->$key = null;
-            }
-        }
+        $this->setClassProperties($data, true);
 
         $this->data = array();
 
         $token_type = $this->token->type;
 
-        if ($this->render_types[ $this->token->type ][ 'getView' ] === true) {
+        if ($this->render_types[ $this->token->type ]['getView'] === true) {
             $this->getView();
         }
 
-        if ($this->render_types[ $this->token->type ][ 'getData' ] === true) {
+        if ($this->render_types[ $this->token->type ]['getData'] === true) {
             $this->getData();
         }
 
@@ -345,26 +333,22 @@ class Token implements TokenInterface
      */
     public function scheduleEvent($event_name)
     {
+        if ($this->render_types[ $this->token->type ][ $event_name ] === null) {
+            return $this;
+        }
+
         $render_instance = $this->render_types[ $this->token->type ]['render_instance'];
 
         $event_results
             = $this->$render_instance->scheduleEvent(
-            $event_name,
+            $this->render_types[ $this->token->type ][ $event_name ],
             $this->setOptions()
         );
 
-        foreach ($event_results as $key => $value) {
-            if (in_array($key, $this->property_array)) {
-                $this->$key = $value;
-            }
-        }
+        $this->setClassProperties($event_results);
 
         if (isset($event_results['token'])) {
             $this->token = $event_results['token'];
-        }
-
-        if (isset($event_results['rendered_view'])) {
-            $this->rendered_view = $event_results['rendered_view'];
         }
 
         return $this;
@@ -498,6 +482,30 @@ class Token implements TokenInterface
         $this->model_registry = $data->model_registry;
         $this->parameters     = $data->parameters;
         $this->include_path   = $this->runtime_data->render->extension->include_path;
+
+        return $this;
+    }
+
+    /**
+     * Set Class Properties given array of data
+     *
+     * @param   array    $data
+     * @param   boolean  $initialise
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setClassProperties(array $data = array(), $initialise = false)
+    {
+        foreach ($this->property_array as $key) {
+            if (isset($data[ $key ])) {
+                $this->$key = $data[ $key ];
+            } else {
+                if ($initialise === true) {
+                    $this->$key = null;
+                }
+            }
+        }
 
         return $this;
     }
