@@ -370,18 +370,33 @@ class Molajo extends AbstractAdapter implements DataInterface
         $this->query_results  = $this->runtime_data->resource->data;
         $this->model_registry = $this->runtime_data->resource->model_registry;
         $this->parameters     = $this->runtime_data->resource->parameters;
-        $hold_parameters      = $this->runtime_data->render->extension->parameters;
+
+        $hold_parameters = $this->runtime_data->render->extension->parameters;
 
         if (is_array($hold_parameters) && count($hold_parameters) > 0) {
+            $this->getPrimaryDataExtensionParameters($hold_parameters);
+        }
 
-            foreach ($hold_parameters as $key => $value) {
-                if (isset($this->parameters->$key)) {
-                    if ($this->parameters->$key === null) {
-                        $this->parameters->$key = $value;
-                    }
-                } else {
+        return $this;
+    }
+
+    /**
+     * Get Data from Primary Data Collection
+     *
+     * @param   array $hold_parameters
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getPrimaryDataExtensionParameters($hold_parameters)
+    {
+        foreach ($hold_parameters as $key => $value) {
+            if (isset($this->parameters->$key)) {
+                if ($this->parameters->$key === null) {
                     $this->parameters->$key = $value;
                 }
+            } else {
+                $this->parameters->$key = $value;
             }
         }
 
@@ -420,24 +435,49 @@ class Molajo extends AbstractAdapter implements DataInterface
         $name = $this->model_name;
 
         if (isset($this->plugin_data->$name)) {
-
-            if (isset($this->plugin_data->$name->data)) {
-                $this->query_results  = $this->plugin_data->$name->data;
-                $this->model_registry = $this->plugin_data->$name->model_registry;
-            } else {
-                $this->query_results = $this->plugin_data->$name;
-            }
-
-            if ($this->field_name === '') {
-
-            } elseif (isset($this->query_results[ $this->field_name ])) {
-                $x                     = $this->query_results[ $this->field_name ];
-                $this->query_results   = array();
-                $this->query_results[] = $x;
-            }
+            $this->getPluginDataQueryResults();
         }
 
         $this->setParameters();
+
+        return $this;
+    }
+
+    /**
+     * Get Data from Plugin Data Collection
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getPluginDataQueryResults()
+    {
+        $name = $this->model_name;
+
+        if (isset($this->plugin_data->$name->data)) {
+            $this->query_results  = $this->plugin_data->$name->data;
+            $this->model_registry = $this->plugin_data->$name->model_registry;
+        } else {
+            $this->query_results = $this->plugin_data->$name;
+        }
+
+        $this->getPluginDataQueryResultsField();
+
+        return $this;
+    }
+
+    /**
+     * Reduce Query object to specific field requested
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function getPluginDataQueryResultsField()
+    {
+        if (isset($this->query_results[ $this->field_name ])) {
+            $x                     = $this->query_results[ $this->field_name ];
+            $this->query_results   = array();
+            $this->query_results[] = $x;
+        }
 
         return $this;
     }
@@ -480,17 +520,43 @@ class Molajo extends AbstractAdapter implements DataInterface
     /**
      * Set data for return
      *
-     * @return  stdClass
+     * @return  object
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDataResults()
+    {
+        $this->setDataResultsQueryResults();
+        $this->setDataResultsParameters();
+        return $this->setDataResultsDataObject();
+    }
+
+    /**
+     * Set Query Results
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDataResultsQueryResults()
     {
         if (is_array($this->query_results)) {
         } else {
             $this->query_results = array($this->query_results);
         }
 
+        return $this;
+    }
+
+    /**
+     * Set Parameters
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDataResultsParameters()
+    {
         if (is_object($this->parameters)) {
         } else {
             $this->parameters = new stdClass();
@@ -503,6 +569,18 @@ class Molajo extends AbstractAdapter implements DataInterface
 
         $this->parameters = $this->setParametersFromToken($this->token, $this->parameters);
 
+        return $this;
+    }
+
+    /**
+     * Set Data Results Data Object
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function setDataResultsDataObject()
+    {
         $data = new stdClass();
 
         $data->query_results  = $this->query_results;

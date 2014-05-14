@@ -66,11 +66,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setModelExtensionParameters
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -130,11 +136,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setModelExtensionParameters
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -194,11 +206,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setModelExtensionParameters
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -274,11 +292,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::setDefaultModelTypeName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -360,11 +384,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::setDefaultModelTypeName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -442,11 +472,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::setDefaultModelTypeName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -526,11 +562,17 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setFieldName
      * @covers  Molajito\Data\Molajo::setDefaultModelTypeName
      * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
      * @covers  Molajito\Data\Molajo::getRuntimeData
      * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
      * @covers  Molajito\Data\Molajo::setParameters
      * @covers  Molajito\Data\Molajo::getDefaultData
      * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
