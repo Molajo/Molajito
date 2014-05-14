@@ -122,16 +122,7 @@ class MolajoModel
         $model_type = $this->setModelTypeToken();
 
         if ($model_type === '') {
-            $model_type = $this->setModelTypeParameters(
-                'runtime_data->render->extension->menuitem->parameters->model_type'
-            );
-        }
-
-        if ($model_type === '') {
-            $model_type = $this->setModelTypeParameters(
-                'runtime_data->render->extension->parameters->model_type'
-            );
-
+            $model_type = $this->setModelTypeParameters();
         }
 
         if ($model_type === '') {
@@ -164,10 +155,17 @@ class MolajoModel
      * @return  string
      * @since   1.0
      */
-    protected function setModelTypeParameters($location)
+    protected function setModelTypeParameters()
     {
-        if (isset($this->$location)) {
-            return $this->$location;
+        $locations = array(
+            'runtime_data->render->extension->parameters->model_type',
+            'runtime_data->render->extension->menuitem->parameters->model_type'
+        );
+
+        foreach ($locations as $location) {
+            if (isset($this->$location)) {
+                return $this->$location;
+            }
         }
 
         return '';
