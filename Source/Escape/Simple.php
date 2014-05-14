@@ -87,10 +87,6 @@ class Simple extends AbstractAdapter implements EscapeInterface
             return $data_value;
         }
 
-        if (is_null($data_value)) {
-            return $data_value;
-        }
-
         if (is_array($data_value)) {
             return $data_value;
         }
