@@ -167,21 +167,12 @@ class Token extends AbstractRenderer implements RenderInterface
         $this->scheduleEvent('onBeforeRender');
 
         /** Step 3. Render Theme */
-        try {
-            $this->rendered_page = $this->theme_instance->renderOutput(
-                $include_file,
-                array('runtime_data' => $this->runtime_data)
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Token Renderer renderTheme Method Failed for '
-                . ' Theme: ' . $include_file . ' ' . $e->getMessage()
-            );
-        }
+        $this->rendered_page = $this->theme_instance->renderOutput(
+            $include_file,
+            array('runtime_data' => $this->runtime_data)
+        );
 
         /** Step 4. Return Rendered Page to Parser */
-
         return $this->rendered_page;
     }
 
@@ -200,17 +191,10 @@ class Token extends AbstractRenderer implements RenderInterface
         $position_name = $token->name;
 
         /** Step 2. Render Position */
-        try {
-            $this->rendered_view = $this->position_instance->getPositionTemplateViews(
-                $position_name,
-                $this->runtime_data->render->extension
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito renderPosition Method Failed: ' . $e->getMessage()
-            );
-        }
+        $this->rendered_view = $this->position_instance->getPositionTemplateViews(
+            $position_name,
+            $this->runtime_data->render->extension
+        );
 
         return $this;
     }
@@ -254,45 +238,21 @@ class Token extends AbstractRenderer implements RenderInterface
      * @return  string
      * @since   1.0
      */
-    protected function renderToken($token, $rendered_page)
+    public function renderToken($token, $rendered_page)
     {
-//echo '<br><br>View:  ' . $token->name . '<br>';
-//echo '<pre>';
-//var_dump($token);
-//echo '<pre>';
-
         $this->rendered_page = $rendered_page;
 
         /** Step 1. Get Rendering Extension */
-        $this->getView($token);
-
-        if ($this->runtime_data->render->extension->title === $token->name) {
-        } else {
-            $token->name = $this->runtime_data->render->extension->title;
-        }
+        $token = $this->getView($token);
 
         /** Step 2. Get Query Data for Rendering Extension */
         $this->getData($token);
-
-        $this->include_path = $this->runtime_data->render->extension->include_path;
 
         /** Step 3. Schedule Event */
         $this->scheduleEvent('onBeforeRenderView');
 
         /** Step 4. Render View */
-        if (strtolower($this->runtime_data->render->scheme) === 'page') {
-            $this->renderPageView();
-
-        } else {
-
-            $this->renderTemplateView();
-
-            if ($token->wrap === '') {
-
-            } else {
-                $this->renderWrapView($token);
-            }
-        }
+        $this->renderView($token);
 
         /** Step 5. Schedule onAfterRenderView Event */
         $this->scheduleEvent('onAfterRenderView');
@@ -304,7 +264,7 @@ class Token extends AbstractRenderer implements RenderInterface
     }
 
     /**
-     * Get Data required to render token
+     * Render View
      *
      * @param   object $token
      *
@@ -312,16 +272,115 @@ class Token extends AbstractRenderer implements RenderInterface
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function getView($token)
+    protected function renderView($token)
     {
-        try {
-            $this->runtime_data->render = $this->view_instance->getView($token);
+        if (strtolower($this->runtime_data->render->scheme) === 'page') {
+            $this->renderViewType('page_instance');
 
-        } catch (Exception $e) {
-            throw new RuntimeException('Molajito renderToken getView Exception ' . $e->getMessage());
+        } else {
+
+            $this->renderViewType('template_instance');
+
+            if ($token->wrap === '') {
+            } else {
+                $this->renderWrapView($token);
+            }
         }
 
         return $this;
+    }
+
+    /**
+     * Render Object
+     *
+     * @param   string $type
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function renderViewType($type)
+    {
+        $options = $this->getProperties();
+
+        $this->rendered_view = $this->$type->renderOutput($this->include_path, $options);
+
+        return $this;
+    }
+
+    /**
+     * Render Wrap View
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function renderWrapView($token)
+    {
+        /** Step 1. Get Rendering Extension */
+        $this->getView($this->initializeWrapViewObject($token));
+
+        $this->include_path = $this->runtime_data->render->extension->include_path;
+
+        /** Step 2. Data */
+        $options        = $this->getProperties();
+        $row            = new stdClass();
+        $row->title     = '';
+        $row->subtitle  = '';
+        $row->content   = $this->rendered_view;
+        $options['row'] = $row;
+
+        /** Step 3. Render Wrap */
+        $this->rendered_view = $this->wrap_instance->renderOutput(
+            $this->include_path,
+            $options
+        );
+
+        return $this;
+    }
+
+    /**
+     * Initialize Wrap View Object
+     *
+     * @param   object $token
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function initializeWrapViewObject($token)
+    {
+        $wrap_token               = new stdClass();
+        $wrap_token->type         = 'wrap';
+        $wrap_token->name         = $token->wrap;
+        $wrap_token->wrap         = '';
+        $wrap_token->attributes   = $token->attributes;
+        $wrap_token->replace_this = '';
+
+        return $wrap_token;
+    }
+
+    /**
+     * Get View for Token
+     *
+     * @param   object $token
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getView($token)
+    {
+        $this->runtime_data->render = $this->view_instance->getView($token);
+
+        if ($this->runtime_data->render->extension->title === $token->name) {
+        } else {
+            $token->name = $this->runtime_data->render->extension->title;
+        }
+
+        return $token;
     }
 
     /**
@@ -339,121 +398,12 @@ class Token extends AbstractRenderer implements RenderInterface
         $options['runtime_data'] = $this->runtime_data;
         $options['plugin_data']  = $this->plugin_data;
 
-        try {
-            $data = $this->data_instance->getData($token, $options);
+        $data = $this->data_instance->getData($token, $options);
 
-            $this->query_results  = $data->query_results;
-            $this->model_registry = $data->model_registry;
-            $this->parameters     = $data->parameters;
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito getData Exception for '
-                . ' Token: ' . $token->name . ' Message: ' . $e->getMessage()
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Render Page View
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function renderPageView()
-    {
-        return $this->renderViewType('page_instance');
-    }
-
-    /**
-     * Render Template View
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function renderTemplateView()
-    {
-        return $this->renderViewType('template_instance');
-    }
-
-    /**
-     * Render Object
-     *
-     * @param   string $type
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function renderViewType($type)
-    {
-        $options = $this->getProperties();
-
-        try {
-            $this->rendered_view = $this->$type->renderOutput(
-                $this->include_path,
-                $options
-            );
-
-        } catch (Exception $e) {
-
-            throw new RuntimeException(
-                'Molajito Driver renderObject Method Failed. Type: ' . $type
-                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Render Wrap View
-     *
-     * @param   object $token
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function renderWrapView($token)
-    {
-        /** Step 1. Get Rendering Extension */
-        $wrap_token               = new stdClass();
-        $wrap_token->type         = 'wrap';
-        $wrap_token->name         = $token->wrap;
-        $wrap_token->wrap         = '';
-        $wrap_token->attributes   = $token->attributes;
-        $wrap_token->replace_this = '';
-
-        $this->getView($wrap_token);
-
-        $this->include_path = $this->runtime_data->render->extension->include_path;
-
-        /** Step 2. Data */
-        $options        = $this->getProperties();
-        $row            = new stdClass();
-        $row->title     = '';
-        $row->subtitle  = '';
-        $row->content   = $this->rendered_view;
-        $options['row'] = $row;
-
-        /** Step 3. Render Wrap */
-        try {
-            $this->rendered_view = $this->wrap_instance->renderOutput(
-                $this->include_path,
-                $options
-            );
-
-        } catch (Exception $e) {
-            throw new RuntimeException(
-                'Molajito Driver renderObject Method Failed. Type: Wrap '
-                . ' File path: ' . $this->include_path . ' Message: ' . $e->getMessage()
-            );
-        }
+        $this->query_results  = $data->query_results;
+        $this->model_registry = $data->model_registry;
+        $this->parameters     = $data->parameters;
+        $this->include_path   = $this->runtime_data->render->extension->include_path;
 
         return $this;
     }
@@ -468,7 +418,8 @@ class Token extends AbstractRenderer implements RenderInterface
      */
     protected function replaceTokenWithRenderedOutput($token)
     {
-        $this->rendered_page = str_replace($token->replace_this, $this->rendered_view, $this->rendered_page);
+        $this->rendered_page
+            = str_replace($token->replace_this, $this->rendered_view, $this->rendered_page);
 
         return $this;
     }

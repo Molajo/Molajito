@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400030581">
-  <project timestamp="1400030581">
+<coverage generated="1400031907">
+  <project timestamp="1400031907">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -631,7 +631,7 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape/Simple.php">
         <class name="Simple" namespace="Molajito\Escape" fullPackage="Molajo" package="Molajo">
-          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="18" coveredelements="18"/>
+          <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
         </class>
         <line num="48" type="method" name="__construct" crap="2" count="24"/>
         <line num="51" type="stmt" count="24"/>
@@ -641,18 +641,16 @@
         <line num="67" type="method" name="escapeOutput" crap="1" count="17"/>
         <line num="69" type="stmt" count="17"/>
         <line num="71" type="stmt" count="17"/>
-        <line num="84" type="method" name="escapeDataElement" crap="5" count="17"/>
+        <line num="84" type="method" name="escapeDataElement" crap="4" count="17"/>
         <line num="86" type="stmt" count="17"/>
         <line num="87" type="stmt" count="5"/>
         <line num="90" type="stmt" count="16"/>
         <line num="91" type="stmt" count="1"/>
         <line num="94" type="stmt" count="15"/>
-        <line num="95" type="stmt" count="1"/>
-        <line num="98" type="stmt" count="14"/>
-        <line num="99" type="stmt" count="13"/>
-        <line num="102" type="stmt" count="1"/>
-        <line num="105" type="stmt" count="0"/>
-        <metrics loc="104" ncloc="48" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="18" coveredelements="18"/>
+        <line num="95" type="stmt" count="13"/>
+        <line num="98" type="stmt" count="2"/>
+        <line num="101" type="stmt" count="0"/>
+        <metrics loc="100" ncloc="44" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
       </file>
     </package>
     <package name="Molajito\Event">
@@ -959,7 +957,7 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/Token.php">
         <class name="Token" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
-          <metrics methods="12" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="112" coveredstatements="28" elements="124" coveredelements="31"/>
+          <metrics methods="11" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="96" coveredstatements="28" elements="107" coveredelements="31"/>
         </class>
         <line num="127" type="method" name="__construct" crap="1" count="3"/>
         <line num="139" type="stmt" count="3"/>
@@ -1008,85 +1006,68 @@
         <line num="241" type="stmt" count="0"/>
         <line num="242" type="stmt" count="3"/>
         <line num="245" type="stmt" count="3"/>
-        <line num="257" type="method" name="renderToken" crap="20" count="0"/>
-        <line num="264" type="stmt" count="0"/>
-        <line num="267" type="stmt" count="0"/>
-        <line num="269" type="stmt" count="0"/>
-        <line num="270" type="stmt" count="0"/>
+        <line num="257" type="method" name="renderToken" crap="2" count="0"/>
+        <line num="259" type="stmt" count="0"/>
+        <line num="262" type="stmt" count="0"/>
+        <line num="265" type="stmt" count="0"/>
+        <line num="268" type="stmt" count="0"/>
         <line num="271" type="stmt" count="0"/>
-        <line num="275" type="stmt" count="0"/>
+        <line num="274" type="stmt" count="0"/>
         <line num="277" type="stmt" count="0"/>
-        <line num="280" type="stmt" count="0"/>
-        <line num="283" type="stmt" count="0"/>
-        <line num="284" type="stmt" count="0"/>
-        <line num="286" type="stmt" count="0"/>
-        <line num="288" type="stmt" count="0"/>
-        <line num="290" type="stmt" count="0"/>
-        <line num="292" type="stmt" count="0"/>
+        <line num="279" type="stmt" count="0"/>
+        <line num="291" type="method" name="renderView" crap="12" count="0"/>
         <line num="293" type="stmt" count="0"/>
+        <line num="294" type="stmt" count="0"/>
         <line num="298" type="stmt" count="0"/>
-        <line num="301" type="stmt" count="0"/>
-        <line num="303" type="stmt" count="0"/>
-        <line num="315" type="method" name="getView" crap="6" count="0"/>
-        <line num="318" type="stmt" count="0"/>
+        <line num="318" type="method" name="renderViewType" crap="2" count="0"/>
         <line num="320" type="stmt" count="0"/>
-        <line num="321" type="stmt" count="0"/>
+        <line num="322" type="stmt" count="0"/>
         <line num="324" type="stmt" count="0"/>
-        <line num="336" type="method" name="getData" crap="6" count="0"/>
-        <line num="338" type="stmt" count="0"/>
+        <line num="336" type="method" name="renderWrapView" crap="6" count="0"/>
         <line num="339" type="stmt" count="0"/>
         <line num="340" type="stmt" count="0"/>
+        <line num="341" type="stmt" count="0"/>
+        <line num="342" type="stmt" count="0"/>
         <line num="343" type="stmt" count="0"/>
-        <line num="345" type="stmt" count="0"/>
+        <line num="344" type="stmt" count="0"/>
         <line num="346" type="stmt" count="0"/>
-        <line num="347" type="stmt" count="0"/>
-        <line num="349" type="stmt" count="0"/>
-        <line num="350" type="stmt" count="0"/>
+        <line num="348" type="stmt" count="0"/>
+        <line num="351" type="stmt" count="0"/>
         <line num="352" type="stmt" count="0"/>
         <line num="353" type="stmt" count="0"/>
+        <line num="354" type="stmt" count="0"/>
+        <line num="355" type="stmt" count="0"/>
         <line num="356" type="stmt" count="0"/>
-        <line num="366" type="method" name="renderPageView" crap="2" count="0"/>
+        <line num="360" type="stmt" count="0"/>
+        <line num="361" type="stmt" count="0"/>
+        <line num="363" type="stmt" count="0"/>
+        <line num="365" type="stmt" count="0"/>
+        <line num="366" type="stmt" count="0"/>
         <line num="368" type="stmt" count="0"/>
-        <line num="378" type="method" name="renderTemplateView" crap="2" count="0"/>
-        <line num="380" type="stmt" count="0"/>
-        <line num="392" type="method" name="renderViewType" crap="6" count="0"/>
-        <line num="394" type="stmt" count="0"/>
-        <line num="397" type="stmt" count="0"/>
-        <line num="398" type="stmt" count="0"/>
-        <line num="400" type="stmt" count="0"/>
-        <line num="402" type="stmt" count="0"/>
-        <line num="404" type="stmt" count="0"/>
-        <line num="406" type="stmt" count="0"/>
+        <line num="369" type="stmt" count="0"/>
+        <line num="372" type="stmt" count="0"/>
+        <line num="384" type="method" name="getView" crap="6" count="0"/>
+        <line num="386" type="stmt" count="0"/>
+        <line num="388" type="stmt" count="0"/>
+        <line num="389" type="stmt" count="0"/>
+        <line num="390" type="stmt" count="0"/>
+        <line num="393" type="stmt" count="0"/>
+        <line num="405" type="method" name="getData" crap="2" count="0"/>
         <line num="407" type="stmt" count="0"/>
-        <line num="410" type="stmt" count="0"/>
-        <line num="422" type="method" name="renderWrapView" crap="6" count="0"/>
-        <line num="425" type="stmt" count="0"/>
-        <line num="426" type="stmt" count="0"/>
-        <line num="427" type="stmt" count="0"/>
-        <line num="428" type="stmt" count="0"/>
-        <line num="429" type="stmt" count="0"/>
-        <line num="430" type="stmt" count="0"/>
+        <line num="408" type="stmt" count="0"/>
+        <line num="409" type="stmt" count="0"/>
+        <line num="411" type="stmt" count="0"/>
+        <line num="413" type="stmt" count="0"/>
+        <line num="414" type="stmt" count="0"/>
+        <line num="415" type="stmt" count="0"/>
+        <line num="416" type="stmt" count="0"/>
+        <line num="418" type="stmt" count="0"/>
+        <line num="429" type="method" name="replaceTokenWithRenderedOutput" crap="2" count="0"/>
+        <line num="431" type="stmt" count="0"/>
         <line num="432" type="stmt" count="0"/>
         <line num="434" type="stmt" count="0"/>
         <line num="437" type="stmt" count="0"/>
-        <line num="438" type="stmt" count="0"/>
-        <line num="439" type="stmt" count="0"/>
-        <line num="440" type="stmt" count="0"/>
-        <line num="441" type="stmt" count="0"/>
-        <line num="442" type="stmt" count="0"/>
-        <line num="446" type="stmt" count="0"/>
-        <line num="447" type="stmt" count="0"/>
-        <line num="449" type="stmt" count="0"/>
-        <line num="451" type="stmt" count="0"/>
-        <line num="452" type="stmt" count="0"/>
-        <line num="454" type="stmt" count="0"/>
-        <line num="455" type="stmt" count="0"/>
-        <line num="458" type="stmt" count="0"/>
-        <line num="469" type="method" name="replaceTokenWithRenderedOutput" crap="2" count="0"/>
-        <line num="471" type="stmt" count="0"/>
-        <line num="473" type="stmt" count="0"/>
-        <line num="476" type="stmt" count="0"/>
-        <metrics loc="475" ncloc="272" classes="1" methods="12" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="112" coveredstatements="28" elements="124" coveredelements="30"/>
+        <metrics loc="436" ncloc="246" classes="1" methods="11" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="96" coveredstatements="28" elements="107" coveredelements="30"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/WrapView.php">
         <class name="WrapView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
@@ -1495,6 +1476,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="56" loc="5370" ncloc="2800" classes="33" methods="158" coveredmethods="116" conditionals="0" coveredconditionals="0" statements="991" coveredstatements="672" elements="1149" coveredelements="788"/>
+    <metrics files="56" loc="5327" ncloc="2770" classes="33" methods="157" coveredmethods="116" conditionals="0" coveredconditionals="0" statements="973" coveredstatements="670" elements="1130" coveredelements="786"/>
   </project>
 </coverage>
