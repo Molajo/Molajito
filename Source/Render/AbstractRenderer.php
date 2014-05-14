@@ -78,7 +78,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @var    array
      * @since  1.0.0
      */
-    protected $parameters = null;
+    protected $parameters = array();
 
     /**
      * Model Registry
@@ -176,7 +176,7 @@ abstract class AbstractRenderer implements RenderInterface
      * @param   string $event_name
      * @param   array  $options
      *
-     * @return  $this
+     * @return  array
      * @since   1.0
      */
     public function scheduleEvent($event_name, array $options = array())
@@ -192,7 +192,7 @@ abstract class AbstractRenderer implements RenderInterface
             }
         }
 
-        return $this;
+        return $event_results;
     }
 
     /**

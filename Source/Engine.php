@@ -12,6 +12,7 @@ use CommonApi\Exception\RuntimeException;
 use CommonApi\Language\TranslateInterface;
 use CommonApi\Render\ParseInterface;
 use CommonApi\Render\RenderInterface;
+use CommonApi\Render\TokenInterface;
 
 /**
  * Molajito Engine
@@ -50,7 +51,7 @@ class Engine implements RenderInterface
     /**
      * Token Instance
      *
-     * @var    object  CommonApi\Render\RenderInterface
+     * @var    object  CommonApi\Render\TokenInterface
      * @since  1.0.0
      */
     protected $token_instance = null;
@@ -117,13 +118,13 @@ class Engine implements RenderInterface
      * @param  ParseInterface     $parse_instance
      * @param  array              $exclude_tokens
      * @param  int                $stop_loop_count
-     * @param  RenderInterface    $token_instance
+     * @param  TokenInterface     $token_instance
      * @param  TranslateInterface $translate_instance
      *
      * @since  1.0.0
      */
     public function __construct(
-        RenderInterface $token_instance,
+        TokenInterface $token_instance,
         TranslateInterface $translate_instance,
         ParseInterface $parse_instance,
         array $exclude_tokens = array(),

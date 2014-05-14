@@ -8,10 +8,8 @@
  */
 namespace Molajito\Render;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\PositionInterface;
-use Exception;
 use stdClass;
 
 /**
