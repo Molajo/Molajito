@@ -72,6 +72,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\MolajoModel::setModel
      * @covers  Molajito\Data\MolajoModel::setModelType
      * @covers  Molajito\Data\MolajoModel::setModelTypeToken
+     * @covers  Molajito\Data\MolajoModel::setModelTypeExtensionParameters
+     * @covers  Molajito\Data\MolajoModel::setModelTypeMenuitemParameters
      * @covers  Molajito\Data\MolajoModel::setModelName
      * @covers  Molajito\Data\MolajoModel::setModelNameToken
      * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
@@ -212,6 +214,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\MolajoModel::setModel
      * @covers  Molajito\Data\MolajoModel::setModelType
      * @covers  Molajito\Data\MolajoModel::setModelTypeToken
+     * @covers  Molajito\Data\MolajoModel::setModelTypeExtensionParameters
+     * @covers  Molajito\Data\MolajoModel::setModelTypeMenuitemParameters
      * @covers  Molajito\Data\MolajoModel::setModelName
      * @covers  Molajito\Data\MolajoModel::setModelNameToken
      * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
@@ -297,6 +301,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\MolajoModel::setModel
      * @covers  Molajito\Data\MolajoModel::setModelType
      * @covers  Molajito\Data\MolajoModel::setModelTypeToken
+     * @covers  Molajito\Data\MolajoModel::setModelTypeExtensionParameters
+     * @covers  Molajito\Data\MolajoModel::setModelTypeMenuitemParameters
      * @covers  Molajito\Data\MolajoModel::setModelName
      * @covers  Molajito\Data\MolajoModel::setModelNameToken
      * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
@@ -475,6 +481,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\MolajoModel::setModel
      * @covers  Molajito\Data\MolajoModel::setModelType
      * @covers  Molajito\Data\MolajoModel::setModelTypeToken
+     * @covers  Molajito\Data\MolajoModel::setModelTypeExtensionParameters
+     * @covers  Molajito\Data\MolajoModel::setModelTypeMenuitemParameters
      * @covers  Molajito\Data\MolajoModel::setModelName
      * @covers  Molajito\Data\MolajoModel::setModelNameToken
      * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
@@ -564,6 +572,8 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\MolajoModel::setModel
      * @covers  Molajito\Data\MolajoModel::setModelType
      * @covers  Molajito\Data\MolajoModel::setModelTypeToken
+     * @covers  Molajito\Data\MolajoModel::setModelTypeExtensionParameters
+     * @covers  Molajito\Data\MolajoModel::setModelTypeMenuitemParameters
      * @covers  Molajito\Data\MolajoModel::setModelName
      * @covers  Molajito\Data\MolajoModel::setModelNameToken
      * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
