@@ -99,12 +99,9 @@ class Token extends AbstractRenderer implements RenderInterface
      */
     protected $property_array
         = array(
+            'rendered_page',
             'plugin_data',
-            'runtime_data',
-            'model_registry',
-            'parameters',
-            'query_results',
-            'row'
+            'runtime_data'
         );
 
     /**
@@ -178,8 +175,8 @@ class Token extends AbstractRenderer implements RenderInterface
     /**
      * Render Token for Position Type
      *
-     * @param   string  $position_name
-     * @param   array   $data
+     * @param   string $position_name
+     * @param   array  $data
      *
      * @return  $this
      * @since   1.0
@@ -193,10 +190,11 @@ class Token extends AbstractRenderer implements RenderInterface
 
         /** Step 2. Render Position */
         $this->rendered_view = $this->position_instance->getPositionTemplateViews(
-            $position_name, $this->runtime_data
+            $position_name,
+            $this->runtime_data
         );
 
-        /** Step 5. Replace Token with Rendered View */
+        /** Step 3. Replace Token with Rendered View */
         $this->replaceTokenWithRenderedOutput($token);
 
         return $this->rendered_page;
@@ -244,26 +242,12 @@ class Token extends AbstractRenderer implements RenderInterface
      */
     protected function initialiseData(array $data = array())
     {
-        if (isset($data['runtime_data'])) {
-            $this->runtime_data = $data['runtime_data'];
-        } else {
-            throw new RuntimeException('Molajito Token Renderer requires Runtime Data');
-        }
-
-        if (isset($data['page_name'])) {
-            $this->runtime_data->page_name = $data['page_name'];
-        }
-
-        if (isset($data['plugin_data'])) {
-            $this->plugin_data = $data['plugin_data'];
-        } else {
-            $this->plugin_data = new stdClass();
-        }
-
-        if (isset($data['rendered_page'])) {
-            $this->rendered_page = $data['rendered_page'];
-        } else {
-            $this->rendered_page = '';
+        foreach ($this->property_array as $key) {
+            if (isset($data[ $key ])) {
+                $this->$key = $data[ $key ];
+            } else {
+                $this->$key = null;
+            }
         }
 
         return $this;
