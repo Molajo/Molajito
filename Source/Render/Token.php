@@ -199,36 +199,6 @@ class Token extends AbstractRenderer implements RenderInterface
     }
 
     /**
-     * Initialise Class Data
-     *
-     * @param   array $data
-     *
-     * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function initialiseData(array $data = array())
-    {
-        if (isset($data['runtime_data'])) {
-            $this->runtime_data = $data['runtime_data'];
-        } else {
-            throw new RuntimeException('Molajito Token Renderer requires Runtime Data');
-        }
-
-        if (isset($data['page_name'])) {
-            $this->runtime_data->page_name = $data['page_name'];
-        }
-
-        if (isset($data['plugin_data'])) {
-            $this->plugin_data = $data['plugin_data'];
-        } else {
-            $this->plugin_data = new stdClass();
-        }
-
-        return $this;
-    }
-
-    /**
      * Render Token
      *
      * @param   object $token
@@ -257,6 +227,36 @@ class Token extends AbstractRenderer implements RenderInterface
         $this->replaceTokenWithRenderedOutput($token);
 
         return $this->rendered_page;
+    }
+
+    /**
+     * Initialise Class Data
+     *
+     * @param   array $data
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function initialiseData(array $data = array())
+    {
+        if (isset($data['runtime_data'])) {
+            $this->runtime_data = $data['runtime_data'];
+        } else {
+            throw new RuntimeException('Molajito Token Renderer requires Runtime Data');
+        }
+
+        if (isset($data['page_name'])) {
+            $this->runtime_data->page_name = $data['page_name'];
+        }
+
+        if (isset($data['plugin_data'])) {
+            $this->plugin_data = $data['plugin_data'];
+        } else {
+            $this->plugin_data = new stdClass();
+        }
+
+        return $this;
     }
 
     /**
@@ -342,7 +342,7 @@ class Token extends AbstractRenderer implements RenderInterface
      *
      * @param   object $token
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -381,7 +381,7 @@ class Token extends AbstractRenderer implements RenderInterface
     /**
      * Get View for Token
      *
-     * @param   object $token
+     * @param   stdClass $token
      *
      * @return  object
      * @since   1.0

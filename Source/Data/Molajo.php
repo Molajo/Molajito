@@ -167,8 +167,6 @@ class Molajo extends AbstractAdapter implements DataInterface
     /**
      * Initialise Class Properties
      *
-     * @param   object $token
-     * @param   array  $options
      *
      * @return  $this
      * @since   1.0
@@ -350,7 +348,7 @@ class Molajo extends AbstractAdapter implements DataInterface
     /**
      * Set data for return
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
@@ -405,7 +403,7 @@ class Molajo extends AbstractAdapter implements DataInterface
     /**
      * Set Data Results Data Object
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      * @throws  \CommonApi\Exception\RuntimeException
      */

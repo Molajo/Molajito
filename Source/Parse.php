@@ -93,7 +93,7 @@ class Parse implements ParseInterface
     /**
      * Build Tokens for Rendering
      *
-     * @param   array $matches
+     * @param   string[] $matches
      *
      * @return  array
      * @since   1.0
@@ -119,7 +119,7 @@ class Parse implements ParseInterface
      *
      * @param   string $parsed_token
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      */
     protected function setRenderToken($parsed_token)
@@ -191,7 +191,7 @@ class Parse implements ParseInterface
      * @param   array    $token_elements
      * @param   stdClass $token
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      */
     protected function processTokenElements($token_elements, $token)
@@ -214,7 +214,7 @@ class Parse implements ParseInterface
      * @param   array    $pair
      * @param integer $first
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      */
     protected function processTokenPair($token, $pair, $first)
@@ -234,7 +234,7 @@ class Parse implements ParseInterface
      * @param   stdClass $token
      * @param   array  $pair
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      */
     protected function processFirstTokenElements($token, $pair)
@@ -256,7 +256,7 @@ class Parse implements ParseInterface
      * @param   stdClass $token
      * @param   array  $pair
      *
-     * @return  object
+     * @return  stdClass
      * @since   1.0
      */
     protected function processSubsequentTokenElements($token, $pair)
