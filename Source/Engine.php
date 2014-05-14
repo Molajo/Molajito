@@ -201,7 +201,7 @@ class Engine implements RenderInterface
     /**
      * Schedule onBeforeParse Event
      *
-     * @param   array  $exclude_tokens
+     * @param   array $exclude_tokens
      *
      * @return  $this
      * @since   1.0
@@ -221,6 +221,7 @@ class Engine implements RenderInterface
      * Schedule onBeforeParse Event
      *
      * @param string $event
+     *
      * @return  $this
      * @since   1.0
      */

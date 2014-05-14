@@ -60,7 +60,7 @@ class WrapView extends AbstractRenderer implements RenderInterface
     /**
      * Render View Part: Header, Body, Footer
      *
-     * @param   string      $file
+     * @param   string $file
      *
      * @return  $this
      * @since   1.0

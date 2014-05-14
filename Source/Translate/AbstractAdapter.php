@@ -160,8 +160,8 @@ abstract class AbstractAdapter implements TranslateInterface
     /**
      * Loop through all strings and translate
      *
-     * @param   string  $token
-     * @param   string  $string
+     * @param   string $token
+     * @param   string $string
      *
      * @return  $this
      * @since   1.0

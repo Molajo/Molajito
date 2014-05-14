@@ -122,11 +122,16 @@ class MolajoModel
         $model_type = $this->setModelTypeToken();
 
         if ($model_type === '') {
-            $model_type = $this->setModelTypeExtensionParameters();
+            $model_type = $this->setModelTypeParameters(
+                'runtime_data->render->extension->menuitem->parameters->model_type'
+            );
         }
 
         if ($model_type === '') {
-            $model_type = $this->setModelTypeMenuitemParameters();
+            $model_type = $this->setModelTypeParameters(
+                'runtime_data->render->extension->parameters->model_type'
+            );
+
         }
 
         if ($model_type === '') {
@@ -154,30 +159,15 @@ class MolajoModel
     }
 
     /**
-     * Set Model Type using Token
+     * Set Model Type using Parameters
      *
      * @return  string
      * @since   1.0
      */
-    protected function setModelTypeExtensionParameters()
+    protected function setModelTypeParameters($location)
     {
-        if (isset($this->runtime_data->render->extension->parameters->model_type)) {
-            return $this->runtime_data->render->extension->parameters->model_type;
-        }
-
-        return '';
-    }
-
-    /**
-     * Set Model Type using Token
-     *
-     * @return  string
-     * @since   1.0
-     */
-    protected function setModelTypeMenuitemParameters()
-    {
-        if (isset($this->runtime_data->render->extension->menuitem->parameters->model_type)) {
-            return $this->runtime_data->render->extension->menuitem->parameters->model_type;
+        if (isset($this->$location)) {
+            return $this->$location;
         }
 
         return '';

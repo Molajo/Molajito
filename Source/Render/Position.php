@@ -125,8 +125,8 @@ class Position implements PositionInterface
     /**
      * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
      *
-     * @param   string  $position_name
-     * @param   string  $position_parameter
+     * @param   string $position_name
+     * @param   string $position_parameter
      *
      * @return  array
      * @since   1.0

@@ -169,7 +169,7 @@ class Parse implements ParseInterface
     /**
      * Set Token Elements
      *
-     * @param   array  $pieces
+     * @param   array $pieces
      *
      * @return  array
      * @since   1.0
@@ -212,7 +212,7 @@ class Parse implements ParseInterface
      *
      * @param   stdClass $token
      * @param   array    $pair
-     * @param integer $first
+     * @param integer    $first
      *
      * @return  stdClass
      * @since   1.0
@@ -232,7 +232,7 @@ class Parse implements ParseInterface
      * Remove tokens specified in the exclude tokens list
      *
      * @param   stdClass $token
-     * @param   array  $pair
+     * @param   array    $pair
      *
      * @return  stdClass
      * @since   1.0
@@ -254,7 +254,7 @@ class Parse implements ParseInterface
      * Process Subsequent Token Elements
      *
      * @param   stdClass $token
-     * @param   array  $pair
+     * @param   array    $pair
      *
      * @return  stdClass
      * @since   1.0

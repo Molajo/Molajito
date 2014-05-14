@@ -64,11 +64,11 @@ class Filesystem extends AbstractAdapter implements ViewInterface
      */
     public function getView($token)
     {
-        $render                   = new stdClass();
-        $render->token            = $token;
-        $render->scheme           = ucfirst(strtolower($token->type));
-        $render->extension        = new stdClass();
-        $render->extension->title = ucfirst(strtolower($token->name));
+        $render                          = new stdClass();
+        $render->token                   = $token;
+        $render->scheme                  = ucfirst(strtolower($token->type));
+        $render->extension               = new stdClass();
+        $render->extension->title        = ucfirst(strtolower($token->name));
         $render->extension->include_path = $this->getLocation($render->scheme, $render->extension->title);
 
         return $render;
@@ -86,10 +86,10 @@ class Filesystem extends AbstractAdapter implements ViewInterface
     public function getLocation($scheme, $extension_title)
     {
         if ($scheme === 'Theme') {
-            $base = $this->theme_base_folder;
+            $base   = $this->theme_base_folder;
             $folder = '/';
         } else {
-            $base = $this->view_base_folder;
+            $base   = $this->view_base_folder;
             $folder = '/' . $scheme . 's/';
         }
 

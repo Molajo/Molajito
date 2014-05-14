@@ -341,8 +341,8 @@ class Token implements TokenInterface
 
         $event_results
             = $this->$render_instance->scheduleEvent(
-            $this->render_types[ $this->token->type ][ $event_name ],
-            $this->setOptions()
+                $this->render_types[ $this->token->type ][ $event_name ],
+                $this->setOptions()
         );
 
         $this->setClassProperties($event_results);
@@ -489,8 +489,8 @@ class Token implements TokenInterface
     /**
      * Set Class Properties given array of data
      *
-     * @param   array    $data
-     * @param   boolean  $initialise
+     * @param   array   $data
+     * @param   boolean $initialise
      *
      * @return  $this
      * @since   1.0

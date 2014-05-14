@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400094811">
-  <project timestamp="1400094811">
+<coverage generated="1400109946">
+  <project timestamp="1400109946">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -541,7 +541,7 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Data/MolajoModel.php">
         <class name="MolajoModel" namespace="Molajito\Data" fullPackage="Molajo" package="Molajo">
-          <metrics methods="11" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="68" coveredstatements="65" elements="79" coveredelements="76"/>
+          <metrics methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="67" coveredstatements="65" elements="77" coveredelements="75"/>
         </class>
         <line num="78" type="method" name="__construct" crap="1" count="7"/>
         <line num="83" type="stmt" count="7"/>
@@ -563,67 +563,65 @@
         <line num="122" type="stmt" count="7"/>
         <line num="124" type="stmt" count="7"/>
         <line num="125" type="stmt" count="2"/>
-        <line num="126" type="stmt" count="2"/>
-        <line num="128" type="stmt" count="7"/>
-        <line num="129" type="stmt" count="2"/>
-        <line num="130" type="stmt" count="2"/>
-        <line num="132" type="stmt" count="7"/>
+        <line num="127" type="stmt" count="2"/>
+        <line num="128" type="stmt" count="2"/>
+        <line num="130" type="stmt" count="7"/>
+        <line num="131" type="stmt" count="2"/>
         <line num="133" type="stmt" count="2"/>
-        <line num="134" type="stmt" count="2"/>
-        <line num="136" type="stmt" count="7"/>
-        <line num="138" type="stmt" count="7"/>
-        <line num="147" type="method" name="setModelTypeToken" crap="2" count="7"/>
-        <line num="149" type="stmt" count="7"/>
-        <line num="150" type="stmt" count="5"/>
-        <line num="153" type="stmt" count="2"/>
-        <line num="162" type="method" name="setModelTypeExtensionParameters" crap="2.15" count="1"/>
-        <line num="164" type="stmt" count="1"/>
-        <line num="165" type="stmt" count="0"/>
-        <line num="168" type="stmt" count="1"/>
-        <line num="177" type="method" name="setModelTypeMenuitemParameters" crap="2.15" count="1"/>
-        <line num="179" type="stmt" count="1"/>
-        <line num="180" type="stmt" count="0"/>
-        <line num="183" type="stmt" count="1"/>
-        <line num="192" type="method" name="setModelName" crap="4" count="7"/>
+        <line num="135" type="stmt" count="2"/>
+        <line num="137" type="stmt" count="7"/>
+        <line num="138" type="stmt" count="2"/>
+        <line num="139" type="stmt" count="2"/>
+        <line num="141" type="stmt" count="7"/>
+        <line num="143" type="stmt" count="7"/>
+        <line num="152" type="method" name="setModelTypeToken" crap="2" count="7"/>
+        <line num="154" type="stmt" count="7"/>
+        <line num="155" type="stmt" count="5"/>
+        <line num="158" type="stmt" count="2"/>
+        <line num="167" type="method" name="setModelTypeParameters" crap="2.15" count="1"/>
+        <line num="169" type="stmt" count="1"/>
+        <line num="170" type="stmt" count="0"/>
+        <line num="173" type="stmt" count="1"/>
+        <line num="182" type="method" name="setModelName" crap="4" count="7"/>
+        <line num="184" type="stmt" count="7"/>
+        <line num="186" type="stmt" count="7"/>
+        <line num="187" type="stmt" count="4"/>
+        <line num="188" type="stmt" count="4"/>
+        <line num="190" type="stmt" count="7"/>
+        <line num="191" type="stmt" count="3"/>
+        <line num="192" type="stmt" count="3"/>
         <line num="194" type="stmt" count="7"/>
-        <line num="196" type="stmt" count="7"/>
-        <line num="197" type="stmt" count="4"/>
-        <line num="198" type="stmt" count="4"/>
+        <line num="195" type="stmt" count="1"/>
+        <line num="196" type="stmt" count="1"/>
+        <line num="198" type="stmt" count="7"/>
         <line num="200" type="stmt" count="7"/>
-        <line num="201" type="stmt" count="3"/>
-        <line num="202" type="stmt" count="3"/>
-        <line num="204" type="stmt" count="7"/>
-        <line num="205" type="stmt" count="1"/>
-        <line num="206" type="stmt" count="1"/>
-        <line num="208" type="stmt" count="7"/>
-        <line num="210" type="stmt" count="7"/>
-        <line num="219" type="method" name="setModelNameToken" crap="4.05" count="4"/>
-        <line num="221" type="stmt" count="4"/>
-        <line num="223" type="stmt" count="4"/>
-        <line num="224" type="stmt" count="1"/>
-        <line num="227" type="stmt" count="3"/>
-        <line num="228" type="stmt" count="3"/>
-        <line num="229" type="stmt" count="3"/>
-        <line num="232" type="stmt" count="0"/>
-        <line num="241" type="method" name="setModelExtensionParameters" crap="2" count="3"/>
-        <line num="243" type="stmt" count="3"/>
-        <line num="244" type="stmt" count="2"/>
-        <line num="247" type="stmt" count="1"/>
-        <line num="257" type="method" name="setFieldName" crap="2" count="7"/>
-        <line num="259" type="stmt" count="7"/>
-        <line num="260" type="stmt" count="2"/>
-        <line num="261" type="stmt" count="2"/>
-        <line num="263" type="stmt" count="7"/>
-        <line num="265" type="stmt" count="7"/>
-        <line num="275" type="method" name="setDefaultModelTypeName" crap="2" count="1"/>
-        <line num="277" type="stmt" count="1"/>
-        <line num="279" type="stmt" count="1"/>
-        <line num="280" type="stmt" count="1"/>
-        <line num="281" type="stmt" count="1"/>
-        <line num="282" type="stmt" count="1"/>
-        <line num="284" type="stmt" count="1"/>
-        <line num="287" type="stmt" count="0"/>
-        <metrics loc="286" ncloc="163" classes="1" methods="11" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="68" coveredstatements="65" elements="79" coveredelements="73"/>
+        <line num="209" type="method" name="setModelNameToken" crap="4.05" count="4"/>
+        <line num="211" type="stmt" count="4"/>
+        <line num="213" type="stmt" count="4"/>
+        <line num="214" type="stmt" count="1"/>
+        <line num="217" type="stmt" count="3"/>
+        <line num="218" type="stmt" count="3"/>
+        <line num="219" type="stmt" count="3"/>
+        <line num="222" type="stmt" count="0"/>
+        <line num="231" type="method" name="setModelExtensionParameters" crap="2" count="3"/>
+        <line num="233" type="stmt" count="3"/>
+        <line num="234" type="stmt" count="2"/>
+        <line num="237" type="stmt" count="1"/>
+        <line num="247" type="method" name="setFieldName" crap="2" count="7"/>
+        <line num="249" type="stmt" count="7"/>
+        <line num="250" type="stmt" count="2"/>
+        <line num="251" type="stmt" count="2"/>
+        <line num="253" type="stmt" count="7"/>
+        <line num="255" type="stmt" count="7"/>
+        <line num="265" type="method" name="setDefaultModelTypeName" crap="2" count="1"/>
+        <line num="267" type="stmt" count="1"/>
+        <line num="269" type="stmt" count="1"/>
+        <line num="270" type="stmt" count="1"/>
+        <line num="271" type="stmt" count="1"/>
+        <line num="272" type="stmt" count="1"/>
+        <line num="274" type="stmt" count="1"/>
+        <line num="277" type="stmt" count="0"/>
+        <metrics loc="276" ncloc="159" classes="1" methods="10" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="67" coveredstatements="65" elements="77" coveredelements="73"/>
       </file>
     </package>
     <package name="Molajito\Escape">
@@ -1418,6 +1416,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="55" loc="5144" ncloc="2677" classes="32" methods="150" coveredmethods="110" conditionals="0" coveredconditionals="0" statements="933" coveredstatements="658" elements="1083" coveredelements="768"/>
+    <metrics files="55" loc="5134" ncloc="2673" classes="32" methods="149" coveredmethods="110" conditionals="0" coveredconditionals="0" statements="932" coveredstatements="658" elements="1081" coveredelements="768"/>
   </project>
 </coverage>
