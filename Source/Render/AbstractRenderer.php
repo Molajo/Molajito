@@ -156,6 +156,46 @@ abstract class AbstractRenderer implements RenderInterface
     }
 
     /**
+     * Render Page View
+     *
+     * @param   string $include_path
+     * @param   array  $data
+     *
+     * @return  string
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    public function renderOutput($include_path, array $data = array())
+    {
+        return $this->performRendering($include_path, $data);
+    }
+
+    /**
+     * Send Theme/View data into Event and retrieve data from Event for Theme/View
+     *
+     * @param   string $event_name
+     * @param   array  $options
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    public function scheduleEvent($event_name, array $options = array())
+    {
+        $event_options = $this->setEventOptions($options);
+
+        $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
+
+        foreach ($event_results as $key => $value) {
+
+            if (in_array($key, $this->property_array)) {
+                $this->$key = $value;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Set Theme/View Class Properties
      *
      * @param   array $data
@@ -193,31 +233,6 @@ abstract class AbstractRenderer implements RenderInterface
     }
 
     /**
-     * Send Theme/View data into Event and retrieve data from Event for Theme/View
-     *
-     * @param   string $event_name
-     * @param   array  $options
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    public function scheduleEvent($event_name, array $options = array())
-    {
-        $event_options = $this->setEventOptions($options);
-
-        $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
-
-        foreach ($event_results as $key => $value) {
-
-            if (in_array($key, $this->property_array)) {
-                $this->$key = $value;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Set Event Options
      *
      * @param   array $options
@@ -241,21 +256,6 @@ abstract class AbstractRenderer implements RenderInterface
         }
 
         return $event_options;
-    }
-
-    /**
-     * Render Page View
-     *
-     * @param   string $include_path
-     * @param   array  $data
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function renderOutput($include_path, array $data = array())
-    {
-        return $this->performRendering($include_path, $data);
     }
 
     /**

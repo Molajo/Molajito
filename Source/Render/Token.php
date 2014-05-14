@@ -15,7 +15,6 @@ use CommonApi\Render\EventInterface;
 use CommonApi\Render\PositionInterface;
 use CommonApi\Render\RenderInterface;
 use CommonApi\Render\ViewInterface;
-use Exception;
 use stdClass;
 
 /**
@@ -243,21 +242,18 @@ class Token extends AbstractRenderer implements RenderInterface
         $this->rendered_page = $rendered_page;
 
         /** Step 1. Get Rendering Extension */
-        $token = $this->getView($token);
+        $token = $this->getInput($token);
 
-        /** Step 2. Get Query Data for Rendering Extension */
-        $this->getData($token);
-
-        /** Step 3. Schedule Event */
+        /** Step 2. Schedule Event */
         $this->scheduleEvent('onBeforeRenderView');
 
-        /** Step 4. Render View */
+        /** Step 3. Render View */
         $this->renderView($token);
 
-        /** Step 5. Schedule onAfterRenderView Event */
+        /** Step 4. Schedule onAfterRenderView Event */
         $this->scheduleEvent('onAfterRenderView');
 
-        /** Step 6. Replace Token with Rendered View */
+        /** Step 5. Replace Token with Rendered View */
         $this->replaceTokenWithRenderedOutput($token);
 
         return $this->rendered_page;
@@ -360,6 +356,26 @@ class Token extends AbstractRenderer implements RenderInterface
         $wrap_token->replace_this = '';
 
         return $wrap_token;
+    }
+
+    /**
+     * Get View for Token
+     *
+     * @param   object $token
+     *
+     * @return  object
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function getInput($token)
+    {
+        /** Step 1. Get Rendering Extension */
+        $token = $this->getInput($token);
+
+        /** Step 2. Get Query Data for Rendering Extension */
+        $this->getData($token);
+
+        return $token;
     }
 
     /**
