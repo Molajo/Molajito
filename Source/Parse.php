@@ -12,7 +12,7 @@ use CommonApi\Render\ParseInterface;
 use stdClass;
 
 /**
- * Molajito Render Handler
+ * Molajito Parse - finds tokens and builds token objects
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -30,7 +30,7 @@ class Parse implements ParseInterface
     protected $parse_mask = '#{I (.*) I}#iU';
 
     /**
-     * Exclude tokens from parsing (Head tokens held until end)
+     * Exclude tokens from first set of parsing (ex. Head tokens held until the second round)
      *
      * @var    array
      * @since  1.0.0
@@ -38,7 +38,7 @@ class Parse implements ParseInterface
     protected $exclude_tokens = array();
 
     /**
-     * Page Rendered Output
+     * Rendered Output for Page - could have additional tokens
      *
      * @var    string
      * @since  1.0.0
@@ -46,7 +46,7 @@ class Parse implements ParseInterface
     protected $rendered_page = null;
 
     /**
-     * Parse rendered output returning an array of tokens to be rendered
+     * Parse rendered output - return an array of tokens to be rendered
      *
      * @param   string $rendered_page
      * @param   array  $exclude_tokens
@@ -54,7 +54,6 @@ class Parse implements ParseInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function parseRenderedOutput(
         $rendered_page,
@@ -73,38 +72,36 @@ class Parse implements ParseInterface
     }
 
     /**
-     * Parse rendered output returning an array of tokens to be rendered
+     * Parse rendered output -- return an array of tokens to be rendered
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function parseTokens()
     {
         preg_match_all($this->parse_mask, $this->rendered_page, $matches);
 
         if (count($matches[1]) > 0) {
-            return $this->buildTokensToRender($matches[1]);
+            return $this->buildTokenObjects($matches[1]);
         }
 
         return array();
     }
 
     /**
-     * Build Tokens for Rendering
+     * Build Token Objects for Rendering
      *
-     * @param   string[] $matches
+     * @param   array $matches
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function buildTokensToRender(array $matches = array())
+    public function buildTokenObjects(array $matches = array())
     {
         $tokens_to_render = array();
 
         foreach ($matches as $parsed_token) {
-            $tokens_to_render[] = $this->setRenderToken($parsed_token);
+            $tokens_to_render[] = $this->setTokenObject($parsed_token);
         }
 
         if (count($this->exclude_tokens) > 0) {
@@ -115,20 +112,20 @@ class Parse implements ParseInterface
     }
 
     /**
-     * Parse rendered output for tokens
+     * Create a single Token Object for a single parsed token
      *
      * @param   string $parsed_token
      *
      * @return  stdClass
      * @since   1.0
      */
-    protected function setRenderToken($parsed_token)
+    protected function setTokenObject($parsed_token)
     {
-        $token = $this->initialiseToken($parsed_token);
+        $token_object = $this->initialiseToken($parsed_token);
 
-        $token_elements = $this->setTokenElements($parsed_token);
+        $token_elements = $this->extractTokenObjectElements($parsed_token);
 
-        return $this->processTokenElements($token_elements, $token);
+        return $this->processExtractedTokenElements($token_object, $token_elements);
     }
 
     /**
@@ -152,29 +149,29 @@ class Parse implements ParseInterface
     }
 
     /**
-     * Set Token Elements
+     * Set Token Object Elements
      *
      * @param   string $parsed_token
      *
      * @return  array
      * @since   1.0
      */
-    protected function setTokenElements($parsed_token)
+    protected function extractTokenObjectElements($parsed_token)
     {
         $pieces = explode(' ', $parsed_token);
 
-        return $this->setTokenElementsPieces($pieces);
+        return $this->extractTokenObjectElementsPieces($pieces);
     }
 
     /**
-     * Set Token Elements
+     * Set Token Object Ele
      *
      * @param   array $pieces
      *
      * @return  array
      * @since   1.0
      */
-    protected function setTokenElementsPieces($pieces)
+    protected function extractTokenObjectElementsPieces(array $pieces = array())
     {
         $token_elements = array();
 
@@ -186,109 +183,110 @@ class Parse implements ParseInterface
     }
 
     /**
-     * Process Token Elements and complete Token Construction
+     * Process Extracted Token Elements for Token and complete Token Construction
      *
+     * @param   stdClass $token_object
      * @param   array    $token_elements
-     * @param   stdClass $token
      *
      * @return  stdClass
      * @since   1.0
      */
-    protected function processTokenElements($token_elements, $token)
+    protected function processExtractedTokenElements($token_object, array $token_elements = array())
     {
-        $first = 1;
+        $first = true;
 
         foreach ($token_elements as $part) {
-            $pair  = explode('=', $part);
-            $token = $this->processTokenPair($token, $pair, $first);
-            $first = 0;
+            $pair         = explode('=', $part);
+            $token_object = $this->processExtractedTokenElementPair($token_object, $pair, $first);
+            $first        = false;
         }
 
-        return $token;
+        return $token_object;
     }
 
     /**
-     * Process Token Pair
+     * Process a single token element pair (key and value) for the token
      *
-     * @param   stdClass $token
+     * @param   stdClass $token_object
      * @param   array    $pair
-     * @param integer    $first
+     * @param   boolean  $first
      *
      * @return  stdClass
      * @since   1.0
      */
-    protected function processTokenPair($token, $pair, $first)
+    protected function processExtractedTokenElementPair($token_object, array $pair = array(), $first = false)
     {
-        if ($first === 1) {
-            $token = $this->processFirstTokenElements($token, $pair);
+        if ($first === true) {
+            $token_object = $this->processFirstTokenElementPair($token_object, $pair);
         } else {
-            $token = $this->processSubsequentTokenElements($token, $pair);
+            $token_object = $this->processSubsequentTokenElementPairs($token_object, $pair);
         }
 
-        return $token;
+        return $token_object;
     }
 
     /**
-     * Remove tokens specified in the exclude tokens list
+     * The first token element is view-type=value: ex. template=name or name-of-position
      *
-     * @param   stdClass $token
+     * @param   stdClass $token_object
      * @param   array    $pair
      *
      * @return  stdClass
      * @since   1.0
      */
-    protected function processFirstTokenElements($token, $pair)
+    protected function processFirstTokenElementPair($token_object, array $pair = array())
     {
         if (count($pair) == 1) {
-            $token->type = 'position';
-            $token->name = trim(strtolower($pair[0]));
+            $token_object->type = 'position';
+            $token_object->name = trim(strtolower($pair[0]));
         } else {
-            $token->type = trim(strtolower($pair[0]));
-            $token->name = trim(strtolower($pair[1]));
+            $token_object->type = trim(strtolower($pair[0]));
+            $token_object->name = trim(strtolower($pair[1]));
         }
 
-        return $token;
+        return $token_object;
     }
 
     /**
-     * Process Subsequent Token Elements
+     * Process Subsequent Token Element Pairs
      *
-     * @param   stdClass $token
+     * @param   stdClass $token_object
      * @param   array    $pair
      *
      * @return  stdClass
      * @since   1.0
      */
-    protected function processSubsequentTokenElements($token, $pair)
+    protected function processSubsequentTokenElementPairs($token_object, array $pair = array())
     {
         if (count($pair) == 2 && $pair[0] == 'wrap') {
-            $token->wrap = $pair[1];
+            $token_object->wrap = $pair[1];
 
         } else {
-            $token->attributes[ $pair[0] ] = $pair[1];
+            $token_object->attributes[ $pair[0] ] = $pair[1];
         }
 
-        return $token;
+        return $token_object;
     }
 
     /**
      * Remove tokens specified in the exclude tokens list
      *
-     * @param   array $tokens
+     * @param   array $token_objects
      *
      * @return  array
      * @since   1.0
      */
-    protected function excludeTokens($tokens)
+    protected function excludeTokens(array $token_objects = array())
     {
-        $use_tokens = array();
-        foreach ($tokens as $object) {
-            if (in_array($object->type, $this->exclude_tokens)) {
+        $use_token_objects = array();
+
+        foreach ($token_objects as $token_object) {
+            if (in_array($token_object->type, $this->exclude_tokens)) {
             } else {
-                $use_tokens[] = $object;
+                $use_token_objects[] = $token_object;
             }
         }
 
-        return $use_tokens;
+        return $use_token_objects;
     }
 }
