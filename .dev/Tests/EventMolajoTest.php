@@ -43,16 +43,16 @@ class EventMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Instantiate Event Instance
      *
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Molajo::__construct
-     * @covers Molajito\Event\Molajo::initializeEventOptions
-     * @covers Molajito\Event\Molajo::scheduleEvent
-     * @covers Molajito\Event\Molajo::setEventOptions
-     * @covers Molajito\Event\AbstractAdapter::__construct
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Molajo::__construct
+     * @covers  Molajito\Event\Molajo::initializeEventOptions
+     * @covers  Molajito\Event\Molajo::scheduleEvent
+     * @covers  Molajito\Event\Molajo::setEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::__construct
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
      */
     protected function setUp()
@@ -69,16 +69,16 @@ class EventMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Initialise Event Options
      *
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Molajo::__construct
-     * @covers Molajito\Event\Molajo::initializeEventOptions
-     * @covers Molajito\Event\Molajo::scheduleEvent
-     * @covers Molajito\Event\Molajo::setEventOptions
-     * @covers Molajito\Event\AbstractAdapter::__construct
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Molajo::__construct
+     * @covers  Molajito\Event\Molajo::initializeEventOptions
+     * @covers  Molajito\Event\Molajo::scheduleEvent
+     * @covers  Molajito\Event\Molajo::setEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::__construct
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
      * @return  $this
      * @since   1.0
@@ -97,16 +97,16 @@ class EventMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Schedule Event
      *
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Molajo::__construct
-     * @covers Molajito\Event\Molajo::initializeEventOptions
-     * @covers Molajito\Event\Molajo::scheduleEvent
-     * @covers Molajito\Event\Molajo::setEventOptions
-     * @covers Molajito\Event\AbstractAdapter::__construct
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Molajo::__construct
+     * @covers  Molajito\Event\Molajo::initializeEventOptions
+     * @covers  Molajito\Event\Molajo::scheduleEvent
+     * @covers  Molajito\Event\Molajo::setEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::__construct
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
      * @return  $this
      * @since   1.0

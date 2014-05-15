@@ -9,8 +9,6 @@
 namespace Molajito;
 
 use CommonApi\Render\DataInterface;
-use CommonApi\Render\EscapeInterface;
-use CommonApi\Render\EventInterface;
 use CommonApi\Render\PositionInterface;
 use CommonApi\Render\RenderInterface;
 use CommonApi\Render\TokenInterface;
@@ -341,8 +339,8 @@ class Token implements TokenInterface
 
         $event_results
             = $this->$render_instance->scheduleEvent(
-                $this->render_types[ $this->token->type ][ $event_name ],
-                $this->setOptions()
+            $this->render_types[ $this->token->type ][ $event_name ],
+            $this->setOptions()
         );
 
         $this->setClassProperties($event_results);
@@ -352,6 +350,20 @@ class Token implements TokenInterface
         }
 
         return $this;
+    }
+
+    /**
+     * Render Output for Position
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function renderPosition()
+    {
+        return $this->position_instance->getPositionTemplateViews(
+            $this->token->name,
+            $this->runtime_data
+        );
     }
 
     /**
@@ -406,12 +418,15 @@ class Token implements TokenInterface
 
         return $this->wrap_instance->renderOutput(
             $this->include_path,
-            $this->getWrapData()
+            $this->getWrapData($rendered_view)
         );
     }
 
     /**
      * Initialize Wrap View Object
+     *
+     * @param   string $wrap_name
+     * @param   array  $attributes
      *
      * @return  $this
      * @since   1.0
@@ -431,10 +446,12 @@ class Token implements TokenInterface
     /**
      * Get Data for Wrap
      *
+     * @param   string $rendered_view
+     *
      * @return  array
      * @since   1.0
      */
-    protected function getWrapData()
+    protected function getWrapData($rendered_view)
     {
         $this->include_path = $this->runtime_data->render->extension->include_path;
 
@@ -446,7 +463,7 @@ class Token implements TokenInterface
         $row           = new stdClass();
         $row->title    = '';
         $row->subtitle = '';
-        $row->content  = $this->rendered_view;
+        $row->content  = $rendered_view;
 
         $options['row'] = $row;
 
@@ -461,7 +478,7 @@ class Token implements TokenInterface
      */
     protected function getView()
     {
-        $this->runtime_data->render = $this->view_instance->getView();
+        $this->runtime_data->render = $this->view_instance->getView($this->token);
 
         if ($this->runtime_data->render->extension->title === $this->token->name) {
         } else {

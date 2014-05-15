@@ -41,10 +41,10 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Theme
      *
-     * @covers Molajito\View\Molajo::__construct
-     * @covers Molajito\View\Molajo::getView
-     * @covers Molajito\View::__construct
-     * @covers Molajito\View::getView
+     * @covers  Molajito\View\Molajo::__construct
+     * @covers  Molajito\View\Molajo::getView
+     * @covers  Molajito\View::__construct
+     * @covers  Molajito\View::getView
      *
      * @return  $this
      * @since   1.0
@@ -67,10 +67,10 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Get Page View Extension
      *
-     * @covers Molajito\View\Molajo::__construct
-     * @covers Molajito\View\Molajo::getView
-     * @covers Molajito\View::__construct
-     * @covers Molajito\View::getView
+     * @covers  Molajito\View\Molajo::__construct
+     * @covers  Molajito\View\Molajo::getView
+     * @covers  Molajito\View::__construct
+     * @covers  Molajito\View::getView
      *
      * @return  $this
      * @since   1.0
@@ -92,10 +92,10 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Get Template View Extension
      *
-     * @covers Molajito\View\Molajo::__construct
-     * @covers Molajito\View\Molajo::getView
-     * @covers Molajito\View::__construct
-     * @covers Molajito\View::getView
+     * @covers  Molajito\View\Molajo::__construct
+     * @covers  Molajito\View\Molajo::getView
+     * @covers  Molajito\View::__construct
+     * @covers  Molajito\View::getView
      *
      * @return  $this
      * @since   1.0
@@ -117,10 +117,10 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
     /**
      * Get Wrap View Extension
      *
-     * @covers Molajito\View\Molajo::__construct
-     * @covers Molajito\View\Molajo::getView
-     * @covers Molajito\View::__construct
-     * @covers Molajito\View::getView
+     * @covers  Molajito\View\Molajo::__construct
+     * @covers  Molajito\View\Molajo::getView
+     * @covers  Molajito\View::__construct
+     * @covers  Molajito\View::getView
      *
      * @return  $this
      * @since   1.0

@@ -29,7 +29,7 @@ class RenderTest extends \PHPUnit_Framework_TestCase
     /**
      * Create Render Instance
      *
-     * @covers Molajito\Render\TemplateView::__construct
+     * @covers  Molajito\Render\TemplateView::__construct
      */
     protected function setUp()
     {

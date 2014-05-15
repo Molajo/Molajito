@@ -88,6 +88,7 @@ class Filesystem extends AbstractAdapter implements ViewInterface
         if ($scheme === 'Theme') {
             $base   = $this->theme_base_folder;
             $folder = '/';
+
         } else {
             $base   = $this->view_base_folder;
             $folder = '/' . $scheme . 's/';

@@ -34,22 +34,22 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
     /**
      * Create Template View Instance
      *
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape::__construct
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape::__construct
      *
-     * @covers Molajito\Render\AbstractRenderer::__construct
+     * @covers  Molajito\Render\AbstractRenderer::__construct
      *
-     * @covers Molajito\Event\Dummy::__construct
-     * @covers Molajito\Event::__construct
+     * @covers  Molajito\Event\Dummy::__construct
+     * @covers  Molajito\Event::__construct
      *
-     * @covers Molajito\Data\AbstractAdapter::__construct
-     * @covers Molajito\Data\Molajo::__construct
-     * @covers Molajito\Data::__construct
+     * @covers  Molajito\Data\AbstractAdapter::__construct
+     * @covers  Molajito\Data\Molajo::__construct
+     * @covers  Molajito\Data::__construct
      *
-     * @covers Molajito\View\Filesystem::__construct
-     * @covers Molajito\View::__construct
+     * @covers  Molajito\View\Filesystem::__construct
+     * @covers  Molajito\View::__construct
      *
-     * @covers Molajito\Render\TemplateView::__construct
+     * @covers  Molajito\Render\TemplateView::__construct
      */
     protected function setUp()
     {
@@ -69,42 +69,42 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
-     * @covers Molajito\Escape::__construct
-     * @covers Molajito\Escape::escapeOutput
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape\Simple::escapeOutput
-     * @covers Molajito\Escape\Simple::escapeDataElement
-     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Render\TemplateView::renderOutput
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderLoop
-     * @covers Molajito\Render\TemplateView::initializeRenderLoop
-     * @covers Molajito\Render\TemplateView::renderViewNormal
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderViewPart
-     * @covers Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::renderOutput
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderLoop
+     * @covers  Molajito\Render\TemplateView::initializeRenderLoop
+     * @covers  Molajito\Render\TemplateView::renderViewNormal
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderViewPart
+     * @covers  Molajito\Render\TemplateView::setRenderViewOptions
      *
-     * @covers Molajito\Render\AbstractRenderer::renderOutput
-     * @covers Molajito\Render\AbstractRenderer::setProperties
-     * @covers Molajito\Render\AbstractRenderer::getProperties
-     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
      *
-     * @covers Molajito\Render::renderOutput
-     * @covers Molajito\Render::setProperties
-     * @covers Molajito\Render::includeFile
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
      *
      * @return  $this
      * @since   1.0
@@ -142,42 +142,42 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
-     * @covers Molajito\Escape::__construct
-     * @covers Molajito\Escape::escapeOutput
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape\Simple::escapeOutput
-     * @covers Molajito\Escape\Simple::escapeDataElement
-     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Render\TemplateView::renderOutput
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderLoop
-     * @covers Molajito\Render\TemplateView::initializeRenderLoop
-     * @covers Molajito\Render\TemplateView::renderViewNormal
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderViewPart
-     * @covers Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::renderOutput
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderLoop
+     * @covers  Molajito\Render\TemplateView::initializeRenderLoop
+     * @covers  Molajito\Render\TemplateView::renderViewNormal
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderViewPart
+     * @covers  Molajito\Render\TemplateView::setRenderViewOptions
      *
-     * @covers Molajito\Render\AbstractRenderer::renderOutput
-     * @covers Molajito\Render\AbstractRenderer::setProperties
-     * @covers Molajito\Render\AbstractRenderer::getProperties
-     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
      *
-     * @covers Molajito\Render::renderOutput
-     * @covers Molajito\Render::setProperties
-     * @covers Molajito\Render::includeFile
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
      *
      * @return  $this
      * @since   1.0
@@ -217,42 +217,42 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
-     * @covers Molajito\Escape::__construct
-     * @covers Molajito\Escape::escapeOutput
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape\Simple::escapeOutput
-     * @covers Molajito\Escape\Simple::escapeDataElement
-     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Render\TemplateView::renderOutput
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderLoop
-     * @covers Molajito\Render\TemplateView::initializeRenderLoop
-     * @covers Molajito\Render\TemplateView::renderViewNormal
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderViewPart
-     * @covers Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::renderOutput
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderLoop
+     * @covers  Molajito\Render\TemplateView::initializeRenderLoop
+     * @covers  Molajito\Render\TemplateView::renderViewNormal
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderViewPart
+     * @covers  Molajito\Render\TemplateView::setRenderViewOptions
      *
-     * @covers Molajito\Render\AbstractRenderer::renderOutput
-     * @covers Molajito\Render\AbstractRenderer::setProperties
-     * @covers Molajito\Render\AbstractRenderer::getProperties
-     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
      *
-     * @covers Molajito\Render::renderOutput
-     * @covers Molajito\Render::setProperties
-     * @covers Molajito\Render::includeFile
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
      *
      * @return  $this
      * @since   1.0
@@ -298,42 +298,42 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
-     * @covers Molajito\Escape::__construct
-     * @covers Molajito\Escape::escapeOutput
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape\Simple::escapeOutput
-     * @covers Molajito\Escape\Simple::escapeDataElement
-     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Render\TemplateView::renderOutput
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderLoop
-     * @covers Molajito\Render\TemplateView::initializeRenderLoop
-     * @covers Molajito\Render\TemplateView::renderViewNormal
-     * @covers Molajito\Render\TemplateView::renderViewCustom
-     * @covers Molajito\Render\TemplateView::renderViewPart
-     * @covers Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::renderOutput
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderLoop
+     * @covers  Molajito\Render\TemplateView::initializeRenderLoop
+     * @covers  Molajito\Render\TemplateView::renderViewNormal
+     * @covers  Molajito\Render\TemplateView::renderViewCustom
+     * @covers  Molajito\Render\TemplateView::renderViewPart
+     * @covers  Molajito\Render\TemplateView::setRenderViewOptions
      *
-     * @covers Molajito\Render\AbstractRenderer::renderOutput
-     * @covers Molajito\Render\AbstractRenderer::setProperties
-     * @covers Molajito\Render\AbstractRenderer::getProperties
-     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
      *
-     * @covers Molajito\Render::renderOutput
-     * @covers Molajito\Render::setProperties
-     * @covers Molajito\Render::includeFile
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
      *
      * @return  $this
      * @since   1.0

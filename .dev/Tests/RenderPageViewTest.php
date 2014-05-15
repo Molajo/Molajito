@@ -33,22 +33,22 @@ class RenderPageViewTest extends \PHPUnit_Framework_TestCase
     /**
      * Create Page View Instance
      *
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape::__construct
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape::__construct
      *
-     * @covers Molajito\Render\AbstractRenderer::__construct
+     * @covers  Molajito\Render\AbstractRenderer::__construct
      *
-     * @covers Molajito\Event\Dummy::__construct
-     * @covers Molajito\Event::__construct
+     * @covers  Molajito\Event\Dummy::__construct
+     * @covers  Molajito\Event::__construct
      *
-     * @covers Molajito\Data\AbstractAdapter::__construct
-     * @covers Molajito\Data\Molajo::__construct
-     * @covers Molajito\Data::__construct
+     * @covers  Molajito\Data\AbstractAdapter::__construct
+     * @covers  Molajito\Data\Molajo::__construct
+     * @covers  Molajito\Data::__construct
      *
-     * @covers Molajito\View\Filesystem::__construct
-     * @covers Molajito\View::__construct
+     * @covers  Molajito\View\Filesystem::__construct
+     * @covers  Molajito\View::__construct
      *
-     * @covers Molajito\Render\PageView::__construct
+     * @covers  Molajito\Render\PageView::__construct
      */
     protected function setUp()
     {
@@ -70,36 +70,36 @@ class RenderPageViewTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Page View
      *
-     * @covers Molajito\Event::initializeEventOptions
-     * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
-     * @covers Molajito\Event\Dummy::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
      *
-     * @covers Molajito\Escape::__construct
-     * @covers Molajito\Escape::escapeOutput
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape\Simple::escapeOutput
-     * @covers Molajito\Escape\Simple::escapeDataElement
-     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     * @covers  Molajito\Escape::__construct
+     * @covers  Molajito\Escape::escapeOutput
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape\Simple::escapeOutput
+     * @covers  Molajito\Escape\Simple::escapeDataElement
+     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers Molajito\Render\PageView::renderOutput
-     * @covers Molajito\Render\PageView::setProperties
+     * @covers  Molajito\Render\PageView::renderOutput
+     * @covers  Molajito\Render\PageView::setProperties
      *
-     * @covers Molajito\Render\AbstractRenderer::renderOutput
-     * @covers Molajito\Render\AbstractRenderer::setProperties
-     * @covers Molajito\Render\AbstractRenderer::getProperties
-     * @covers Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
      *
-     * @covers Molajito\Render::renderOutput
-     * @covers Molajito\Render::setProperties
-     * @covers Molajito\Render::includeFile
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
      *
      * @return  $this
      * @since   1.0

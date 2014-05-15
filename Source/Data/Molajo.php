@@ -325,7 +325,11 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function getDefaultData()
     {
-        $this->parameters = $this->runtime_data->render->extension->parameters;
+        if (isset($this->runtime_data->render->extension->parameters)) {
+            $this->parameters = $this->runtime_data->render->extension->parameters;
+        } else {
+            $this->parameters = new stdClass();
+        }
 
         $this->model_registry = new stdClass();
 

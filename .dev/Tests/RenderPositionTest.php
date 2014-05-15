@@ -32,22 +32,22 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
     /**
      * Create Position Instance
      *
-     * @covers Molajito\Escape\Simple::__construct
-     * @covers Molajito\Escape::__construct
+     * @covers  Molajito\Escape\Simple::__construct
+     * @covers  Molajito\Escape::__construct
      *
-     * @covers Molajito\Render\AbstractRenderer::__construct
+     * @covers  Molajito\Render\AbstractRenderer::__construct
      *
-     * @covers Molajito\Event\Dummy::__construct
-     * @covers Molajito\Event::__construct
+     * @covers  Molajito\Event\Dummy::__construct
+     * @covers  Molajito\Event::__construct
      *
-     * @covers Molajito\Data\AbstractAdapter::__construct
-     * @covers Molajito\Data\Molajo::__construct
-     * @covers Molajito\Data::__construct
+     * @covers  Molajito\Data\AbstractAdapter::__construct
+     * @covers  Molajito\Data\Molajo::__construct
+     * @covers  Molajito\Data::__construct
      *
-     * @covers Molajito\View\Filesystem::__construct
-     * @covers Molajito\View::__construct
+     * @covers  Molajito\View\Filesystem::__construct
+     * @covers  Molajito\View::__construct
      *
-     * @covers Molajito\Render\Position::__construct
+     * @covers  Molajito\Render\Position::__construct
      */
     protected function setUp()
     {
