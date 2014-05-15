@@ -188,10 +188,12 @@ class Molajo extends AbstractAdapter implements DataInterface
         $this->model_registry = $this->runtime_data->resource->model_registry;
         $this->parameters     = $this->runtime_data->resource->parameters;
 
-        $hold_parameters = $this->runtime_data->render->extension->parameters;
+        if (isset($this->runtime_data->render->extension->parameters)) {
+            $hold_parameters = $this->runtime_data->render->extension->parameters;
 
-        if (is_array($hold_parameters) && count($hold_parameters) > 0) {
-            $this->getPrimaryDataExtensionParameters($hold_parameters);
+            if (is_array($hold_parameters) && count($hold_parameters) > 0) {
+                $this->getPrimaryDataExtensionParameters($hold_parameters);
+            }
         }
 
         return $this;
