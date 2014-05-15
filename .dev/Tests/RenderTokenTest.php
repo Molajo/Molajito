@@ -132,13 +132,23 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Token::renderTemplateView
      * @covers Molajito\Token::renderOutput
      * @covers Molajito\Token::renderWrapView
+     * @covers Molajito\Token::initializeWrapViewObject
+     * @covers Molajito\Token::getWrapData
      * @covers Molajito\Token::getView
      * @covers Molajito\Token::getData
+     * @covers Molajito\Token::setClassProperties
      * @covers Molajito\Token::setOptions
      * @covers Molajito\Token::replaceTokenWithRenderedOutput
      *
+     * @covers Molajito\Escape::__construct
+     * @covers Molajito\Escape::escapeOutput
+     * @covers Molajito\Escape\Simple::__construct
+     * @covers Molajito\Escape\Simple::escapeOutput
+     * @covers Molajito\Escape\Simple::escapeDataElement
+     * @covers Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers Molajito\Escape\AbstractAdapter::escapeDataElement
+     *
      * @covers Molajito\Render\Theme::renderOutput
-     * @covers Molajito\Render\Theme::setProperties
      * @covers Molajito\Render\Theme::includeFile
      *
      * @covers Molajito\Render\AbstractRenderer::renderOutput
@@ -146,19 +156,63 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Render\AbstractRenderer::getProperties
      * @covers Molajito\Render\AbstractRenderer::scheduleEvent
      * @covers Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers Molajito\Render\AbstractRenderer::performRendering
      *
      * @covers Molajito\Render::renderOutput
      * @covers Molajito\Render::setProperties
      * @covers Molajito\Render::includeFile
      *
+     * @covers Molajito\Event::__construct
      * @covers Molajito\Event::initializeEventOptions
      * @covers Molajito\Event::scheduleEvent
-     * @covers Molajito\Event\Dummy::initializeEventOptions
+     *
      * @covers Molajito\Event\Dummy::scheduleEvent
+     * @covers Molajito\Event\AbstractAdapter::__construct
      * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
      * @covers Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
+     * @covers  Molajito\Data::__construct
+     * @covers  Molajito\Data::getData
+     * @covers  Molajito\Data::editOptions
+     * @covers  Molajito\Data::editToken
+     *
+     * @covers  Molajito\Data\Molajo::__construct
+     * @covers  Molajito\Data\Molajo::getData
+     * @covers  Molajito\Data\Molajo::initialise
+     * @covers  Molajito\Data\Molajo::setModel
+     * @covers  Molajito\Data\Molajo::getPrimaryData
+     * @covers  Molajito\Data\Molajo::getPrimaryDataExtensionParameters
+     * @covers  Molajito\Data\Molajo::getRuntimeData
+     * @covers  Molajito\Data\Molajo::getPluginData
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResults
+     * @covers  Molajito\Data\Molajo::getPluginDataQueryResultsField
+     * @covers  Molajito\Data\Molajo::setParameters
+     * @covers  Molajito\Data\Molajo::getDefaultData
+     * @covers  Molajito\Data\Molajo::setDataResults
+     * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
+     * @covers  Molajito\Data\Molajo::setDataResultsParameters
+     * @covers  Molajito\Data\Molajo::setDataResultsDataObject
+     *
+     * @covers  Molajito\Data\MolajoModel::__construct
+     * @covers  Molajito\Data\MolajoModel::setModel
+     * @covers  Molajito\Data\MolajoModel::setModelType
+     * @covers  Molajito\Data\MolajoModel::setModelTypeToken
+     * @covers  Molajito\Data\MolajoModel::setModelTypeParameters
+     * @covers  Molajito\Data\MolajoModel::setModelName
+     * @covers  Molajito\Data\MolajoModel::setModelNameToken
+     * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
+     * @covers  Molajito\Data\MolajoModel::setFieldName
+     * @covers  Molajito\Data\MolajoModel::setDefaultModelTypeName
+     *
+     * @covers  Molajito\Data\AbstractAdapter::__construct
+     * @covers  Molajito\Data\AbstractAdapter::getData
+     * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
+     *
+     * @covers  Molajito\View\Filesystem::__construct
+     * @covers  Molajito\View\Filesystem::getView
+     * @covers  Molajito\View::__construct
+     * @covers  Molajito\View::getView
+     * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
      * @since   1.0
@@ -199,8 +253,11 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers Molajito\Token::renderTemplateView
      * @covers Molajito\Token::renderOutput
      * @covers Molajito\Token::renderWrapView
+     * @covers Molajito\Token::initializeWrapViewObject
+     * @covers Molajito\Token::getWrapData
      * @covers Molajito\Token::getView
      * @covers Molajito\Token::getData
+     * @covers Molajito\Token::setClassProperties
      * @covers Molajito\Token::setOptions
      * @covers Molajito\Token::replaceTokenWithRenderedOutput
      *

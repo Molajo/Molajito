@@ -395,7 +395,6 @@ class Token implements TokenInterface
      *
      * @return  string
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function renderWrapView($rendered_view)
     {
@@ -405,25 +404,9 @@ class Token implements TokenInterface
 
         $this->getView();
 
-        $this->include_path = $this->runtime_data->render->extension->include_path;
-
-        /** Step 2. Data */
-        $options = $this->setOptions();
-
-        $options['model_registry'] = array();
-        $options['query_results']  = array();
-
-        $row           = new stdClass();
-        $row->title    = '';
-        $row->subtitle = '';
-        $row->content  = $this->rendered_view;
-
-        $options['row'] = $row;
-
-        /** Step 3. Render Wrap */
         return $this->wrap_instance->renderOutput(
             $this->include_path,
-            $options
+            $this->getWrapData()
         );
     }
 
@@ -432,7 +415,6 @@ class Token implements TokenInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function initializeWrapViewObject($wrap_name, $attributes)
     {
@@ -447,10 +429,35 @@ class Token implements TokenInterface
     }
 
     /**
+     * Get Data for Wrap
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getWrapData()
+    {
+        $this->include_path = $this->runtime_data->render->extension->include_path;
+
+        $options = $this->setOptions();
+
+        $options['model_registry'] = array();
+        $options['query_results']  = array();
+
+        $row           = new stdClass();
+        $row->title    = '';
+        $row->subtitle = '';
+        $row->content  = $this->rendered_view;
+
+        $options['row'] = $row;
+
+        return $options;
+    }
+
+    /**
      * Get View for Token
      *
-     * @return  $this
-     * @since   1.0
+     * @return $this
+     * @since 1.0
      */
     protected function getView()
     {
