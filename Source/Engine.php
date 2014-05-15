@@ -138,7 +138,7 @@ class Engine implements RenderInterface
     }
 
     /**
-     * Render output for specified view and data
+     * Render output for s\pecified Theme
      *
      * @param   string $include_file
      * @param   array  $data
@@ -259,28 +259,6 @@ class Engine implements RenderInterface
      * @since   1.0
      */
     protected function renderTokens()
-    {
-        $tokens = $this->tokens;
-
-        foreach ($tokens as $token) {
-
-            if (strtolower($token->type) === 'position') {
-                $this->rendered_page = $this->token_instance->renderPosition($token);
-            } else {
-                $this->rendered_page = $this->token_instance->renderToken($token, $this->rendered_page);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Create Object for Token
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function createTokenObject()
     {
         $tokens = $this->tokens;
 
