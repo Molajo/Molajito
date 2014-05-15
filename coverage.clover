@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400126601">
-  <project timestamp="1400126601">
+<coverage generated="1400129136">
+  <project timestamp="1400129136">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -127,8 +127,8 @@
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/Index.phtml">
-      <line num="13" type="stmt" count="0"/>
-      <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      <line num="14" type="stmt" count="0"/>
+      <metrics loc="13" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/RenderedPageRenderTokenTestPosition.phtml">
       <line num="13" type="stmt" count="0"/>
@@ -166,67 +166,6 @@
         <line num="104" type="stmt" count="0"/>
         <metrics loc="103" ncloc="49" classes="1" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="14" elements="20" coveredelements="16"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Engine.php">
-        <class name="Engine" namespace="Molajito" fullPackage="Molajo" package="Molajo">
-          <metrics methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="47" coveredstatements="0" elements="55" coveredelements="0"/>
-        </class>
-        <line num="126" type="method" name="__construct" crap="2" count="0"/>
-        <line num="133" type="stmt" count="0"/>
-        <line num="134" type="stmt" count="0"/>
-        <line num="135" type="stmt" count="0"/>
-        <line num="136" type="stmt" count="0"/>
-        <line num="137" type="stmt" count="0"/>
-        <line num="138" type="stmt" count="0"/>
-        <line num="150" type="method" name="renderOutput" crap="2" count="0"/>
-        <line num="153" type="stmt" count="0"/>
-        <line num="156" type="stmt" count="0"/>
-        <line num="159" type="stmt" count="0"/>
-        <line num="162" type="stmt" count="0"/>
-        <line num="165" type="stmt" count="0"/>
-        <line num="166" type="stmt" count="0"/>
-        <line num="168" type="stmt" count="0"/>
-        <line num="170" type="stmt" count="0"/>
-        <line num="182" type="method" name="renderLoop" crap="12" count="0"/>
-        <line num="184" type="stmt" count="0"/>
-        <line num="186" type="stmt" count="0"/>
-        <line num="188" type="stmt" count="0"/>
-        <line num="190" type="stmt" count="0"/>
-        <line num="191" type="stmt" count="0"/>
-        <line num="192" type="stmt" count="0"/>
-        <line num="194" type="stmt" count="0"/>
-        <line num="198" type="stmt" count="0"/>
-        <line num="209" type="method" name="renderLoopProcessToken" crap="2" count="0"/>
-        <line num="211" type="stmt" count="0"/>
-        <line num="213" type="stmt" count="0"/>
-        <line num="215" type="stmt" count="0"/>
-        <line num="217" type="stmt" count="0"/>
-        <line num="228" type="method" name="scheduleParseEvents" crap="2" count="0"/>
-        <line num="230" type="stmt" count="0"/>
-        <line num="231" type="stmt" count="0"/>
-        <line num="233" type="stmt" count="0"/>
-        <line num="235" type="stmt" count="0"/>
-        <line num="246" type="method" name="parseTokens" crap="2" count="0"/>
-        <line num="248" type="stmt" count="0"/>
-        <line num="250" type="stmt" count="0"/>
-        <line num="259" type="method" name="renderTokenOutput" crap="12" count="0"/>
-        <line num="261" type="stmt" count="0"/>
-        <line num="263" type="stmt" count="0"/>
-        <line num="265" type="stmt" count="0"/>
-        <line num="266" type="stmt" count="0"/>
-        <line num="267" type="stmt" count="0"/>
-        <line num="268" type="stmt" count="0"/>
-        <line num="270" type="stmt" count="0"/>
-        <line num="272" type="stmt" count="0"/>
-        <line num="283" type="method" name="testEndOfLoopProcessing" crap="12" count="0"/>
-        <line num="285" type="stmt" count="0"/>
-        <line num="286" type="stmt" count="0"/>
-        <line num="287" type="stmt" count="0"/>
-        <line num="290" type="stmt" count="0"/>
-        <line num="292" type="stmt" count="0"/>
-        <line num="294" type="stmt" count="0"/>
-        <line num="297" type="stmt" count="0"/>
-        <metrics loc="299" ncloc="145" classes="1" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="47" coveredstatements="0" elements="55" coveredelements="0"/>
-      </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape.php">
         <class name="Escape" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
@@ -246,10 +185,10 @@
         <line num="38" type="method" name="__construct" crap="1" count="13"/>
         <line num="41" type="stmt" count="13"/>
         <line num="42" type="stmt" count="13"/>
-        <line num="51" type="method" name="initializeEventOptions" crap="1" count="9"/>
-        <line num="53" type="stmt" count="9"/>
-        <line num="66" type="method" name="scheduleEvent" crap="1" count="9"/>
-        <line num="68" type="stmt" count="9"/>
+        <line num="51" type="method" name="initializeEventOptions" crap="1" count="8"/>
+        <line num="53" type="stmt" count="8"/>
+        <line num="66" type="method" name="scheduleEvent" crap="1" count="8"/>
+        <line num="68" type="stmt" count="8"/>
         <line num="71" type="stmt" count="0"/>
         <metrics loc="70" ncloc="25" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
       </file>
@@ -341,32 +280,32 @@
         <class name="Render" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="20" coveredelements="20"/>
         </class>
-        <line num="98" type="method" name="renderOutput" crap="1" count="14"/>
-        <line num="100" type="stmt" count="14"/>
-        <line num="102" type="stmt" count="14"/>
-        <line num="113" type="method" name="setProperties" crap="3" count="14"/>
-        <line num="115" type="stmt" count="14"/>
-        <line num="116" type="stmt" count="12"/>
-        <line num="117" type="stmt" count="12"/>
-        <line num="118" type="stmt" count="12"/>
-        <line num="119" type="stmt" count="14"/>
-        <line num="121" type="stmt" count="14"/>
-        <line num="133" type="method" name="includeFile" crap="2" count="14"/>
-        <line num="135" type="stmt" count="14"/>
-        <line num="137" type="stmt" count="14"/>
-        <line num="138" type="stmt" count="13"/>
+        <line num="98" type="method" name="renderOutput" crap="1" count="12"/>
+        <line num="100" type="stmt" count="12"/>
+        <line num="102" type="stmt" count="12"/>
+        <line num="113" type="method" name="setProperties" crap="3" count="12"/>
+        <line num="115" type="stmt" count="12"/>
+        <line num="116" type="stmt" count="10"/>
+        <line num="117" type="stmt" count="10"/>
+        <line num="118" type="stmt" count="10"/>
+        <line num="119" type="stmt" count="12"/>
+        <line num="121" type="stmt" count="12"/>
+        <line num="133" type="method" name="includeFile" crap="2" count="12"/>
+        <line num="135" type="stmt" count="12"/>
+        <line num="137" type="stmt" count="12"/>
+        <line num="138" type="stmt" count="11"/>
         <line num="139" type="stmt" count="1"/>
         <line num="141" type="stmt" count="1"/>
-        <line num="144" type="stmt" count="13"/>
-        <line num="145" type="stmt" count="13"/>
-        <line num="146" type="stmt" count="13"/>
-        <line num="148" type="stmt" count="13"/>
+        <line num="144" type="stmt" count="11"/>
+        <line num="145" type="stmt" count="11"/>
+        <line num="146" type="stmt" count="11"/>
+        <line num="148" type="stmt" count="11"/>
         <line num="151" type="stmt" count="0"/>
         <metrics loc="150" ncloc="64" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="20" coveredelements="20"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Token.php">
         <class name="Token" namespace="Molajito" fullPackage="Molajo" package="Molajo">
-          <metrics methods="15" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="111" coveredstatements="108" elements="126" coveredelements="123"/>
+          <metrics methods="15" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="111" coveredstatements="106" elements="126" coveredelements="121"/>
         </class>
         <line num="250" type="method" name="__construct" crap="1" count="5"/>
         <line num="259" type="stmt" count="5"/>
@@ -377,37 +316,37 @@
         <line num="264" type="stmt" count="5"/>
         <line num="265" type="stmt" count="5"/>
         <line num="266" type="stmt" count="5"/>
-        <line num="277" type="method" name="processToken" crap="1" count="5"/>
-        <line num="279" type="stmt" count="5"/>
-        <line num="281" type="stmt" count="5"/>
-        <line num="283" type="stmt" count="5"/>
-        <line num="284" type="stmt" count="5"/>
-        <line num="286" type="stmt" count="5"/>
-        <line num="288" type="stmt" count="5"/>
-        <line num="290" type="stmt" count="5"/>
-        <line num="303" type="method" name="initialiseData" crap="3" count="5"/>
-        <line num="305" type="stmt" count="5"/>
-        <line num="307" type="stmt" count="5"/>
-        <line num="309" type="stmt" count="5"/>
-        <line num="311" type="stmt" count="5"/>
-        <line num="313" type="stmt" count="5"/>
+        <line num="277" type="method" name="processToken" crap="1" count="4"/>
+        <line num="279" type="stmt" count="4"/>
+        <line num="281" type="stmt" count="4"/>
+        <line num="283" type="stmt" count="4"/>
+        <line num="284" type="stmt" count="4"/>
+        <line num="286" type="stmt" count="4"/>
+        <line num="288" type="stmt" count="4"/>
+        <line num="290" type="stmt" count="4"/>
+        <line num="303" type="method" name="initialiseData" crap="3" count="4"/>
+        <line num="305" type="stmt" count="4"/>
+        <line num="307" type="stmt" count="4"/>
+        <line num="309" type="stmt" count="4"/>
+        <line num="311" type="stmt" count="4"/>
+        <line num="313" type="stmt" count="4"/>
         <line num="314" type="stmt" count="3"/>
         <line num="315" type="stmt" count="3"/>
-        <line num="317" type="stmt" count="5"/>
+        <line num="317" type="stmt" count="4"/>
         <line num="318" type="stmt" count="3"/>
         <line num="319" type="stmt" count="3"/>
-        <line num="321" type="stmt" count="5"/>
-        <line num="332" type="method" name="scheduleEvent" crap="3.07" count="5"/>
-        <line num="334" type="stmt" count="5"/>
-        <line num="335" type="stmt" count="2"/>
-        <line num="338" type="stmt" count="4"/>
-        <line num="339" type="stmt" count="4"/>
-        <line num="340" type="stmt" count="4"/>
-        <line num="342" type="stmt" count="4"/>
-        <line num="344" type="stmt" count="4"/>
+        <line num="321" type="stmt" count="4"/>
+        <line num="332" type="method" name="scheduleEvent" crap="3.07" count="4"/>
+        <line num="334" type="stmt" count="4"/>
+        <line num="335" type="stmt" count="1"/>
+        <line num="338" type="stmt" count="3"/>
+        <line num="339" type="stmt" count="3"/>
+        <line num="340" type="stmt" count="3"/>
+        <line num="342" type="stmt" count="3"/>
+        <line num="344" type="stmt" count="3"/>
         <line num="345" type="stmt" count="0"/>
         <line num="346" type="stmt" count="0"/>
-        <line num="348" type="stmt" count="4"/>
+        <line num="348" type="stmt" count="3"/>
         <line num="357" type="method" name="renderPosition" crap="1" count="1"/>
         <line num="359" type="stmt" count="1"/>
         <line num="360" type="stmt" count="1"/>
@@ -419,12 +358,12 @@
         <line num="376" type="stmt" count="1"/>
         <line num="377" type="stmt" count="1"/>
         <line num="380" type="stmt" count="2"/>
-        <line num="389" type="method" name="renderOutput" crap="1" count="4"/>
-        <line num="391" type="stmt" count="4"/>
-        <line num="393" type="stmt" count="4"/>
-        <line num="394" type="stmt" count="4"/>
-        <line num="395" type="stmt" count="4"/>
-        <line num="396" type="stmt" count="4"/>
+        <line num="389" type="method" name="renderOutput" crap="1" count="3"/>
+        <line num="391" type="stmt" count="3"/>
+        <line num="393" type="stmt" count="3"/>
+        <line num="394" type="stmt" count="3"/>
+        <line num="395" type="stmt" count="3"/>
+        <line num="396" type="stmt" count="3"/>
         <line num="407" type="method" name="renderWrapView" crap="1" count="1"/>
         <line num="409" type="stmt" count="1"/>
         <line num="411" type="stmt" count="1"/>
@@ -470,32 +409,32 @@
         <line num="509" type="stmt" count="3"/>
         <line num="510" type="stmt" count="3"/>
         <line num="512" type="stmt" count="3"/>
-        <line num="524" type="method" name="setClassProperties" crap="4" count="5"/>
-        <line num="526" type="stmt" count="5"/>
-        <line num="527" type="stmt" count="5"/>
-        <line num="528" type="stmt" count="5"/>
-        <line num="529" type="stmt" count="5"/>
-        <line num="530" type="stmt" count="5"/>
-        <line num="531" type="stmt" count="5"/>
-        <line num="532" type="stmt" count="5"/>
-        <line num="534" type="stmt" count="5"/>
-        <line num="536" type="stmt" count="5"/>
-        <line num="545" type="method" name="setOptions" crap="2" count="4"/>
-        <line num="547" type="stmt" count="4"/>
-        <line num="549" type="stmt" count="4"/>
-        <line num="550" type="stmt" count="4"/>
-        <line num="551" type="stmt" count="4"/>
-        <line num="553" type="stmt" count="4"/>
-        <line num="555" type="stmt" count="4"/>
-        <line num="564" type="method" name="replaceTokenWithRenderedOutput" crap="2" count="5"/>
-        <line num="566" type="stmt" count="5"/>
-        <line num="567" type="stmt" count="1"/>
-        <line num="568" type="stmt" count="1"/>
+        <line num="524" type="method" name="setClassProperties" crap="4" count="4"/>
+        <line num="526" type="stmt" count="4"/>
+        <line num="527" type="stmt" count="4"/>
+        <line num="528" type="stmt" count="4"/>
+        <line num="529" type="stmt" count="4"/>
+        <line num="530" type="stmt" count="4"/>
+        <line num="531" type="stmt" count="4"/>
+        <line num="532" type="stmt" count="4"/>
+        <line num="534" type="stmt" count="4"/>
+        <line num="536" type="stmt" count="4"/>
+        <line num="545" type="method" name="setOptions" crap="2" count="3"/>
+        <line num="547" type="stmt" count="3"/>
+        <line num="549" type="stmt" count="3"/>
+        <line num="550" type="stmt" count="3"/>
+        <line num="551" type="stmt" count="3"/>
+        <line num="553" type="stmt" count="3"/>
+        <line num="555" type="stmt" count="3"/>
+        <line num="564" type="method" name="replaceTokenWithRenderedOutput" crap="2.15" count="4"/>
+        <line num="566" type="stmt" count="4"/>
+        <line num="567" type="stmt" count="0"/>
+        <line num="568" type="stmt" count="0"/>
         <line num="569" type="stmt" count="4"/>
         <line num="570" type="stmt" count="4"/>
-        <line num="573" type="stmt" count="5"/>
+        <line num="573" type="stmt" count="4"/>
         <line num="576" type="stmt" count="0"/>
-        <metrics loc="575" ncloc="324" classes="1" methods="15" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="111" coveredstatements="108" elements="126" coveredelements="121"/>
+        <metrics loc="575" ncloc="324" classes="1" methods="15" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="111" coveredstatements="106" elements="126" coveredelements="118"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Translate.php">
         <class name="Translate" namespace="Molajito" fullPackage="Molajo" package="Molajo">
@@ -517,7 +456,6 @@
         <line num="42" type="stmt" count="13"/>
         <line num="52" type="method" name="getView" crap="1" count="11"/>
         <line num="54" type="stmt" count="11"/>
-        <line num="57" type="stmt" count="0"/>
         <metrics loc="56" ncloc="20" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </file>
     </package>
@@ -545,19 +483,20 @@
           <metrics methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="106" coveredstatements="91" elements="121" coveredelements="105"/>
         </class>
         <line num="0" type="stmt" count="0"/>
-        <line num="107" type="method" name="getData" crap="4" count="10"/>
-        <line num="109" type="stmt" count="10"/>
-        <line num="111" type="stmt" count="10"/>
-        <line num="113" type="stmt" count="10"/>
-        <line num="114" type="stmt" count="3"/>
-        <line num="116" type="stmt" count="10"/>
-        <line num="117" type="stmt" count="1"/>
-        <line num="119" type="stmt" count="7"/>
-        <line num="120" type="stmt" count="4"/>
-        <line num="122" type="stmt" count="4"/>
-        <line num="123" type="stmt" count="2"/>
-        <line num="126" type="stmt" count="10"/>
-        <line num="139" type="method" name="initialise" crap="1" count="10"/>
+        <line num="106" type="method" name="getData" crap="4" count="10"/>
+        <line num="108" type="stmt" count="10"/>
+        <line num="110" type="stmt" count="10"/>
+        <line num="112" type="stmt" count="10"/>
+        <line num="113" type="stmt" count="3"/>
+        <line num="115" type="stmt" count="10"/>
+        <line num="116" type="stmt" count="1"/>
+        <line num="118" type="stmt" count="7"/>
+        <line num="119" type="stmt" count="4"/>
+        <line num="121" type="stmt" count="4"/>
+        <line num="122" type="stmt" count="2"/>
+        <line num="125" type="stmt" count="10"/>
+        <line num="138" type="method" name="initialise" crap="1" count="10"/>
+        <line num="140" type="stmt" count="10"/>
         <line num="141" type="stmt" count="10"/>
         <line num="142" type="stmt" count="10"/>
         <line num="143" type="stmt" count="10"/>
@@ -566,108 +505,107 @@
         <line num="146" type="stmt" count="10"/>
         <line num="147" type="stmt" count="10"/>
         <line num="148" type="stmt" count="10"/>
-        <line num="149" type="stmt" count="10"/>
-        <line num="151" type="stmt" count="10"/>
-        <line num="162" type="method" name="setModel" crap="1" count="10"/>
+        <line num="150" type="stmt" count="10"/>
+        <line num="161" type="method" name="setModel" crap="1" count="10"/>
+        <line num="163" type="stmt" count="10"/>
         <line num="164" type="stmt" count="10"/>
         <line num="165" type="stmt" count="10"/>
         <line num="166" type="stmt" count="10"/>
         <line num="167" type="stmt" count="10"/>
-        <line num="168" type="stmt" count="10"/>
-        <line num="170" type="stmt" count="10"/>
+        <line num="169" type="stmt" count="10"/>
+        <line num="171" type="stmt" count="10"/>
         <line num="172" type="stmt" count="10"/>
         <line num="173" type="stmt" count="10"/>
-        <line num="174" type="stmt" count="10"/>
-        <line num="176" type="stmt" count="10"/>
-        <line num="185" type="method" name="getPrimaryData" crap="4.13" count="3"/>
+        <line num="175" type="stmt" count="10"/>
+        <line num="184" type="method" name="getPrimaryData" crap="4.13" count="3"/>
+        <line num="186" type="stmt" count="3"/>
         <line num="187" type="stmt" count="3"/>
         <line num="188" type="stmt" count="3"/>
-        <line num="189" type="stmt" count="3"/>
-        <line num="191" type="stmt" count="3"/>
-        <line num="192" type="stmt" count="1"/>
-        <line num="194" type="stmt" count="1"/>
+        <line num="190" type="stmt" count="3"/>
+        <line num="191" type="stmt" count="1"/>
+        <line num="193" type="stmt" count="1"/>
+        <line num="194" type="stmt" count="0"/>
         <line num="195" type="stmt" count="0"/>
-        <line num="196" type="stmt" count="0"/>
-        <line num="197" type="stmt" count="1"/>
-        <line num="199" type="stmt" count="3"/>
-        <line num="210" type="method" name="getPrimaryDataExtensionParameters" crap="20" count="0"/>
+        <line num="196" type="stmt" count="1"/>
+        <line num="198" type="stmt" count="3"/>
+        <line num="209" type="method" name="getPrimaryDataExtensionParameters" crap="20" count="0"/>
+        <line num="211" type="stmt" count="0"/>
         <line num="212" type="stmt" count="0"/>
         <line num="213" type="stmt" count="0"/>
         <line num="214" type="stmt" count="0"/>
         <line num="215" type="stmt" count="0"/>
         <line num="216" type="stmt" count="0"/>
         <line num="217" type="stmt" count="0"/>
-        <line num="218" type="stmt" count="0"/>
+        <line num="219" type="stmt" count="0"/>
         <line num="220" type="stmt" count="0"/>
-        <line num="221" type="stmt" count="0"/>
-        <line num="229" type="method" name="getRuntimeData" crap="2" count="1"/>
-        <line num="231" type="stmt" count="1"/>
+        <line num="228" type="method" name="getRuntimeData" crap="2" count="1"/>
+        <line num="230" type="stmt" count="1"/>
+        <line num="232" type="stmt" count="1"/>
         <line num="233" type="stmt" count="1"/>
         <line num="234" type="stmt" count="1"/>
-        <line num="235" type="stmt" count="1"/>
-        <line num="237" type="stmt" count="1"/>
-        <line num="239" type="stmt" count="1"/>
-        <line num="241" type="stmt" count="1"/>
-        <line num="250" type="method" name="getPluginData" crap="2" count="4"/>
-        <line num="252" type="stmt" count="4"/>
+        <line num="236" type="stmt" count="1"/>
+        <line num="238" type="stmt" count="1"/>
+        <line num="240" type="stmt" count="1"/>
+        <line num="249" type="method" name="getPluginData" crap="2" count="4"/>
+        <line num="251" type="stmt" count="4"/>
+        <line num="253" type="stmt" count="4"/>
         <line num="254" type="stmt" count="4"/>
         <line num="255" type="stmt" count="4"/>
-        <line num="256" type="stmt" count="4"/>
-        <line num="258" type="stmt" count="4"/>
-        <line num="260" type="stmt" count="4"/>
-        <line num="269" type="method" name="getPluginDataQueryResults" crap="2" count="4"/>
-        <line num="271" type="stmt" count="4"/>
-        <line num="273" type="stmt" count="4"/>
+        <line num="257" type="stmt" count="4"/>
+        <line num="259" type="stmt" count="4"/>
+        <line num="268" type="method" name="getPluginDataQueryResults" crap="2" count="4"/>
+        <line num="270" type="stmt" count="4"/>
+        <line num="272" type="stmt" count="4"/>
+        <line num="273" type="stmt" count="3"/>
         <line num="274" type="stmt" count="3"/>
         <line num="275" type="stmt" count="3"/>
-        <line num="276" type="stmt" count="3"/>
-        <line num="277" type="stmt" count="1"/>
-        <line num="280" type="stmt" count="4"/>
-        <line num="282" type="stmt" count="4"/>
-        <line num="291" type="method" name="getPluginDataQueryResultsField" crap="3.19" count="4"/>
-        <line num="293" type="stmt" count="4"/>
+        <line num="276" type="stmt" count="1"/>
+        <line num="279" type="stmt" count="4"/>
+        <line num="281" type="stmt" count="4"/>
+        <line num="290" type="method" name="getPluginDataQueryResultsField" crap="3.19" count="4"/>
+        <line num="292" type="stmt" count="4"/>
+        <line num="293" type="stmt" count="0"/>
         <line num="294" type="stmt" count="0"/>
         <line num="295" type="stmt" count="0"/>
         <line num="296" type="stmt" count="0"/>
-        <line num="297" type="stmt" count="0"/>
-        <line num="299" type="stmt" count="4"/>
-        <line num="308" type="method" name="setParameters" crap="1" count="5"/>
-        <line num="316" type="stmt" count="5"/>
-        <line num="319" type="stmt" count="5"/>
-        <line num="328" type="method" name="getDefaultData" crap="2" count="2"/>
-        <line num="330" type="stmt" count="2"/>
+        <line num="298" type="stmt" count="4"/>
+        <line num="307" type="method" name="setParameters" crap="1" count="5"/>
+        <line num="315" type="stmt" count="5"/>
+        <line num="318" type="stmt" count="5"/>
+        <line num="327" type="method" name="getDefaultData" crap="2" count="2"/>
+        <line num="329" type="stmt" count="2"/>
+        <line num="330" type="stmt" count="1"/>
         <line num="331" type="stmt" count="1"/>
         <line num="332" type="stmt" count="1"/>
-        <line num="333" type="stmt" count="1"/>
-        <line num="336" type="stmt" count="2"/>
-        <line num="338" type="stmt" count="2"/>
-        <line num="348" type="method" name="setDataResults" crap="1" count="10"/>
+        <line num="335" type="stmt" count="2"/>
+        <line num="337" type="stmt" count="2"/>
+        <line num="347" type="method" name="setDataResults" crap="1" count="10"/>
+        <line num="349" type="stmt" count="10"/>
         <line num="350" type="stmt" count="10"/>
         <line num="351" type="stmt" count="10"/>
-        <line num="352" type="stmt" count="10"/>
-        <line num="362" type="method" name="setDataResultsQueryResults" crap="2" count="10"/>
-        <line num="364" type="stmt" count="10"/>
-        <line num="365" type="stmt" count="8"/>
-        <line num="366" type="stmt" count="2"/>
-        <line num="369" type="stmt" count="10"/>
-        <line num="379" type="method" name="setDataResultsParameters" crap="2" count="10"/>
-        <line num="381" type="stmt" count="10"/>
-        <line num="382" type="stmt" count="9"/>
-        <line num="383" type="stmt" count="1"/>
+        <line num="361" type="method" name="setDataResultsQueryResults" crap="2" count="10"/>
+        <line num="363" type="stmt" count="10"/>
+        <line num="364" type="stmt" count="8"/>
+        <line num="365" type="stmt" count="2"/>
+        <line num="368" type="stmt" count="10"/>
+        <line num="378" type="method" name="setDataResultsParameters" crap="2" count="10"/>
+        <line num="380" type="stmt" count="10"/>
+        <line num="381" type="stmt" count="9"/>
+        <line num="382" type="stmt" count="1"/>
+        <line num="385" type="stmt" count="10"/>
         <line num="386" type="stmt" count="10"/>
         <line num="387" type="stmt" count="10"/>
         <line num="388" type="stmt" count="10"/>
-        <line num="389" type="stmt" count="10"/>
-        <line num="391" type="stmt" count="10"/>
-        <line num="393" type="stmt" count="10"/>
-        <line num="403" type="method" name="setDataResultsDataObject" crap="1" count="10"/>
-        <line num="405" type="stmt" count="10"/>
+        <line num="390" type="stmt" count="10"/>
+        <line num="392" type="stmt" count="10"/>
+        <line num="402" type="method" name="setDataResultsDataObject" crap="1" count="10"/>
+        <line num="404" type="stmt" count="10"/>
+        <line num="406" type="stmt" count="10"/>
         <line num="407" type="stmt" count="10"/>
         <line num="408" type="stmt" count="10"/>
-        <line num="409" type="stmt" count="10"/>
-        <line num="411" type="stmt" count="10"/>
-        <line num="414" type="stmt" count="0"/>
-        <metrics loc="413" ncloc="226" classes="1" methods="15" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="106" coveredstatements="91" elements="121" coveredelements="103"/>
+        <line num="410" type="stmt" count="10"/>
+        <line num="413" type="stmt" count="0"/>
+        <metrics loc="412" ncloc="225" classes="1" methods="15" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="106" coveredstatements="91" elements="121" coveredelements="103"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Data/MolajoModel.php">
         <class name="MolajoModel" namespace="Molajito\Data" fullPackage="Molajo" package="Molajo">
@@ -846,12 +784,12 @@
         <line num="64" type="stmt" count="2"/>
         <line num="65" type="stmt" count="2"/>
         <line num="66" type="stmt" count="15"/>
-        <line num="74" type="method" name="initializeEventOptions" crap="2" count="9"/>
-        <line num="76" type="stmt" count="9"/>
-        <line num="78" type="stmt" count="9"/>
-        <line num="79" type="stmt" count="9"/>
-        <line num="80" type="stmt" count="9"/>
-        <line num="82" type="stmt" count="9"/>
+        <line num="74" type="method" name="initializeEventOptions" crap="2" count="8"/>
+        <line num="76" type="stmt" count="8"/>
+        <line num="78" type="stmt" count="8"/>
+        <line num="79" type="stmt" count="8"/>
+        <line num="80" type="stmt" count="8"/>
+        <line num="82" type="stmt" count="8"/>
         <line num="95" type="method" name="scheduleEvent" crap="1" count="0"/>
         <line num="97" type="stmt" count="0"/>
         <metrics loc="96" ncloc="45" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
@@ -860,8 +798,8 @@
         <class name="Dummy" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
           <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="32" type="method" name="scheduleEvent" crap="1" count="8"/>
-        <line num="34" type="stmt" count="8"/>
+        <line num="32" type="method" name="scheduleEvent" crap="1" count="7"/>
+        <line num="34" type="stmt" count="7"/>
         <line num="37" type="stmt" count="0"/>
         <metrics loc="36" ncloc="12" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
@@ -897,40 +835,40 @@
         <line num="156" type="stmt" count="13"/>
         <line num="168" type="method" name="renderOutput" crap="1" count="2"/>
         <line num="170" type="stmt" count="2"/>
-        <line num="182" type="method" name="setProperties" crap="3" count="10"/>
-        <line num="184" type="stmt" count="10"/>
-        <line num="185" type="stmt" count="10"/>
-        <line num="186" type="stmt" count="10"/>
-        <line num="187" type="stmt" count="10"/>
-        <line num="188" type="stmt" count="10"/>
-        <line num="190" type="stmt" count="10"/>
-        <line num="199" type="method" name="getProperties" crap="2" count="4"/>
-        <line num="201" type="stmt" count="4"/>
-        <line num="203" type="stmt" count="4"/>
-        <line num="204" type="stmt" count="4"/>
-        <line num="205" type="stmt" count="4"/>
-        <line num="207" type="stmt" count="4"/>
-        <line num="219" type="method" name="scheduleEvent" crap="3" count="7"/>
-        <line num="221" type="stmt" count="7"/>
-        <line num="223" type="stmt" count="7"/>
-        <line num="225" type="stmt" count="7"/>
-        <line num="227" type="stmt" count="7"/>
-        <line num="228" type="stmt" count="7"/>
-        <line num="229" type="stmt" count="7"/>
-        <line num="230" type="stmt" count="7"/>
-        <line num="232" type="stmt" count="7"/>
-        <line num="244" type="method" name="setEventOptions" crap="4" count="7"/>
-        <line num="246" type="stmt" count="7"/>
-        <line num="248" type="stmt" count="7"/>
-        <line num="250" type="stmt" count="7"/>
-        <line num="251" type="stmt" count="4"/>
-        <line num="253" type="stmt" count="7"/>
-        <line num="254" type="stmt" count="6"/>
-        <line num="255" type="stmt" count="6"/>
-        <line num="256" type="stmt" count="7"/>
-        <line num="258" type="stmt" count="7"/>
-        <line num="271" type="method" name="performRendering" crap="1" count="5"/>
-        <line num="273" type="stmt" count="5"/>
+        <line num="182" type="method" name="setProperties" crap="3" count="8"/>
+        <line num="184" type="stmt" count="8"/>
+        <line num="185" type="stmt" count="8"/>
+        <line num="186" type="stmt" count="8"/>
+        <line num="187" type="stmt" count="8"/>
+        <line num="188" type="stmt" count="8"/>
+        <line num="190" type="stmt" count="8"/>
+        <line num="199" type="method" name="getProperties" crap="2" count="2"/>
+        <line num="201" type="stmt" count="2"/>
+        <line num="203" type="stmt" count="2"/>
+        <line num="204" type="stmt" count="2"/>
+        <line num="205" type="stmt" count="2"/>
+        <line num="207" type="stmt" count="2"/>
+        <line num="219" type="method" name="scheduleEvent" crap="3" count="6"/>
+        <line num="221" type="stmt" count="6"/>
+        <line num="223" type="stmt" count="6"/>
+        <line num="225" type="stmt" count="6"/>
+        <line num="227" type="stmt" count="6"/>
+        <line num="228" type="stmt" count="6"/>
+        <line num="229" type="stmt" count="6"/>
+        <line num="230" type="stmt" count="6"/>
+        <line num="232" type="stmt" count="6"/>
+        <line num="244" type="method" name="setEventOptions" crap="4" count="6"/>
+        <line num="246" type="stmt" count="6"/>
+        <line num="248" type="stmt" count="6"/>
+        <line num="250" type="stmt" count="6"/>
+        <line num="251" type="stmt" count="3"/>
+        <line num="253" type="stmt" count="6"/>
+        <line num="254" type="stmt" count="5"/>
+        <line num="255" type="stmt" count="5"/>
+        <line num="256" type="stmt" count="6"/>
+        <line num="258" type="stmt" count="6"/>
+        <line num="271" type="method" name="performRendering" crap="1" count="4"/>
+        <line num="273" type="stmt" count="4"/>
         <line num="276" type="stmt" count="0"/>
         <metrics loc="275" ncloc="120" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="34" coveredstatements="34" elements="41" coveredelements="41"/>
       </file>
@@ -1121,20 +1059,20 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/Theme.php">
         <class name="Theme" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
-          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="10" coveredelements="10"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="6" elements="10" coveredelements="8"/>
         </class>
-        <line num="46" type="method" name="renderOutput" crap="1" count="3"/>
-        <line num="48" type="stmt" count="3"/>
-        <line num="50" type="stmt" count="3"/>
-        <line num="62" type="method" name="includeFile" crap="2" count="3"/>
-        <line num="64" type="stmt" count="3"/>
-        <line num="66" type="stmt" count="3"/>
-        <line num="67" type="stmt" count="2"/>
+        <line num="45" type="method" name="renderOutput" crap="1" count="1"/>
+        <line num="47" type="stmt" count="1"/>
+        <line num="49" type="stmt" count="1"/>
+        <line num="61" type="method" name="includeFile" crap="2.15" count="1"/>
+        <line num="62" type="stmt" count="1"/>
+        <line num="64" type="stmt" count="1"/>
+        <line num="65" type="stmt" count="0"/>
+        <line num="66" type="stmt" count="1"/>
         <line num="68" type="stmt" count="1"/>
-        <line num="70" type="stmt" count="1"/>
-        <line num="73" type="stmt" count="2"/>
-        <line num="76" type="stmt" count="0"/>
-        <metrics loc="75" ncloc="35" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="10" coveredelements="10"/>
+        <line num="71" type="stmt" count="0"/>
+        <line num="74" type="stmt" count="0"/>
+        <metrics loc="73" ncloc="33" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="6" elements="10" coveredelements="7"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/WrapView.php">
         <class name="WrapView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
@@ -1235,14 +1173,6 @@
       </file>
     </package>
     <package name="Molajito\View">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/AbstractAdapter.php">
-        <class name="AbstractAdapter" namespace="Molajito\View" fullPackage="Molajo" package="Molajo">
-          <metrics methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="1" coveredelements="0"/>
-        </class>
-        <line num="31" type="method" name="getView" crap="1" count="0"/>
-        <line num="33" type="stmt" count="0"/>
-        <metrics loc="32" ncloc="9" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
-      </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Filesystem.php">
         <class name="Filesystem" namespace="Molajito\View" fullPackage="Filesystem" package="Filesystem">
           <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="24" coveredelements="24"/>
@@ -1271,7 +1201,6 @@
         <line num="99" type="stmt" count="3"/>
         <line num="100" type="stmt" count="4"/>
         <line num="103" type="stmt" count="7"/>
-        <line num="106" type="stmt" count="0"/>
         <metrics loc="105" ncloc="52" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="21" elements="24" coveredelements="24"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Molajo.php">
@@ -1341,10 +1270,6 @@
     <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/TokenInterface.php">
       <line num="32" type="stmt" count="0"/>
       <metrics loc="31" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
-    </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/ViewInterface.php">
-      <line num="33" type="stmt" count="0"/>
-      <metrics loc="32" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Composer\Autoload">
       <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/composer/ClassLoader.php">
@@ -1545,6 +1470,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="70" loc="5739" ncloc="3111" classes="33" methods="159" coveredmethods="119" conditionals="0" coveredconditionals="0" statements="989" coveredstatements="723" elements="1148" coveredelements="842"/>
+    <metrics files="67" loc="5374" ncloc="2946" classes="31" methods="151" coveredmethods="117" conditionals="0" coveredconditionals="0" statements="942" coveredstatements="719" elements="1093" coveredelements="836"/>
   </project>
 </coverage>

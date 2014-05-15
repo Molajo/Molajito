@@ -9,7 +9,6 @@
 namespace Molajito\Data;
 
 use CommonApi\Render\DataInterface;
-use CommonApi\Render\PaginationInterface;
 use stdClass;
 
 /**

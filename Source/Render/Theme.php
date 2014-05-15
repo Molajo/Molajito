@@ -10,7 +10,6 @@ namespace Molajito\Render;
 
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\RenderInterface;
-use Exception;
 
 /**
  * Molajito Theme Renderer
@@ -60,8 +59,7 @@ class Theme extends AbstractRenderer implements RenderInterface
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function includeFile($include_path)
-    {
-        $file_path = $include_path . '/Index.phtml';
+    {        $file_path = $include_path . '/Index.phtml';
 
         if (file_exists($file_path)) {
         } else {

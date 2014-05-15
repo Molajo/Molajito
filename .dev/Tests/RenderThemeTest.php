@@ -12,6 +12,7 @@ use Molajito\Render\Theme;
 use Molajito\Escape;
 use Molajito\Escape\Simple;
 use Molajito\Render;
+use stdClass;
 
 /**
  * Render Theme Test
@@ -58,10 +59,10 @@ class RenderThemeTest extends \PHPUnit_Framework_TestCase
         $render = new Render();
 
         /** Event */
-        $class = 'Molajito\\Event\\Dummy';
+        $class   = 'Molajito\\Event\\Dummy';
         $adapter = new $class();
-        $class = 'Molajito\\Event';
-        $event = new $class($adapter);
+        $class   = 'Molajito\\Event';
+        $event   = new $class($adapter);
 
         /** Theme Instance */
         $this->theme_instance = new Theme($escape, $render, $event);
@@ -106,20 +107,20 @@ class RenderThemeTest extends \PHPUnit_Framework_TestCase
      */
     public function testTheme()
     {
-        $rendering_properties                  = array();
-        $rendering_properties['query_results'] = 'a';
-        $rendering_properties['row']           = 'b';
-        $rendering_properties['runtime_data']  = 'c';
-
         $include_path = __DIR__ . '/Views/';
 
         ob_start();
         include $include_path . '/Index.phtml';
         $collect = ob_get_clean();
 
+        $runtime_data            = new stdClass();
+        $runtime_data->page_name = 'Test';
+        $data                    = array();
+        $data['runtime_data']    = $runtime_data;
+
         $results = $this->theme_instance->renderOutput(
             $include_path,
-            $rendering_properties
+            $data
         );
 
         $this->assertEquals($collect, $results);
@@ -130,42 +131,42 @@ class RenderThemeTest extends \PHPUnit_Framework_TestCase
     /**
      * Theme
      *
-     * @covers  Molajito\Event::initializeEventOptions
-     * @covers  Molajito\Event::scheduleEvent
-     * @covers  Molajito\Event\Dummy::initializeEventOptions
-     * @covers  Molajito\Event\Dummy::scheduleEvent
-     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers                   Molajito\Event::initializeEventOptions
+     * @covers                   Molajito\Event::scheduleEvent
+     * @covers                   Molajito\Event\Dummy::initializeEventOptions
+     * @covers                   Molajito\Event\Dummy::scheduleEvent
+     * @covers                   Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers                   Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers                   Molajito\Event\AbstractAdapter::initializeEventOptions
      *
-     * @covers  Molajito\Escape::__construct
-     * @covers  Molajito\Escape::escapeOutput
-     * @covers  Molajito\Escape\Simple::__construct
-     * @covers  Molajito\Escape\Simple::escapeOutput
-     * @covers  Molajito\Escape\Simple::escapeDataElement
-     * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
-     * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
+     * @covers                   Molajito\Escape::__construct
+     * @covers                   Molajito\Escape::escapeOutput
+     * @covers                   Molajito\Escape\Simple::__construct
+     * @covers                   Molajito\Escape\Simple::escapeOutput
+     * @covers                   Molajito\Escape\Simple::escapeDataElement
+     * @covers                   Molajito\Escape\AbstractAdapter::escapeOutput
+     * @covers                   Molajito\Escape\AbstractAdapter::escapeDataElement
      *
-     * @covers  Molajito\Render\Theme::renderOutput
-     * @covers  Molajito\Render\Theme::setProperties
-     * @covers  Molajito\Render\Theme::includeFile
+     * @covers                   Molajito\Render\Theme::renderOutput
+     * @covers                   Molajito\Render\Theme::setProperties
+     * @covers                   Molajito\Render\Theme::includeFile
      *
-     * @covers  Molajito\Render\AbstractRenderer::renderOutput
-     * @covers  Molajito\Render\AbstractRenderer::setProperties
-     * @covers  Molajito\Render\AbstractRenderer::getProperties
-     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers                   Molajito\Render\AbstractRenderer::renderOutput
+     * @covers                   Molajito\Render\AbstractRenderer::setProperties
+     * @covers                   Molajito\Render\AbstractRenderer::getProperties
+     * @covers                   Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers                   Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers                   Molajito\Render\AbstractRenderer::setEventOptions
      *
-     * @covers  Molajito\Render::renderOutput
-     * @covers  Molajito\Render::setProperties
-     * @covers  Molajito\Render::includeFile
+     * @covers                   Molajito\Render::renderOutput
+     * @covers                   Molajito\Render::setProperties
+     * @covers                   Molajito\Render::includeFile
      *
      * @expectedException        \CommonApi\Exception\RuntimeException
      * @expectedExceptionRequest Molajito Theme Renderer - rendering file not found: /Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/NotFound//Index.phtml
      *
      * @return  $this
-     * @since   1.0
+     * @since                    1.0
      */
     public function testThemeException()
     {
