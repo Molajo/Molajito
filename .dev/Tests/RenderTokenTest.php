@@ -632,7 +632,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      */
     public function testTemplate()
     {
-        $include_path = __DIR__ . '/ViewFileSystem/Views/Templates/Test';
+        $include_path = __DIR__ . '/ViewFilesystem/Views/Templates/Test';
 
         ob_start();
         include $include_path . '/RenderedPage.phtml';
@@ -802,13 +802,13 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      */
     public function testTemplateWrap()
     {
-        $include_path = __DIR__ . '/ViewFileSystem/Views/Templates/Test';
+        $include_path = __DIR__ . '/ViewFilesystem/Views/Templates/Test';
 
         ob_start();
         include $include_path . '/RenderedPage.phtml';
         $rendered_page = ob_get_clean();
 
-        $include_path = __DIR__ . '/ViewFileSystem/Views/Wraps/Test';
+        $include_path = __DIR__ . '/ViewFilesystem/Views/Wraps/Test';
 
         ob_start();
         include $include_path . '/RenderedPageExpectedResult.phtml';
