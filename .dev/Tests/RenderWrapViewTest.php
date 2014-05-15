@@ -112,12 +112,12 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
         $rendering_properties['row']           = 'b';
         $rendering_properties['runtime_data']  = 'c';
 
-        $include_path = __DIR__ . '/Views';
+        $include_path = __DIR__ . '/Views/';
 
         ob_start();
-        include $include_path . '/Header.phtml';
-        include $include_path . '/Body.phtml';
-        include $include_path . '/Footer.phtml';
+        include $include_path . 'Header.phtml';
+        include $include_path . 'Body.phtml';
+        include $include_path . 'Footer.phtml';
         $collect = ob_get_clean();
 
         $results = $this->wrap_view->renderOutput(

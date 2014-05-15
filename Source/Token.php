@@ -410,12 +410,16 @@ class Token implements TokenInterface
 
         $this->initializeWrapViewObject($hold_token->wrap, $hold_token->attributes);
 
-        $this->getView();
+        $options = $this->getWrapData($rendered_view);
 
-        return $this->wrap_instance->renderOutput(
+        $hold = $this->wrap_instance->renderOutput(
             $this->include_path,
-            $this->getWrapData($rendered_view)
+            $options
         );
+
+        $this->token = $hold_token;
+
+        return $hold;
     }
 
     /**
@@ -435,6 +439,8 @@ class Token implements TokenInterface
         $this->token->wrap         = '';
         $this->token->attributes   = $attributes;
         $this->token->replace_this = '';
+
+        $this->getView();
 
         return $this;
     }
