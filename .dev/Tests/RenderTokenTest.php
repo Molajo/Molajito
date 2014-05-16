@@ -372,8 +372,6 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
         $token->attributes   = array();
         $token->replace_this = '{I page=Test I}';
 
-        $runtime_data = new stdClass();
-
         $data                  = array('rendered_page' => $rendered_page);
 
         $results = $this->token->processToken($token, $data);

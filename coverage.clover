@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400210518">
-  <project timestamp="1400210518">
+<coverage generated="1400213913">
+  <project timestamp="1400213913">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -180,7 +180,7 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Engine.php">
         <class name="Engine" namespace="Molajito" fullPackage="Molajo" package="Molajo">
-          <metrics methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="61" elements="71" coveredelements="69"/>
+          <metrics methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="56" elements="66" coveredelements="64"/>
         </class>
         <line num="113" type="method" name="__construct" crap="1" count="2"/>
         <line num="121" type="stmt" count="2"/>
@@ -201,60 +201,55 @@
         <line num="170" type="stmt" count="1"/>
         <line num="171" type="stmt" count="1"/>
         <line num="172" type="stmt" count="1"/>
-        <line num="173" type="stmt" count="1"/>
         <line num="174" type="stmt" count="1"/>
-        <line num="175" type="stmt" count="1"/>
         <line num="176" type="stmt" count="1"/>
-        <line num="178" type="stmt" count="1"/>
-        <line num="180" type="stmt" count="1"/>
-        <line num="189" type="method" name="renderLoop" crap="3" count="1"/>
+        <line num="185" type="method" name="renderLoop" crap="3" count="1"/>
+        <line num="187" type="stmt" count="1"/>
+        <line num="189" type="stmt" count="1"/>
         <line num="191" type="stmt" count="1"/>
         <line num="193" type="stmt" count="1"/>
         <line num="195" type="stmt" count="1"/>
+        <line num="196" type="stmt" count="1"/>
         <line num="197" type="stmt" count="1"/>
         <line num="199" type="stmt" count="1"/>
-        <line num="200" type="stmt" count="1"/>
-        <line num="201" type="stmt" count="1"/>
         <line num="203" type="stmt" count="1"/>
-        <line num="207" type="stmt" count="1"/>
-        <line num="209" type="stmt" count="1"/>
-        <line num="218" type="method" name="parseRenderedOutput" crap="1" count="1"/>
+        <line num="205" type="stmt" count="1"/>
+        <line num="214" type="method" name="parseRenderedOutput" crap="1" count="1"/>
+        <line num="216" type="stmt" count="1"/>
+        <line num="218" type="stmt" count="1"/>
+        <line num="219" type="stmt" count="1"/>
         <line num="220" type="stmt" count="1"/>
-        <line num="222" type="stmt" count="1"/>
+        <line num="221" type="stmt" count="1"/>
         <line num="223" type="stmt" count="1"/>
-        <line num="224" type="stmt" count="1"/>
         <line num="225" type="stmt" count="1"/>
-        <line num="227" type="stmt" count="1"/>
-        <line num="229" type="stmt" count="1"/>
-        <line num="240" type="method" name="scheduleEvents" crap="1" count="1"/>
+        <line num="236" type="method" name="scheduleEvents" crap="1" count="1"/>
+        <line num="238" type="stmt" count="1"/>
+        <line num="240" type="stmt" count="1"/>
+        <line num="241" type="stmt" count="1"/>
         <line num="242" type="stmt" count="1"/>
         <line num="244" type="stmt" count="1"/>
-        <line num="245" type="stmt" count="1"/>
         <line num="246" type="stmt" count="1"/>
+        <line num="247" type="stmt" count="1"/>
         <line num="248" type="stmt" count="1"/>
         <line num="250" type="stmt" count="1"/>
-        <line num="251" type="stmt" count="1"/>
-        <line num="252" type="stmt" count="1"/>
-        <line num="254" type="stmt" count="1"/>
-        <line num="263" type="method" name="renderTokens" crap="2" count="1"/>
+        <line num="259" type="method" name="renderTokens" crap="2" count="1"/>
+        <line num="261" type="stmt" count="1"/>
+        <line num="263" type="stmt" count="1"/>
+        <line num="264" type="stmt" count="1"/>
         <line num="265" type="stmt" count="1"/>
-        <line num="267" type="stmt" count="1"/>
+        <line num="266" type="stmt" count="1"/>
         <line num="268" type="stmt" count="1"/>
-        <line num="269" type="stmt" count="1"/>
         <line num="270" type="stmt" count="1"/>
-        <line num="272" type="stmt" count="1"/>
-        <line num="273" type="stmt" count="1"/>
-        <line num="275" type="stmt" count="1"/>
-        <line num="286" type="method" name="testEndOfLoopProcessing" crap="3.21" count="1"/>
+        <line num="281" type="method" name="testEndOfLoopProcessing" crap="3.21" count="1"/>
+        <line num="283" type="stmt" count="1"/>
+        <line num="284" type="stmt" count="1"/>
+        <line num="285" type="stmt" count="1"/>
         <line num="288" type="stmt" count="1"/>
-        <line num="289" type="stmt" count="1"/>
-        <line num="290" type="stmt" count="1"/>
-        <line num="293" type="stmt" count="1"/>
-        <line num="295" type="stmt" count="0"/>
-        <line num="297" type="stmt" count="0"/>
-        <line num="300" type="stmt" count="1"/>
-        <line num="303" type="stmt" count="0"/>
-        <metrics loc="302" ncloc="163" classes="1" methods="8" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="63" coveredstatements="61" elements="71" coveredelements="68"/>
+        <line num="290" type="stmt" count="0"/>
+        <line num="292" type="stmt" count="0"/>
+        <line num="295" type="stmt" count="1"/>
+        <line num="298" type="stmt" count="0"/>
+        <metrics loc="297" ncloc="158" classes="1" methods="8" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="58" coveredstatements="56" elements="66" coveredelements="63"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape.php">
         <class name="Escape" namespace="Molajito" fullPackage="Molajo" package="Molajo">
@@ -1582,6 +1577,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="73" loc="5755" ncloc="3172" classes="33" methods="159" coveredmethods="127" conditionals="0" coveredconditionals="0" statements="1010" coveredstatements="790" elements="1169" coveredelements="917"/>
+    <metrics files="73" loc="5750" ncloc="3167" classes="33" methods="159" coveredmethods="127" conditionals="0" coveredconditionals="0" statements="1005" coveredstatements="785" elements="1164" coveredelements="912"/>
   </project>
 </coverage>

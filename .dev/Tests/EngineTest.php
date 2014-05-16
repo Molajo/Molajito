@@ -282,7 +282,6 @@ class EngineTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Index.phtml';
         $expected = ob_get_clean();
 
-
         $results  = $this->engine->renderOutput($include_path, $data);
 
 // echo $results;

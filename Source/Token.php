@@ -491,7 +491,7 @@ class Token implements TokenInterface
             $this->token->name = $this->runtime_data->render->extension->title;
         }
 
-        $this->include_path   = $this->runtime_data->render->extension->include_path;
+        $this->include_path = $this->runtime_data->render->extension->include_path;
 
         return $this;
     }
@@ -529,13 +529,30 @@ class Token implements TokenInterface
     protected function setClassProperties(array $data = array(), $initialise = false)
     {
         foreach ($this->property_array as $key) {
-            if (isset($data[ $key ])) {
-                $this->$key = $data[ $key ];
-            } else {
-                if ($initialise === true) {
-                    $this->$key = null;
-                }
-            }
+            $this->setClassProperty($key, $initialise);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set Class Property
+     *
+     * @param   string  $key
+     * @param   boolean $initialise
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setClassProperty($key, $initialise = false)
+    {
+        if (isset($data[ $key ])) {
+            $this->$key = $data[ $key ];
+            return $this;
+        }
+
+        if ($initialise === true) {
+            $this->$key = null;
         }
 
         return $this;

@@ -169,10 +169,6 @@ class Engine implements RenderInterface
     {
         $token_object               = new stdClass();
         $token_object->type         = 'theme';
-        $token_object->name         = 'Theme';
-        $token_object->wrap         = '';
-        $token_object->attributes   = array();
-        $token_object->replace_this = '';
         $data['include_path']       = $include_path;
 
         $this->rendered_page = $this->token_instance->processToken($token_object, $data);
@@ -269,7 +265,6 @@ class Engine implements RenderInterface
                 array('rendered_page' => $this->rendered_page)
             );
 
-            echo $this->rendered_page . '<br><br><br>';
         }
 
         return $this;
