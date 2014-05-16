@@ -31,11 +31,9 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      */
     public function renderOutput($include_path, array $data = array())
     {
-        $this->rendered_view = '';
+        $this->setProperties($data, $this->property_array);
 
         $this->include_path = $include_path;
-
-        $this->setProperties($data, $this->property_array);
 
         if (file_exists($this->include_path . '/Custom.phtml')) {
             $this->renderViewCustom();
@@ -158,7 +156,6 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function renderViewPart($file, $event = null, $custom = false)
     {
@@ -189,7 +186,6 @@ class TemplateView extends AbstractRenderer implements RenderInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setRenderViewOptions($custom = false)
     {

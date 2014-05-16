@@ -62,7 +62,6 @@ class Simple extends AbstractAdapter implements EscapeInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {
@@ -79,7 +78,6 @@ class Simple extends AbstractAdapter implements EscapeInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function escapeDataElement($data_key, $data_value = null)
     {

@@ -54,6 +54,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data::getData
      * @covers  Molajito\Data::editOptions
      * @covers  Molajito\Data::editToken
+     *
      * @covers  Molajito\Data\Molajo::__construct
      * @covers  Molajito\Data\Molajo::getData
      * @covers  Molajito\Data\Molajo::initialise
@@ -70,6 +71,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\Molajo::setDataResultsQueryResults
      * @covers  Molajito\Data\Molajo::setDataResultsParameters
      * @covers  Molajito\Data\Molajo::setDataResultsDataObject
+     *
      * @covers  Molajito\Data\MolajoModel::__construct
      * @covers  Molajito\Data\MolajoModel::setModel
      * @covers  Molajito\Data\MolajoModel::setModelType
@@ -80,6 +82,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\MolajoModel::setModelExtensionParameters
      * @covers  Molajito\Data\MolajoModel::setFieldName
      * @covers  Molajito\Data\MolajoModel::setDefaultModelTypeName
+     *
      * @covers  Molajito\Data\AbstractAdapter::__construct
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
@@ -106,7 +109,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $token->attributes['model_type'] = 'runtime_data';
         $token->attributes['model_name'] = 'application';
 
-        $model_registry = new stdClass();
+        $model_registry = array();
 
         /** Get Data */
         $data = $this->data_resource->getData($token, $options);
@@ -517,7 +520,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $row->title                   = 'thing 3';
         $runtime_data->resource->data = $data;
 
-        $runtime_data->resource->model_registry = new stdClass();
+        $runtime_data->resource->model_registry = array();
         $runtime_data->resource->parameters     = new stdClass();
 
         $runtime_data->render                        = new stdClass();
@@ -608,7 +611,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $row->title                   = 'thing 3';
         $runtime_data->resource->data = $data;
 
-        $runtime_data->resource->model_registry      = new stdClass();
+        $runtime_data->resource->model_registry      = array();
         $runtime_data->resource->parameters          = new stdClass();
         $runtime_data->render                        = new stdClass();
         $runtime_data->render->extension             = new stdClass();

@@ -61,6 +61,7 @@ class Parse implements ParseInterface
         $parse_mask = null
     ) {
         $this->rendered_page  = $rendered_page;
+
         $this->exclude_tokens = $exclude_tokens;
 
         if ($parse_mask === null || trim($parse_mask) === '') {

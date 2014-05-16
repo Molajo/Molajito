@@ -80,10 +80,10 @@ class Molajo extends AbstractAdapter implements DataInterface
     /**
      * Model Registry
      *
-     * @var    object
+     * @var    array
      * @since  1.0.0
      */
-    protected $model_registry = null;
+    protected $model_registry = array();
 
     /**
      * Parameters
@@ -101,7 +101,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  stdClass
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function getData($token, array $options = array())
     {
@@ -133,7 +132,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function initialise($token, array $options = array())
     {
@@ -156,7 +154,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setModel()
     {
@@ -233,7 +230,7 @@ class Molajo extends AbstractAdapter implements DataInterface
             $this->query_results = $this->runtime_data->$name;
         }
 
-        $this->model_registry = new stdClass();
+        $this->model_registry = array();
 
         $this->setParameters();
 
@@ -332,7 +329,7 @@ class Molajo extends AbstractAdapter implements DataInterface
             $this->parameters = new stdClass();
         }
 
-        $this->model_registry = new stdClass();
+        $this->model_registry = array();
 
         return $this;
     }
@@ -342,12 +339,12 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  stdClass
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDataResults()
     {
         $this->setDataResultsQueryResults();
         $this->setDataResultsParameters();
+
         return $this->setDataResultsDataObject();
     }
 
@@ -356,7 +353,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDataResultsQueryResults()
     {
@@ -373,7 +369,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDataResultsParameters()
     {
@@ -397,7 +392,6 @@ class Molajo extends AbstractAdapter implements DataInterface
      *
      * @return  stdClass
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDataResultsDataObject()
     {

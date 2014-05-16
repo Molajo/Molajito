@@ -28,13 +28,14 @@ abstract class AbstractAdapter implements EscapeInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {
-        foreach ($data as $row) {
-            foreach ($row as $data_key => $data_value) {
-                $row->$data_key = $this->escapeDataElement($data_key, $data_value);
+        if (count($data) > 0) {
+            foreach ($data as $row) {
+                foreach ($row as $data_key => $data_value) {
+                    $row->$data_key = $this->escapeDataElement($data_key, $data_value);
+                }
             }
         }
 
@@ -49,7 +50,6 @@ abstract class AbstractAdapter implements EscapeInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     abstract protected function escapeDataElement($data_key, $data_value = null);
 }

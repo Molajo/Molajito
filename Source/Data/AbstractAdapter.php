@@ -58,7 +58,6 @@ abstract class AbstractAdapter implements DataInterface
      *
      * @return  object
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     abstract public function getData($token, array $options = array());
 
@@ -70,7 +69,6 @@ abstract class AbstractAdapter implements DataInterface
      *
      * @return  object
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setParametersFromToken($token, $parameters)
     {

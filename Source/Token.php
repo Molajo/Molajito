@@ -221,7 +221,7 @@ class Token implements TokenInterface
                     'onAfterEvent'    => 'onAfterRenderView',
                     'render_instance' => 'page_instance',
                     'getView'         => true,
-                    'getData'         => true
+                    'getData'         => false
                 ),
             'template' =>
                 array(
@@ -298,7 +298,6 @@ class Token implements TokenInterface
      *
      * @return  string
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function initialiseData($token, array $data = array())
     {
@@ -309,6 +308,11 @@ class Token implements TokenInterface
         $this->data = array();
 
         $token_type = $this->token->type;
+
+        if (is_object($this->runtime_data)) {
+        } else {
+            $this->runtime_data = new stdClass();
+        }
 
         if ($this->render_types[ $this->token->type ]['getView'] === true) {
             $this->getView();
@@ -329,7 +333,7 @@ class Token implements TokenInterface
      * @return  $this
      * @since   1.0
      */
-    public function scheduleEvent($event_name)
+    protected function scheduleEvent($event_name)
     {
         if ($this->render_types[ $this->token->type ][ $event_name ] === null) {
             return $this;
@@ -475,8 +479,8 @@ class Token implements TokenInterface
     /**
      * Get View for Token
      *
-     * @return $this
-     * @since 1.0
+     * @return  $this
+     * @since   1.0
      */
     protected function getView()
     {
@@ -486,6 +490,8 @@ class Token implements TokenInterface
         } else {
             $this->token->name = $this->runtime_data->render->extension->title;
         }
+
+        $this->include_path   = $this->runtime_data->render->extension->include_path;
 
         return $this;
     }
@@ -507,7 +513,6 @@ class Token implements TokenInterface
         $this->query_results  = $data->query_results;
         $this->model_registry = $data->model_registry;
         $this->parameters     = $data->parameters;
-        $this->include_path   = $this->runtime_data->render->extension->include_path;
 
         return $this;
     }

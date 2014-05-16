@@ -108,6 +108,7 @@ class FactoryMethod
         return $this->instantiateEngineClass(
             $token_instance,
             $translate_instance,
+            $event_instance,
             $parse_instance,
             $exclude_tokens,
             $stop_loop_count
@@ -119,6 +120,7 @@ class FactoryMethod
      *
      * @param  TokenInterface     $token_instance
      * @param  TranslateInterface $translate_instance
+     * @param  EventInterface     $event_instance
      * @param  ParseInterface     $parse_instance
      * @param  array              $exclude_tokens
      * @param  integer            $stop_loop_count
@@ -130,12 +132,15 @@ class FactoryMethod
     public function instantiateEngineClass(
         $token_instance,
         $translate_instance,
+        $event_instance,
         $parse_instance,
         $exclude_tokens,
         $stop_loop_count
     ) {
         $class = 'Molajito\\Engine';
-        return new $class ($token_instance, $translate_instance, $parse_instance, $exclude_tokens, $stop_loop_count);
+        return new $class (
+            $token_instance, $translate_instance, $event_instance, $parse_instance, $exclude_tokens, $stop_loop_count
+        );
     }
 
     /**
@@ -299,7 +304,6 @@ class FactoryMethod
         EscapeInterface $escape_instance = null,
         EventInterface $event_instance = null
     ) {
-
         $class_array   = array();
         $class_array[] = 'Molajito\\Render\\Theme';
         $class_array[] = 'Molajito\\Render\\Position';
@@ -376,7 +380,7 @@ class FactoryMethod
     }
 
     /**
-     * Return the saved view instance for external class (hence, the 'public'
+     * Return the saved view instance for external class (hence, the 'public')
      *
      * @return  object
      * @since   1.0

@@ -8,9 +8,7 @@
  */
 namespace Molajito\Event;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EventInterface;
-use Exception;
 
 /**
  * Molajo Adapter for Molajito Event Processing
@@ -47,7 +45,6 @@ class Molajo extends AbstractAdapter implements EventInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setEventOptions(array $options = array())
     {

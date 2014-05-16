@@ -240,6 +240,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
         ob_start();
         include $include_path . '/Index.phtml';
         $expected = ob_get_clean();
+
         $results  = $this->token->processToken($token, $data);
 
         $this->assertEquals($expected, $results);
@@ -356,7 +357,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
     {
         /** Expected Result */
         ob_start();
-        include __DIR__ . '/ViewFilesystem/Views/Pages/Test/RenderedPageExpectedResult.phtml';;
+        include __DIR__ . '/ViewFilesystem/Views/Pages/Test/RenderedPageExpectedResult.phtml';
         $expected = ob_get_clean();
 
         /** Rendered Page */
@@ -369,13 +370,11 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
         $token->name         = 'Test';
         $token->wrap         = '';
         $token->attributes   = array();
-        $token->replace_this = '{I Test I}';
+        $token->replace_this = '{I page=Test I}';
 
         $runtime_data = new stdClass();
 
-        $data                  = array();
-        $data['rendered_page'] = $rendered_page;
-        $data['runtime_data']  = $runtime_data;
+        $data                  = array('rendered_page' => $rendered_page);
 
         $results = $this->token->processToken($token, $data);
 
@@ -861,7 +860,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
 
         $results = $this->token->processToken($token, $data);
 
-     //  $this->assertEquals($expected, $results);
+        $this->assertEquals($expected, $results);
 
         return $this;
     }

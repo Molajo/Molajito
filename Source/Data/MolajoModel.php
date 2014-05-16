@@ -115,7 +115,6 @@ class MolajoModel
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setModelType()
     {
@@ -240,7 +239,6 @@ class MolajoModel
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setFieldName()
     {
@@ -258,7 +256,6 @@ class MolajoModel
      *
      * @return  $this
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDefaultModelTypeName()
     {

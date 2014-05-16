@@ -8,11 +8,9 @@
  */
 namespace Molajito\Render;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\RenderInterface;
-use Exception;
 
 /**
  * Molajito Template View Renderer
@@ -47,14 +45,6 @@ abstract class AbstractRenderer implements RenderInterface
      * @since  1.0.0
      */
     protected $event_instance = null;
-
-    /**
-     * Path to Include File
-     *
-     * @var    string
-     * @since  1.0.0
-     */
-    protected $include_path;
 
     /**
      * Runtime Data
@@ -97,6 +87,22 @@ abstract class AbstractRenderer implements RenderInterface
     protected $query_results = array();
 
     /**
+     * Object containing a single row for using within View
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $row = null;
+
+    /**
+     * Path to Include File
+     *
+     * @var    string
+     * @since  1.0.0
+     */
+    protected $include_path;
+
+    /**
      * View Rendered Output
      *
      * @var    string
@@ -113,14 +119,6 @@ abstract class AbstractRenderer implements RenderInterface
     protected $rendered_page = null;
 
     /**
-     * Object containing a single row for using within View
-     *
-     * @var    array
-     * @since  1.0.0
-     */
-    protected $row = null;
-
-    /**
      * Render Properties
      *
      * @var    array
@@ -128,12 +126,15 @@ abstract class AbstractRenderer implements RenderInterface
      */
     protected $property_array
         = array(
-            'plugin_data',
             'runtime_data',
-            'model_registry',
+            'plugin_data',
             'parameters',
+            'model_registry',
             'query_results',
-            'row'
+            'row',
+            'include_path',
+            'rendered_view',
+            'rendered_page'
         );
 
     /**
@@ -163,7 +164,6 @@ abstract class AbstractRenderer implements RenderInterface
      *
      * @return  string
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function renderOutput($include_path, array $data = array())
     {
@@ -184,6 +184,8 @@ abstract class AbstractRenderer implements RenderInterface
         foreach ($properties as $key) {
             if (isset($data[ $key ])) {
                 $this->$key = $data[ $key ];
+            } else {
+                $this->$key = null;
             }
         }
 

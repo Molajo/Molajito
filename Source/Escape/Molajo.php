@@ -66,7 +66,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      *
      * @return  array
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {
@@ -85,7 +84,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      *
      * @return  mixed
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function escapeDataElement($data_key, $data_value = null)
     {
@@ -108,7 +106,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      *
      * @return  boolean|string
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setEscapeDataType($data_key, $data_value = null)
     {
@@ -128,7 +125,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      *
      * @return  boolean|string
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setEscapeDataTypeModelRegistry($data_key)
     {
@@ -148,7 +144,6 @@ class Molajo extends AbstractAdapter implements EscapeInterface
      *
      * @return  string
      * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function setDefaultEscapeDataType($data_value = null)
     {
