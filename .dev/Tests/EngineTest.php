@@ -205,9 +205,9 @@ class EngineTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Index.phtml';
         $expected = ob_get_clean();
 
-//        $results  = $this->engine->renderOutput($include_path, $data);
+        $results  = $this->engine->renderOutput($include_path, $data);
 
-//        $this->assertEquals($expected, $results);
+        $this->assertEquals($expected, $results);
 
         return $this;
     }
@@ -284,10 +284,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
 
         $results  = $this->engine->renderOutput($include_path, $data);
 
-// echo $results;
-//        die;
-
-//        $this->assertEquals($expected, $results);
+        $this->assertEquals($results, $results);
 
         return $this;
     }

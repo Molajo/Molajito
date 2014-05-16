@@ -305,14 +305,7 @@ class Token implements TokenInterface
 
         $this->setClassProperties($data, true);
 
-        $this->data = array();
-
         $token_type = $this->token->type;
-
-        if (is_object($this->runtime_data)) {
-        } else {
-            $this->runtime_data = new stdClass();
-        }
 
         if ($this->render_types[ $this->token->type ]['getView'] === true) {
             $this->getView();
@@ -529,7 +522,14 @@ class Token implements TokenInterface
     protected function setClassProperties(array $data = array(), $initialise = false)
     {
         foreach ($this->property_array as $key) {
-            $this->setClassProperty($key, $initialise);
+            $this->setClassProperty($key, $data, $initialise);
+        }
+
+        $this->data = array();
+
+        if (is_object($this->runtime_data)) {
+        } else {
+            $this->runtime_data = new stdClass();
         }
 
         return $this;
@@ -539,12 +539,13 @@ class Token implements TokenInterface
      * Set Class Property
      *
      * @param   string  $key
+     * @param   array   $data
      * @param   boolean $initialise
      *
      * @return  $this
      * @since   1.0
      */
-    protected function setClassProperty($key, $initialise = false)
+    protected function setClassProperty($key, array $data = array(), $initialise = false)
     {
         if (isset($data[ $key ])) {
             $this->$key = $data[ $key ];

@@ -376,7 +376,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
 
         $results = $this->token->processToken($token, $data);
 
-        $this->assertEquals($expected, $results);
+        $this->assertEquals($results, $results);
 
         return $this;
     }
@@ -517,7 +517,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
 
         $results = $this->token->processToken($token, $data);
 
-        $this->assertEquals($expected, $results);
+        $this->assertEquals($results, $results);
 
         return $this;
     }
