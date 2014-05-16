@@ -20,29 +20,8 @@ use stdClass;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Position implements PositionInterface
+class Position extends AbstractRenderer implements PositionInterface
 {
-    /**
-     * Escape Instance
-     *
-     * @var    object   CommonApi\Render\EscapeInterface
-     * @since  1.0.0
-     */
-    protected $escape_instance = null;
-
-    /**
-     * Constructor
-     *
-     * @param  EscapeInterface $escape_instance
-     *
-     * @since  1.0.0
-     */
-    public function __construct(
-        EscapeInterface $escape_instance
-    ) {
-        $this->escape_instance = $escape_instance;
-    }
-
     /**
      * Retrieve all Template Views for Position searching Page, first, then Theme
      *

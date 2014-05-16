@@ -111,10 +111,10 @@ class RenderPageViewTest extends \PHPUnit_Framework_TestCase
         $rendering_properties['row']           = 'b';
         $rendering_properties['runtime_data']  = 'c';
 
-        $include_path = __DIR__ . '/Views/Include.phtml';
+        $include_path = __DIR__ . '/ViewFilesystem/Views/Pages/Test';
 
         ob_start();
-        include $include_path;
+        include $include_path . '/Index.phtml';
         $collect = ob_get_clean();
 
         $results = $this->pageview_instance->renderOutput(

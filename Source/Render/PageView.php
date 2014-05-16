@@ -8,6 +8,7 @@
  */
 namespace Molajito\Render;
 
+use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\RenderInterface;
 
 /**
@@ -20,4 +21,26 @@ use CommonApi\Render\RenderInterface;
  */
 class PageView extends AbstractRenderer implements RenderInterface
 {
+    /**
+     * Include rendering file
+     *
+     * @param   string $include_path
+     *
+     * @return  string
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function includeFile($include_path)
+    {
+        $file_path = $include_path . '/Index.phtml';
+
+        if (file_exists($file_path)) {
+        } else {
+            throw new RuntimeException(
+                'Molajito Page Renderer - rendering file not found: ' . $file_path
+            );
+        }
+
+        return $this->performRendering($file_path, $this->getProperties());
+    }
 }

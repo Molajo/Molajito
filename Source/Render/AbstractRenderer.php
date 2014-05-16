@@ -8,6 +8,7 @@
  */
 namespace Molajito\Render;
 
+use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\RenderInterface;
@@ -157,17 +158,41 @@ abstract class AbstractRenderer implements RenderInterface
     }
 
     /**
-     * Render Page View
+     * Render Theme output
      *
      * @param   string $include_path
      * @param   array  $data
      *
      * @return  string
      * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
     public function renderOutput($include_path, array $data = array())
     {
-        return $this->performRendering($include_path, $data);
+        $this->setProperties($data, $this->property_array);
+
+        return $this->includeFile($include_path);
+    }
+
+    /**
+     * Include rendering file
+     *
+     * @param   string $include_path
+     *
+     * @return  string
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+    protected function includeFile($include_path)
+    {
+        if (file_exists($include_path)) {
+        } else {
+            throw new RuntimeException(
+                'Molajito Abstract Renderer - rendering file not found: ' . $include_path
+            );
+        }
+
+        return $this->performRendering($include_path, $this->getProperties());
     }
 
     /**

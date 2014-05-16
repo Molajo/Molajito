@@ -171,6 +171,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Token::getView
      * @covers  Molajito\Token::getData
      * @covers  Molajito\Token::setClassProperties
+     * @covers  Molajito\Token::setClassProperty
      * @covers  Molajito\Token::setOptions
      * @covers  Molajito\Token::replaceTokenWithRenderedOutput
      *
@@ -248,6 +249,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Token::getView
      * @covers  Molajito\Token::getData
      * @covers  Molajito\Token::setClassProperties
+     * @covers  Molajito\Token::setClassProperty
      * @covers  Molajito\Token::setOptions
      * @covers  Molajito\Token::replaceTokenWithRenderedOutput
      *

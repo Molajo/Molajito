@@ -43,7 +43,8 @@ abstract class AbstractAdapter implements EventInterface
             'query_results',
             'row',
             'rendered_view',
-            'rendered_page'
+            'rendered_page',
+            'token'
         );
 
     /**

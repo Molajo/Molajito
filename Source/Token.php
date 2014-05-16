@@ -202,12 +202,12 @@ class Token implements TokenInterface
                     'method'          => 'renderOutput',
                     'onAfterEvent'    => null,
                     'render_instance' => 'theme_instance',
-                    'getView'         => false,
+                    'getView'         => true,
                     'getData'         => false
                 ),
             'position' =>
                 array(
-                    'onBeforeEvent'   => null,
+                    'onBeforeEvent'   => 'onBeforeRenderView',
                     'method'          => 'renderPosition',
                     'onAfterEvent'    => null,
                     'render_instance' => 'position_instance',
@@ -278,6 +278,14 @@ class Token implements TokenInterface
     {
         $this->initialiseData($token, $data);
 
+        if ($this->render_types[ $this->token->type ]['getView'] === true) {
+            $this->getView();
+        }
+
+        if ($this->render_types[ $this->token->type ]['getData'] === true) {
+            $this->getData();
+        }
+
         $this->scheduleEvent('onBeforeEvent');
 
         $method              = $this->render_types[ $this->token->type ]['method'];
@@ -306,14 +314,6 @@ class Token implements TokenInterface
         $this->setClassProperties($data, true);
 
         $token_type = $this->token->type;
-
-        if ($this->render_types[ $this->token->type ]['getView'] === true) {
-            $this->getView();
-        }
-
-        if ($this->render_types[ $this->token->type ]['getData'] === true) {
-            $this->getData();
-        }
 
         return $token_type;
     }
@@ -488,6 +488,46 @@ class Token implements TokenInterface
 
         return $this;
     }
+
+    /**
+     * Get Resource for Rendering (Theme)
+     *
+     * @return  array
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+//    public function XXXgetResourceExtension()
+//    {
+//        $this->resource_extensions = new stdClass();
+//
+//        $this->resource_extensions->theme    = $this->getTheme();
+//        $this->resource_extensions->page     = $this->getPageView();
+//        $this->resource_extensions->template = $this->getTemplateView();
+//        $this->resource_extensions->wrap     = $this->getWrapView();
+//
+//        return $this->resource_extensions;
+//    }
+
+    /**
+     * Get Data required to render token
+     *
+     * @param   object $token
+     *
+     * @return  $this
+     * @since   1.0
+     * @throws  \CommonApi\Exception\RuntimeException
+     */
+//    protected function XXXgetExtension($token)
+//    {
+//        try {
+//           $this->plugin_data->render = $this->extension_resource->getExtension($token);
+//
+//        } catch (Exception $e) {
+//            throw new RuntimeException('Molajito renderToken getExtension Exception ' . $e->getMessage());
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * Get Data required to render token

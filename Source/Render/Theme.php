@@ -33,23 +33,6 @@ class Theme extends AbstractRenderer implements RenderInterface
         );
 
     /**
-     * Render Theme output
-     *
-     * @param   string $include_path
-     * @param   array  $data
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    public function renderOutput($include_path, array $data = array())
-    {
-        $this->setProperties($data, $this->property_array);
-
-        return $this->includeFile($include_path);
-    }
-
-    /**
      * Include rendering file
      *
      * @param   string $include_path

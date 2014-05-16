@@ -66,12 +66,12 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
     {
         $token       = new stdClass();
         $token->name = 'Test';
-        $token->type = 'Theme';
+        $token->type = 'theme';
 
         $extensions = $this->view_instance->getView($token);
 
         $this->assertEquals($extensions->extension->include_path,
-            $this->theme_base_folder . '/Test/Index.phtml');
+            $this->theme_base_folder . '/Test');
 
         return $this;
     }
@@ -93,12 +93,12 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
     {
         $token       = new stdClass();
         $token->name = 'Test';
-        $token->type = 'Page';
+        $token->type = 'page';
 
         $extensions = $this->view_instance->getView($token);
 
         $this->assertEquals($extensions->extension->include_path,
-            $this->view_base_folder . '/Pages/Test/Index.phtml');
+            $this->view_base_folder . '/Pages/Test');
 
         return $this;
     }
@@ -120,12 +120,12 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
     {
         $token       = new stdClass();
         $token->name = 'Test';
-        $token->type = 'Template';
+        $token->type = 'template';
 
         $extensions = $this->view_instance->getView($token);
 
         $this->assertEquals($extensions->extension->include_path,
-            $this->view_base_folder . '/Templates/Test/');
+            $this->view_base_folder . '/Templates/Test');
 
         return $this;
     }
@@ -147,12 +147,12 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
     {
         $token       = new stdClass();
         $token->name = 'Test';
-        $token->type = 'Wrap';
+        $token->type = 'wrap';
 
         $extensions = $this->view_instance->getView($token);
 
         $this->assertEquals($extensions->extension->include_path,
-            $this->view_base_folder . '/Wraps/Test/');
+            $this->view_base_folder . '/Wraps/Test');
 
         return $this;
     }

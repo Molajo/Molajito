@@ -94,12 +94,6 @@ class Filesystem extends AbstractAdapter implements ViewInterface
             $folder = '/' . $scheme . 's/';
         }
 
-        if ($scheme === 'Theme' || $scheme === 'Page') {
-            $file = 'Index.phtml';
-        } else {
-            $file = '';
-        }
-
-        return $base . $folder . $extension_title . '/' . $file;
+        return $base . $folder . $extension_title;
     }
 }

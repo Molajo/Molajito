@@ -50,9 +50,9 @@ class WrapView extends AbstractRenderer implements RenderInterface
 
         $this->rendered_view = '';
 
-        $this->renderViewWrap('Header.phtml');
-        $this->renderViewWrap('Body.phtml');
-        $this->renderViewWrap('Footer.phtml');
+        $this->renderViewWrap('/Header.phtml');
+        $this->renderViewWrap('/Body.phtml');
+        $this->renderViewWrap('/Footer.phtml');
 
         return $this->rendered_view;
     }
