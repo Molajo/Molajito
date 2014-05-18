@@ -83,11 +83,11 @@ class FactoryMethod
         }
 
         $escape_instance = $this->getEscapeInstance();
-        $render_instance = $this->getInstance('Molajo\\Render');
+        $render_instance = $this->getInstance('Molajito\\Render');
         $data_instance   = $this->getDataInstance();
         $view_instance   = $this->getViewInstance();
         $event_instance  = $this->getEventInstance();
-        $parse_instance  = $this->getInstance('Molajo\\Parse');
+        $parse_instance  = $this->getInstance('Molajito\\Parse');
         $exclude_tokens  = $this->options['exclude_tokens'];
         $stop_loop_count = 100;
 
@@ -307,9 +307,9 @@ class FactoryMethod
         $class_array   = array();
         $class_array[] = 'Molajito\\Render\\Theme';
         $class_array[] = 'Molajito\\Render\\Position';
-        $class_array[] = 'Molajito\\Render\\Page';
-        $class_array[] = 'Molajito\\Render\\Template';
-        $class_array[] = 'Molajito\\Render\\Wrap';
+        $class_array[] = 'Molajito\\Render\\PageView';
+        $class_array[] = 'Molajito\\Render\\TemplateView';
+        $class_array[] = 'Molajito\\Render\\WrapView';
 
         $new_array = array();
 
