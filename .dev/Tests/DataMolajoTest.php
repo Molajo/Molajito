@@ -666,14 +666,14 @@ class PaginationMock implements PaginationInterface
      * @return  object
      */
     public function getPaginationData(
-        $display_items_per_page_count = 5,
-        $display_page_link_count = 10,
-        $create_sef_url_indicator = false,
-        $display_index_in_url_indicator = true,
         $total_items,
         $visited_page_url,
         $current_start_parameter,
-        $other_query_parameters
+        $other_query_parameters,
+        $display_items_per_page_count = 5,
+        $display_page_link_count = 10,
+        $create_sef_url_indicator = false,
+        $display_index_in_url_indicator = true
     )
     {
         return $this;

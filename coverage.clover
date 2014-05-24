@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400440179">
-  <project timestamp="1400440179">
+<coverage generated="1400959381">
+  <project timestamp="1400959381">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -1423,7 +1423,7 @@
       </file>
     </package>
     <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/composer/autoload_real.php">
-      <class name="ComposerAutoloaderInit61a072f65d5c507707fb74ffe95c8248" namespace="global">
+      <class name="ComposerAutoloaderInite282f53685d4b85b26a8b009bf81f0dc" namespace="global">
         <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="0" elements="27" coveredelements="0"/>
       </class>
       <line num="9" type="method" name="loadClassLoader" crap="6" count="0"/>
