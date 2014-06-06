@@ -97,6 +97,7 @@ class RenderThemeTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties
@@ -157,6 +158,7 @@ class RenderThemeTest extends \PHPUnit_Framework_TestCase
      * @covers                   Molajito\Render\AbstractRenderer::scheduleEvent
      * @covers                   Molajito\Render\AbstractRenderer::setEventOptions
      * @covers                   Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers                   Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers                   Molajito\Render::renderOutput
      * @covers                   Molajito\Render::setProperties

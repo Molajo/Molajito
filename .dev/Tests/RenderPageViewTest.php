@@ -88,6 +88,7 @@ class RenderPageViewTest extends \PHPUnit_Framework_TestCase
      *
      * @covers  Molajito\Render\PageView::renderOutput
      * @covers  Molajito\Render\PageView::setProperties
+     * @covers  Molajito\Render\PageView::includeFile
      *
      * @covers  Molajito\Render\AbstractRenderer::renderOutput
      * @covers  Molajito\Render\AbstractRenderer::setProperties
@@ -96,6 +97,7 @@ class RenderPageViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties

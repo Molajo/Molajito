@@ -93,6 +93,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\TemplateView::renderViewCustom
      * @covers  Molajito\Render\TemplateView::renderViewPart
      * @covers  Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::includeFile
      *
      * @covers  Molajito\Render\AbstractRenderer::renderOutput
      * @covers  Molajito\Render\AbstractRenderer::setProperties
@@ -101,6 +102,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties
@@ -166,6 +168,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\TemplateView::renderViewCustom
      * @covers  Molajito\Render\TemplateView::renderViewPart
      * @covers  Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::includeFile
      *
      * @covers  Molajito\Render\AbstractRenderer::renderOutput
      * @covers  Molajito\Render\AbstractRenderer::setProperties
@@ -174,6 +177,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties
@@ -241,6 +245,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\TemplateView::renderViewCustom
      * @covers  Molajito\Render\TemplateView::renderViewPart
      * @covers  Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::includeFile
      *
      * @covers  Molajito\Render\AbstractRenderer::renderOutput
      * @covers  Molajito\Render\AbstractRenderer::setProperties
@@ -249,6 +254,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties
@@ -322,6 +328,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\TemplateView::renderViewCustom
      * @covers  Molajito\Render\TemplateView::renderViewPart
      * @covers  Molajito\Render\TemplateView::setRenderViewOptions
+     * @covers  Molajito\Render\TemplateView::includeFile
      *
      * @covers  Molajito\Render\AbstractRenderer::renderOutput
      * @covers  Molajito\Render\AbstractRenderer::setProperties
@@ -330,6 +337,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties

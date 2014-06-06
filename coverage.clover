@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1402054601">
-  <project timestamp="1402054601">
+<coverage generated="1402058091">
+  <project timestamp="1402058091">
     <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
@@ -813,7 +813,7 @@
     <package name="Molajito\Render">
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/AbstractRenderer.php">
         <class name="AbstractRenderer" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
-          <metrics methods="8" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="36" elements="49" coveredelements="43"/>
+          <metrics methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="41" elements="49" coveredelements="49"/>
         </class>
         <line num="150" type="method" name="__construct" crap="1" count="13"/>
         <line num="155" type="stmt" count="13"/>
@@ -823,12 +823,12 @@
         <line num="170" type="method" name="renderOutput" crap="1" count="3"/>
         <line num="172" type="stmt" count="3"/>
         <line num="174" type="stmt" count="3"/>
-        <line num="186" type="method" name="includeFile" crap="6" count="0"/>
-        <line num="188" type="stmt" count="0"/>
-        <line num="189" type="stmt" count="0"/>
-        <line num="190" type="stmt" count="0"/>
-        <line num="192" type="stmt" count="0"/>
-        <line num="195" type="stmt" count="0"/>
+        <line num="186" type="method" name="includeFile" crap="2" count="3"/>
+        <line num="188" type="stmt" count="3"/>
+        <line num="189" type="stmt" count="2"/>
+        <line num="190" type="stmt" count="1"/>
+        <line num="192" type="stmt" count="1"/>
+        <line num="195" type="stmt" count="2"/>
         <line num="207" type="method" name="setProperties" crap="3" count="9"/>
         <line num="209" type="stmt" count="9"/>
         <line num="210" type="stmt" count="9"/>
@@ -865,21 +865,16 @@
         <line num="298" type="method" name="performRendering" crap="1" count="2"/>
         <line num="300" type="stmt" count="2"/>
         <line num="303" type="stmt" count="0"/>
-        <metrics loc="302" ncloc="138" classes="1" methods="8" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="36" elements="49" coveredelements="43"/>
+        <metrics loc="302" ncloc="138" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="41" elements="49" coveredelements="49"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/PageView.php">
         <class name="PageView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
-          <metrics methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="0" elements="7" coveredelements="0"/>
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="33" type="method" name="includeFile" crap="6" count="0"/>
-        <line num="35" type="stmt" count="0"/>
-        <line num="37" type="stmt" count="0"/>
+        <line num="33" type="method" name="includeFile" crap="1" count="1"/>
+        <line num="35" type="stmt" count="1"/>
         <line num="38" type="stmt" count="0"/>
-        <line num="39" type="stmt" count="0"/>
-        <line num="41" type="stmt" count="0"/>
-        <line num="44" type="stmt" count="0"/>
-        <line num="47" type="stmt" count="0"/>
-        <metrics loc="46" ncloc="22" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="0" elements="7" coveredelements="0"/>
+        <metrics loc="37" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/Position.php">
         <class name="Position" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
@@ -1057,17 +1052,12 @@
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/Theme.php">
         <class name="Theme" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
-          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="7" coveredelements="7"/>
+          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="44" type="method" name="includeFile" crap="2" count="2"/>
+        <line num="44" type="method" name="includeFile" crap="1" count="2"/>
         <line num="46" type="stmt" count="2"/>
-        <line num="48" type="stmt" count="2"/>
-        <line num="49" type="stmt" count="1"/>
-        <line num="50" type="stmt" count="1"/>
-        <line num="52" type="stmt" count="1"/>
-        <line num="55" type="stmt" count="1"/>
-        <line num="58" type="stmt" count="0"/>
-        <metrics loc="57" ncloc="27" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="7" coveredelements="7"/>
+        <line num="49" type="stmt" count="0"/>
+        <metrics loc="48" ncloc="18" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
       <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/WrapView.php">
         <class name="WrapView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
@@ -1457,6 +1447,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="61" loc="5314" ncloc="2881" classes="31" methods="152" coveredmethods="102" conditionals="0" coveredconditionals="0" statements="953" coveredstatements="618" elements="1105" coveredelements="720"/>
+    <metrics files="61" loc="5296" ncloc="2863" classes="31" methods="152" coveredmethods="104" conditionals="0" coveredconditionals="0" statements="943" coveredstatements="619" elements="1095" coveredelements="723"/>
   </project>
 </coverage>

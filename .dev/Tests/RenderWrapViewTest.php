@@ -97,6 +97,7 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::setEventOptions
      * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
      *
      * @covers  Molajito\Render::renderOutput
      * @covers  Molajito\Render::setProperties
