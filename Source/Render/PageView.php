@@ -32,15 +32,6 @@ class PageView extends AbstractRenderer implements RenderInterface
      */
     protected function includeFile($include_path)
     {
-        $file_path = $include_path . '/Index.phtml';
-
-        if (file_exists($file_path)) {
-        } else {
-            throw new RuntimeException(
-                'Molajito Page Renderer - rendering file not found: ' . $file_path
-            );
-        }
-
-        return $this->performRendering($file_path, $this->getProperties());
+        return parent::includeFile($include_path . '/Index.phtml');
     }
 }
