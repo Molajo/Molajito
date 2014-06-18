@@ -10,7 +10,7 @@ namespace Molajo\Factories\Molajito;
 
 use CommonApi\IoC\FactoryInterface;
 use CommonApi\IoC\FactoryBatchInterface;
-use Molajo\IoC\FactoryMethodBase;
+use Molajo\IoC\FactoryMethod\Base as FactoryMethodBase;
 use stdClass;
 
 /**
@@ -47,7 +47,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
      * @return  array
      * @since   1.0
      */
-    public function setDependencies(array $reflection = null)
+    public function setDependencies(array $reflection = array())
     {
         $this->reflection   = array();
         $this->dependencies = array();
