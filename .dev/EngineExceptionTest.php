@@ -76,60 +76,60 @@ class EngineExceptionTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** Escape */
-        $class = 'Molajito\\Escape\\Simple';
+        $class  = 'Molajito\\Escape\\Simple';
         $simple = new $class();
-        $class = 'Molajito\\Escape';
+        $class  = 'Molajito\\Escape';
         $escape = new $class($simple);
 
         /** Render */
-        $class = 'Molajito\\Render';
+        $class  = 'Molajito\\Render';
         $render = new $class();
 
         /** Event */
-        $class = 'Molajito\\Event\\Dummy';
+        $class   = 'Molajito\\Event\\Dummy';
         $adapter = new $class();
-        $class = 'Molajito\\Event';
-        $event = new $class($adapter);
+        $class   = 'Molajito\\Event';
+        $event   = new $class($adapter);
 
         /** Data */
-        $class = 'Molajito\\Data\\Molajo';
+        $class   = 'Molajito\\Data\\Molajo';
         $adapter = new $class($pagination = null);
-        $class = 'Molajito\\Data';
-        $data = new $class($adapter);
+        $class   = 'Molajito\\Data';
+        $data    = new $class($adapter);
 
         /** View */
         $theme_base_folder = $include_path = __DIR__ . '/ViewFilesystem/Themes';
-        $view_base_folder = $include_path = __DIR__ . '/ViewFilesystem/Views';
+        $view_base_folder  = $include_path = __DIR__ . '/ViewFilesystem/Views';
 
-        $class = 'Molajito\\View\\Filesystem';
+        $class   = 'Molajito\\View\\Filesystem';
         $adapter = new $class($theme_base_folder, $view_base_folder);
-        $class = 'Molajito\\View';
-        $view = new $class($adapter);
+        $class   = 'Molajito\\View';
+        $view    = new $class($adapter);
 
         /** Render Classes */
-        $class = 'Molajito\\Render\\Theme';
-        $theme = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\Position';
+        $class    = 'Molajito\\Render\\Theme';
+        $theme    = new $class($escape, $render, $event);
+        $class    = 'Molajito\\Render\\Position';
         $position = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\PageView';
-        $page = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\TemplateView';
+        $class    = 'Molajito\\Render\\PageView';
+        $page     = new $class($escape, $render, $event);
+        $class    = 'Molajito\\Render\\TemplateView';
         $template = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\WrapView';
-        $wrap = new $class($escape, $render, $event);
+        $class    = 'Molajito\\Render\\WrapView';
+        $wrap     = new $class($escape, $render, $event);
 
         $class = 'Molajito\\Token';
         $token = new $class ($escape, $render, $event, $data, $view, $theme, $position, $page, $template, $wrap);
 
         /** Translate - with Escape */
-        $class    = 'Molajito\\Translate\\StringArrayAdapter';
-        $adapter = new $class ($escape, $parse_mask = null, $model_registry = array(), $language_strings = array());
-        $class    = 'Molajito\\Translate';
+        $class     = 'Molajito\\Translate\\StringArrayAdapter';
+        $adapter   = new $class ($escape, $parse_mask = null, $model_registry = array(), $language_strings = array());
+        $class     = 'Molajito\\Translate';
         $translate = new $class($adapter);
 
         /** Parse */
         $class = 'Molajito\\Parse';
-        $parse    = new $class($rendered_page = null, $exclude_tokens = array(), $parse_mask = null);
+        $parse = new $class($rendered_page = null, $exclude_tokens = array(), $parse_mask = null);
 
         $this->engine = new Engine($token, $translate, $parse, $this->exclude_tokens, 0);
     }
@@ -205,60 +205,60 @@ class EngineExceptionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers  Molajito\Engine::renderOutput
-     * @covers  Molajito\Engine::renderLoop
-     * @covers  Molajito\Engine::renderLoopProcessToken
-     * @covers  Molajito\Engine::testEndOfLoopProcessing
-     * @covers  Molajito\Engine::scheduleParseEvents
-     * @covers  Molajito\Engine::parseTokens
-     * @covers  Molajito\Engine::renderTokenOutput
-     * @covers  Molajito\Token::renderTheme
-     * @covers  Molajito\Token::initialiseData
-     * @covers  Molajito\Token::renderPosition
-     * @covers  Molajito\Token::renderToken
-     * @covers  Molajito\Render\Theme::renderOutput
-     * @covers  Molajito\Render\Theme::setProperties
-     * @covers  Molajito\Render\Theme::includeFile
-     * @covers  Molajito\Render\AbstractRenderer::renderOutput
-     * @covers  Molajito\Render\AbstractRenderer::setProperties
-     * @covers  Molajito\Render\AbstractRenderer::getProperties
-     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
-     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
-     * @covers  Molajito\Render::renderOutput
-     * @covers  Molajito\Render::setProperties
-     * @covers  Molajito\Render::includeFile
-     * @covers  Molajito\Event::initializeEventOptions
-     * @covers  Molajito\Event::scheduleEvent
-     * @covers  Molajito\Event\Dummy::initializeEventOptions
-     * @covers  Molajito\Event\Dummy::scheduleEvent
-     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
-     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
-     * @covers  Molajito\Parse::parseRenderedOutput
-     * @covers  Molajito\Parse::parseTokens
-     * @covers  Molajito\Parse::setRenderToken
-     * @covers  Molajito\Parse::excludeTokens
-     * @covers  Molajito\Parse::setRenderToken
-     * @covers  Molajito\Parse::initialiseToken
-     * @covers  Molajito\Parse::setTokenElements
-     * @covers  Molajito\Parse::processTokenElements
-     * @covers  Molajito\Parse::processFirstTokenElements
-     * @covers  Molajito\Parse::processSubsequentTokenElements
-     * @covers  Molajito\Translate::translateString
-     * @covers  Molajito\Translate\StringArrayAdapter::translateString
-     * @covers  Molajito\Translate\StringArrayAdapter::translateToken
-     * @covers  Molajito\Translate\AbstractAdapter::translateString
-     * @covers  Molajito\Translate\AbstractAdapter::parseTokens
-     * @covers  Molajito\Translate\AbstractAdapter::translateToken
-     * @covers  Molajito\Translate\AbstractAdapter::filterTranslation
-     * @covers  Molajito\Translate\AbstractAdapter::replaceToken
+     * @covers                   Molajito\Engine::renderOutput
+     * @covers                   Molajito\Engine::renderLoop
+     * @covers                   Molajito\Engine::renderLoopProcessToken
+     * @covers                   Molajito\Engine::testEndOfLoopProcessing
+     * @covers                   Molajito\Engine::scheduleParseEvents
+     * @covers                   Molajito\Engine::parseTokens
+     * @covers                   Molajito\Engine::renderTokenOutput
+     * @covers                   Molajito\Token::renderTheme
+     * @covers                   Molajito\Token::initialiseData
+     * @covers                   Molajito\Token::renderPosition
+     * @covers                   Molajito\Token::renderToken
+     * @covers                   Molajito\Render\Theme::renderOutput
+     * @covers                   Molajito\Render\Theme::setProperties
+     * @covers                   Molajito\Render\Theme::includeFile
+     * @covers                   Molajito\Render\AbstractRenderer::renderOutput
+     * @covers                   Molajito\Render\AbstractRenderer::setProperties
+     * @covers                   Molajito\Render\AbstractRenderer::getProperties
+     * @covers                   Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers                   Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers                   Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers                   Molajito\Render::renderOutput
+     * @covers                   Molajito\Render::setProperties
+     * @covers                   Molajito\Render::includeFile
+     * @covers                   Molajito\Event::initializeEventOptions
+     * @covers                   Molajito\Event::scheduleEvent
+     * @covers                   Molajito\Event\Dummy::initializeEventOptions
+     * @covers                   Molajito\Event\Dummy::scheduleEvent
+     * @covers                   Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers                   Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers                   Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers                   Molajito\Parse::parseRenderedOutput
+     * @covers                   Molajito\Parse::parseTokens
+     * @covers                   Molajito\Parse::setRenderToken
+     * @covers                   Molajito\Parse::excludeTokens
+     * @covers                   Molajito\Parse::setRenderToken
+     * @covers                   Molajito\Parse::initialiseToken
+     * @covers                   Molajito\Parse::setTokenElements
+     * @covers                   Molajito\Parse::processTokenElements
+     * @covers                   Molajito\Parse::processFirstTokenElements
+     * @covers                   Molajito\Parse::processSubsequentTokenElements
+     * @covers                   Molajito\Translate::translateString
+     * @covers                   Molajito\Translate\StringArrayAdapter::translateString
+     * @covers                   Molajito\Translate\StringArrayAdapter::translateToken
+     * @covers                   Molajito\Translate\AbstractAdapter::translateString
+     * @covers                   Molajito\Translate\AbstractAdapter::parseTokens
+     * @covers                   Molajito\Translate\AbstractAdapter::translateToken
+     * @covers                   Molajito\Translate\AbstractAdapter::filterTranslation
+     * @covers                   Molajito\Translate\AbstractAdapter::replaceToken
      *
      * @expectedException        \CommonApi\Exception\RuntimeException
      * @expectedExceptionMessage Molajito renderLoop: Maximum loop count exceeded: 1
      *
      * @return  $this
-     * @since   1.0
+     * @since                    1.0
      */
     public function testEngineLoop()
     {

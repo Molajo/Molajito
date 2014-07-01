@@ -51,8 +51,8 @@ class Molajo extends AbstractAdapter implements EventInterface
         $temp = array();
 
         foreach ($this->event_option_keys as $key) {
-            if (isset($options[ $key ])) {
-                $temp[ $key ] = $options[ $key ];
+            if (isset($options[$key])) {
+                $temp[$key] = $options[$key];
             }
         }
 

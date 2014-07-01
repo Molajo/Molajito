@@ -82,7 +82,7 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
         $options = $this->event_instance->initializeEventOptions();
 
         foreach ($this->event_option_keys as $event) {
-            $this->assertEquals($options[ $event ], null);
+            $this->assertEquals($options[$event], null);
         }
 
         return $this;
@@ -107,7 +107,7 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
         $options = array();
 
         foreach ($this->event_option_keys as $event) {
-            $options[ $event ] = $event;
+            $options[$event] = $event;
         }
 
         $event_name = 'test';
@@ -118,7 +118,7 @@ class EventDummyTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($this->event_option_keys as $event) {
-            $this->assertEquals($options[ $event ], $event);
+            $this->assertEquals($options[$event], $event);
         }
 
         return $this;

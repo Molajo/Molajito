@@ -114,7 +114,7 @@ class Render implements RenderInterface
     {
         foreach ($data as $key => $value) {
             if (in_array($key, $this->property_array)) {
-                $this->$key = $data[ $key ];
+                $this->$key = $data[$key];
             }
         }
 

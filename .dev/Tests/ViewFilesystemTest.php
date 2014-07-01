@@ -46,8 +46,8 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
         $this->theme_base_folder = $include_path = __DIR__ . '/ViewFilesystem/Themes';
         $this->view_base_folder  = $include_path = __DIR__ . '/ViewFilesystem/Views';
 
-        $adapter = new Filesystem($this->theme_base_folder, $this->view_base_folder);
-        $this->view_instance    = new View($adapter);
+        $adapter             = new Filesystem($this->theme_base_folder, $this->view_base_folder);
+        $this->view_instance = new View($adapter);
     }
 
     /**
@@ -70,8 +70,10 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $this->assertEquals($extensions->extension->include_path,
-            $this->theme_base_folder . '/Test');
+        $this->assertEquals(
+            $extensions->extension->include_path,
+            $this->theme_base_folder . '/Test'
+        );
 
         return $this;
     }
@@ -97,8 +99,10 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $this->assertEquals($extensions->extension->include_path,
-            $this->view_base_folder . '/Pages/Test');
+        $this->assertEquals(
+            $extensions->extension->include_path,
+            $this->view_base_folder . '/Pages/Test'
+        );
 
         return $this;
     }
@@ -124,8 +128,10 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $this->assertEquals($extensions->extension->include_path,
-            $this->view_base_folder . '/Templates/Test');
+        $this->assertEquals(
+            $extensions->extension->include_path,
+            $this->view_base_folder . '/Templates/Test'
+        );
 
         return $this;
     }
@@ -151,8 +157,10 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $this->assertEquals($extensions->extension->include_path,
-            $this->view_base_folder . '/Wraps/Test');
+        $this->assertEquals(
+            $extensions->extension->include_path,
+            $this->view_base_folder . '/Wraps/Test'
+        );
 
         return $this;
     }

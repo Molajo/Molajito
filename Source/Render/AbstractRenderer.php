@@ -207,8 +207,8 @@ abstract class AbstractRenderer implements RenderInterface
     protected function setProperties(array $data = array(), array $properties = array())
     {
         foreach ($properties as $key) {
-            if (isset($data[ $key ])) {
-                $this->$key = $data[ $key ];
+            if (isset($data[$key])) {
+                $this->$key = $data[$key];
             } else {
                 $this->$key = null;
             }
@@ -228,7 +228,7 @@ abstract class AbstractRenderer implements RenderInterface
         $data = array();
 
         foreach ($this->property_array as $key) {
-            $data[ $key ] = $this->$key;
+            $data[$key] = $this->$key;
         }
 
         return $data;
@@ -274,11 +274,11 @@ abstract class AbstractRenderer implements RenderInterface
 
         foreach ($event_options as $key => $value) {
 
-            if (isset($options[ $key ])) {
-                $event_options[ $key ] = $options[ $key ];
+            if (isset($options[$key])) {
+                $event_options[$key] = $options[$key];
 
             } elseif (isset($this->$key)) {
-                $event_options[ $key ] = $this->$key;
+                $event_options[$key] = $this->$key;
             }
         }
 

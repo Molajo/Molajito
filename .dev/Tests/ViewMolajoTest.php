@@ -34,8 +34,8 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** View */
-        $adapter = new Molajo(new ResourceMock());
-        $this->view_instance    = new View($adapter);
+        $adapter             = new Molajo(new ResourceMock());
+        $this->view_instance = new View($adapter);
     }
 
     /**

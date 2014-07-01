@@ -34,7 +34,7 @@ $classmap                                               = array_merge($classmap,
 spl_autoload_register(
     function ($class) use ($classmap) {
         if (array_key_exists($class, $classmap)) {
-            require_once $classmap[ $class ];
+            require_once $classmap[$class];
         }
     }
 );

@@ -60,7 +60,7 @@ class Parse implements ParseInterface
         array $exclude_tokens = array(),
         $parse_mask = null
     ) {
-        $this->rendered_page  = $rendered_page;
+        $this->rendered_page = $rendered_page;
 
         $this->exclude_tokens = $exclude_tokens;
 
@@ -263,7 +263,7 @@ class Parse implements ParseInterface
             $token_object->wrap = $pair[1];
 
         } else {
-            $token_object->attributes[ $pair[0] ] = $pair[1];
+            $token_object->attributes[$pair[0]] = $pair[1];
         }
 
         return $token_object;

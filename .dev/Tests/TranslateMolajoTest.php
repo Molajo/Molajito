@@ -39,14 +39,14 @@ class TranslateMolajoTest extends \PHPUnit_Framework_TestCase
         $escape = new Escape($simple);
 
         /** Translate - with Escape */
-        $parse_mask       = null;
-        $model_registry   = array();
+        $parse_mask     = null;
+        $model_registry = array();
 
-        $adapter          = new MolajoLanguageAdapter(
+        $adapter = new MolajoLanguageAdapter(
             $escape, $parse_mask, $model_registry, new MockLanguageController
         );
 
-        $this->translate  = new Translate($adapter);
+        $this->translate = new Translate($adapter);
     }
 
     /**
@@ -108,10 +108,11 @@ class MockLanguageController implements TranslateInterface
     /**
      * @var $translate
      */
-    protected $language_strings = array(
-        'thing' => 'it is a thing.',
-        'THING' => 'Really. It is really a thing.'
-    );
+    protected $language_strings
+        = array(
+            'thing' => 'it is a thing.',
+            'THING' => 'Really. It is really a thing.'
+        );
 
     /**
      * Translate String
@@ -123,8 +124,8 @@ class MockLanguageController implements TranslateInterface
      */
     public function translateString($string)
     {
-        if (isset($this->language_strings[ $string ])) {
-            return $this->language_strings[ $string ];
+        if (isset($this->language_strings[$string])) {
+            return $this->language_strings[$string];
         }
 
         return $string;

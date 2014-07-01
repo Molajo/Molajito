@@ -60,8 +60,8 @@ class StringArrayAdapter extends AbstractAdapter implements TranslateInterface
      */
     protected function translateToken($string)
     {
-        if (isset($this->language_strings[ $string ])) {
-            return $this->language_strings[ $string ];
+        if (isset($this->language_strings[$string])) {
+            return $this->language_strings[$string];
         }
 
         return $string;

@@ -36,9 +36,9 @@ function createClassMap($base, $qcn_prefix, array $exclude_array = array())
         }
 
         if ($include === true) {
-            $qcn                        = $qcn_prefix . $file_object->getBaseName('.php');
-            $path                       = $file_object->getPath() . '/' . $file_object->getFileName();
-            $function_class_map[ $qcn ] = $path;
+            $qcn                      = $qcn_prefix . $file_object->getBaseName('.php');
+            $path                     = $file_object->getPath() . '/' . $file_object->getFileName();
+            $function_class_map[$qcn] = $path;
         }
     }
 

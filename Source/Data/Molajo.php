@@ -286,8 +286,8 @@ class Molajo extends AbstractAdapter implements DataInterface
      */
     protected function getPluginDataQueryResultsField()
     {
-        if (isset($this->query_results[ $this->field_name ])) {
-            $x                     = $this->query_results[ $this->field_name ];
+        if (isset($this->query_results[$this->field_name])) {
+            $x                     = $this->query_results[$this->field_name];
             $this->query_results   = array();
             $this->query_results[] = $x;
         }

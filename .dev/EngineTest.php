@@ -77,60 +77,60 @@ class EngineTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         /** Escape */
-        $class = 'Molajito\\Escape\\Simple';
+        $class  = 'Molajito\\Escape\\Simple';
         $simple = new $class();
-        $class = 'Molajito\\Escape';
+        $class  = 'Molajito\\Escape';
         $escape = new $class($simple);
 
         /** Render */
-        $class = 'Molajito\\Render';
+        $class  = 'Molajito\\Render';
         $render = new $class();
 
         /** Event */
-        $class = 'Molajito\\Event\\Dummy';
+        $class   = 'Molajito\\Event\\Dummy';
         $adapter = new $class();
-        $class = 'Molajito\\Event';
-        $event = new $class($adapter);
+        $class   = 'Molajito\\Event';
+        $event   = new $class($adapter);
 
         /** Data */
-        $class = 'Molajito\\Data\\Molajo';
+        $class   = 'Molajito\\Data\\Molajo';
         $adapter = new $class($pagination = null);
-        $class = 'Molajito\\Data';
-        $data = new $class($adapter);
+        $class   = 'Molajito\\Data';
+        $data    = new $class($adapter);
 
         /** View */
         $theme_base_folder = $include_path = __DIR__ . '/ViewFilesystem/Themes';
-        $view_base_folder = $include_path = __DIR__ . '/ViewFilesystem/Views';
+        $view_base_folder  = $include_path = __DIR__ . '/ViewFilesystem/Views';
 
-        $class = 'Molajito\\View\\Filesystem';
+        $class   = 'Molajito\\View\\Filesystem';
         $adapter = new $class($theme_base_folder, $view_base_folder);
-        $class = 'Molajito\\View';
-        $view = new $class($adapter);
+        $class   = 'Molajito\\View';
+        $view    = new $class($adapter);
 
         /** Render Classes */
-        $class = 'Molajito\\Render\\Theme';
-        $theme = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\Position';
+        $class    = 'Molajito\\Render\\Theme';
+        $theme    = new $class($escape, $render, $event);
+        $class    = 'Molajito\\Render\\Position';
         $position = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\PageView';
-        $page = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\TemplateView';
+        $class    = 'Molajito\\Render\\PageView';
+        $page     = new $class($escape, $render, $event);
+        $class    = 'Molajito\\Render\\TemplateView';
         $template = new $class($escape, $render, $event);
-        $class = 'Molajito\\Render\\WrapView';
-        $wrap = new $class($escape, $render, $event);
+        $class    = 'Molajito\\Render\\WrapView';
+        $wrap     = new $class($escape, $render, $event);
 
         $class = 'Molajito\\Token';
         $token = new $class ($data, $view, $theme, $position, $page, $template, $wrap);
 
         /** Translate - with Escape */
-        $class    = 'Molajito\\Translate\\StringArrayAdapter';
-        $adapter = new $class ($escape, $parse_mask = null, $model_registry = array(), $language_strings = array());
-        $class    = 'Molajito\\Translate';
+        $class     = 'Molajito\\Translate\\StringArrayAdapter';
+        $adapter   = new $class ($escape, $parse_mask = null, $model_registry = array(), $language_strings = array());
+        $class     = 'Molajito\\Translate';
         $translate = new $class($adapter);
 
         /** Parse */
         $class = 'Molajito\\Parse';
-        $parse    = new $class($rendered_page = null, $exclude_tokens = array(), $parse_mask = null);
+        $parse = new $class($rendered_page = null, $exclude_tokens = array(), $parse_mask = null);
 
         $this->engine = new Engine($token, $translate, $event, $parse, $this->exclude_tokens, $this->stop_loop_count);
     }
@@ -206,7 +206,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Index.phtml';
         $expected = ob_get_clean();
 
-        $results  = $this->engine->renderOutput($include_path, $data);
+        $results = $this->engine->renderOutput($include_path, $data);
 
         $this->assertEquals($expected, $results);
 
@@ -284,7 +284,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
         include $include_path . '/Index.phtml';
         $expected = ob_get_clean();
 
-        $results  = $this->engine->renderOutput($include_path, $data);
+        $results = $this->engine->renderOutput($include_path, $data);
 
         $this->assertEquals($results, $results);
 

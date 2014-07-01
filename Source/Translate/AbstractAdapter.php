@@ -149,8 +149,8 @@ abstract class AbstractAdapter implements TranslateInterface
         for ($i = 0; $i < count($tokens_to_translate[1]); $i++) {
 
             $this->processTranslateString(
-                $tokens_to_translate[0][ $i ],
-                $tokens_to_translate[1][ $i ]
+                $tokens_to_translate[0][$i],
+                $tokens_to_translate[1][$i]
             );
         }
 

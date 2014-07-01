@@ -77,7 +77,7 @@ abstract class AbstractAdapter implements EventInterface
         $options = array();
 
         foreach ($this->event_option_keys as $key) {
-            $options[ $key ] = null;
+            $options[$key] = null;
         }
 
         return $options;

@@ -374,7 +374,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
         $token->attributes   = array();
         $token->replace_this = '{I page=Test I}';
 
-        $data                  = array('rendered_page' => $rendered_page);
+        $data = array('rendered_page' => $rendered_page);
 
 //        $results = $this->token->processToken($token, $data);
 
@@ -808,8 +808,8 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
         $runtime_data->resource->model_registry = $model_registry;
         $runtime_data->resource->parameters     = $parameters;
 
-        $data                 = array();
-        $data['runtime_data'] = $runtime_data;
+        $data                  = array();
+        $data['runtime_data']  = $runtime_data;
         $data['plugin_data']   = new stdClass();
         $data['rendered_page'] = $rendered_page;
 
@@ -844,7 +844,7 @@ class MockEvent extends AbstractAdapter implements EventInterface
                 $resource_extension->page->menuitem->parameters            = new stdClass();
                 $resource_extension->page->menuitem->parameters->positions = '{{test=dog,food}}{{more=not,used}}';
 
-                $options['runtime_data']  = $resource_extension;
+                $options['runtime_data'] = $resource_extension;
 
             } elseif ($options['token']->type === 'template') {
 

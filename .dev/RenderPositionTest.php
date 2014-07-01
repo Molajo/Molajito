@@ -217,11 +217,12 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
         $expected .= PHP_EOL;
         $expected .= '{I template=Food I} ';
 
-        $resource_extension                                        = new stdClass();
-        $resource_extension->page                                  = new stdClass();
-        $resource_extension->page->menuitem                        = new stdClass();
-        $resource_extension->page->menuitem->parameters            = new stdClass();
-        $resource_extension->page->menuitem->parameters->positions = '{{test=dog1,food1}}{{more=not,used}}{{test=dog,food}}';
+        $resource_extension                             = new stdClass();
+        $resource_extension->page                       = new stdClass();
+        $resource_extension->page->menuitem             = new stdClass();
+        $resource_extension->page->menuitem->parameters = new stdClass();
+        $resource_extension->page->menuitem->parameters->positions
+                                                        = '{{test=dog1,food1}}{{more=not,used}}{{test=dog,food}}';
 
         $position_name = 'Test';
 

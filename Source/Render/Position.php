@@ -158,7 +158,7 @@ class Position extends AbstractRenderer implements PositionInterface
                 $position       = $position_template['position'];
                 $template_array = $position_template['templates'];
 
-                $positions_array[ $position ] = $template_array;
+                $positions_array[$position] = $template_array;
             }
         }
 
@@ -203,8 +203,8 @@ class Position extends AbstractRenderer implements PositionInterface
     {
         $position_name = strtolower($position_name);
 
-        if (isset($positions[ $position_name ])) {
-            return $positions[ $position_name ];
+        if (isset($positions[$position_name])) {
+            return $positions[$position_name];
         }
 
         return array();

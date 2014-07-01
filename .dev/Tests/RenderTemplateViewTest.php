@@ -62,7 +62,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
 
         /** Event */
         $adapter = new Dummy();
-        $event = new Event($adapter);
+        $event   = new Event($adapter);
 
         /** TemplateView Instance */
         $this->template_view = new TemplateView($escape, $render, $event);
@@ -268,7 +268,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
         $data = array();
 
         // two rows but only one header
-        $data['query_results']   = array();
+        $data['query_results'] = array();
 
         $row                     = new stdClass();
         $row->id                 = 1;
@@ -350,7 +350,7 @@ class RenderTemplateViewTest extends \PHPUnit_Framework_TestCase
     {
         $data = array();
 
-        $data['query_results']   = array();
+        $data['query_results'] = array();
 
         $row                     = new stdClass();
         $row->id                 = 1;

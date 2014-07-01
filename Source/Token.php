@@ -278,17 +278,17 @@ class Token implements TokenInterface
     {
         $this->initialiseData($token, $data);
 
-        if ($this->render_types[ $this->token->type ]['getView'] === true) {
+        if ($this->render_types[$this->token->type]['getView'] === true) {
             $this->getView();
         }
 
-        if ($this->render_types[ $this->token->type ]['getData'] === true) {
+        if ($this->render_types[$this->token->type]['getData'] === true) {
             $this->getData();
         }
 
         $this->scheduleEvent('onBeforeEvent');
 
-        $method              = $this->render_types[ $this->token->type ]['method'];
+        $method              = $this->render_types[$this->token->type]['method'];
         $this->rendered_view = $this->$method();
 
         $this->scheduleEvent('onAfterEvent');
@@ -328,12 +328,12 @@ class Token implements TokenInterface
      */
     protected function scheduleEvent($event_name)
     {
-        if ($this->render_types[ $this->token->type ][ $event_name ] === null) {
+        if ($this->render_types[$this->token->type][$event_name] === null) {
             return $this;
         }
 
-        $render_instance = $this->render_types[ $this->token->type ]['render_instance'];
-        $event_name      = $this->render_types[ $this->token->type ][ $event_name ];
+        $render_instance = $this->render_types[$this->token->type]['render_instance'];
+        $event_name      = $this->render_types[$this->token->type][$event_name];
         $event_results   = $this->$render_instance->scheduleEvent($event_name, $this->setOptions());
 
         $this->setClassProperties($event_results);
@@ -385,7 +385,7 @@ class Token implements TokenInterface
      */
     protected function renderOutput()
     {
-        $render_instance = $this->render_types[ $this->token->type ]['render_instance'];
+        $render_instance = $this->render_types[$this->token->type]['render_instance'];
 
         return $this->$render_instance->renderOutput(
             $this->include_path,
@@ -587,8 +587,8 @@ class Token implements TokenInterface
      */
     protected function setClassProperty($key, array $data = array(), $initialise = false)
     {
-        if (isset($data[ $key ])) {
-            $this->$key = $data[ $key ];
+        if (isset($data[$key])) {
+            $this->$key = $data[$key];
             return $this;
         }
 
@@ -610,7 +610,7 @@ class Token implements TokenInterface
         $options = array();
 
         foreach ($this->property_array as $key) {
-            $options[ $key ] = $this->$key;
+            $options[$key] = $this->$key;
         }
 
         $options['token'] = $this->token;

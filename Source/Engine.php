@@ -167,9 +167,9 @@ class Engine implements RenderInterface
      */
     protected function renderTheme($include_path, array $data = array())
     {
-        $token_object               = new stdClass();
-        $token_object->type         = 'theme';
-        $data['include_path']       = $include_path;
+        $token_object         = new stdClass();
+        $token_object->type   = 'theme';
+        $data['include_path'] = $include_path;
 
         $this->rendered_page = $this->token_instance->processToken($token_object, $data);
 

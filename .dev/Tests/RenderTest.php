@@ -97,15 +97,15 @@ class RenderTest extends \PHPUnit_Framework_TestCase
     /**
      * Test Render
      *
-     * @covers  Molajito\Render::renderOutput
-     * @covers  Molajito\Render::setProperties
-     * @covers  Molajito\Render::includeFile
+     * @covers                   Molajito\Render::renderOutput
+     * @covers                   Molajito\Render::setProperties
+     * @covers                   Molajito\Render::includeFile
      *
      * @expectedException        \CommonApi\Exception\RuntimeException
      * @expectedExceptionRequest Molajito Render - rendering file not found: /Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/DoesNotExist.phtml
      *
      * @return  $this
-     * @since   1.0
+     * @since                    1.0
      */
     public function testFileDoesNotExist()
     {

@@ -674,8 +674,7 @@ class PaginationMock implements PaginationInterface
         $display_page_link_count = 10,
         $create_sef_url_indicator = false,
         $display_index_in_url_indicator = true
-    )
-    {
+    ) {
         return $this;
     }
 }

@@ -62,7 +62,7 @@ class WrapViewTest extends \PHPUnit_Framework_TestCase
 
         /** Event */
         $adapter = new Dummy();
-        $event = new Event($adapter);
+        $event   = new Event($adapter);
 
         /** WrapView Instance */
         $this->wrap_view = new WrapView($escape, $render, $event);

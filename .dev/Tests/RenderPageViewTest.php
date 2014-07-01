@@ -61,7 +61,7 @@ class RenderPageViewTest extends \PHPUnit_Framework_TestCase
 
         /** Event */
         $adapter = new Dummy();
-        $event = new Event($adapter);
+        $event   = new Event($adapter);
 
         /** PageView Instance */
         $this->pageview_instance = new PageView($escape, $render, $event);

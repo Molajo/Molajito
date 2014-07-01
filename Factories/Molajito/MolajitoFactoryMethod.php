@@ -74,7 +74,7 @@ class MolajitoFactoryMethod extends FactoryMethodBase implements FactoryInterfac
         $options = array();
 
         foreach ($this->dependencies as $key => $value) {
-            $options[ $key ] = $value;
+            $options[$key] = $value;
         }
 
         $options['molajito_base_folder'] = $this->dependencies['Runtimedata']->base_path;

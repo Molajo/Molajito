@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1402058091">
-  <project timestamp="1402058091">
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Bootstrap.php">
+<coverage generated="1404217144">
+  <project timestamp="1404217144">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Bootstrap.php">
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
       <line num="38" type="stmt" count="0"/>
       <line num="39" type="stmt" count="0"/>
       <metrics loc="40" ncloc="33" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="4" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/CreateClassMap.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/CreateClassMap.php">
       <line num="12" type="stmt" count="0"/>
       <line num="14" type="stmt" count="0"/>
       <line num="15" type="stmt" count="0"/>
@@ -34,92 +34,92 @@
       <line num="45" type="stmt" count="0"/>
       <metrics loc="46" ncloc="39" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="0" elements="23" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/CustomView/Custom.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/CustomView/Custom.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Parse/Attributes.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Parse/Attributes.phtml">
       <line num="11" type="stmt" count="0"/>
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Parse/Include.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Parse/Include.phtml">
       <line num="11" type="stmt" count="0"/>
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Parse/Position.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Parse/Position.phtml">
       <line num="11" type="stmt" count="0"/>
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Parse/Wrap.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Parse/Wrap.phtml">
       <line num="11" type="stmt" count="0"/>
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Themes/Simple/Index.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Themes/Simple/Index.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Pages/Test/Index.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Pages/Test/Index.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Pages/Test/RenderedPage.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Pages/Test/RenderedPage.phtml">
       <line num="11" type="stmt" count="0"/>
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Pages/Test/RenderedPageExpectedResult.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Pages/Test/RenderedPageExpectedResult.phtml">
       <line num="22" type="stmt" count="0"/>
       <metrics loc="21" ncloc="21" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Templates/Bodyonly/Body.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Templates/Bodyonly/Body.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Templates/Headeronly/Header.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Templates/Headeronly/Header.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Templates/Test/RenderedPage.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Templates/Test/RenderedPage.phtml">
       <line num="11" type="stmt" count="0"/>
       <metrics loc="10" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Templates/Test/RenderedPageExpectedResult.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Templates/Test/RenderedPageExpectedResult.phtml">
       <line num="46" type="stmt" count="0"/>
       <metrics loc="45" ncloc="45" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/ViewFilesystem/Views/Wraps/Test/RenderedPageExpectedResult.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/ViewFilesystem/Views/Wraps/Test/RenderedPageExpectedResult.phtml">
       <line num="81" type="stmt" count="0"/>
       <metrics loc="80" ncloc="80" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/Body.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/Body.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/Footer.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/Footer.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/Header.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/Header.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/Include.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/Include.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/Index.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/Index.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/RenderedPageRenderTokenTestPosition.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/RenderedPageRenderTokenTestPosition.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/.dev/Tests/Views/RenderedPageRenderTokenTestPositionExpected.phtml">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/.dev/Tests/Views/RenderedPageRenderTokenTestPositionExpected.phtml">
       <line num="13" type="stmt" count="0"/>
       <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Molajito">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Data.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Data.php">
         <class name="Data" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="14" elements="20" coveredelements="18"/>
         </class>
@@ -146,7 +146,7 @@
         <line num="104" type="stmt" count="0"/>
         <metrics loc="103" ncloc="49" classes="1" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="14" elements="20" coveredelements="16"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Escape.php">
         <class name="Escape" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
         </class>
@@ -158,7 +158,7 @@
         <line num="58" type="stmt" count="0"/>
         <metrics loc="57" ncloc="20" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Event.php">
         <class name="Event" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
         </class>
@@ -172,7 +172,7 @@
         <line num="71" type="stmt" count="0"/>
         <metrics loc="70" ncloc="25" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Parse.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Parse.php">
         <class name="Parse" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="12" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="64" elements="77" coveredelements="76"/>
         </class>
@@ -256,7 +256,7 @@
         <line num="294" type="stmt" count="0"/>
         <metrics loc="293" ncloc="159" classes="1" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="64" elements="77" coveredelements="75"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render.php">
         <class name="Render" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="20" coveredelements="20"/>
         </class>
@@ -283,7 +283,7 @@
         <line num="151" type="stmt" count="0"/>
         <metrics loc="150" ncloc="64" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="20" coveredelements="20"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Token.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Token.php">
         <class name="Token" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="16" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="116" coveredstatements="81" elements="132" coveredelements="93"/>
         </class>
@@ -422,7 +422,7 @@
         <line num="639" type="stmt" count="0"/>
         <metrics loc="638" ncloc="318" classes="1" methods="16" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="116" coveredstatements="81" elements="132" coveredelements="89"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Translate.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Translate.php">
         <class name="Translate" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
         </class>
@@ -433,7 +433,7 @@
         <line num="55" type="stmt" count="3"/>
         <metrics loc="57" ncloc="20" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/View.php">
         <class name="View" namespace="Molajito" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
         </class>
@@ -446,7 +446,7 @@
       </file>
     </package>
     <package name="Molajito\Data">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Data/AbstractAdapter.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Data/AbstractAdapter.php">
         <class name="AbstractAdapter" namespace="Molajito\Data" fullPackage="Molajo" package="Molajo">
           <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="11" coveredelements="10"/>
         </class>
@@ -464,7 +464,7 @@
         <line num="84" type="stmt" count="0"/>
         <metrics loc="83" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="10" coveredelements="10"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Data/Molajo.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Data/Molajo.php">
         <class name="Molajo" namespace="Molajito\Data" fullPackage="Molajo" package="Molajo">
           <metrics methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="106" coveredstatements="91" elements="121" coveredelements="105"/>
         </class>
@@ -593,7 +593,7 @@
         <line num="407" type="stmt" count="0"/>
         <metrics loc="406" ncloc="226" classes="1" methods="15" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="106" coveredstatements="91" elements="121" coveredelements="103"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Data/MolajoModel.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Data/MolajoModel.php">
         <class name="MolajoModel" namespace="Molajito\Data" fullPackage="Molajo" package="Molajo">
           <metrics methods="10" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="66" coveredstatements="64" elements="76" coveredelements="74"/>
         </class>
@@ -678,7 +678,7 @@
       </file>
     </package>
     <package name="Molajito\Escape">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape/AbstractAdapter.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Escape/AbstractAdapter.php">
         <class name="AbstractAdapter" namespace="Molajito\Escape" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="10" coveredelements="9"/>
         </class>
@@ -695,7 +695,7 @@
         <line num="56" type="stmt" count="0"/>
         <metrics loc="55" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="8" coveredstatements="8" elements="9" coveredelements="9"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape/Molajo.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Escape/Molajo.php">
         <class name="Molajo" namespace="Molajito\Escape" fullPackage="Molajo" package="Molajo">
           <metrics methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="29" elements="35" coveredelements="35"/>
         </class>
@@ -737,7 +737,7 @@
         <line num="165" type="stmt" count="0"/>
         <metrics loc="164" ncloc="83" classes="1" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="29" elements="35" coveredelements="35"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Escape/Simple.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Escape/Simple.php">
         <class name="Simple" namespace="Molajito\Escape" fullPackage="Molajo" package="Molajo">
           <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
         </class>
@@ -762,7 +762,7 @@
       </file>
     </package>
     <package name="Molajito\Event">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/AbstractAdapter.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Event/AbstractAdapter.php">
         <class name="AbstractAdapter" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
           <metrics methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="12"/>
         </class>
@@ -781,7 +781,7 @@
         <line num="95" type="method" name="scheduleEvent" crap="1" count="0"/>
         <metrics loc="96" ncloc="46" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/Dummy.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Event/Dummy.php">
         <class name="Dummy" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
           <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
@@ -790,7 +790,7 @@
         <line num="37" type="stmt" count="0"/>
         <metrics loc="36" ncloc="12" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Event/Molajo.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Event/Molajo.php">
         <class name="Molajo" namespace="Molajito\Event" fullPackage="Molajito" package="Molajito">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="12" coveredelements="12"/>
         </class>
@@ -811,7 +811,7 @@
       </file>
     </package>
     <package name="Molajito\Render">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/AbstractRenderer.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render/AbstractRenderer.php">
         <class name="AbstractRenderer" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
           <metrics methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="41" elements="49" coveredelements="49"/>
         </class>
@@ -867,7 +867,7 @@
         <line num="303" type="stmt" count="0"/>
         <metrics loc="302" ncloc="138" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="41" coveredstatements="41" elements="49" coveredelements="49"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/PageView.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render/PageView.php">
         <class name="PageView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
           <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
@@ -876,7 +876,7 @@
         <line num="38" type="stmt" count="0"/>
         <metrics loc="37" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/Position.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render/Position.php">
         <class name="Position" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
           <metrics methods="10" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="73" coveredstatements="0" elements="83" coveredelements="0"/>
         </class>
@@ -966,7 +966,7 @@
         <line num="260" type="stmt" count="0"/>
         <metrics loc="259" ncloc="158" classes="1" methods="10" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="73" coveredstatements="0" elements="83" coveredelements="0"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/TemplateView.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render/TemplateView.php">
         <class name="TemplateView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
           <metrics methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="70" coveredstatements="70" elements="77" coveredelements="77"/>
         </class>
@@ -1050,7 +1050,7 @@
         <line num="207" type="stmt" count="0"/>
         <metrics loc="206" ncloc="137" classes="1" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="70" coveredstatements="70" elements="77" coveredelements="77"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/Theme.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render/Theme.php">
         <class name="Theme" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
           <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
@@ -1059,7 +1059,7 @@
         <line num="49" type="stmt" count="0"/>
         <metrics loc="48" ncloc="18" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Render/WrapView.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Render/WrapView.php">
         <class name="WrapView" namespace="Molajito\Render" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
         </class>
@@ -1082,7 +1082,7 @@
       </file>
     </package>
     <package name="Molajito\Translate">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Translate/AbstractAdapter.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Translate/AbstractAdapter.php">
         <class name="AbstractAdapter" namespace="Molajito\Translate" fullPackage="Molajo" package="Molajo">
           <metrics methods="8" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="32" elements="41" coveredelements="39"/>
         </class>
@@ -1129,7 +1129,7 @@
         <line num="221" type="stmt" count="3"/>
         <metrics loc="223" ncloc="106" classes="1" methods="7" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="32" elements="40" coveredelements="38"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Translate/MolajoLanguageAdapter.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Translate/MolajoLanguageAdapter.php">
         <class name="MolajoLanguageAdapter" namespace="Molajito\Translate" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
         </class>
@@ -1142,7 +1142,7 @@
         <line num="67" type="stmt" count="0"/>
         <metrics loc="66" ncloc="26" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/Translate/StringArrayAdapter.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/Translate/StringArrayAdapter.php">
         <class name="StringArrayAdapter" namespace="Molajito\Translate" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="8" coveredelements="8"/>
         </class>
@@ -1158,7 +1158,7 @@
       </file>
     </package>
     <package name="Molajito\View">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Filesystem.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/View/Filesystem.php">
         <class name="Filesystem" namespace="Molajito\View" fullPackage="Filesystem" package="Filesystem">
           <metrics methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="20" coveredelements="20"/>
         </class>
@@ -1184,7 +1184,7 @@
         <line num="97" type="stmt" count="5"/>
         <metrics loc="99" ncloc="46" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="20" coveredelements="20"/>
       </file>
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/Source/View/Molajo.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/Source/View/Molajo.php">
         <class name="Molajo" namespace="Molajito\View" fullPackage="Molajo" package="Molajo">
           <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
         </class>
@@ -1206,12 +1206,12 @@
         <metrics loc="72" ncloc="35" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
       </file>
     </package>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/exception/ExceptionInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/exception/ExceptionInterface.php">
       <line num="23" type="stmt" count="0"/>
       <metrics loc="22" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="CommonApi\Exception">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/exception/RuntimeException.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/exception/RuntimeException.php">
         <class name="RuntimeException" namespace="CommonApi\Exception" fullPackage="Exception" package="Exception">
           <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
         </class>
@@ -1224,32 +1224,32 @@
         <metrics loc="49" ncloc="18" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="5" coveredelements="0"/>
       </file>
     </package>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/DataInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/render/DataInterface.php">
       <line num="35" type="stmt" count="0"/>
       <metrics loc="34" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/EscapeInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/render/EscapeInterface.php">
       <line num="35" type="stmt" count="0"/>
       <metrics loc="34" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/ParseInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/render/ParseInterface.php">
       <line num="40" type="stmt" count="0"/>
       <metrics loc="39" ncloc="13" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/PositionInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/render/PositionInterface.php">
       <line num="35" type="stmt" count="0"/>
       <metrics loc="34" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/RenderInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/render/RenderInterface.php">
       <line num="34" type="stmt" count="0"/>
       <metrics loc="33" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/commonapi/render/TokenInterface.php">
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/commonapi/render/TokenInterface.php">
       <line num="32" type="stmt" count="0"/>
       <metrics loc="31" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <package name="Composer\Autoload">
-      <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/composer/ClassLoader.php">
+      <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/composer/ClassLoader.php">
         <class name="ClassLoader" namespace="Composer\Autoload">
           <metrics methods="17" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="136" coveredstatements="0" elements="153" coveredelements="0"/>
         </class>
@@ -1330,91 +1330,91 @@
         <line num="197" type="stmt" count="0"/>
         <line num="199" type="stmt" count="0"/>
         <line num="208" type="method" name="setPsr4" crap="12" count="0"/>
-        <line num="209" type="stmt" count="0"/>
         <line num="210" type="stmt" count="0"/>
         <line num="211" type="stmt" count="0"/>
         <line num="212" type="stmt" count="0"/>
         <line num="213" type="stmt" count="0"/>
         <line num="214" type="stmt" count="0"/>
-        <line num="216" type="stmt" count="0"/>
+        <line num="215" type="stmt" count="0"/>
         <line num="217" type="stmt" count="0"/>
-        <line num="219" type="stmt" count="0"/>
-        <line num="226" type="method" name="setUseIncludePath" crap="2" count="0"/>
-        <line num="228" type="stmt" count="0"/>
+        <line num="218" type="stmt" count="0"/>
+        <line num="220" type="stmt" count="0"/>
+        <line num="227" type="method" name="setUseIncludePath" crap="2" count="0"/>
         <line num="229" type="stmt" count="0"/>
-        <line num="237" type="method" name="getUseIncludePath" crap="2" count="0"/>
-        <line num="239" type="stmt" count="0"/>
-        <line num="247" type="method" name="register" crap="2" count="0"/>
-        <line num="249" type="stmt" count="0"/>
+        <line num="230" type="stmt" count="0"/>
+        <line num="238" type="method" name="getUseIncludePath" crap="2" count="0"/>
+        <line num="240" type="stmt" count="0"/>
+        <line num="248" type="method" name="register" crap="2" count="0"/>
         <line num="250" type="stmt" count="0"/>
-        <line num="255" type="method" name="unregister" crap="2" count="0"/>
-        <line num="257" type="stmt" count="0"/>
+        <line num="251" type="stmt" count="0"/>
+        <line num="256" type="method" name="unregister" crap="2" count="0"/>
         <line num="258" type="stmt" count="0"/>
-        <line num="266" type="method" name="loadClass" crap="6" count="0"/>
-        <line num="268" type="stmt" count="0"/>
+        <line num="259" type="stmt" count="0"/>
+        <line num="267" type="method" name="loadClass" crap="6" count="0"/>
         <line num="269" type="stmt" count="0"/>
-        <line num="271" type="stmt" count="0"/>
-        <line num="273" type="stmt" count="0"/>
-        <line num="282" type="method" name="findFile" crap="42" count="0"/>
-        <line num="285" type="stmt" count="0"/>
+        <line num="270" type="stmt" count="0"/>
+        <line num="272" type="stmt" count="0"/>
+        <line num="274" type="stmt" count="0"/>
+        <line num="283" type="method" name="findFile" crap="42" count="0"/>
         <line num="286" type="stmt" count="0"/>
         <line num="287" type="stmt" count="0"/>
-        <line num="290" type="stmt" count="0"/>
+        <line num="288" type="stmt" count="0"/>
         <line num="291" type="stmt" count="0"/>
-        <line num="294" type="stmt" count="0"/>
-        <line num="297" type="stmt" count="0"/>
+        <line num="292" type="stmt" count="0"/>
+        <line num="295" type="stmt" count="0"/>
         <line num="298" type="stmt" count="0"/>
         <line num="299" type="stmt" count="0"/>
-        <line num="301" type="stmt" count="0"/>
-        <line num="303" type="stmt" count="0"/>
-        <line num="306" type="stmt" count="0"/>
-        <line num="309" type="method" name="findFileWithExtension" crap="342" count="0"/>
-        <line num="312" type="stmt" count="0"/>
-        <line num="314" type="stmt" count="0"/>
+        <line num="300" type="stmt" count="0"/>
+        <line num="302" type="stmt" count="0"/>
+        <line num="304" type="stmt" count="0"/>
+        <line num="307" type="stmt" count="0"/>
+        <line num="310" type="method" name="findFileWithExtension" crap="342" count="0"/>
+        <line num="313" type="stmt" count="0"/>
         <line num="315" type="stmt" count="0"/>
         <line num="316" type="stmt" count="0"/>
         <line num="317" type="stmt" count="0"/>
         <line num="318" type="stmt" count="0"/>
         <line num="319" type="stmt" count="0"/>
         <line num="320" type="stmt" count="0"/>
-        <line num="322" type="stmt" count="0"/>
+        <line num="321" type="stmt" count="0"/>
         <line num="323" type="stmt" count="0"/>
         <line num="324" type="stmt" count="0"/>
         <line num="325" type="stmt" count="0"/>
-        <line num="328" type="stmt" count="0"/>
+        <line num="326" type="stmt" count="0"/>
         <line num="329" type="stmt" count="0"/>
         <line num="330" type="stmt" count="0"/>
-        <line num="332" type="stmt" count="0"/>
-        <line num="335" type="stmt" count="0"/>
-        <line num="337" type="stmt" count="0"/>
+        <line num="331" type="stmt" count="0"/>
+        <line num="333" type="stmt" count="0"/>
+        <line num="336" type="stmt" count="0"/>
         <line num="338" type="stmt" count="0"/>
         <line num="339" type="stmt" count="0"/>
-        <line num="341" type="stmt" count="0"/>
-        <line num="344" type="stmt" count="0"/>
+        <line num="340" type="stmt" count="0"/>
+        <line num="342" type="stmt" count="0"/>
         <line num="345" type="stmt" count="0"/>
         <line num="346" type="stmt" count="0"/>
         <line num="347" type="stmt" count="0"/>
         <line num="348" type="stmt" count="0"/>
         <line num="349" type="stmt" count="0"/>
-        <line num="351" type="stmt" count="0"/>
+        <line num="350" type="stmt" count="0"/>
         <line num="352" type="stmt" count="0"/>
         <line num="353" type="stmt" count="0"/>
         <line num="354" type="stmt" count="0"/>
-        <line num="357" type="stmt" count="0"/>
+        <line num="355" type="stmt" count="0"/>
         <line num="358" type="stmt" count="0"/>
         <line num="359" type="stmt" count="0"/>
-        <line num="361" type="stmt" count="0"/>
-        <line num="364" type="stmt" count="0"/>
+        <line num="360" type="stmt" count="0"/>
+        <line num="362" type="stmt" count="0"/>
         <line num="365" type="stmt" count="0"/>
-        <line num="367" type="stmt" count="0"/>
-        <line num="377" type="stmt" count="0"/>
+        <line num="366" type="stmt" count="0"/>
+        <line num="368" type="stmt" count="0"/>
         <line num="378" type="stmt" count="0"/>
-        <metrics loc="378" ncloc="237" classes="1" methods="17" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="138" coveredstatements="0" elements="155" coveredelements="0"/>
+        <line num="379" type="stmt" count="0"/>
+        <metrics loc="379" ncloc="238" classes="1" methods="17" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="138" coveredstatements="0" elements="155" coveredelements="0"/>
       </file>
     </package>
-    <file name="/Users/amystephen/Sites/Molajo/Molajito/vendor/composer/autoload_real.php">
-      <class name="ComposerAutoloaderInitbc6478e194e756299c89c20b230f7edd" namespace="global">
-        <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="0" elements="27" coveredelements="0"/>
+    <file name="/Users/amystephen/Sites/Molajo/Molajo/vendor/molajo/molajito/vendor/composer/autoload_real.php">
+      <class name="ComposerAutoloaderInitbfc63e8c6cb7b8bfbbc7d36093f3b339" namespace="global">
+        <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="0" elements="25" coveredelements="0"/>
       </class>
       <line num="9" type="method" name="loadClassLoader" crap="6" count="0"/>
       <line num="11" type="stmt" count="0"/>
@@ -1429,24 +1429,22 @@
       <line num="24" type="stmt" count="0"/>
       <line num="26" type="stmt" count="0"/>
       <line num="27" type="stmt" count="0"/>
+      <line num="28" type="stmt" count="0"/>
       <line num="29" type="stmt" count="0"/>
-      <line num="30" type="stmt" count="0"/>
       <line num="31" type="stmt" count="0"/>
       <line num="32" type="stmt" count="0"/>
+      <line num="33" type="stmt" count="0"/>
       <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
       <line num="36" type="stmt" count="0"/>
       <line num="37" type="stmt" count="0"/>
+      <line num="38" type="stmt" count="0"/>
       <line num="39" type="stmt" count="0"/>
-      <line num="40" type="stmt" count="0"/>
       <line num="41" type="stmt" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="53" type="stmt" count="0"/>
-      <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
+      <line num="43" type="stmt" count="0"/>
+      <line num="49" type="stmt" count="0"/>
+      <line num="50" type="stmt" count="0"/>
+      <metrics loc="50" ncloc="48" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="0" elements="27" coveredelements="0"/>
     </file>
-    <metrics files="61" loc="5296" ncloc="2863" classes="31" methods="152" coveredmethods="104" conditionals="0" coveredconditionals="0" statements="943" coveredstatements="619" elements="1095" coveredelements="723"/>
+    <metrics files="61" loc="5294" ncloc="2861" classes="31" methods="152" coveredmethods="104" conditionals="0" coveredconditionals="0" statements="941" coveredstatements="619" elements="1093" coveredelements="723"/>
   </project>
 </coverage>

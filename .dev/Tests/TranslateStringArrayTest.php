@@ -38,14 +38,14 @@ class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
         $escape = new Escape($simple);
 
         /** Translate - with Escape */
-        $parse_mask = null;
-        $model_registry = array();
+        $parse_mask       = null;
+        $model_registry   = array();
         $language_strings = array(
             'thing' => 'it is a thing.',
             'THING' => 'Really. It is really a thing.'
         );
-        $adapter = new StringArrayAdapter ($escape, $parse_mask, $model_registry, $language_strings);
-        $this->translate = new Translate($adapter);
+        $adapter          = new StringArrayAdapter ($escape, $parse_mask, $model_registry, $language_strings);
+        $this->translate  = new Translate($adapter);
     }
 
     /**
@@ -143,15 +143,15 @@ class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
         /** Translate - with Escape */
         $parse_mask = '#{T (.*) T}#iU';
         $model_registry
-            = array(
+                          = array(
             'language_string' => array('name' => 'language_string', 'type' => 'string')
         );
         $language_strings = array(
             'thing' => 'it is a thing.',
             'THING' => 'Really. It is really a thing.'
         );
-        $adapter = new StringArrayAdapter ($escape, $parse_mask, $model_registry, $language_strings);
-        $translate = new Translate($adapter);
+        $adapter          = new StringArrayAdapter ($escape, $parse_mask, $model_registry, $language_strings);
+        $translate        = new Translate($adapter);
 
         $page
             = 'Hello
