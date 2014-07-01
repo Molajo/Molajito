@@ -10,6 +10,8 @@ namespace Molajito\Test;
 
 use Molajito\Render;
 use Molajito\Render\Position;
+use Molajito\Event;
+use Molajito\Event\Dummy;
 use Molajito\Escape;
 use Molajito\Escape\Simple;
 use stdClass;
@@ -30,7 +32,7 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
     protected $position;
 
     /**
-     * Create Position Instance
+     * Create Page View Instance
      *
      * @covers  Molajito\Escape\Simple::__construct
      * @covers  Molajito\Escape::__construct
@@ -55,11 +57,26 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
         $simple = new Simple();
         $escape = new Escape($simple);
 
+        /** Render Instance */
+        $render = new Render();
+
+        /** Event */
+        $adapter = new Dummy();
+        $event   = new Event($adapter);
+
         /** Position Instance */
-        $this->position = new Position($escape);
+        $this->position = new Position($escape, $render, $event);
     }
 
     /**
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
      * @covers  Molajito\Escape::__construct
      * @covers  Molajito\Escape::escapeOutput
      * @covers  Molajito\Escape\Simple::__construct
@@ -68,12 +85,28 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
+     * @covers  Molajito\Render\PageView::renderOutput
+     * @covers  Molajito\Render\PageView::setProperties
+     * @covers  Molajito\Render\PageView::includeFile
+     *
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
+     *
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
+     *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
-     * @covers  Molajito\Render\Position::getPositionParameters
-     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
      * @covers  Molajito\Render\Position::createIncludeStatements
@@ -102,6 +135,14 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
      * @covers  Molajito\Escape::__construct
      * @covers  Molajito\Escape::escapeOutput
      * @covers  Molajito\Escape\Simple::__construct
@@ -110,12 +151,28 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
+     * @covers  Molajito\Render\PageView::renderOutput
+     * @covers  Molajito\Render\PageView::setProperties
+     * @covers  Molajito\Render\PageView::includeFile
+     *
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
+     *
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
+     *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
-     * @covers  Molajito\Render\Position::getPositionParameters
-     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
      * @covers  Molajito\Render\Position::createIncludeStatements
@@ -145,6 +202,14 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
      * @covers  Molajito\Escape::__construct
      * @covers  Molajito\Escape::escapeOutput
      * @covers  Molajito\Escape\Simple::__construct
@@ -153,12 +218,28 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
+     * @covers  Molajito\Render\PageView::renderOutput
+     * @covers  Molajito\Render\PageView::setProperties
+     * @covers  Molajito\Render\PageView::includeFile
+     *
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
+     *
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
+     *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
-     * @covers  Molajito\Render\Position::getPositionParameters
-     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
      * @covers  Molajito\Render\Position::createIncludeStatements
@@ -189,6 +270,14 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajito\Event::initializeEventOptions
+     * @covers  Molajito\Event::scheduleEvent
+     * @covers  Molajito\Event\Dummy::initializeEventOptions
+     * @covers  Molajito\Event\Dummy::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     * @covers  Molajito\Event\AbstractAdapter::scheduleEvent
+     * @covers  Molajito\Event\AbstractAdapter::initializeEventOptions
+     *
      * @covers  Molajito\Escape::__construct
      * @covers  Molajito\Escape::escapeOutput
      * @covers  Molajito\Escape\Simple::__construct
@@ -197,12 +286,28 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeOutput
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
+     * @covers  Molajito\Render\PageView::renderOutput
+     * @covers  Molajito\Render\PageView::setProperties
+     * @covers  Molajito\Render\PageView::includeFile
+     *
+     * @covers  Molajito\Render\AbstractRenderer::renderOutput
+     * @covers  Molajito\Render\AbstractRenderer::setProperties
+     * @covers  Molajito\Render\AbstractRenderer::getProperties
+     * @covers  Molajito\Render\AbstractRenderer::scheduleEvent
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::setEventOptions
+     * @covers  Molajito\Render\AbstractRenderer::performRendering
+     * @covers  Molajito\Render\AbstractRenderer::includeFile
+     *
+     * @covers  Molajito\Render::renderOutput
+     * @covers  Molajito\Render::setProperties
+     * @covers  Molajito\Render::includeFile
+     *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
-     * @covers  Molajito\Render\Position::getPositionParameters
-     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::buildPositionArray
+     * @covers  Molajito\Render\Position::buildPositionTemplatesArray
      * @covers  Molajito\Render\Position::getPositionTemplate
      * @covers  Molajito\Render\Position::searchPositionArray
      * @covers  Molajito\Render\Position::createIncludeStatements
