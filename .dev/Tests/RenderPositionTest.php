@@ -103,6 +103,7 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::getPositionParameters
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::buildPositionArray
@@ -169,6 +170,7 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::getPositionParameters
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::buildPositionArray
@@ -236,6 +238,7 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::getPositionParameters
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::buildPositionArray
@@ -304,6 +307,7 @@ class RenderPositionTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @covers  Molajito\Render\Position::getPositionTemplateViews
+     * @covers  Molajito\Render\Position::getPositionParameters
      * @covers  Molajito\Render\Position::matchPositionTemplates
      * @covers  Molajito\Render\Position::getPositionTemplates
      * @covers  Molajito\Render\Position::buildPositionArray
