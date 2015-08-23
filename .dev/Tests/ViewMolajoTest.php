@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -18,7 +18,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class ViewMolajoTest extends \PHPUnit_Framework_TestCase
@@ -47,7 +47,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View::getView
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTheme()
     {
@@ -57,12 +57,11 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $test = 'Theme:///Molajo//Themes//Test';
+        $test = 'Theme://Molajo//Themes//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;
     }
-
 
     /**
      * Get Page View Extension
@@ -73,7 +72,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View::getView
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetExtensionPage()
     {
@@ -83,7 +82,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $test = 'Page:///Molajo//Views//Pages//Test';
+        $test = 'Page://Molajo//Views//Pages//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;
@@ -98,7 +97,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View::getView
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetExtensionTemplate()
     {
@@ -108,7 +107,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $test = 'Template:///Molajo//Views//Templates//Test';
+        $test = 'Template://Molajo//Views//Templates//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;
@@ -123,7 +122,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View::getView
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetExtensionWrap()
     {
@@ -133,7 +132,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
 
         $extensions = $this->view_instance->getView($token);
 
-        $test = 'Wrap:///Molajo//Views//Wraps//Test';
+        $test = 'Wrap://Molajo//Views//Wraps//Test';
         $this->assertEquals($extensions->extension, $test);
 
         return $this;
@@ -144,7 +143,7 @@ class ViewMolajoTest extends \PHPUnit_Framework_TestCase
  * Mock Resource Class
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0.0
  */
@@ -157,7 +156,7 @@ class ResourceMock
      * @param   array  $options
      *
      * @return  mixed
-     * @since   1.0
+     * @since   1.0.0
      */
     public function get($request)
     {
@@ -165,12 +164,11 @@ class ResourceMock
     }
 }
 
-
 /**
  * Mock Resource Class
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0.0
  */
@@ -183,7 +181,7 @@ class ResourceMock2
      * @param   array  $options
      *
      * @return  mixed
-     * @since   1.0
+     * @since   1.0.0
      */
     public function get($request)
     {

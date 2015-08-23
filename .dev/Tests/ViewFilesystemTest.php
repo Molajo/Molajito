@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -17,7 +17,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
@@ -60,7 +60,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTheme()
     {
@@ -89,7 +89,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetExtensionPage()
     {
@@ -118,7 +118,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetExtensionTemplate()
     {
@@ -147,7 +147,7 @@ class ViewFilesystemTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetExtensionWrap()
     {

@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -16,7 +16,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class RenderTest extends \PHPUnit_Framework_TestCase
@@ -44,7 +44,7 @@ class RenderTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testRenderNoData()
     {
@@ -69,7 +69,7 @@ class RenderTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testRender()
     {

@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito;
 
@@ -21,10 +21,10 @@ use stdClass;
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Engine implements RenderInterface
+final class Engine implements RenderInterface
 {
     /**
      * Token Instance
@@ -35,7 +35,7 @@ class Engine implements RenderInterface
     protected $token_instance = null;
 
     /**
-     * Wrap View Instance
+     * Translate Instance
      *
      * @var    object  CommonApi\Language\TranslateInterface
      * @since  1.0.0
@@ -51,12 +51,28 @@ class Engine implements RenderInterface
     protected $parse_instance = null;
 
     /**
+     * Event Handler
+     *
+     * @var    object  CommonApi\Render\EventInterface
+     * @since  1.0.0
+     */
+    protected $event_instance = null;
+
+    /**
      * Exclude tokens from parsing (tokens to generate head are held until body is processed)
      *
      * @var    array
      * @since  1.0.0
      */
     protected $exclude_tokens = array();
+
+    /**
+     * Tokens to Render
+     *
+     * @var    array
+     * @since  1.0.0
+     */
+    protected $token_objects = array();
 
     /**
      * Stop Parse and Render Loop Count
@@ -67,14 +83,6 @@ class Engine implements RenderInterface
     protected $stop_loop_count = 100;
 
     /**
-     * Event Handler
-     *
-     * @var    object  CommonApi\Render\EventInterface
-     * @since  1.0.0
-     */
-    protected $event_instance = null;
-
-    /**
      * Page Rendered Output
      *
      * @var    string
@@ -83,20 +91,12 @@ class Engine implements RenderInterface
     protected $rendered_page = null;
 
     /**
-     * View Rendered Output
+     * Page View passed in with Theme
      *
      * @var    string
      * @since  1.0.0
      */
-    protected $rendered_view = null;
-
-    /**
-     * Tokens to Render
-     *
-     * @var    array
-     * @since  1.0.0
-     */
-    protected $token_objects = array();
+    protected $page_view = null;
 
     /**
      * Constructor
@@ -129,28 +129,29 @@ class Engine implements RenderInterface
     /**
      * Render output for specified Theme and all of the tokens which are located thereafter ...
      *
-     * @param   string $include_path
-     * @param   array  $data
+     * @param   array $data
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function renderOutput($include_path, array $data = array())
+    public function renderOutput(array $data = array())
     {
-        /** Step 1. Render Theme */
-        $this->renderTheme($include_path, $data);
+        $this->scheduleEvents('onBeforeRender');
 
-        /** Step 2. Parse and Render Body */
+        $this->renderTheme($data);
+
         $this->renderLoop();
 
-        /** Step 3. Render Head */
-        $this->renderLoop();
+        $this->scheduleEvents('onBeforeParseHead');
 
-        /** Step 4. Translate */
+        if (count($this->exclude_tokens) > 0) {
+            $this->exclude_tokens = array();
+            $this->renderLoop();
+        }
+
         $this->rendered_page = $this->translate_instance->translateString($this->rendered_page);
 
-        /** Step 5. Schedule onAfterRender Event */
         $this->scheduleEvents('onAfterRender');
 
         return $this->rendered_page;
@@ -159,19 +160,22 @@ class Engine implements RenderInterface
     /**
      * Render Theme -- provides rendered_page which is the source of all parsing/rendering
      *
-     * @param   string $include_path
-     * @param   array  $data
+     * @param   array $data
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
-    protected function renderTheme($include_path, array $data = array())
+    protected function renderTheme(array $data = array())
     {
-        $token_object         = new stdClass();
-        $token_object->type   = 'theme';
-        $data['include_path'] = $include_path;
+        $token_object = new stdClass();
 
-        $this->rendered_page = $this->token_instance->processToken($token_object, $data);
+        foreach ($data as $key => $value) {
+            $token_object->$key = $value;
+        }
+
+        $this->rendered_page = $this->token_instance->processToken($token_object);
+
+        $this->page_view = $data['page'];
 
         return $this;
     }
@@ -180,36 +184,56 @@ class Engine implements RenderInterface
      * Render Loop - runs twice, first time to render Body, second time to render Head
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function renderLoop()
     {
+        $continue     = true;
         $loop_counter = 0;
 
-        while (true === true) {
-
-            $this->parseRenderedOutput();
-
-            $this->renderTokens();
-
-            if ($this->testEndOfLoopProcessing($loop_counter) === true) {
-                $loop_counter++;
-                continue;
-            } else {
-                break;
-            }
+        while ($continue === true) {
+            $continue = $this->renderLoopSteps($loop_counter);
+            $loop_counter++;
         }
 
-        $this->exclude_tokens = array();
-
         return $this;
+    }
+
+    /**
+     * Render Loop Steps - Runs
+     *
+     * @param   integer $loop_counter
+     *
+     * @return  boolean
+     * @since   1.0.0
+     */
+    protected function renderLoopSteps($loop_counter)
+    {
+        $this->parseRenderedOutput();
+
+        if (count($this->token_objects) === 0) {
+            return false;
+        }
+
+        $this->renderTokens();
+
+        $this->testEndOfLoopProcessing($loop_counter);
+
+        $loop_counter++;
+
+        if ($loop_counter > $this->stop_loop_count) {
+            echo 'die in molajito engine';
+            die;
+        }
+
+        return true;
     }
 
     /**
      * Schedule onBeforeParse Event
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function parseRenderedOutput()
     {
@@ -220,18 +244,42 @@ class Engine implements RenderInterface
             $this->exclude_tokens
         );
 
-        $this->scheduleEvents('onAfterParse');
+        if (count($this->token_objects) > 0) {
+            $this->setPage();
+            $this->scheduleEvents('onAfterParse');
+        }
 
         return $this;
     }
 
     /**
-     * Schedule Event
+     * Set Page Automatically if necessary
+     *
+     * @return  $this
+     * @since   1.0.0
+     */
+    protected function setPage()
+    {
+        foreach ($this->token_objects as $token) {
+
+            if ($token->type === 'position'
+                && $token->name === 'page'
+            ) {
+                $token->type = 'page';
+                $token->name = $this->page_view;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Schedule Event - onBeforeParse, onAfterParse
      *
      * @param   string $event_name
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function scheduleEvents($event_name)
     {
@@ -254,17 +302,20 @@ class Engine implements RenderInterface
      * Render Output for Tokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function renderTokens()
     {
-        foreach ($this->token_objects as $token_object) {
+        foreach ($this->token_objects as $key => $token_object) {
+
+            $page = $this->rendered_page;
 
             $this->rendered_page = $this->token_instance->processToken(
                 $token_object,
-                array('rendered_page' => $this->rendered_page)
+                array('rendered_page' => $page)
             );
 
+            unset($this->token_objects[$key]);
         }
 
         return $this;
@@ -276,15 +327,10 @@ class Engine implements RenderInterface
      * @param   integer $loop_counter
      *
      * @return  boolean
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function testEndOfLoopProcessing($loop_counter)
     {
-        if (count($this->token_objects) > 0) {
-        } else {
-            return false;
-        }
-
         if ($loop_counter > $this->stop_loop_count) {
 
             throw new RuntimeException(

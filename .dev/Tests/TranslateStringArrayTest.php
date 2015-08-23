@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -18,7 +18,7 @@ use Molajito\Escape\Simple;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
@@ -78,7 +78,7 @@ class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTranslatePage()
     {
@@ -100,7 +100,6 @@ class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
 
         return $this;
     }
-
 
     /**
      * Construct $translate_mask and $model_registry
@@ -132,7 +131,7 @@ class TranslateStringArrayTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testConstructor()
     {

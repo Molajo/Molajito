@@ -1,24 +1,22 @@
 <?php
 /**
- * Abstract Adapter {T Array This T}
+ * Abstract Adapter {T This T}
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajito\Translate;
 
-use CommonApi\Exception\RuntimeException;
 use CommonApi\Language\TranslateInterface;
 use CommonApi\Render\EscapeInterface;
-use Exception;
 use stdClass;
 
 /**
  * Abstract Adapter {T Array This T}
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0.0
  */
@@ -101,7 +99,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   $string
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     public function translateString($string)
@@ -123,7 +121,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * Parse tokens to be translated
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function parseTokens()
@@ -141,7 +139,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   array $tokens_to_translate
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     public function processTranslateStrings($tokens_to_translate)
@@ -164,7 +162,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   string $string
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     public function processTranslateString($token, $string)
@@ -183,7 +181,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   string $string
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     abstract protected function translateToken($string);
@@ -194,11 +192,15 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   string $string
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function filterTranslation($string)
     {
+        if (is_object($string)) {
+            return '';
+        }
+
         $this->row->language_string = $string;
 
         $rows = $this->escape_instance->escapeOutput(array($this->row), $this->model_registry);
@@ -213,7 +215,7 @@ abstract class AbstractAdapter implements TranslateInterface
      * @param   string $translation
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function replaceToken($token, $translation)

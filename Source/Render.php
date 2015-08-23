@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito;
 
@@ -16,10 +16,10 @@ use CommonApi\Render\RenderInterface;
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Render implements RenderInterface
+final class Render implements RenderInterface
 {
     /**
      * Plugin Data REMOVE
@@ -28,7 +28,7 @@ class Render implements RenderInterface
      * @since  1.0.0
      */
     protected $plugin_data;
-// remove above
+// remove above - plugin data should NOT be in templates
 
     /**
      * Runtime Data
@@ -47,7 +47,7 @@ class Render implements RenderInterface
     protected $parameters = null;
 
     /**
-     * Query Results: for Custom.phtml files
+     * Query Results
      *
      * @var    array
      * @since  1.0.0
@@ -55,7 +55,7 @@ class Render implements RenderInterface
     protected $query_results = array();
 
     /**
-     * Single Row: Normal Header.phtml, Body.phtml, Footer.phtml files
+     * Single Row
      *
      * @var    object
      * @since  1.0.0
@@ -78,7 +78,8 @@ class Render implements RenderInterface
      */
     protected $property_array
         = array(
-            'plugin_data',
+            'include_path',
+            'plugin_data',  // remove
             'runtime_data',
             'parameters',
             'query_results',
@@ -88,18 +89,17 @@ class Render implements RenderInterface
     /**
      * Render output for specified file and data
      *
-     * @param   string $include_path
-     * @param   array  $data
+     * @param   array $data
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function renderOutput($include_path, array $data = array())
+    public function renderOutput(array $data = array())
     {
         $this->setProperties($data);
 
-        return $this->includeFile($include_path);
+        return $this->includeFile();
     }
 
     /**
@@ -108,11 +108,12 @@ class Render implements RenderInterface
      * @param   array $data
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setProperties(array $data = array())
     {
         foreach ($data as $key => $value) {
+
             if (in_array($key, $this->property_array)) {
                 $this->$key = $data[$key];
             }
@@ -124,20 +125,16 @@ class Render implements RenderInterface
     /**
      * Include rendering file
      *
-     * @param   string $include_path
-     *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    protected function includeFile($include_path)
+    protected function includeFile()
     {
-        $this->include_path = $include_path;
-
         if (file_exists($this->include_path)) {
         } else {
             throw new RuntimeException(
-                'Molajito Render - rendering file not found: ' . $include_path
+                'Molajito Render - rendering file not found: ' . $this->include_path
             );
         }
 

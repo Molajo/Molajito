@@ -4,12 +4,11 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Render;
 
-use CommonApi\Render\EscapeInterface;
-use CommonApi\Render\PositionInterface;
+use CommonApi\Render\RenderInterface;
 use stdClass;
 
 /**
@@ -17,224 +16,92 @@ use stdClass;
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Position extends AbstractRenderer implements PositionInterface
+final class Position extends AbstractRenderer implements RenderInterface
 {
     /**
-     * Retrieve all Template Views for Position searching Page, first, then Theme
+     * Render output
      *
-     * @param   string $position_name
-     * @param   object $resource_extension
+     * @param   array $data
      *
-     * @return  string
-     * @since   1.0
+     * @return  array
+     * @since   1.0.0
+     * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function getPositionTemplateViews($position_name, $resource_extension)
+    public function renderOutput(array $data = array())
     {
-        $template_array = $this->matchPositionTemplates('page', $position_name, $resource_extension);
+        $data['on_before_event'] = 'onBeforeRenderPosition';
+        $data['on_after_event']  = 'onAfterRenderPosition';
 
-        if (count($template_array) === 0) {
-            $template_array = $this->matchPositionTemplates('theme', $position_name, $resource_extension);
-        }
+        $this->initialise($data);
+        $this->scheduleEvent($this->on_before_event, array());
+        $this->renderView('');
+        $this->scheduleEvent($this->on_after_event, array());
 
-        if (count($template_array) === 0) {
-            $template_array   = array();
-            $template_array[] = $position_name;
-        }
-
-        return $this->createIncludeStatements($template_array);
+        return $this->rendered_view;
     }
 
     /**
-     * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
+     * Render View
      *
-     * @param   string $type
-     * @param   string $position_name
-     * @param   object $resource_extension
+     * @param   string $suffix
      *
-     * @return  array
-     * @since   1.0
+     * @return  $this
+     * @since   1.0.0
      */
-    protected function matchPositionTemplates($type, $position_name, $resource_extension)
+    protected function renderView($suffix)
     {
-        $position_parameters = $this->getPositionParameters($type, $resource_extension);
-
-        $template_array = array();
-
-        if (count($position_parameters) > 0) {
-            foreach ($position_parameters as $position_parameter) {
-
-                $template_array = $this->getPositionTemplates($position_name, $position_parameter);
-
-                if (count($template_array) > 0) {
-                    break;
-                }
-            }
+        if (trim($this->parameters->token->name) === '') {
+            return $this;
         }
 
-        return $template_array;
-    }
-
-    /**
-     * Get Position Parameters for Type
-     *
-     * @param   string $type
-     * @param   object $resource_extension
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function getPositionParameters($type, $resource_extension)
-    {
-        $position_parameters = array();
-
-        if (isset($resource_extension->$type->parameters->positions)) {
-            $position_parameters[] = $resource_extension->$type->parameters->positions;
-        }
-
-        if (isset($resource_extension->$type->menuitem->parameters->positions)) {
-            $position_parameters[] = $resource_extension->$type->menuitem->parameters->positions;
-        }
-
-        return $position_parameters;
-    }
-
-    /**
-     * Match to Positions defined in the Page or Theme Menuitem or Extension Parameters
-     *
-     * @param   string $position_name
-     * @param   string $position_parameter
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function getPositionTemplates($position_name, $position_parameter)
-    {
-        $positions_array = $this->buildPositionArray($position_parameter);
-
-        return $this->searchPositionArray($position_name, $positions_array);
-    }
-
-    /**
-     * Build the Position Array
-     *
-     * @param   string $position
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function buildPositionArray($position)
-    {
-        $positions_array = array();
-
-        $position_templates = explode('{{', $position);
-
-        if (count($position_templates) > 0) {
-            $positions_array = $this->buildPositionTemplatesArray($position_templates);
-        }
-
-        return $positions_array;
-    }
-
-    /**
-     * Build Position Templates array
-     *
-     * @param   array $position_templates
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function buildPositionTemplatesArray(array $position_templates = array())
-    {
-        $positions_array = array();
-
-        foreach ($position_templates as $field) {
-
-            $position_template = $this->getPositionTemplate($field);
-
-            if (count($position_template) === 2) {
-                $position       = $position_template['position'];
-                $template_array = $position_template['templates'];
-
-                $positions_array[$position] = $template_array;
-            }
-        }
-
-        return $positions_array;
-    }
-
-    /**
-     * Build Position Templates array
-     *
-     * @param   string $position_template
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function getPositionTemplate($position_template)
-    {
-        $remove_brackets = substr(trim($position_template), 0, strlen($position_template) - 2);
-
-        $template_array = explode('=', $remove_brackets);
-
-        if (count($template_array) === 2) {
-            $position        = strtolower($template_array[0]);
-            $template_array  = explode(',', $template_array[1]);
-            $positions_array = array('position' => $position, 'templates' => $template_array);
+        if (is_array($this->parameters->token->name)) {
+            $templates = $this->parameters->token->name;
         } else {
-            $positions_array = array();
+            $templates = array($this->parameters->token->name);
         }
 
-        return $positions_array;
+        if (count($templates) > 0) {
+            $this->setTemplates($templates);
+        }
+
+        return $this;
     }
 
     /**
-     * Search the Position Array
-     *
-     * @param   string $position_name
-     * @param   array  $positions
-     *
-     * @return  array
-     * @since   1.0
-     */
-    protected function searchPositionArray($position_name, array $positions = array())
-    {
-        $position_name = strtolower($position_name);
-
-        if (isset($positions[$position_name])) {
-            return $positions[$position_name];
-        }
-
-        return array();
-    }
-
-    /**
-     * Create Include Statements for Position Templates
+     * Set Templates
      *
      * @param   array $templates
      *
-     * @return  string
-     * @throws  \CommonApi\Exception\RuntimeException
+     * @return  $this
+     * @since   1.0.0
      */
-    protected function createIncludeStatements(array $templates = array())
+    protected function setTemplates(array $templates = array())
     {
-        $rendered_page = '';
+        $attributes = $this->setAttributes();
 
         foreach ($templates as $template) {
 
             $template_name = $this->escapeTemplateName($template);
 
-            if ($rendered_page === '') {
+            if ($this->rendered_view === '') {
             } else {
-                $rendered_page .= PHP_EOL;
+                $this->rendered_view .= PHP_EOL;
             }
 
-            $rendered_page .= '{I template=' . ucfirst(strtolower(trim($template_name))) . ' I} ';
+            $this->rendered_view .= '{I template=' . ucfirst(strtolower(trim($template_name)));
+
+            if (trim($attributes) === '') {
+            } else {
+                $this->rendered_view .= ' ' . $attributes;
+            }
+
+            $this->rendered_view .= ' I} ';
         }
 
-        return $rendered_page;
+        return $this;
     }
 
     /**
@@ -255,5 +122,25 @@ class Position extends AbstractRenderer implements PositionInterface
         $escaped = $this->escape_instance->escapeOutput($data);
 
         return $escaped[0]->name;
+    }
+
+    /**
+     * Set Attributes as String
+     *
+     * @return  string
+     */
+    protected function setAttributes()
+    {
+        $attributes = '';
+
+        if (count($this->parameters->token->attributes) === 0) {
+            return $attributes;
+        }
+
+        foreach ($this->parameters->token->attributes as $key => $value) {
+            $attributes .= ' ' . $key . '=' . $value;
+        }
+
+        return trim($attributes);
     }
 }

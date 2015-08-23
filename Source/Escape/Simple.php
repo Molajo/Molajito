@@ -2,11 +2,9 @@
 /**
  * Molajito Escape Class Simple Adapter
  *
- * Only useful for demo purposes - handles data as numeric, null, or string
- *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Escape;
 
@@ -15,14 +13,12 @@ use CommonApi\Render\EscapeInterface;
 /**
  * Molajito Escape Class Simple Adapter
  *
- * Only useful for demo purposes - handles data as numeric, null, or string
- *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Simple extends AbstractAdapter implements EscapeInterface
+final class Simple extends AbstractAdapter implements EscapeInterface
 {
     /**
      * Data
@@ -43,6 +39,8 @@ class Simple extends AbstractAdapter implements EscapeInterface
     /**
      * Constructor
      *
+     * @param  null $white_list
+     *
      * @since  1.0.0
      */
     public function __construct(
@@ -61,7 +59,7 @@ class Simple extends AbstractAdapter implements EscapeInterface
      * @param   array $model_registry
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {
@@ -71,15 +69,16 @@ class Simple extends AbstractAdapter implements EscapeInterface
     }
 
     /**
-     * Escape Data Element
+     * Process Field - sanitize each value
      *
      * @param   string     $data_key
      * @param   null|mixed $data_value
+     * @param   array      $fields
      *
-     * @return  array
-     * @since   1.0
+     * @return  object
+     * @since   1.0.0
      */
-    protected function escapeDataElement($data_key, $data_value = null)
+    protected function escapeDataElement($data_key, $data_value = null, array $fields = array())
     {
         if (is_numeric($data_value)) {
             return $data_value;

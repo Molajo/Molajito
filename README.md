@@ -148,7 +148,7 @@ the values in an array for $type = 'page' or $type = 'theme'. Molajo will check 
 in that sequence. If positions are found, Molajito inserts `(I template=Name I}` values
 for each `template view` defined.
 
-    $this->runtime_data->render->extension->$type->parameters->positions
+    $this->plugin_data->render->extension->$type->parameters->positions
 
 
 ### Template

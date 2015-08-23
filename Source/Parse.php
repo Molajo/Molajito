@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito;
 
@@ -16,10 +16,10 @@ use stdClass;
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Parse implements ParseInterface
+final class Parse implements ParseInterface
 {
     /**
      * Parse Mask
@@ -53,15 +53,14 @@ class Parse implements ParseInterface
      * @param   string $parse_mask
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function parseRenderedOutput(
         $rendered_page,
         array $exclude_tokens = array(),
         $parse_mask = null
     ) {
-        $this->rendered_page = $rendered_page;
-
+        $this->rendered_page  = $rendered_page;
         $this->exclude_tokens = $exclude_tokens;
 
         if ($parse_mask === null || trim($parse_mask) === '') {
@@ -76,7 +75,7 @@ class Parse implements ParseInterface
      * Parse rendered output -- return an array of tokens to be rendered
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function parseTokens()
     {
@@ -95,7 +94,7 @@ class Parse implements ParseInterface
      * @param   array $matches
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function buildTokenObjects(array $matches = array())
     {
@@ -118,7 +117,7 @@ class Parse implements ParseInterface
      * @param   string $parsed_token
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setTokenObject($parsed_token)
     {
@@ -135,14 +134,13 @@ class Parse implements ParseInterface
      * @param   string $parsed_token
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function initialiseToken($parsed_token)
     {
         $token               = new stdClass();
         $token->type         = '';
         $token->name         = '';
-        $token->wrap         = '';
         $token->attributes   = array();
         $token->replace_this = '{I ' . $parsed_token . ' I}';
 
@@ -155,7 +153,7 @@ class Parse implements ParseInterface
      * @param   string $parsed_token
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function extractTokenObjectElements($parsed_token)
     {
@@ -170,7 +168,7 @@ class Parse implements ParseInterface
      * @param   array $pieces
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function extractTokenObjectElementsPieces(array $pieces = array())
     {
@@ -190,7 +188,7 @@ class Parse implements ParseInterface
      * @param   array    $token_elements
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function processExtractedTokenElements($token_object, array $token_elements = array())
     {
@@ -213,7 +211,7 @@ class Parse implements ParseInterface
      * @param   boolean  $first
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function processExtractedTokenElementPair($token_object, array $pair = array(), $first = false)
     {
@@ -233,7 +231,7 @@ class Parse implements ParseInterface
      * @param   array    $pair
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function processFirstTokenElementPair($token_object, array $pair = array())
     {
@@ -255,16 +253,11 @@ class Parse implements ParseInterface
      * @param   array    $pair
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function processSubsequentTokenElementPairs($token_object, array $pair = array())
     {
-        if (count($pair) == 2 && $pair[0] == 'wrap') {
-            $token_object->wrap = $pair[1];
-
-        } else {
-            $token_object->attributes[$pair[0]] = $pair[1];
-        }
+        $token_object->attributes[$pair[0]] = $pair[1];
 
         return $token_object;
     }
@@ -275,7 +268,7 @@ class Parse implements ParseInterface
      * @param   array $token_objects
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function excludeTokens(array $token_objects = array())
     {

@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -16,7 +16,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class EngineTest extends \PHPUnit_Framework_TestCase
@@ -31,13 +31,18 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      */
     protected $event_option_keys
         = array(
-            'runtime_data',
-            'parameters',
-            'query',
+            'exclude_tokens',
             'model_registry',
-            'row',
+            'parameters',
+            'plugin_data',
+            'query_results',
+            'query',
+            'rendered_page',
             'rendered_view',
-            'rendered_page'
+            'row',
+            'runtime_data',
+            'token_objects',
+            'user'
         );
 
     /**
@@ -190,7 +195,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testThemeNoIncludes()
     {
@@ -268,7 +273,7 @@ class EngineTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Render::includeFile
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTheme()
     {

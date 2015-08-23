@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -18,7 +18,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class DataTest extends \PHPUnit_Framework_TestCase
@@ -87,19 +87,19 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetRuntimeData()
     {
         /** Input */
-        $runtime_data                                = new stdClass();
-        $runtime_data->application                   = new stdClass();
-        $runtime_data->application->field_a          = 'a';
-        $runtime_data->application->field_b          = 'b';
-        $runtime_data->application->field_c          = 'c';
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = array();
+        $runtime_data                               = new stdClass();
+        $runtime_data->application                  = new stdClass();
+        $runtime_data->application->field_a         = 'a';
+        $runtime_data->application->field_b         = 'b';
+        $runtime_data->application->field_c         = 'c';
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = array();
 
         $options                 = array();
         $options['runtime_data'] = $runtime_data;
@@ -158,7 +158,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetDataModel()
     {
@@ -167,9 +167,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data    = new stdClass();
         $plugin_data->b = 'b';
 
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = new stdClass();
 
         $options                 = array();
         $options['runtime_data'] = $runtime_data;
@@ -230,7 +230,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetPluginData()
     {
@@ -255,9 +255,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
 
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = new stdClass();
 
         $options                  = array();
         $options['query_results'] = $query_results;
@@ -317,7 +317,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetPluginDataField()
     {
@@ -345,9 +345,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
 
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = new stdClass();
 
         $options                  = array();
         $options['query_results'] = $query_results;
@@ -409,7 +409,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetPluginDataDefaults()
     {
@@ -437,9 +437,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $plugin_data->collection->parameters     = new stdClass();
         $plugin_data->collection->parameters->a  = 'a';
 
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = new stdClass();
 
         $options                  = array();
         $options['query_results'] = $query_results;
@@ -498,7 +498,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testGetPrimaryData()
     {
@@ -523,14 +523,14 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $runtime_data->resource->model_registry = array();
         $runtime_data->resource->parameters     = new stdClass();
 
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
-        $parameters                                  = new stdClass();
-        $parameters->field1                          = true;
-        $parameters->field2                          = false;
-        $parameters->model_name                      = 'Articles';
-        $runtime_data->render->extension->parameters = $parameters;
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = new stdClass();
+        $parameters                                 = new stdClass();
+        $parameters->field1                         = true;
+        $parameters->field2                         = false;
+        $parameters->model_name                     = 'Articles';
+        $plugin_data->render->extension->parameters = $parameters;
 
         $options                 = array();
         $options['runtime_data'] = $runtime_data;
@@ -589,7 +589,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Data\AbstractAdapter::setParametersFromToken
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testDefaultData()
     {
@@ -611,16 +611,16 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $row->title                   = 'thing 3';
         $runtime_data->resource->data = $data;
 
-        $runtime_data->resource->model_registry      = array();
-        $runtime_data->resource->parameters          = new stdClass();
-        $runtime_data->render                        = new stdClass();
-        $runtime_data->render->extension             = new stdClass();
-        $runtime_data->render->extension->parameters = new stdClass();
-        $parameters                                  = new stdClass();
-        $parameters->field1                          = true;
-        $parameters->field2                          = false;
-        $parameters->model_name                      = 'Articles';
-        $runtime_data->render->extension->parameters = $parameters;
+        $runtime_data->resource->model_registry     = array();
+        $runtime_data->resource->parameters         = new stdClass();
+        $plugin_data->render                        = new stdClass();
+        $plugin_data->render->extension             = new stdClass();
+        $plugin_data->render->extension->parameters = new stdClass();
+        $parameters                                 = new stdClass();
+        $parameters->field1                         = true;
+        $parameters->field2                         = false;
+        $parameters->model_name                     = 'Articles';
+        $plugin_data->render->extension->parameters = $parameters;
 
         $options                 = array();
         $options['runtime_data'] = $runtime_data;
@@ -662,7 +662,7 @@ class PaginationMock implements PaginationInterface
      * @param   int     $current_start_parameter
      * @param   array   $other_query_parameters
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  object
      */
     public function getPaginationData(

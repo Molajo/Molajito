@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -15,7 +15,7 @@ use Molajito\Parse;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class ParseTest extends \PHPUnit_Framework_TestCase
@@ -50,7 +50,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Parse::excludeTokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testParseNoInput()
     {
@@ -78,7 +78,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Parse::excludeTokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testParse()
     {
@@ -115,7 +115,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Parse::excludeTokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testParseExcludeToken()
     {
@@ -147,7 +147,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Parse::excludeTokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testParsePosition()
     {
@@ -182,7 +182,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Parse::excludeTokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testParseWrap()
     {
@@ -217,7 +217,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Parse::excludeTokens
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testParseAttributes()
     {

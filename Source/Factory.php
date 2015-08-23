@@ -3,7 +3,7 @@
  * Molajito Factory Method
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajito;
@@ -12,27 +12,19 @@ use Exception;
 use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
-use CommonApi\Render\DataInterface;
 use CommonApi\Render\ParseInterface;
-use CommonApi\Render\PositionInterface;
-use CommonApi\Render\RenderInterface;
 use CommonApi\Render\TokenInterface;
 use CommonApi\Language\TranslateInterface;
-use CommonApi\Render\ViewInterface;
 
 /**
  * Molajito Factory Method
  *
- * Isolates the complexity of dependency injection so that using the
- * package in multiple environments is a matter of setting parameters and
- * allowing this process to handle class construction.
- *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class FactoryMethod
+final class Factory
 {
     /**
      * Options
@@ -60,7 +52,22 @@ class FactoryMethod
 
         if (isset($this->options['exclude_tokens'])) {
         } else {
-            $this->options['exclude_tokens'] = array();
+            $this->options['exclude_tokens'] = array('Messages');
+        }
+
+        if (isset($this->options['get_cache_callback'])) {
+        } else {
+            $this->options['get_cache_callback'] = null;
+        }
+
+        if (isset($this->options['set_cache_callback'])) {
+        } else {
+            $this->options['set_cache_callback'] = null;
+        }
+
+        if (isset($this->options['delete_cache_callback'])) {
+        } else {
+            $this->options['delete_cache_callback'] = null;
         }
     }
 
@@ -68,7 +75,7 @@ class FactoryMethod
      * Instantiate Class
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     public function instantiateClass()
@@ -84,23 +91,19 @@ class FactoryMethod
 
         $escape_instance = $this->getEscapeInstance();
         $render_instance = $this->getInstance('Molajito\\Render');
-        $data_instance   = $this->getDataInstance();
-        $view_instance   = $this->getViewInstance();
         $event_instance  = $this->getEventInstance();
         $parse_instance  = $this->getInstance('Molajito\\Parse');
         $exclude_tokens  = $this->options['exclude_tokens'];
         $stop_loop_count = 100;
 
-        $views = $this->getRenderInstance($render_instance, $escape_instance, $event_instance);
+        $render_array = $this->getRenderInstance(
+            $render_instance,
+            $escape_instance,
+            $event_instance
+        );
 
         $token_instance = $this->instantiateToken(
-            $data_instance,
-            $view_instance,
-            $views[0],
-            $views[1],
-            $views[2],
-            $views[3],
-            $views[4]
+            $render_array
         );
 
         $translate_instance = $this->getTranslateInstance($escape_instance);
@@ -126,8 +129,7 @@ class FactoryMethod
      * @param  integer            $stop_loop_count
      *
      * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
+     * @since   1.0.0
      */
     public function instantiateEngineClass(
         $token_instance,
@@ -138,6 +140,7 @@ class FactoryMethod
         $stop_loop_count
     ) {
         $class = 'Molajito\\Engine';
+
         return new $class (
             $token_instance, $translate_instance, $event_instance, $parse_instance, $exclude_tokens, $stop_loop_count
         );
@@ -146,45 +149,26 @@ class FactoryMethod
     /**
      * Instantiate Render Token Class
      *
-     * @param  DataInterface     $data_instance
-     * @param  ViewInterface     $view_instance
-     * @param  RenderInterface   $theme_instance
-     * @param  PositionInterface $position_instance
-     * @param  RenderInterface   $page_instance
-     * @param  RenderInterface   $template_instance
-     * @param  RenderInterface   $wrap_instance
+     * @param  array $render_array
      *
      * @return  $this
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
+     * @since   1.0.0
      */
     public function instantiateToken(
-        $data_instance,
-        $view_instance,
-        $theme_instance,
-        $position_instance,
-        $page_instance,
-        $template_instance,
-        $wrap_instance
+        array $render_array = array()
     ) {
         $class = 'Molajito\\Token';
+
         return new $class (
-            $data_instance,
-            $view_instance,
-            $theme_instance,
-            $position_instance,
-            $page_instance,
-            $template_instance,
-            $wrap_instance
+            $render_array
         );
     }
 
     /**
      * Instantiate Escape Class with Adapter
      *
-     * @return  \CommonApi\Render\EscapeInterface
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
+     * @return  object
+     * @since   1.0.0
      */
     protected function getEscapeInstance()
     {
@@ -195,9 +179,9 @@ class FactoryMethod
         }
 
         if ($class === 'molajo'
-            && file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/Fieldhandler/Source/Driver.php')
+            && file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/Fieldhandler/Source/Request.php')
         ) {
-            $fieldhandler = $this->getInstance('Molajo\\Fieldhandler\\Driver');
+            $fieldhandler = $this->getInstance('Molajo\\Fieldhandler\\Request', array());
             $adapter      = $this->getInstance('Molajito\\Escape\\Molajo', $fieldhandler);
         } else {
             $adapter = $this->getInstance('Molajito\\Escape\\Simple');
@@ -207,69 +191,10 @@ class FactoryMethod
     }
 
     /**
-     * Instantiate Data Class with Adapter
-     *
-     * @return  \CommonApi\Render\DataInterface
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getDataInstance()
-    {
-        if (file_exists($this->options['molajito_base_folder'] . '/vendor/molajo/pagination/Source/Pagination.php')) {
-            $pagination = $this->getInstance('Molajo\\Pagination');
-        } else {
-            $pagination = null;
-        }
-
-        $class = 'Molajo';
-
-        if (isset($this->options['data_class'])) {
-            $class = $this->options['data_class'];
-        }
-
-        $adapter = $this->getInstance('Molajito\\Data\\' . ucfirst(strtolower($class)), $pagination);
-
-        return $this->getInstance('Molajito\\Data', $adapter);
-    }
-
-    /**
-     * Instantiate View Class with Adapter
-     *
-     * @return  \CommonApi\Render\ViewInterface
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function getViewInstance()
-    {
-        $class = 'Molajo';
-
-        if (isset($this->options['view_class'])) {
-            $class = $this->options['view_class'];
-        }
-
-        if (strtolower($class) === 'filesystem') {
-            $adapter = $this->getInstance(
-                'Molajito\\View\\Filesystem',
-                $this->options['theme_base_folder'],
-                $this->options['view_base_folder']
-            );
-        } else {
-            $adapter = $this->getInstance(
-                'Molajito\\View\\' . ucfirst(strtolower($class)),
-                $this->options['Resource']
-            );
-        }
-
-        $this->options['view_instance'] = $this->getInstance('Molajito\\View', $adapter);
-
-        return $this->options['view_instance'];
-    }
-
-    /**
      * Instantiate Event Class with Adapter
      *
      * @return  EventInterface
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getEventInstance()
@@ -296,7 +221,7 @@ class FactoryMethod
      * @param   null|EventInterface  $event_instance
      *
      * @return  object
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getRenderInstance(
@@ -304,17 +229,26 @@ class FactoryMethod
         EscapeInterface $escape_instance = null,
         EventInterface $event_instance = null
     ) {
-        $class_array   = array();
-        $class_array[] = 'Molajito\\Render\\Theme';
-        $class_array[] = 'Molajito\\Render\\Position';
-        $class_array[] = 'Molajito\\Render\\PageView';
-        $class_array[] = 'Molajito\\Render\\TemplateView';
-        $class_array[] = 'Molajito\\Render\\WrapView';
+        $class_array             = array();
+        $class_array['theme']    = 'Molajito\\Render\\Theme';
+        $class_array['position'] = 'Molajito\\Render\\Position';
+        $class_array['page']     = 'Molajito\\Render\\PageView';
+        $class_array['template'] = 'Molajito\\Render\\TemplateView';
+        $class_array['wrap']     = 'Molajito\\Render\\WrapView';
 
         $new_array = array();
 
-        foreach ($class_array as $class) {
-            $new_array[] = new $class ($escape_instance, $render_instance, $event_instance);
+        foreach ($class_array as $key => $class) {
+            $instance        = new $class (
+                $escape_instance,
+                $render_instance,
+                $event_instance,
+                $this->options['runtime_data'],
+                $this->options['get_cache_callback'],
+                $this->options['set_cache_callback'],
+                $this->options['delete_cache_callback']
+            );
+            $new_array[$key] = $instance;
         }
 
         return $new_array;
@@ -326,7 +260,7 @@ class FactoryMethod
      * @param   $escape_instance \CommonApi\Render\EscapeInterface
      *
      * @return  object
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getTranslateInstance(EscapeInterface $escape_instance)
@@ -334,7 +268,6 @@ class FactoryMethod
         if (isset($this->options['language_strings'])) {
             $language = $this->options['language_strings'];
             $class    = 'Molajito\\Translate\\StringArrayAdapter';
-
         } else {
             $language = $this->options['Language'];
             $class    = 'Molajito\\Translate\\MolajoLanguageAdapter';
@@ -342,7 +275,6 @@ class FactoryMethod
 
         try {
             $adapter = new $class ($escape_instance, $parse_mask = null, $model_registry = array(), $language);
-
         } catch (Exception $e) {
             throw new RuntimeException(
                 'MolajitoFactoryMethod getTranslateInstance: Could not instantiate Translate Adapter: ' . $class
@@ -360,12 +292,17 @@ class FactoryMethod
      * @param   null|object $property2
      *
      * @return  object
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function getInstance($class, $property1 = null, $property2 = null)
     {
         try {
+
+            if ($property1 === null && $property2 === null) {
+                return new $class ();
+            }
+
             if ($property2 === null) {
                 return new $class ($property1);
             }
@@ -377,16 +314,5 @@ class FactoryMethod
                 'MolajitoFactoryMethod getInstance: Could not instantiate class: ' . $class
             );
         }
-    }
-
-    /**
-     * Return the saved view instance for external class (hence, the 'public')
-     *
-     * @return  object
-     * @since   1.0
-     */
-    public function getSavedViewInstance()
-    {
-        return $this->options['view_instance'];
     }
 }

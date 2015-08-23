@@ -1,49 +1,50 @@
 {
-    "name": "molajo/molajito",
-    "description": "Molajito View Rendering for PHP Applications",
-    "version": "1.0.0",
-    "type": "molajo-package",
-    "keywords": ["render", "commonapi", "molajo", "molajito"],
-    "homepage": "http://github.com/Molajo/Molajito",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Amy Stephen",
-            "email": "AmyStephen@molajo.org",
-            "homepage": "http://AmyStephen.com",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/Molajo/Molajito/issues",
-        "forum": "https://groups.google.com/forum/#!forum/molajo",
-        "irc": "irc://irc.freenode.org/molajo",
-        "source": "https://github.com/Molajo/Molajito"
-    },
-
-    "require": {
-        "commonapi/language": "dev-master",
-        "commonapi/model": "dev-master",
-        "commonapi/render": "dev-master",
-        "commonapi/exception": "dev-master",
-        "molajo/fieldhandler": "dev-master",
-        "molajo/pagination": "dev-master"
-    },
-
-    "recommend": {
-        "molajo/event": "dev-master"
-    },
-
-    "autoload": {
-        "psr-4": {
-            "Molajito\\": "Source/",
-            "Molajo\\Factories\\": "Factories/"
-        }
-    },
-
-    "archive": {
-        "exclude": ["/.dev"]
-    },
-
-    "minimum-stability": "dev"
+  "name": "molajo/molajito",
+  "description": "Molajito View Rendering for PHP Applications",
+  "version": "1.0.0",
+  "type": "molajo-package",
+  "keywords": [
+    "render",
+    "commonapi",
+    "molajo",
+    "molajito"
+  ],
+  "homepage": "http://github.com/Molajo/Molajito",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Amy Stephen",
+      "email": "AmyStephen@molajo.org",
+      "homepage": "http://AmyStephen.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/Molajo/Molajito/issues",
+    "forum": "https://groups.google.com/forum/#!forum/molajo",
+    "irc": "irc://irc.freenode.org/molajo",
+    "source": "https://github.com/Molajo/Molajito"
+  },
+  "require": {
+    "commonapi/cache": "dev-master",
+    "commonapi/language": "dev-master",
+    "commonapi/model": "dev-master",
+    "commonapi/render": "dev-master",
+    "commonapi/exception": "dev-master"
+  },
+  "recommend": {
+    "molajo/fieldhandler": "dev-master",
+    "molajo/pagination": "dev-master",
+    "molajo/event": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Molajito\\": "Source/",
+      "Molajo\\Factories\\": "Factories/"
+    }
+  },
+  "archive": {
+    "exclude": ["/.dev"]
+  },
+  "minimum-stability": "dev"
 }

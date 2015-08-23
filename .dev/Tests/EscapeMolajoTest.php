@@ -4,11 +4,11 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
-use CommonApi\Model\FieldhandlerInterface;
+use CommonApi\Fieldhandler\FieldhandlerInterface;
 use Exception;
 use Molajito\Escape;
 use Molajito\Escape\Molajo;
@@ -19,7 +19,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
@@ -54,7 +54,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoNull()
     {
@@ -89,7 +89,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoNumeric()
     {
@@ -124,7 +124,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoArray()
     {
@@ -159,7 +159,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoHtml()
     {
@@ -194,7 +194,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoNoEscapeKey()
     {
@@ -233,7 +233,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoNoModelRegistryObjectField()
     {
@@ -272,7 +272,7 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\Escape\AbstractAdapter::escapeDataElement
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testMolajoNoData()
     {
@@ -288,7 +288,6 @@ class EscapeMolajoTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-
 class MockFieldHandler implements FieldhandlerInterface
 {
 
@@ -302,7 +301,6 @@ class MockFieldHandler implements FieldhandlerInterface
         $constraint,
         array $options = array()
     ) {
-
     }
 
     public function sanitize(
@@ -313,16 +311,12 @@ class MockFieldHandler implements FieldhandlerInterface
     ) {
         if (is_numeric($field_value)) {
             $this->field_value = $field_value;
-
         } elseif (is_null($field_value)) {
             $this->field_value = $field_value;
-
         } elseif (is_array($field_value)) {
             $this->field_value = $field_value;
-
         } elseif ($constraint === 'exception') {
             throw new Exception('Molajito Escape Molajo');
-
         } else {
             $this->field_value = strip_tags($field_value, $this->white_list);
         }
@@ -340,10 +334,8 @@ class MockFieldHandler implements FieldhandlerInterface
     ) {
         if (is_numeric($field_value)) {
             return $field_value;
-
         } elseif (is_null($field_value)) {
             return $field_value;
-
         } elseif (is_array($field_value)) {
             return $field_value;
         }

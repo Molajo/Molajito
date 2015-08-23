@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Test;
 
@@ -17,7 +17,7 @@ use Molajito\Event\AbstractAdapter;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class RenderTokenTest extends \PHPUnit_Framework_TestCase
@@ -220,7 +220,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTheme()
     {
@@ -353,7 +353,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPage()
     {
@@ -487,7 +487,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPositionNoMatch()
     {
@@ -619,7 +619,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTemplate()
     {
@@ -752,7 +752,7 @@ class RenderTokenTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajito\View\Filesystem::getLocation
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testTemplateWrap()
     {
@@ -830,11 +830,11 @@ class MockEvent extends AbstractAdapter implements EventInterface
      * @param   array  $options
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function scheduleEvent($event_name, array $options = array())
     {
-        if ($event_name === 'onBeforeRenderView') {
+        if ($event_name === 'onBeforeRenderTemplate') {
 
             if ($options['token']->type === 'position') {
 
@@ -845,7 +845,6 @@ class MockEvent extends AbstractAdapter implements EventInterface
                 $resource_extension->page->menuitem->parameters->positions = '{{test=dog,food}}{{more=not,used}}';
 
                 $options['runtime_data'] = $resource_extension;
-
             } elseif ($options['token']->type === 'template') {
 
                 if ($options['token']->name === 'Test') {
@@ -877,7 +876,6 @@ class MockEvent extends AbstractAdapter implements EventInterface
 
                     $options['runtime_data'] = $runtime_data;
                 }
-
             }
         }
 

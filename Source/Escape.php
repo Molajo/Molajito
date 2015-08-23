@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito;
 
@@ -15,10 +15,10 @@ use CommonApi\Render\EscapeInterface;
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class Escape implements EscapeInterface
+final class Escape implements EscapeInterface
 {
     /**
      * Event Adapter
@@ -33,7 +33,7 @@ class Escape implements EscapeInterface
      *
      * @param   EscapeInterface $escape_adapter
      *
-     * @since   1.0
+     * @since   1.0.0
      */
     public function __construct(
         EscapeInterface $escape_adapter
@@ -48,7 +48,7 @@ class Escape implements EscapeInterface
      * @param   array $model_registry
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function escapeOutput(array $data = array(), array $model_registry = array())
     {

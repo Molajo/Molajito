@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Render;
 
@@ -15,64 +15,33 @@ use CommonApi\Render\RenderInterface;
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
-class WrapView extends AbstractRenderer implements RenderInterface
+final class WrapView extends AbstractRenderer implements RenderInterface
 {
     /**
-     * Allowed Properties
+     * Render output for specified file and data
      *
-     * @var    array
-     * @since  1.0.0
-     */
-    protected $property_array
-        = array(
-            'runtime_data',
-            'rendered_view',
-            'row'
-        );
-
-    /**
-     * Render Theme output
-     *
-     * @param   string $include_path
-     * @param   array  $data
+     * @param   array $data
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      */
-    public function renderOutput($include_path, array $data = array())
+    public function renderOutput(array $data = array())
     {
-        $this->include_path = $include_path;
+        $data['on_before_event'] = 'onBeforeRenderWrap';
+        $data['on_after_event']  = 'onAfterRenderWrap';
 
-        $this->setProperties($data, $this->property_array);
+        $this->initialise($data);
+        $this->scheduleEvent($this->on_before_event, array());
+        $this->row = $this->query_results[0];
 
-        $this->rendered_view = '';
-
-        $this->renderViewWrap('/Header.phtml');
-        $this->renderViewWrap('/Body.phtml');
-        $this->renderViewWrap('/Footer.phtml');
+        $this->renderView('/Header.phtml');
+        $this->renderView('/Body.phtml');
+        $this->renderView('/Footer.phtml');
+        $this->scheduleEvent($this->on_after_event, array());
 
         return $this->rendered_view;
-    }
-
-    /**
-     * Render View Part: Header, Body, Footer
-     *
-     * @param   string $file
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function renderViewWrap($file)
-    {
-        $file_path = $this->include_path . $file;
-
-        if (file_exists($file_path)) {
-            $this->rendered_view .= $this->performRendering($file_path, $this->getProperties());
-        }
-
-        return $this;
     }
 }

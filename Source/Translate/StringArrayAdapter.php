@@ -3,7 +3,7 @@
  * String Array Adapter {T Array This T}
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajito\Translate;
@@ -15,7 +15,7 @@ use CommonApi\Render\EscapeInterface;
  * String Array Adapter {T Array This T}
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0.0
  */
@@ -56,7 +56,7 @@ class StringArrayAdapter extends AbstractAdapter implements TranslateInterface
      * @param   string $string
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function translateToken($string)
     {

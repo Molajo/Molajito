@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Event;
 
@@ -15,7 +15,7 @@ use CommonApi\Render\EventInterface;
  *
  * @package    Molajito
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 abstract class AbstractAdapter implements EventInterface
@@ -36,15 +36,15 @@ abstract class AbstractAdapter implements EventInterface
      */
     protected $event_option_keys
         = array(
-            'runtime_data',
-            'plugin_data',
-            'parameters',
+            'exclude_tokens',
             'model_registry',
+            'parameters',
+            'plugin_data',
             'query_results',
-            'row',
-            'rendered_view',
             'rendered_page',
-            'token'
+            'rendered_view',
+            'row',
+            'token_objects'
         );
 
     /**
@@ -70,7 +70,7 @@ abstract class AbstractAdapter implements EventInterface
      * Initialise Options Array for Event
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function initializeEventOptions()
     {
@@ -90,7 +90,7 @@ abstract class AbstractAdapter implements EventInterface
      * @param   array  $options
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     abstract public function scheduleEvent($event_name, array $options = array());
 }

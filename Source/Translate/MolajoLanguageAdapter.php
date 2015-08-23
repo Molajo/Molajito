@@ -3,7 +3,7 @@
  * Molajo Language Adapter
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajito\Translate;
@@ -15,7 +15,7 @@ use CommonApi\Render\EscapeInterface;
  * Molajo Language Adapter
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @since      1.0.0
  */
@@ -56,7 +56,7 @@ class MolajoLanguageAdapter extends AbstractAdapter implements TranslateInterfac
      * @param   string $string
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function translateToken($string)

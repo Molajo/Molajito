@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajito\Render;
 
@@ -12,13 +12,14 @@ use CommonApi\Exception\RuntimeException;
 use CommonApi\Render\EscapeInterface;
 use CommonApi\Render\EventInterface;
 use CommonApi\Render\RenderInterface;
+use stdClass;
 
 /**
  * Molajito Template View Renderer
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 abstract class AbstractRenderer implements RenderInterface
@@ -34,7 +35,7 @@ abstract class AbstractRenderer implements RenderInterface
     /**
      * Render Instance
      *
-     * @var    object   CommonApi\Render\RenderInterface
+     * @var    object
      * @since  1.0.0
      */
     protected $render_instance = null;
@@ -46,6 +47,22 @@ abstract class AbstractRenderer implements RenderInterface
      * @since  1.0.0
      */
     protected $event_instance = null;
+
+    /**
+     * On Before Event
+     *
+     * @var    string
+     * @since  1.0.0
+     */
+    protected $on_before_event;
+
+    /**
+     * On After Event
+     *
+     * @var    string
+     * @since  1.0.0
+     */
+    protected $on_after_event;
 
     /**
      * Runtime Data
@@ -66,10 +83,10 @@ abstract class AbstractRenderer implements RenderInterface
     /**
      * Parameters
      *
-     * @var    array
+     * @var    object
      * @since  1.0.0
      */
-    protected $parameters = array();
+    protected $parameters = null;
 
     /**
      * Model Registry
@@ -90,7 +107,7 @@ abstract class AbstractRenderer implements RenderInterface
     /**
      * Object containing a single row for using within View
      *
-     * @var    array
+     * @var    object
      * @since  1.0.0
      */
     protected $row = null;
@@ -112,14 +129,6 @@ abstract class AbstractRenderer implements RenderInterface
     protected $rendered_view = null;
 
     /**
-     * Page Rendered Output
-     *
-     * @var    string
-     * @since  1.0.0
-     */
-    protected $rendered_page = null;
-
-    /**
      * Render Properties
      *
      * @var    array
@@ -127,15 +136,13 @@ abstract class AbstractRenderer implements RenderInterface
      */
     protected $property_array
         = array(
-            'runtime_data',
-            'plugin_data',
-            'parameters',
+            'include_path',
             'model_registry',
+            'parameters',
+            'plugin_data',
             'query_results',
             'row',
-            'include_path',
-            'rendered_view',
-            'rendered_page'
+            'rendered_view'
         );
 
     /**
@@ -144,34 +151,78 @@ abstract class AbstractRenderer implements RenderInterface
      * @param  EscapeInterface $escape_instance
      * @param  RenderInterface $render_instance
      * @param  EventInterface  $event_instance
+     * @param  Object          $runtime_data
      *
      * @since  1.0.0
      */
     public function __construct(
         EscapeInterface $escape_instance,
-        RenderInterface $render_instance,
-        EventInterface $event_instance
+        $render_instance,
+        EventInterface $event_instance,
+        $runtime_data
     ) {
         $this->render_instance = $render_instance;
         $this->event_instance  = $event_instance;
         $this->escape_instance = $escape_instance;
+        $this->runtime_data    = $runtime_data;
     }
 
     /**
-     * Render Theme output
+     * Render Output
      *
-     * @param   string $include_path
-     * @param   array  $data
+     * @param   array $data
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
-    public function renderOutput($include_path, array $data = array())
+    public function renderOutput(array $data = array())
     {
-        $this->setProperties($data, $this->property_array);
+        $this->initialise($data);
+        $this->scheduleEvent($this->on_before_event, array());
+        $this->renderView($data['suffix']);
+        $this->scheduleEvent($this->on_after_event, array());
 
-        return $this->includeFile($include_path);
+        return $this->rendered_view;
+    }
+
+    /**
+     * Initialise Rendering Process
+     *
+     * @param   array $data
+     *
+     * @return  $this
+     * @since   1.0.0
+     */
+    protected function initialise(array $data = array())
+    {
+        $this->rendered_view   = '';
+        $this->on_before_event = $data['on_before_event'];
+        $this->on_after_event  = $data['on_after_event'];
+
+        if (isset($data['token']->include_path)) {
+            $data['include_path'] = $data['token']->include_path;
+            unset($data['token']->include_path);
+        }
+
+        $this->setProperties($data);
+
+        return $this;
+    }
+
+    /**
+     * Render View
+     *
+     * @param   string $suffix
+     *
+     * @return  $this
+     * @since   1.0.0
+     */
+    protected function renderView($suffix)
+    {
+        $this->includeFile($this->include_path . $suffix);
+
+        return $this;
     }
 
     /**
@@ -179,8 +230,8 @@ abstract class AbstractRenderer implements RenderInterface
      *
      * @param   string $include_path
      *
-     * @return  string
-     * @since   1.0
+     * @return  $this
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     protected function includeFile($include_path)
@@ -192,27 +243,55 @@ abstract class AbstractRenderer implements RenderInterface
             );
         }
 
-        return $this->performRendering($include_path, $this->getProperties());
+        $options = $this->getProperties();
+
+        $options['include_path'] = $include_path;
+        $options['runtime_data'] = $this->runtime_data;
+
+        $this->rendered_view .= $this->render_instance->renderOutput($options);
+
+        return $this;
     }
 
     /**
-     * Set Theme/View Class Properties
+     * Set Class Properties
      *
      * @param   array $data
-     * @param   array $properties
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
-    protected function setProperties(array $data = array(), array $properties = array())
+    protected function setProperties(array $data = array())
     {
-        foreach ($properties as $key) {
+        foreach ($this->property_array as $key) {
+
             if (isset($data[$key])) {
                 $this->$key = $data[$key];
             } else {
                 $this->$key = null;
             }
         }
+
+        $this->setToken($data);
+
+        return $this;
+    }
+
+    /**
+     * Set Token
+     *
+     * @param   array $data
+     *
+     * @return  $this
+     * @since   1.0.0
+     */
+    protected function setToken(array $data = array())
+    {
+        if (is_null($this->parameters)) {
+            $this->parameters = new stdClass();
+        }
+
+        $this->parameters->token = $data['token'];
 
         return $this;
     }
@@ -221,7 +300,7 @@ abstract class AbstractRenderer implements RenderInterface
      * Get Theme/View Class Properties for array sent into Render Class
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getProperties()
     {
@@ -241,11 +320,11 @@ abstract class AbstractRenderer implements RenderInterface
      * @param   array  $options
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function scheduleEvent($event_name, array $options = array())
     {
-        $event_options = $this->setEventOptions($options);
+        $event_options = $this->setOptions($options);
 
         $event_results = $this->event_instance->scheduleEvent($event_name, $event_options);
 
@@ -256,19 +335,23 @@ abstract class AbstractRenderer implements RenderInterface
             }
         }
 
+        if (isset($this->plugin_data->render->extension->path)) {
+            $this->include_path = $this->plugin_data->render->extension->path;
+        }
+
         return $event_results;
     }
 
     /**
-     * Set Event Options
+     * Set Options for Events
+     *  -> also used in the TemplateView to return results from Events to Token
      *
      * @param   array $options
      *
      * @return  array
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
+     * @since   1.0.0
      */
-    protected function setEventOptions(array $options = array())
+    protected function setOptions(array $options = array())
     {
         $event_options = $this->event_instance->initializeEventOptions();
 
@@ -283,20 +366,5 @@ abstract class AbstractRenderer implements RenderInterface
         }
 
         return $event_options;
-    }
-
-    /**
-     * Render Output
-     *
-     * @param   string $file_path
-     * @param   array  $options
-     *
-     * @return  string
-     * @since   1.0
-     * @throws  \CommonApi\Exception\RuntimeException
-     */
-    protected function performRendering($file_path, array $options = array())
-    {
-        return $this->render_instance->renderOutput($file_path, $options);
     }
 }
