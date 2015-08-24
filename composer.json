@@ -28,7 +28,6 @@
   "require": {
     "commonapi/cache": "dev-master",
     "commonapi/language": "dev-master",
-    "commonapi/model": "dev-master",
     "commonapi/render": "dev-master",
     "commonapi/exception": "dev-master"
   },
